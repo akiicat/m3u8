@@ -4,9 +4,7 @@ module M3U8
     property length : Int32
     property start : Int32?
 
-    def initialize(length, start = nil)
-      @length = length
-      @start  = start
+    def initialize(@length, @start = nil)
     end
 
     def self.parse(text)
