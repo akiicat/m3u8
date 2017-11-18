@@ -24,7 +24,7 @@ TODO: Write usage instructions here
 
 - [x] byte_range
 - [ ] date_range_item
-- [ ] discontinuity_item
+- [x] discontinuity_item
 - [x] encryptable
 - [x] error
 - [x] key_item
