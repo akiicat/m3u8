@@ -22,7 +22,24 @@ TODO: Write usage instructions here
 
 ## Development
 
-TODO: Write development instructions here
+- [x] byte_range
+- [ ] date_range_item
+- [ ] discontinuity_item
+- [x] encryptable
+- [x] error
+- [x] key_item
+- [ ] map_item
+- [ ] media_item
+- [ ] playback_start
+- [ ] playlist
+- [ ] playlist_item
+- [ ] reader
+- [ ] segment_item
+- [ ] session_data_item
+- [ ] session_key_item
+- [ ] time_item
+- [ ] version
+- [ ] writer
 
 ## Contributing
 
