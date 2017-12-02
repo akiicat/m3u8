@@ -23,7 +23,7 @@ TODO: Write usage instructions here
 ## Development
 
 - [x] byte_range
-- [ ] date_range_item
+- [x] date_range_item
 - [x] discontinuity_item
 - [x] encryptable
 - [x] error
