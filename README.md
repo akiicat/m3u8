@@ -36,7 +36,7 @@ TODO: Write usage instructions here
 - [ ] reader
 - [ ] segment_item
 - [ ] session_data_item
-- [ ] session_key_item
+- [x] session_key_item
 - [x] time_item
 - [ ] version
 - [ ] writer
