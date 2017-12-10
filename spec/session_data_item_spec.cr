@@ -1,13 +1,5 @@
 require "./spec_helper"
 
-private def session_key_assets(input)
-  item = M3U8::SessionKeyItem.new(input)
-
-  {% for key, index in %w(method uri iv key_format key_format_versions) %}
-    item.{{key.id}}.should eq input[:{{key.id}}]?
-  {% end %}
-end
-
 module M3U8
   describe SessionDataItem do
     {
@@ -39,13 +31,25 @@ module M3U8
     }.each do |(input, output)|
       item = SessionDataItem.new(input)
 
-      it "should initialize with hash" do
-        {% for key, index in %w(data_id value uri language) %}
-          item.{{key.id}}.should eq input[:{{key.id}}]?
-        {% end %}
+      describe "initialize" do
+        it "data_id" do
+          item.data_id.should eq input[:data_id]
+        end
+
+        it "value" do
+          item.value.should eq input[:value]?
+        end
+
+        it "uri" do
+          item.uri.should eq input[:uri]?
+        end
+        
+        it "language" do
+          item.language.should eq input[:language]?
+        end
       end
 
-      it "should provide m3u8 format representation" do
+      it "to_s" do
         item.to_s.should eq output
       end
     end
