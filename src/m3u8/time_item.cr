@@ -5,19 +5,21 @@ module M3U8
 
     def initialize(params)
       time = params[:time]
-      if time.is_a?(String)
+
+      case time
+      when String
         @time = Time.iso8601(time)
-      elsif time.is_a?(Time)
+      when Time
         @time = time
       else
         raise InvalidTimeItemError.new
       end
     end
 
-    def self.parse(text)
-      time = text.gsub("#EXT-X-PROGRAM-DATE-TIME:", "")
-      new({ time: Time.iso8601(time) })
-    end
+    # def self.parse(text)
+    #   time = text.gsub("#EXT-X-PROGRAM-DATE-TIME:", "")
+    #   new({ time: Time.iso8601(time) })
+    # end
 
     def to_s
       %(#EXT-X-PROGRAM-DATE-TIME:#{time_format})

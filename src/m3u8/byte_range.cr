@@ -4,28 +4,29 @@ module M3U8
     property length : Int32
     property start : Int32?
 
-    def initialize(**params)
-      @length = params[:length]
-      @start = params[:start]?
-    end
-
     def initialize(params)
       @length = params[:length]
       @start = params[:start]?
     end
 
-    def self.parse(text)
-      values = text.split('@').map &.to_i
-      ByteRange.new(length: values[0], start: values[1]?)
-    end
+    # def self.parse(text)
+    #   values = text.split('@').map &.to_i
+    #   ByteRange.new(length: values[0], start: values[1]?)
+    # end
 
     def to_s
-      "#{length}#{start_format}"
+      [
+        length_format,
+        start_format
+      ].compact.join('@')
+    end
+
+    private def length_format
+      "#{length}"
     end
 
     private def start_format
-      return if start.nil?
-      "@#{start}"
+      "#{start}" unless start.nil?
     end
   end
 end

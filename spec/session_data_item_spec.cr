@@ -28,29 +28,29 @@ module M3U8
         },
         %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",URI="http://test",LANGUAGE="en")
       }
-    }.each do |(input, output)|
-      item = SessionDataItem.new(input)
+    }.each do |(params, format)|
+      item = SessionDataItem.new(params)
 
       describe "initialize" do
         it "data_id" do
-          item.data_id.should eq input[:data_id]
+          item.data_id.should eq params[:data_id]
         end
 
         it "value" do
-          item.value.should eq input[:value]?
+          item.value.should eq params[:value]?
         end
 
         it "uri" do
-          item.uri.should eq input[:uri]?
+          item.uri.should eq params[:uri]?
         end
         
         it "language" do
-          item.language.should eq input[:language]?
+          item.language.should eq params[:language]?
         end
       end
 
       it "to_s" do
-        item.to_s.should eq output
+        item.to_s.should eq format
       end
     end
 
