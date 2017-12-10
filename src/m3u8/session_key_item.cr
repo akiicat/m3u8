@@ -1,12 +1,12 @@
 module M3U8
   # KeyItem represents a set of EXT-X-SESSION-KEY attributes
+  # https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33
   class SessionKeyItem
 
     include Encryptable
 
     def initialize(params = NamedTuple.new)
-      options = convert_key_names(params)
-      pp params
+      write_attributes(params)
     end
 
     # def self.parse(text)

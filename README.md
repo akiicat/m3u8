@@ -35,7 +35,7 @@ TODO: Write usage instructions here
 - [ ] playlist_item
 - [ ] reader
 - [ ] segment_item
-- [ ] session_data_item
+- [x] session_data_item
 - [x] session_key_item
 - [x] time_item
 - [ ] version

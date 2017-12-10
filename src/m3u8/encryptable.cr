@@ -17,6 +17,14 @@ module M3U8
       ].compact.join(',')
     end
 
+    def write_attributes(params)
+      @method = params[:method]
+      @uri = params[:uri]?
+      @iv = params[:iv]?
+      @key_format = params[:key_format]?
+      @key_format_versions = params[:key_format_versions]?
+    end
+
     def convert_key_names(attributes)
       {
         method:              attributes[:method],
