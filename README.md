@@ -28,7 +28,7 @@ TODO: Write usage instructions here
 - [x] encryptable
 - [x] error
 - [x] key_item
-- [ ] map_item
+- [x] map_item
 - [ ] media_item
 - [ ] playback_start
 - [ ] playlist
