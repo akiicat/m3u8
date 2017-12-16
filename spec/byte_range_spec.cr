@@ -25,7 +25,7 @@ module M3U8
           end
 
           it "start" do
-            item.length.should eq params[:length]?
+            item.start.should eq params[:start]?
           end
         end
 
