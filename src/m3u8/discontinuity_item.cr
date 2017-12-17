@@ -3,7 +3,7 @@ module M3U8
   # discontinuity between the SegmentItems that proceed and follow it.
   class DiscontinuityItem
     def to_s
-      "#EXT-X-DISCONTINUITY\n"
+      %(#EXT-X-DISCONTINUITY\n)
     end
   end
 end

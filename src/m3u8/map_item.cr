@@ -19,7 +19,14 @@ module M3U8
     # end
 
     def to_s
-      %(#EXT-X-MAP:URI="#{uri}"#{byterange_format})
+      %(#EXT-X-MAP:#{formatted_attributes.join(',')})
+    end
+
+    def formatted_attributes
+      [
+        uri_format,
+        byterange_format
+      ].compact
     end
 
     private def parse_byterange(params)
@@ -27,8 +34,12 @@ module M3U8
       ByteRange.new(item) unless item.nil?
     end
 
+    private def uri_format
+      %(URI="#{uri}")
+    end
+
     private def byterange_format
-      %(,BYTERANGE="#{byterange.to_s}") unless byterange.nil?
+      %(BYTERANGE="#{byterange.to_s}") unless byterange.nil?
     end
   end
 end

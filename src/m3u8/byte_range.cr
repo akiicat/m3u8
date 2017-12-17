@@ -15,10 +15,14 @@ module M3U8
     # end
 
     def to_s
+      formatted_attributes.join('@')
+    end
+
+    def formatted_attributes
       [
         length_format,
         start_format
-      ].compact.join('@')
+      ].compact
     end
 
     private def length_format

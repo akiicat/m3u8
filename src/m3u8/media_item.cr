@@ -46,7 +46,7 @@ module M3U8
     # end
 
     def to_s
-      "#EXT-X-MEDIA:#{formatted_attributes.join(",")}"
+      "#EXT-X-MEDIA:#{formatted_attributes.join(',')}"
     end
 
     def formatted_attributes

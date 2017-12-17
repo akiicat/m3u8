@@ -105,10 +105,10 @@ module M3U8
     end
 
     def to_s
-      "#EXT-X-DATERANGE:#{formatted_attributes}"
+      "#EXT-X-DATERANGE:#{formatted_attributes.join(',')}"
     end
 
-    private def formatted_attributes
+    def formatted_attributes
       [
         id_format,
         class_name_format,
@@ -121,7 +121,7 @@ module M3U8
         scte35_out_format,
         scte35_in_format,
         end_on_next_format
-      ].compact.join(',')
+      ].compact
     end
 
     private def id_format

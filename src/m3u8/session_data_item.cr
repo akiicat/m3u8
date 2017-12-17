@@ -22,11 +22,16 @@ module M3U8
     # end
 
     def to_s
-      attributes = [data_id_format,
-                    value_format,
-                    uri_format,
-                    language_format].compact.join(',')
-      "#EXT-X-SESSION-DATA:#{attributes}"
+      "#EXT-X-SESSION-DATA:#{formatted_attributes.join(',')}"
+    end
+
+    def formatted_attributes
+      [
+        data_id_format,
+        value_format,
+        uri_format,
+        language_format
+      ].compact
     end
 
     private def data_id_format
