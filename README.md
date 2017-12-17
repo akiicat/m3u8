@@ -29,7 +29,7 @@ TODO: Write usage instructions here
 - [x] error
 - [x] key_item
 - [x] map_item
-- [ ] media_item
+- [x] media_item
 - [ ] playback_start
 - [ ] playlist
 - [ ] playlist_item
