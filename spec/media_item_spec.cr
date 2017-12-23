@@ -39,7 +39,7 @@ module M3U8
         %(#EXT-X-MEDIA:TYPE=,GROUP-ID="",NAME="")
       }
     }.each do |(params, format)|
-      item = M3U8::MediaItem.new(params)
+      item = MediaItem.new(params)
 
       describe "initialize" do
         it "type" do

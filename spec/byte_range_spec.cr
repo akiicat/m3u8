@@ -17,7 +17,7 @@ module M3U8
           "3300"
         },
       }.each do |(params, format)|
-        item = M3U8::ByteRange.new(params)
+        item = ByteRange.new(params)
 
         describe "initialize" do
           it "length" do

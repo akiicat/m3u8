@@ -27,7 +27,7 @@ module M3U8
         "#EXT-X-SESSION-KEY:METHOD=NONE"
       }
     }.each do |(params, format)|
-      item = M3U8::SessionKeyItem.new(params)
+      item = SessionKeyItem.new(params)
 
       describe " initialize" do
         it "method" do
