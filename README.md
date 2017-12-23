@@ -38,7 +38,7 @@ TODO: Write usage instructions here
 - [x] session_data_item
 - [x] session_key_item
 - [x] time_item
-- [ ] version
+- [x] version
 - [ ] writer
 
 ## Contributing
