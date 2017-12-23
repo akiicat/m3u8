@@ -30,7 +30,7 @@ TODO: Write usage instructions here
 - [x] key_item
 - [x] map_item
 - [x] media_item
-- [ ] playback_start
+- [x] playback_start
 - [ ] playlist
 - [ ] playlist_item
 - [ ] reader
