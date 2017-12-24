@@ -32,7 +32,7 @@ TODO: Write usage instructions here
 - [x] media_item
 - [x] playback_start
 - [ ] playlist
-- [ ] playlist_item
+- [x] playlist_item
 - [ ] reader
 - [x] segment_item
 - [x] session_data_item
