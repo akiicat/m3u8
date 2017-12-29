@@ -43,25 +43,6 @@ module M3U8
       @hdcp_level = params[:hdcp_level]?
     end
 
-    def parse_iframe(params)
-      iframe = params[:iframe]?
-      iframe ? true : false
-    end
-
-    def parse_level(params)
-      level = params[:level]?
-      level ? level.to_f : nil
-    end
-
-    def parse_program_id(params)
-      program_id = params[:program_id]?
-      program_id ? program_id.to_i : nil
-    end
-
-    def parse_frame_rate(params)
-      frame_rate = params[:frame_rate]?
-      frame_rate ? frame_rate.to_f : nil
-    end
     # def self.parse(text)
     #   item = PlaylistItem.new
     #   item.parse(text)
@@ -139,7 +120,27 @@ module M3U8
     #   value if value > 0
     # end
 
-    def m3u8_format
+    private def parse_iframe(params)
+      iframe = params[:iframe]?
+      iframe ? true : false
+    end
+
+    private def parse_level(params)
+      level = params[:level]?
+      level ? level.to_f : nil
+    end
+
+    private def parse_program_id(params)
+      program_id = params[:program_id]?
+      program_id ? program_id.to_i : nil
+    end
+
+    private def parse_frame_rate(params)
+      frame_rate = params[:frame_rate]?
+      frame_rate ? frame_rate.to_f : nil
+    end
+
+    private def m3u8_format
       attributes = formatted_attributes.join(',')
 
       if iframe
@@ -149,7 +150,7 @@ module M3U8
       end
     end
 
-    def formatted_attributes
+    private def formatted_attributes
       [
         program_id_format,
         resolution_format,
@@ -166,58 +167,58 @@ module M3U8
       ].compact
     end
 
-    def program_id_format
+    private def program_id_format
       %(PROGRAM-ID=#{program_id}) unless program_id.nil?
     end
 
-    def resolution_format
+    private def resolution_format
       %(RESOLUTION=#{resolution}) unless resolution.nil?
     end
 
-    def frame_rate_format
+    private def frame_rate_format
       %(FRAME-RATE=%.3f) % frame_rate unless frame_rate.nil?
     end
 
-    def hdcp_level_format
+    private def hdcp_level_format
       %(HDCP-LEVEL=#{hdcp_level}) unless hdcp_level.nil?
     end
 
-    def codecs_format
+    private def codecs_format
       %(CODECS="#{codecs}") unless codecs.nil?
     end
 
-    def bandwidth_format
+    private def bandwidth_format
       %(BANDWIDTH=#{bandwidth}) unless bandwidth.nil?
     end
 
-    def average_bandwidth_format
+    private def average_bandwidth_format
       %(AVERAGE-BANDWIDTH=#{average_bandwidth}) unless average_bandwidth.nil?
     end
 
-    def audio_format
+    private def audio_format
       %(AUDIO="#{audio}") unless audio.nil?
     end
 
-    def video_format
+    private def video_format
       %(VIDEO="#{video}") unless video.nil?
     end
 
-    def subtitles_format
+    private def subtitles_format
       %(SUBTITLES="#{subtitles}") unless subtitles.nil?
     end
 
-    def closed_captions_format
+    private def closed_captions_format
       case closed_captions
       when "NONE" then %(CLOSED-CAPTIONS=NONE)
       when String then %(CLOSED-CAPTIONS="#{closed_captions}")
       end
     end
 
-    def name_format
+    private def name_format
       %(NAME="#{name}") unless name.nil?
     end
 
-    def audio_codec_code
+    private def audio_codec_code
       case @audio_codec.to_s.downcase
       when "aac-lc" then "mp4a.40.2" 
       when "he-aac" then "mp4a.40.5"
@@ -225,7 +226,7 @@ module M3U8
       end
     end
 
-    def video_codec(profile, level)
+    private def video_codec(profile, level)
       return if profile.nil? || level.nil?
 
       case profile
@@ -235,14 +236,14 @@ module M3U8
       end
     end
 
-    def baseline_codec_string(level)
+    private def baseline_codec_string(level)
       case level
       when 3.0 then "avc1.66.30"
       when 3.1 then "avc1.42001f"
       end
     end
 
-    def main_codec_string(level)
+    private def main_codec_string(level)
       case level
       when 3.0 then "avc1.77.30"
       when 3.1 then "avc1.4d001f"
@@ -251,7 +252,7 @@ module M3U8
       end
     end
 
-    def high_codec_string(level)
+    private def high_codec_string(level)
       case level
       when 3.1 then "avc1.64001f"
       when 4.0 then "avc1.640028"
