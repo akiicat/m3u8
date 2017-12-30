@@ -2,7 +2,7 @@ module M3U8
   # Playlist represents an m3u8 playlist, it can be a master playlist or a set
   # of media segments
   class Playlist
-    alias Items = SegmentItem | PlaylistItem
+    alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem
 
     @master : Bool?
 
@@ -11,7 +11,7 @@ module M3U8
     property discontinuity_sequence : Int32?
     property type : String?
 
-    property target : Int32
+    property target : Float64
     property sequence : Int32
     property iframes_only : Bool
     property independent_segments : Bool
@@ -26,7 +26,7 @@ module M3U8
       @discontinuity_sequence = default_params(:discontinuity_sequence)
       @type = default_params(:type)
 
-      @target = default_params(:target).not_nil!
+      @target = default_params(:target).not_nil!.to_f
       @sequence = default_params(:sequence).not_nil!
       @iframes_only = default_params(:iframes_only).not_nil!
       @independent_segments = default_params(:independent_segments).not_nil!

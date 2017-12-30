@@ -39,7 +39,7 @@ TODO: Write usage instructions here
 - [x] session_key_item
 - [x] time_item
 - [x] version
-- [ ] writer
+- [x] writer
 
 ## Contributing
 
