@@ -42,38 +42,53 @@ module M3U8
     #   Reader.new.read(input)
     # end
 
-    # def write(output)
-    #   Writer.new(output).write(self)
-    # end
-
     def live?
-      return false if master?
-      @live
+      master? ? false : @live
     end
 
     def master?
       return @master unless @master.nil?
-      return false if playlist_size.zero? && segment_size.zero?
-      playlist_size > 0
+      (playlist_size.zero? && segment_size.zero?) ? false : playlist_size > 0
     end
 
-    # def to_s
-    #   output = StringIO.open
-    #   write(output)
-    #   output.string
-    # end
-
     def valid?
-      return false if playlist_size > 0 && segment_size > 0
-      true
+      (playlist_size.zero? || segment_size.zero?) ? true : false 
+    end
+
+    def valid!
+      raise PlaylistTypeError.new("Playlist is invalid.") unless valid?
     end
 
     def duration
-      duration = 0.0
-      items.each do |item|
-        duration += item.duration if item.is_a?(SegmentItem)
+      items.reduce(0.0) do |acc, item| 
+        item.is_a?(SegmentItem) ? acc + item.duration : acc
       end
-      duration
+    end
+
+    def to_s
+      attributes.join('\n') + "\n"
+    end
+
+    def attributes
+      valid!
+
+      [
+        header_attributes,
+        items_attributes,
+        footer_attributes
+      ].flatten
+    end
+
+    def header_attributes
+      master? ? master_header_attributes : media_header_attributes
+    end
+
+    def items_attributes
+      items.map { |item| item.to_s }
+    end
+
+    def footer_attributes
+      [endlist_tag].compact
     end
 
     private macro default_params(m)
@@ -98,5 +113,68 @@ module M3U8
     private def segment_size
       items.count { |item| item.is_a?(SegmentItem) }
     end
+
+    private def master_header_attributes
+      [
+        m3u_tag,
+        version_tag,
+        independent_segments_tag
+      ].compact
+    end
+
+    private def media_header_attributes
+      [
+        m3u_tag,
+        playlist_type_tag,
+        version_tag,
+        independent_segments_tag,
+        iframes_only_tag,
+        media_sequence,
+        discontinuity_sequence_tag,
+        cache_tag,
+        target_duration_format
+      ].compact
+    end
+
+    private def m3u_tag
+      "#EXTM3U"
+    end
+
+    private def playlist_type_tag
+      "#EXT-X-PLAYLIST-TYPE:#{type}" unless type.nil?
+    end
+
+    private def version_tag
+      "#EXT-X-VERSION:#{version}" unless version.nil?
+    end
+
+    private def independent_segments_tag
+      "#EXT-X-INDEPENDENT-SEGMENTS" if independent_segments
+    end
+
+    private def iframes_only_tag
+      "#EXT-X-I-FRAMES-ONLY" if iframes_only
+    end
+    
+    private def media_sequence
+      "#EXT-X-MEDIA-SEQUENCE:#{sequence}"
+    end
+
+    private def discontinuity_sequence_tag
+      "#EXT-X-DISCONTINUITY-SEQUENCE:#{discontinuity_sequence}" unless discontinuity_sequence.nil?
+    end
+
+    private def cache_tag
+      "#EXT-X-ALLOW-CACHE:#{cache.not_nil!.to_yes_no}" unless cache.nil?
+    end
+
+    private def target_duration_format
+      "#EXT-X-TARGETDURATION:%d" % target
+    end
+
+    private def endlist_tag
+      "#EXT-X-ENDLIST" unless live? || master?
+    end
+
   end
 end
