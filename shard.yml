@@ -4,6 +4,6 @@ version: 0.1.0
 authors:
   - Akiicat <aaaa1379@gmail.com>
 
-crystal: 0.23.1
+crystal: 0.24.1
 
 license: MIT
