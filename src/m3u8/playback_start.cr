@@ -4,9 +4,15 @@ module M3U8
     property time_offset : Float64
     property precise : Bool?
 
-    def initialize(params = NamedTuple.new)
-      @time_offset = params[:time_offset]
-      @precise = params[:precise]?
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        time_offset: params[:time_offset],
+        precise: params[:precise]?
+      )
+    end
+
+    def initialize(time_offset, @precise = nil)
+      @time_offset = time_offset.not_nil!.to_f
     end
 
     # def parse(text)
@@ -17,10 +23,10 @@ module M3U8
     # end
 
     def to_s
-      "#EXT-X-START:#{formatted_attributes.join(',')}"
+      "#EXT-X-START:#{attributes.join(',')}"
     end
 
-    def formatted_attributes
+    def attributes
       [
         time_offset_format,
         precise_format

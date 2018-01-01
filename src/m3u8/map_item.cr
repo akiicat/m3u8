@@ -5,9 +5,15 @@ module M3U8
     property uri : String
     property byterange : ByteRange?
 
-    def initialize(params = NamedTuple.new)
-      @uri = params[:uri]
-      @byterange = parse_byterange(params)
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        uri: params[:uri],
+        byterange: params[:byterange]?
+      )
+    end
+
+    def initialize(@uri, byterange = nil)
+      @byterange = parse_byterange(byterange)
     end
 
     # def self.parse(text)
@@ -29,9 +35,11 @@ module M3U8
       ].compact
     end
 
-    private def parse_byterange(params)
-      item = params[:byterange]?
-      ByteRange.new(item) unless item.nil?
+    private def parse_byterange(item)
+      case item
+      when NamedTuple then ByteRange.new(item)
+      when ByteRange then item
+      end
     end
 
     private def uri_format

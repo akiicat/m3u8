@@ -14,19 +14,26 @@ module M3U8
     property characteristics : String?
     property channels : String?
 
-    def initialize(params = NamedTuple.new)
-      @type = params[:type]?
-      @group_id = params[:group_id]?
-      @language = params[:language]?
-      @assoc_language = params[:assoc_language]?
-      @name = params[:name]?
-      @uri = params[:uri]?
-      @autoselect = params[:autoselect]?
-      @default = params[:default]?
-      @forced = params[:forced]?
-      @instream_id = params[:instream_id]?
-      @characteristics = params[:characteristics]?
-      @channels = params[:channels]?
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        type: params[:type]?,
+        group_id: params[:group_id]?,
+        language: params[:language]?,
+        assoc_language: params[:assoc_language]?,
+        name: params[:name]?,
+        uri: params[:uri]?,
+        autoselect: params[:autoselect]?,
+        default: params[:default]?,
+        forced: params[:forced]?,
+        instream_id: params[:instream_id]?,
+        characteristics: params[:characteristics]?,
+        channels: params[:channels]?,
+      )
+    end
+
+    def initialize(@type = nil, @group_id = nil, @language = nil, @assoc_language = nil, @name = nil,
+                   @uri = nil, @autoselect = nil, @default = nil, @forced = nil, @instream_id = nil,
+                   @characteristics = nil, @channels = nil)
     end
 
     # def self.parse(text)

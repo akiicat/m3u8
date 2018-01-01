@@ -69,10 +69,11 @@ module M3U8
     describe "#duration" do
       it "should return the total duration of a playlist" do
         playlist = Playlist.new
-        playlist.items << SegmentItem.new({duration: 10.991, segment: "test_01.ts"})
-        playlist.items << SegmentItem.new({duration: 9.891, segment: "test_02.ts"})
-        playlist.items << SegmentItem.new({duration: 10.556, segment: "test_03.ts"})
-        playlist.items << SegmentItem.new({duration: 8.790, segment: "test_04.ts"})
+
+        playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+        playlist.items << SegmentItem.new(duration: 9.891, segment: "test_02.ts")
+        playlist.items << SegmentItem.new(duration: 10.556, segment: "test_03.ts")
+        playlist.items << SegmentItem.new(duration: 8.790, segment: "test_04.ts")
 
         playlist.duration.round(3).should eq(40.228)
       end
@@ -81,9 +82,9 @@ module M3U8
     describe "#master?" do
       context "when playlist is a master playlist" do
         it "returns true" do
-          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400,
-                      audio_codec: "mp3" }
           playlist = Playlist.new
+
+          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
 
           playlist.master?.should be_true
@@ -93,7 +94,7 @@ module M3U8
       context "when playlist is a media playlist" do
         it "returns false" do
           playlist = Playlist.new
-          playlist.items << SegmentItem.new({duration: 10.991, segment: "test_01.ts"})
+          playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
           playlist.master?.should be_false
         end
       end
@@ -114,7 +115,7 @@ module M3U8
 
       context "when a new playlist is set as not master" do
         it "returns false" do
-          playlist = Playlist.new({master: false})
+          playlist = Playlist.new(master: false)
           playlist.master?.should be_false
         end
       end
@@ -123,25 +124,26 @@ module M3U8
     describe "#live?" do
       context "when playlist is a master playlist" do
         it "returns false" do
-          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400,
-                      audio_codec: "mp3" }
           playlist = Playlist.new
+
+          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
+
           playlist.live.should be_false
         end
       end
 
       context "when playlist is a media playlist and set as live" do
         it "returns true" do
-          playlist = Playlist.new({live: true})
-          playlist.items << SegmentItem.new({duration: 10.991, segment: "test_01.ts"})
+          playlist = Playlist.new(live: true)
+          playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
           playlist.live?.should be_true
         end
       end
 
       context "when a new playlist is set as not live" do
         it "returns false" do
-          playlist = Playlist.new({live: false})
+          playlist = Playlist.new(live: false)
           playlist.live.should be_false
         end
       end
@@ -200,14 +202,14 @@ module M3U8
           playlist = Playlist.new
           playlist.valid?.should be_true
 
-          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc",
-                      bandwidth: 540, uri: "test.url" }
+          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
           playlist.items << PlaylistItem.new(options)
+
           playlist.valid?.should be_true
 
-          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc",
-                      bandwidth: 540, uri: "test.url" }
+          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
           playlist.items << PlaylistItem.new(options)
+
           playlist.valid?.should be_true
         end
       end
@@ -230,7 +232,7 @@ module M3U8
     describe "#header_attributes" do
       context "when playlist is a master playlist" do
         it "writes header content only" do
-          playlist = Playlist.new({version: 6, independent_segments: true})
+          playlist = Playlist.new(version: 6, independent_segments: true)
 
           options = { uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
@@ -246,7 +248,7 @@ module M3U8
 
       context "when playlist is a media playlist" do
         it "writes header content only" do
-          playlist = Playlist.new({version: 7})
+          playlist = Playlist.new(version: 7)
 
           options = { duration: 11.344644, segment: "1080-7mbps00000.ts" }
           playlist.items << SegmentItem.new(options)
@@ -264,14 +266,14 @@ module M3U8
     describe "#footer_attributes" do
       context "when playlist is a master playlist" do
         it "does nothing" do
-          playlist = Playlist.new({master: true})
+          playlist = Playlist.new(master: true)
           playlist.footer_attributes.join('\n').should eq ""
         end
       end
 
       context "when playlist is a media playlist" do
         it "writes end list tag" do
-          playlist = Playlist.new({master: false})
+          playlist = Playlist.new(master: false)
           playlist.footer_attributes.join('\n').should eq("#EXT-X-ENDLIST")
         end
       end
@@ -280,9 +282,9 @@ module M3U8
     describe "#write" do
       context "when playlist is valid" do
         it "returns playlist text" do
-          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400,
-                      audio_codec: "mp3" }
           playlist = Playlist.new
+
+          options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
 
           expected = "#EXTM3U\n" +
@@ -295,9 +297,9 @@ module M3U8
 
       context "when item types are invalid" do
         it "raises error" do
-          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc",
-                      bandwidth: 540, uri: "test.url" }
           playlist = Playlist.new
+
+          options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
           playlist.items << PlaylistItem.new(options)
 
           options = { duration: 10.991, segment: "test.ts" }
@@ -316,10 +318,13 @@ module M3U8
       context "when playlist is a master playlist" do
         it "writes playlist to io" do
           playlist = Playlist.new
+          
           options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
+
           options = { program_id: "2", uri: "playlist_url", bandwidth: 50_000, width: 1920, height: 1080, profile: "high", level: 4.1, audio_codec: "aac-lc" }
           playlist.items << PlaylistItem.new(options)
+
           options = { data_id: "com.test.movie.title", value: "Test", uri: "http://test", language: "en" }
           playlist.items << SessionDataItem.new(options)
 
@@ -353,9 +358,9 @@ module M3U8
 
       context "when playlist is a master playlist with header options" do
         it "writes playlist to io" do
-          options = { uri: "playlist_url", bandwidth: 6400,
-                      audio_codec: "mp3" }
-          playlist = Playlist.new({version: 6, independent_segments: true})
+          playlist = Playlist.new(version: 6, independent_segments: true)
+
+          options = { uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
           playlist.items << PlaylistItem.new(options)
 
           expected = "#EXTM3U\n" \
@@ -370,7 +375,7 @@ module M3U8
 
       context "when playlist is a new master playlist" do
         it "writes playlist to io" do
-          playlist = Playlist.new({master: true})
+          playlist = Playlist.new(master: true)
           playlist.to_s.should eq("#EXTM3U\n")
         end
       end
@@ -390,9 +395,7 @@ module M3U8
 
       context "when playlist is a media playlist" do
         it "writes playlist to io" do
-          options = { version: 4, cache: false, target: 6.2, sequence: 1,
-                      discontinuity_sequence: 10, type: "EVENT",
-                      iframes_only: true }
+          options = { version: 4, cache: false, target: 6.2, sequence: 1, discontinuity_sequence: 10, type: "EVENT", iframes_only: true }
           playlist = Playlist.new(options)
           
           options = { duration: 11.344644, segment: "1080-7mbps00000.ts" }
@@ -416,14 +419,12 @@ module M3U8
 
       context "when playlist is media playlist with keys" do
         it "writes playlist to io" do
-          playlist = Playlist.new({version: 7})
+          playlist = Playlist.new(version: 7)
 
           options = { duration: 11.344644, segment: "1080-7mbps00000.ts" }
           playlist.items << SegmentItem.new(options)
 
-          options = { method: "AES-128", uri: "http://test.key",
-                      iv: "D512BBF", key_format: "identity",
-                      key_format_versions: "1/3" }
+          options = { method: "AES-128", uri: "http://test.key", iv: "D512BBF", key_format: "identity", key_format_versions: "1/3" }
           playlist.items << KeyItem.new(options)
 
           options = { duration: 11.261233, segment: "1080-7mbps00001.ts" }
@@ -449,8 +450,7 @@ module M3U8
       it "raises error if item types are mixed" do
         playlist = Playlist.new
 
-        options = { program_id: 1, width: 1920, height: 1080, codecs: "avc",
-                    bandwidth: 540, playlist: "test.url" }
+        options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, playlist: "test.url" }
         playlist.items << PlaylistItem.new(options)
 
         options = { duration: 10.991, segment: "test.ts" }

@@ -3,8 +3,12 @@ module M3U8
   class TimeItem
     property time : Time
 
-    def initialize(params)
-      @time = parse_time(params)
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(time: params[:time]?)
+    end
+
+    def initialize(time)
+      @time = parse_time(time)
     end
     
     # def self.parse(text)
@@ -18,10 +22,8 @@ module M3U8
 
     private def parse_time(time)
       case time
-      when String
-        Time.iso8601(time)
-      when Time
-        time
+      when String then Time.iso8601(time)
+      when Time then time
       end.not_nil!
     end
 

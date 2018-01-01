@@ -2,6 +2,27 @@ require "./spec_helper"
 
 module M3U8
   describe PlaybackStart do
+
+    describe "initialize" do
+      options = {
+        time_offset: -12.9,
+        precise: true
+      }
+      expected = "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
+
+      pending "hash" do
+        PlaybackStart.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        PlaybackStart.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        PlaybackStart.new(**options).to_s.should eq expected
+      end
+    end
+
     {
       {
         {

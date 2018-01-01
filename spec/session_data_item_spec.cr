@@ -2,6 +2,29 @@ require "./spec_helper"
 
 module M3U8
   describe SessionDataItem do
+
+    describe "initialize" do
+      options = {
+        data_id: "com.test.movie.title",
+        value: "Test",
+        uri: "http://test",
+        language: "en"
+      }
+      expected = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en")
+
+      pending "hash" do
+        SessionDataItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        SessionDataItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        SessionDataItem.new(**options).to_s.should eq expected
+      end
+    end
+
     {
       {
         {

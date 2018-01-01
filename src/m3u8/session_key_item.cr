@@ -5,10 +5,6 @@ module M3U8
 
     include Encryptable
 
-    def initialize(params = NamedTuple.new)
-      write_attributes(params)
-    end
-
     # def self.parse(text)
     #   attributes = parse_attributes(text)
     #   SessionKeyItem.new(attributes)

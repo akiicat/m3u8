@@ -1,11 +1,8 @@
 module M3U8
   # KeyItem represents a set of EXT-X-KEY attributes
   class KeyItem
-    include Encryptable
 
-    def initialize(params)
-      write_attributes(params)
-    end
+    include Encryptable
 
     # def self.parse(text)
     #   attributes = parse_attributes(text)

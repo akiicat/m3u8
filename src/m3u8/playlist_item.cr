@@ -21,26 +21,52 @@ module M3U8
     property name : String?
     property hdcp_level : String?
 
-    def initialize(params = NamedTuple.new)
-      
-      @program_id = parse_program_id(params)
-      @width = params[:width]?
-      @height = params[:height]?
-      @codecs = params[:codecs]?
-      @bandwidth = params[:bandwidth]?
-      @audio_codec = params[:audio_codec]?
-      @level = parse_level(params)
-      @profile = params[:profile]?
-      @video = params[:video]?
-      @audio = params[:audio]?
-      @uri = params[:uri]?
-      @average_bandwidth = params[:average_bandwidth]?
-      @subtitles = params[:subtitles]?
-      @closed_captions = params[:closed_captions]?
-      @iframe = parse_iframe(params)
-      @frame_rate = parse_frame_rate(params)
-      @name = params[:name]?
-      @hdcp_level = params[:hdcp_level]?
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        program_id: params[:program_id]?,
+        width: params[:width]?,
+        height: params[:height]?,
+        codecs: params[:codecs]?,
+        bandwidth: params[:bandwidth]?,
+        audio_codec: params[:audio_codec]?,
+        level: params[:level]?,
+        profile: params[:profile]?,
+        video: params[:video]?,
+        audio: params[:audio]?,
+        uri: params[:uri]?,
+        average_bandwidth: params[:average_bandwidth]?,
+        subtitles: params[:subtitles]?,
+        closed_captions: params[:closed_captions]?,
+        iframe: params[:iframe]?,
+        frame_rate: params[:frame_rate]?,
+        name: params[:name]?,
+        hdcp_level: params[:hdcp_level]?,
+      )
+    end
+
+    def initialize(program_id = nil,
+                   @width = nil,
+                   @height = nil,
+                   @codecs = nil,
+                   @bandwidth = nil,
+                   @audio_codec = nil,
+                   level = nil,
+                   @profile = nil,
+                   @video = nil,
+                   @audio = nil,
+                   @uri = nil,
+                   @average_bandwidth = nil,
+                   @subtitles = nil,
+                   @closed_captions = nil,
+                   iframe = nil,
+                   frame_rate = nil,
+                   @name = nil,
+                   @hdcp_level = nil)
+
+      @program_id = program_id ? program_id.to_i : nil
+      @level = level ? level.to_f : nil
+      @iframe = iframe ? true : false
+      @frame_rate = frame_rate ? frame_rate.to_f : nil
     end
 
     # def self.parse(text)
@@ -72,14 +98,18 @@ module M3U8
 
       # audio codec was specified but not recognized,
       # do not specify any codecs
-      return nil if !@audio_codec.nil? && audio_codec_string.nil?
+      return nil if !audio_codec.nil? && audio_codec_string.nil?
 
       codec_strings = [video_codec_string, audio_codec_string].compact
       codec_strings.empty? ? nil : codec_strings.join(',')
     end
 
     def to_s
-      m3u8_format
+      if iframe
+        %(#EXT-X-I-FRAME-STREAM-INF:#{attributes.join(',')},URI="#{uri}") 
+      else
+        %(#EXT-X-STREAM-INF:#{attributes.join(',')}\n#{uri})
+      end
     end
 
     # private
@@ -120,37 +150,7 @@ module M3U8
     #   value if value > 0
     # end
 
-    private def parse_iframe(params)
-      iframe = params[:iframe]?
-      iframe ? true : false
-    end
-
-    private def parse_level(params)
-      level = params[:level]?
-      level ? level.to_f : nil
-    end
-
-    private def parse_program_id(params)
-      program_id = params[:program_id]?
-      program_id ? program_id.to_i : nil
-    end
-
-    private def parse_frame_rate(params)
-      frame_rate = params[:frame_rate]?
-      frame_rate ? frame_rate.to_f : nil
-    end
-
-    private def m3u8_format
-      attributes = formatted_attributes.join(',')
-
-      if iframe
-        %(#EXT-X-I-FRAME-STREAM-INF:#{attributes},URI="#{uri}") 
-      else
-        %(#EXT-X-STREAM-INF:#{attributes}\n#{uri})
-      end
-    end
-
-    private def formatted_attributes
+    private def attributes
       [
         program_id_format,
         resolution_format,
@@ -219,7 +219,7 @@ module M3U8
     end
 
     private def audio_codec_code
-      case @audio_codec.to_s.downcase
+      case audio_codec.to_s.downcase
       when "aac-lc" then "mp4a.40.2" 
       when "he-aac" then "mp4a.40.5"
       when "mp3" then "mp4a.40.34"

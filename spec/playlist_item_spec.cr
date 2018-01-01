@@ -2,6 +2,44 @@ require "./spec_helper"
 
 module M3U8
   describe PlaylistItem do
+
+    describe "initialize" do
+      options = {
+        program_id: 1,
+        width: 1920,
+        height: 1080,
+        codecs: "avc",
+        bandwidth: 540,
+        audio_codec: "mp3",
+        level: "2",
+        profile: "baseline",
+        video: "test_video",
+        audio: "test_a",
+        uri: "test.url",
+        average_bandwidth: 500,
+        subtitles: "subs",
+        closed_captions: "cc",
+        iframe: true,
+        frame_rate: 24.6,
+        name: "test_name",
+        hdcp_level: "TYPE-0",
+      }
+
+      expected = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
+
+      pending "hash" do
+        PlaylistItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        PlaylistItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        PlaylistItem.new(**options).to_s.should eq expected
+      end
+    end
+
     {
       {
         {
@@ -26,29 +64,36 @@ module M3U8
           resolution: "1920x1080"
         },
         %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
+      },
+      {
+        {
+          bandwidth: 540,
+          iframe: false
+        },
+        %(#EXT-X-STREAM-INF:BANDWIDTH=540\n)
       }
     }.each do |(params, format)|
       item = PlaylistItem.new(params)
 
       describe "initialize" do
         it "program_id" do
-          item.program_id.should eq params[:program_id]
+          item.program_id.should eq params[:program_id]?
         end
 
         it "width" do
-          item.width.should eq params[:width]
+          item.width.should eq params[:width]?
         end
 
         it "height" do
-          item.height.should eq params[:height]
+          item.height.should eq params[:height]?
         end
 
         it "resolution" do
-          item.resolution.should eq params[:resolution]
+          item.resolution.should eq params[:resolution]?
         end
 
         it "codecs" do
-          item.codecs.should eq params[:codecs]
+          item.codecs.should eq params[:codecs]?
         end
 
         it "bandwidth" do
@@ -56,7 +101,7 @@ module M3U8
         end
 
         it "audio_codec" do
-          item.audio_codec.should eq params[:audio_codec]
+          item.audio_codec.should eq params[:audio_codec]?
         end
 
         it "level" do
@@ -65,47 +110,47 @@ module M3U8
         end
 
         it "profile" do
-          item.profile.should eq params[:profile]
+          item.profile.should eq params[:profile]?
         end
 
         it "video" do
-          item.video.should eq params[:video]
+          item.video.should eq params[:video]?
         end
 
         it "audio" do
-          item.audio.should eq params[:audio]
+          item.audio.should eq params[:audio]?
         end
 
         it "uri" do
-          item.uri.should eq params[:uri]
+          item.uri.should eq params[:uri]?
         end
 
         it "average_bandwidth" do
-          item.average_bandwidth.should eq params[:average_bandwidth]
+          item.average_bandwidth.should eq params[:average_bandwidth]?
         end
 
         it "subtitles" do
-          item.subtitles.should eq params[:subtitles]
+          item.subtitles.should eq params[:subtitles]?
         end
 
         it "closed_captions" do
-          item.closed_captions.should eq params[:closed_captions]
+          item.closed_captions.should eq params[:closed_captions]?
         end
 
         it "iframe" do
-          item.iframe.should eq params[:iframe]
+          item.iframe.should eq params[:iframe]?
         end
 
         it "frame_rate" do
-          item.frame_rate.should eq params[:frame_rate]
+          item.frame_rate.should eq params[:frame_rate]?
         end
 
         it "name" do
-          item.name.should eq params[:name]
+          item.name.should eq params[:name]?
         end
 
         it "hdcp_level" do
-          item.hdcp_level.should eq params[:hdcp_level]
+          item.hdcp_level.should eq params[:hdcp_level]?
         end
       end
 

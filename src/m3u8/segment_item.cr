@@ -8,19 +8,26 @@ module M3U8
     property byterange : ByteRange?
     property program_date_time : TimeItem?
 
-    def initialize(params = NamedTuple.new)
-      @duration = params[:duration]
-      @segment = params[:segment]
-      @comment = params[:comment]?
-      @byterange = parse_byterange(params)
-      @program_date_time = parse_program_date_time(params)
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        duration: params[:duration],
+        segment: params[:segment],
+        comment: params[:comment]?,
+        byterange: params[:byterange]?,
+        program_date_time: params[:program_date_time]?,
+      )
+    end
+
+    def initialize(@duration, @segment, @comment = nil, byterange = nil, program_date_time = nil)
+      @byterange = parse_byterange(byterange)
+      @program_date_time = parse_time_item(program_date_time)
     end
 
     def to_s
-      formatted_attributes.join('\n')
+      attributes.join('\n')
     end
 
-    def formatted_attributes
+    def attributes
       [
         inf_format,
         byterange_format,
@@ -29,20 +36,18 @@ module M3U8
       ].compact
     end
 
-    private def parse_program_date_time(params)
-      item = params[:program_date_time]?
-
+    private def parse_byterange(item)
       case item
-      when String, Time
-        TimeItem.new item
-      when TimeItem
-        item
+      when NamedTuple then ByteRange.new(item)
+      when ByteRange then item
       end
     end
 
-    private def parse_byterange(params)
-      item = params[:byterange]?
-      ByteRange.new(item) unless item.nil?
+    private def parse_time_item(item)
+      case item
+      when String, Time then TimeItem.new item
+      when TimeItem then item
+      end
     end
 
     private def inf_format

@@ -18,20 +18,32 @@ module M3U8
     property live : Bool
     property items : Array(Items)
 
-    def initialize(params = NamedTuple.new)
-      @master = default_params(:master)
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        master: params[:master]?,
+        version: params[:version]?,
+        cache: params[:cache]?,
+        discontinuity_sequence: params[:discontinuity_sequence]?,
+        type: params[:type]?,
+        target: params[:target]?,
+        sequence: params[:sequence]?,
+        iframes_only: params[:iframes_only]?,
+        independent_segments: params[:independent_segments]?,
+        live: params[:live]?,
+        items: params[:items]?,
+      )
+    end
 
-      @version = default_params(:version)
-      @cache = default_params(:cache)
-      @discontinuity_sequence = default_params(:discontinuity_sequence)
-      @type = default_params(:type)
+    def initialize(@master = nil, @version = nil, @cache = nil, @discontinuity_sequence = nil, @type = nil,
+                   target = nil, sequence = nil, iframes_only = nil, independent_segments = nil, live = nil,
+                   items = nil)
 
-      @target = default_params(:target).not_nil!.to_f
-      @sequence = default_params(:sequence).not_nil!
-      @iframes_only = default_params(:iframes_only).not_nil!
-      @independent_segments = default_params(:independent_segments).not_nil!
-      @live = default_params(:live).not_nil!
-      @items = default_params(:items).not_nil!
+      @target = default_params(:target).to_f
+      @sequence = default_params(:sequence)
+      @iframes_only = default_params(:iframes_only)
+      @independent_segments = default_params(:independent_segments)
+      @live = default_params(:live)
+      @items = default_params(:items)
     end
 
     def self.codecs(options = NamedTuple.new)
@@ -92,7 +104,7 @@ module M3U8
     end
 
     private macro default_params(m)
-      params[{{m}}]? == nil ? defaults[{{m}}]? : params[{{m}}]?
+      ({{m.id}}.nil? ? defaults[{{m}}]? : {{m.id}}).not_nil!
     end
 
     private def defaults

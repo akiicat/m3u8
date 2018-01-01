@@ -2,6 +2,28 @@ require "./spec_helper"
 
 module M3U8
   describe MapItem do
+
+    describe "initialize" do
+      options = {
+        uri: "frelo/prog_index.m3u8",
+        byterange: { length: 4500, start: 600 }
+      }
+      expected = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+
+      pending "hash" do
+        MapItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        MapItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        MapItem.new(**options).to_s.should eq expected
+      end
+    end
+
+
     {
       {
         {
@@ -16,9 +38,23 @@ module M3U8
       {
         {
           uri: "frelo/prog_index.m3u8",
+          byterange: ByteRange.new(length: 4500, start: 600)
+        },
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+      },
+      {
+        {
+          uri: "frelo/prog_index.m3u8",
           byterange: {
             length: 4500
           }
+        },
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500")
+      },
+      {
+        {
+          uri: "frelo/prog_index.m3u8",
+          byterange: ByteRange.new(length: 4500)
         },
         %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500")
       },
@@ -34,18 +70,6 @@ module M3U8
       describe "initialize" do
         it "uri" do
           item.uri.should eq params[:uri]
-        end
-
-        it "byterange" do
-          params_byterange = params[:byterange]?
-          item_byterange = item.byterange
-
-          if params_byterange && !item_byterange.nil?
-            item_byterange.length.should eq params_byterange[:length]
-            item_byterange.start.should eq params_byterange[:start]?
-          else
-            item_byterange.should eq params_byterange
-          end
         end
       end
 

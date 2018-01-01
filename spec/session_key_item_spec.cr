@@ -2,6 +2,30 @@ require "./spec_helper"
 
 module M3U8
   describe SessionKeyItem do
+
+    describe "initialize" do
+      options = {
+        method: "AES-128",
+        uri: "http://test.key",
+        iv: "D512BBF",
+        key_format: "identity",
+        key_format_versions: "1/3",
+      }
+      expected = %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3")
+
+      pending "hash" do
+        SessionKeyItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        SessionKeyItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        SessionKeyItem.new(**options).to_s.should eq expected
+      end
+    end
+
     {
       {
         {

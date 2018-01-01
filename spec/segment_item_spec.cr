@@ -2,6 +2,29 @@ require "./spec_helper"
 
 module M3U8
   describe SegmentItem do
+
+    describe "initialize" do
+      options = {
+        duration: 10.991,
+        segment: "test.ts",
+        comment: "anything",
+        byterange: { length: 4500, start: 600 }
+      }
+      expected = %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
+
+      pending "hash" do
+        SegmentItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        SegmentItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        SegmentItem.new(**options).to_s.should eq expected
+      end
+    end
+
     {
       {
         {
@@ -20,9 +43,27 @@ module M3U8
           duration: 10.991,
           segment: "test.ts",
           comment: "anything",
+          byterange: ByteRange.new(length: 4500, start: 600)
+        },
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
+      },
+      {
+        {
+          duration: 10.991,
+          segment: "test.ts",
+          comment: "anything",
           byterange: {
             length: 4500
           }
+        },
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts)
+      },
+      {
+        {
+          duration: 10.991,
+          segment: "test.ts",
+          comment: "anything",
+          byterange: ByteRange.new(length: 4500)
         },
         %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts)
       },

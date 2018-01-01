@@ -4,9 +4,14 @@ module M3U8
     property length : Int32
     property start : Int32?
 
-    def initialize(params)
-      @length = params[:length]
-      @start = params[:start]?
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        length: params[:length],
+        start: params[:start]?
+      )
+    end
+
+    def initialize(@length, @start = nil)
     end
 
     # def self.parse(text)

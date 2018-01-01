@@ -7,11 +7,16 @@ module M3U8
     property uri : String?
     property language : String?
 
-    def initialize(params = NamedTuple.new)
-      @data_id = params[:data_id]
-      @value = params[:value]?
-      @uri = params[:uri]?
-      @language = params[:language]?
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        data_id: params[:data_id],
+        value: params[:value]?,
+        uri: params[:uri]?,
+        language: params[:language]?
+      )
+    end
+
+    def initialize(@data_id, @value = nil, @uri = nil, @language = nil)
     end
 
     # def self.parse(text)
@@ -22,10 +27,10 @@ module M3U8
     # end
 
     def to_s
-      "#EXT-X-SESSION-DATA:#{formatted_attributes.join(',')}"
+      "#EXT-X-SESSION-DATA:#{attributes.join(',')}"
     end
 
-    def formatted_attributes
+    def attributes
       [
         data_id_format,
         value_format,

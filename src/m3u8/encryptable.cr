@@ -1,38 +1,41 @@
 module M3U8
   # Encapsulates logic common to encryption key tags
   module Encryptable
-    property method : String = ""
-    property uri : String | Nil = nil
-    property iv : String | Nil = nil
-    property key_format : String | Nil = nil
-    property key_format_versions : String | Nil = nil
+    property method : String
+    property uri : String?
+    property iv : String?
+    property key_format : String?
+    property key_format_versions : String?
+
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        method: params[:method],
+        uri: params[:uri]?,
+        iv: params[:iv]?,
+        key_format: params[:key_format]?,
+        key_format_versions: params[:key_format_versions]?
+      )
+    end
+
+    def initialize(@method = "",
+                   @uri = nil,
+                   @iv = nil,
+                   @key_format = nil,
+                   @key_format_versions = nil)
+    end
 
     def attributes_to_s
+      attributes.join(',')
+    end
+
+    def attributes
       [
         method_format,
         uri_format,
         iv_format,
         key_format_format,
         key_format_versions_format,
-      ].compact.join(',')
-    end
-
-    def write_attributes(params)
-      @method = params[:method]
-      @uri = params[:uri]?
-      @iv = params[:iv]?
-      @key_format = params[:key_format]?
-      @key_format_versions = params[:key_format_versions]?
-    end
-
-    def convert_key_names(attributes)
-      {
-        method:              attributes[:method],
-        uri:                 attributes[:uri]?,
-        iv:                  attributes[:iv]?,
-        key_format:          attributes[:key_format]?,
-        key_format_versions: attributes[:key_format_versions]?,
-      }
+      ].compact
     end
 
     private def method_format

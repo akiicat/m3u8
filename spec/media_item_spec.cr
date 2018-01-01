@@ -3,6 +3,43 @@ require "./spec_helper"
 module M3U8
   describe MediaItem do
 
+    describe "initialize" do
+      options = {
+          type: "AUDIO",
+          group_id: "audio-lo",
+          language: "fre",
+          assoc_language: "spoken",
+          name: "Francais",
+          autoselect: true,
+          default: false,
+          forced: true,
+          uri: "frelo/prog_index.m3u8",
+          instream_id: "SERVICE3",
+          characteristics: "public.html",
+          channels: "6"
+      }
+      expected =
+        %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",) +
+        %(LANGUAGE="fre",ASSOC-LANGUAGE="spoken",) +
+        %(NAME="Francais",AUTOSELECT=YES,) +
+        %(DEFAULT=NO,URI="frelo/prog_index.m3u8",FORCED=YES,) +
+        %(INSTREAM-ID="SERVICE3",CHARACTERISTICS="public.html",) +
+        %(CHANNELS="6")
+
+      pending "hash" do
+        MediaItem.new(options.to_h).to_s.should eq expected
+      end
+
+      it "namedtuple" do
+        MediaItem.new(options).to_s.should eq expected
+      end
+
+      it "hash like" do
+        MediaItem.new(**options).to_s.should eq expected
+      end
+    end
+
+
     {
       {
         {
