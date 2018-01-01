@@ -2,6 +2,9 @@ module M3U8
   # SegmentItem represents EXTINF attributes with the URI that follows,
   # optionally allowing an EXT-X-BYTERANGE tag to be set.
   class SegmentItem
+    
+    include Concern
+
     property duration : Float64
     property segment : String
     property comment : String?
@@ -34,20 +37,6 @@ module M3U8
         program_date_time_format,
         segment,
       ].compact
-    end
-
-    private def parse_byterange(item)
-      case item
-      when NamedTuple then ByteRange.new(item)
-      when ByteRange then item
-      end
-    end
-
-    private def parse_time_item(item)
-      case item
-      when String, Time then TimeItem.new item
-      when TimeItem then item
-      end
     end
 
     private def inf_format

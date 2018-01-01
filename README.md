@@ -41,6 +41,7 @@ TODO: Write usage instructions here
 - [x] version
 - [x] ~writer~
 - [ ] codecs
+- [x] concern
 
 ## Contributing
 

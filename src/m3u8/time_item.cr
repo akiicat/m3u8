@@ -1,6 +1,9 @@
 module M3U8
   # TimeItem represents EXT-X-PROGRAM-DATE-TIME
   class TimeItem
+
+    include Concern
+
     property time : Time
 
     def self.new(params : NamedTuple = NamedTuple.new)
@@ -18,13 +21,6 @@ module M3U8
 
     def to_s
       %(#EXT-X-PROGRAM-DATE-TIME:#{time_format})
-    end
-
-    private def parse_time(time)
-      case time
-      when String then Time.iso8601(time)
-      when Time then time
-      end.not_nil!
     end
 
     private def time_format

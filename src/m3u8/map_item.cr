@@ -2,6 +2,9 @@ module M3U8
   # MapItem represents a EXT-X-MAP tag which specifies how to obtain the Media
   # Initialization Section
   class MapItem
+
+    include Concern
+
     property uri : String
     property byterange : ByteRange?
 
@@ -33,13 +36,6 @@ module M3U8
         uri_format,
         byterange_format
       ].compact
-    end
-
-    private def parse_byterange(item)
-      case item
-      when NamedTuple then ByteRange.new(item)
-      when ByteRange then item
-      end
     end
 
     private def uri_format
