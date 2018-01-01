@@ -4,7 +4,7 @@ module M3U8
   class Playlist
     alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem
 
-    @master : Bool?
+    property master : Bool?
 
     property version : Int32?
     property cache : Bool?
@@ -55,11 +55,11 @@ module M3U8
     # end
 
     def live?
-      master? ? false : @live
+      master? ? false : live
     end
 
     def master?
-      return @master unless @master.nil?
+      return master unless master.nil?
       (playlist_size.zero? && segment_size.zero?) ? false : playlist_size > 0
     end
 
@@ -86,7 +86,7 @@ module M3U8
 
       [
         header_attributes,
-        items_attributes,
+        body_attributes,
         footer_attributes
       ].flatten
     end
@@ -95,12 +95,24 @@ module M3U8
       master? ? master_header_attributes : media_header_attributes
     end
 
-    def items_attributes
+    def body_attributes
       items.map { |item| item.to_s }
     end
 
     def footer_attributes
       [endlist_tag].compact
+    end
+
+    def header
+      header_attributes.join('\n')
+    end
+
+    def body
+      body_attributes.join('\n')
+    end
+
+    def footer
+      footer_attributes.join('\n')
     end
 
     private macro default_params(m)
