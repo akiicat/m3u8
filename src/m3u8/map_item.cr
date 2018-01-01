@@ -28,10 +28,10 @@ module M3U8
     # end
 
     def to_s
-      %(#EXT-X-MAP:#{formatted_attributes.join(',')})
+      %(#EXT-X-MAP:#{attributes.join(',')})
     end
 
-    def formatted_attributes
+    def attributes
       [
         uri_format,
         byterange_format

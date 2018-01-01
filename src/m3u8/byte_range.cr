@@ -20,10 +20,10 @@ module M3U8
     # end
 
     def to_s
-      formatted_attributes.join('@')
+      attributes.join('@')
     end
 
-    def formatted_attributes
+    def attributes
       [
         length_format,
         start_format
