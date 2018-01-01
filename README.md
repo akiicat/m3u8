@@ -31,7 +31,7 @@ TODO: Write usage instructions here
 - [x] map_item
 - [x] media_item
 - [x] playback_start
-- [ ] playlist
+- [x] playlist
 - [x] playlist_item
 - [ ] reader
 - [x] segment_item
