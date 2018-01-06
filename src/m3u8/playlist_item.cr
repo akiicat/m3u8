@@ -5,11 +5,7 @@ module M3U8
     property program_id : Int32?
     property width : Int32?
     property height : Int32?
-    property codecs : String?
     property bandwidth : Int32?
-    property audio_codec : String?
-    property level : Float64?
-    property profile : String?
     property video : String?
     property audio : String?
     property uri : String?
@@ -20,17 +16,14 @@ module M3U8
     property frame_rate : Float64?
     property name : String?
     property hdcp_level : String?
+    property codecs : Codecs
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         program_id: params[:program_id]?,
         width: params[:width]?,
         height: params[:height]?,
-        codecs: params[:codecs]?,
         bandwidth: params[:bandwidth]?,
-        audio_codec: params[:audio_codec]?,
-        level: params[:level]?,
-        profile: params[:profile]?,
         video: params[:video]?,
         audio: params[:audio]?,
         uri: params[:uri]?,
@@ -41,17 +34,17 @@ module M3U8
         frame_rate: params[:frame_rate]?,
         name: params[:name]?,
         hdcp_level: params[:hdcp_level]?,
+        codecs: params[:codecs]?,
+        audio_codec: params[:audio_codec]?,
+        level: params[:level]?,
+        profile: params[:profile]?,
       )
     end
 
     def initialize(program_id = nil,
                    @width = nil,
                    @height = nil,
-                   @codecs = nil,
                    @bandwidth = nil,
-                   @audio_codec = nil,
-                   level = nil,
-                   @profile = nil,
                    @video = nil,
                    @audio = nil,
                    @uri = nil,
@@ -61,12 +54,21 @@ module M3U8
                    iframe = nil,
                    frame_rate = nil,
                    @name = nil,
-                   @hdcp_level = nil)
+                   @hdcp_level = nil,
+                   codecs = nil,
+                   audio_codec = nil,
+                   level = nil,
+                   profile = nil)
 
       @program_id = program_id ? program_id.to_i : nil
-      @level = level ? level.to_f : nil
       @iframe = iframe ? true : false
       @frame_rate = frame_rate ? frame_rate.to_f : nil
+      @codecs = Codecs.new({
+        codecs: codecs,
+        audio_codec: audio_codec,
+        level: level,
+        profile: profile,
+      })
     end
 
     # def self.parse(text)
@@ -83,25 +85,6 @@ module M3U8
 
     def resolution
       "#{width}x#{height}" unless width.nil?
-    end
-
-    def codecs
-      return @codecs unless @codecs.nil?
-
-      video_codec_string = video_codec(profile, level)
-
-      # profile and/or level were specified but not recognized,
-      # do not specify any codecs
-      return nil if !(profile.nil? && level.nil?) && video_codec_string.nil?
-
-      audio_codec_string = audio_codec_code
-
-      # audio codec was specified but not recognized,
-      # do not specify any codecs
-      return nil if !audio_codec.nil? && audio_codec_string.nil?
-
-      codec_strings = [video_codec_string, audio_codec_string].compact
-      codec_strings.empty? ? nil : codec_strings.join(',')
     end
 
     def to_s
@@ -184,6 +167,7 @@ module M3U8
     end
 
     private def codecs_format
+      codecs = @codecs.to_s
       %(CODECS="#{codecs}") unless codecs.nil?
     end
 
@@ -216,48 +200,6 @@ module M3U8
 
     private def name_format
       %(NAME="#{name}") unless name.nil?
-    end
-
-    private def audio_codec_code
-      case audio_codec.to_s.downcase
-      when "aac-lc" then "mp4a.40.2" 
-      when "he-aac" then "mp4a.40.5"
-      when "mp3" then "mp4a.40.34"
-      end
-    end
-
-    private def video_codec(profile, level)
-      return if profile.nil? || level.nil?
-
-      case profile
-      when "baseline" then baseline_codec_string(level)
-      when "main" then main_codec_string(level)
-      when "high" then high_codec_string(level)
-      end
-    end
-
-    private def baseline_codec_string(level)
-      case level
-      when 3.0 then "avc1.66.30"
-      when 3.1 then "avc1.42001f"
-      end
-    end
-
-    private def main_codec_string(level)
-      case level
-      when 3.0 then "avc1.77.30"
-      when 3.1 then "avc1.4d001f"
-      when 4.0 then "avc1.4d0028"
-      when 4.1 then "avc1.4d0029"
-      end
-    end
-
-    private def high_codec_string(level)
-      case level
-      when 3.1 then "avc1.64001f"
-      when 4.0 then "avc1.640028"
-      when 4.1 then "avc1.640029"
-      end
     end
   end
 end

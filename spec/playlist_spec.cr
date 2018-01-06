@@ -52,8 +52,7 @@ module M3U8
           level: 3.0,
           audio_codec: "aac-lc"
         }
-        codecs = Playlist.codecs(options)
-        codecs.should eq("avc1.66.30,mp4a.40.2")
+        Playlist.codecs(options).should eq("avc1.66.30,mp4a.40.2")
       end
     end
 

@@ -46,11 +46,7 @@ module M3U8
           program_id: 1,
           width: 1920,
           height: 1080,
-          codecs: "avc",
           bandwidth: 540,
-          audio_codec: "mp3",
-          level: "2",
-          profile: "baseline",
           video: "test_video",
           audio: "test_a",
           uri: "test.url",
@@ -61,18 +57,23 @@ module M3U8
           frame_rate: 24.6,
           name: "test_name",
           hdcp_level: "TYPE-0",
-          resolution: "1920x1080"
+          codecs: "avc",
+          audio_codec: "mp3",
+          level: "2",
+          profile: "baseline",
         },
-        %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
+        %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url"),
+        { resolution: "1920x1080", codecs: "avc" }
       },
       {
         {
           bandwidth: 540,
           iframe: false
         },
-        %(#EXT-X-STREAM-INF:BANDWIDTH=540\n)
+        %(#EXT-X-STREAM-INF:BANDWIDTH=540\n),
+        { resolution: nil, codecs: nil }
       }
-    }.each do |(params, format)|
+    }.each do |(params, format, options)|
       item = PlaylistItem.new(params)
 
       describe "initialize" do
@@ -89,28 +90,15 @@ module M3U8
         end
 
         it "resolution" do
-          item.resolution.should eq params[:resolution]?
+          item.resolution.should eq options[:resolution]?
         end
 
         it "codecs" do
-          item.codecs.should eq params[:codecs]?
+          item.codecs.to_s.should eq options[:codecs]?
         end
 
         it "bandwidth" do
           item.bandwidth.should eq params[:bandwidth]
-        end
-
-        it "audio_codec" do
-          item.audio_codec.should eq params[:audio_codec]?
-        end
-
-        it "level" do
-          level = params[:level]?
-          item.level.should eq level ? level.to_f : nil
-        end
-
-        it "profile" do
-          item.profile.should eq params[:profile]?
         end
 
         it "video" do
@@ -306,39 +294,6 @@ module M3U8
 
           it description do
             item.to_s.should eq format
-          end
-        end
-      end
-
-      describe "generates codecs string" do
-        {
-          { NamedTuple.new, nil },
-          { { codecs: "test" }, "test" },
-          { { audio_codec: "aac-lc" }, "mp4a.40.2" },
-          { { audio_codec: "AAC-LC" }, "mp4a.40.2" },
-          { { audio_codec: "he-aac" }, "mp4a.40.5" },
-          { { audio_codec: "HE-AAC" }, "mp4a.40.5" },
-          { { audio_codec: "he-acc1" }, nil },
-          { { audio_codec: "mp3" }, "mp4a.40.34" },
-          { { audio_codec: "MP3" }, "mp4a.40.34" },
-          { { profile: "baseline", level: 3.0 }, "avc1.66.30" },
-          { { profile: "baseline", level: 3.0, audio_codec: "aac-lc" }, "avc1.66.30,mp4a.40.2" },
-          { { profile: "baseline", level: 3.0, audio_codec: "mp3" }, "avc1.66.30,mp4a.40.34" },
-          { { profile: "baseline", level: 3.1 }, "avc1.42001f" },
-          { { profile: "baseline", level: 3.1, audio_codec: "he-aac" }, "avc1.42001f,mp4a.40.5" },
-          { { profile: "main", level: 3.0 }, "avc1.77.30" },
-          { { profile: "main", level: 3.0, audio_codec: "aac-lc" }, "avc1.77.30,mp4a.40.2" },
-          { { profile: "main", level: 3.1 }, "avc1.4d001f" },
-          { { profile: "main", level: 4.0 }, "avc1.4d0028" },
-          { { profile: "main", level: 4.1 }, "avc1.4d0029" },
-          { { profile: "high", level: 3.1 }, "avc1.64001f" },
-          { { profile: "high", level: 4.0 }, "avc1.640028" },
-          { { profile: "high", level: 4.1 }, "avc1.640029" }
-        }.each do |(params, codecs)|
-          item = PlaylistItem.new params
-
-          it "#{params} to #{codecs}" do
-            item.codecs.should eq codecs
           end
         end
       end

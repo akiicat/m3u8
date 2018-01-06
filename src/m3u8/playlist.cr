@@ -47,7 +47,7 @@ module M3U8
     end
 
     def self.codecs(options = NamedTuple.new)
-      PlaylistItem.new(options).codecs
+      Codecs.new(options).to_s
     end
 
     # def self.read(input)
