@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   m3u8:
-    github: [your-github-name]/m3u8
+    github: akiicat/m3u8
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/m3u8/fork )
+1. Fork it ( https://github.com/akiicat/m3u8/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -53,4 +53,4 @@ TODO: Write usage instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Akiicat - creator, maintainer
+- [Akiicat](https://github.com/akiicat) Akiicat - creator, maintainer
