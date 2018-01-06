@@ -43,6 +43,49 @@ TODO: Write usage instructions here
 - [x] codecs
 - [x] concern
 
+## Supported Playlist Tags
+
+### Basic Tags
+- [x] EXTM3U
+- [x] EXT-X-VERSION
+
+### media segment tags
+- [x] EXTINF
+- [x] EXT-X-BYTERANGE
+- [x] EXT-X-DISCONTINUITY
+- [x] EXT-X-KEY
+- [x] EXT-X-MAP
+- [x] EXT-X-PROGRAM-DATE-TIME
+- [x] EXT-X-DATERANGE
+
+### Media Playlist Tags
+- [x] EXT-X-TARGETDURATION
+- [x] EXT-X-MEDIA-SEQUENCE
+- [x] EXT-X-DISCONTINUITY-SEQUENCE
+- [x] EXT-X-ENDLIST
+- [x] EXT-X-PLAYLIST-TYPE
+- [x] EXT-X-I-FRAMES-ONLY
+- [x] EXT-X-ALLOW-CACHE (was removed in protocol version 7)
+
+### Master Playlist Tags
+- [x] EXT-X-MEDIA
+- [x] EXT-X-STREAM-INF
+- [x] EXT-X-I-FRAME-STREAM-INF
+- [x] EXT-X-SESSION-DATA
+- [x] EXT-X-SESSION-KEY
+
+### Media or Master Playlist Tags
+- [x] EXT-X-INDEPENDENT-SEGMENTS
+- [x] EXT-X-START
+
+### Experimental Tags
+
+- [ ] #EXT-X-CUE-OUT
+- [ ] #EXT-X-CUE-OUT-CONT
+- [ ] #EXT-X-CUE-IN
+- [ ] #EXT-X-CUE-SPAN
+- [ ] #EXT-OATCLS-SCTE35
+
 ## Contributing
 
 1. Fork it ( https://github.com/akiicat/m3u8/fork )
