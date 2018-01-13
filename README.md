@@ -42,6 +42,7 @@ TODO: Write usage instructions here
 - [x] ~writer~
 - [x] codecs
 - [x] concern
+- [x] protocol
 
 ## Supported Playlist Tags
 
