@@ -80,11 +80,11 @@ TODO: Write usage instructions here
 
 ### Experimental Tags
 
-- [ ] #EXT-X-CUE-OUT
-- [ ] #EXT-X-CUE-OUT-CONT
-- [ ] #EXT-X-CUE-IN
-- [ ] #EXT-X-CUE-SPAN
-- [ ] #EXT-OATCLS-SCTE35
+- [ ] EXT-X-CUE-OUT
+- [ ] EXT-X-CUE-OUT-CONT
+- [ ] EXT-X-CUE-IN
+- [ ] EXT-X-CUE-SPAN
+- [ ] EXT-OATCLS-SCTE35
 
 ## Contributing
 
