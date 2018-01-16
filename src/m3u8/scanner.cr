@@ -1,7 +1,7 @@
 module M3U8
   class Scanner
-    property reader : Array(String)
     getter index : Int32
+    property reader : Array(String)
     property buffer : String
 
     def initialize(string : String)
@@ -10,13 +10,15 @@ module M3U8
       @index = 0
       @peek_index = 1
 
-      @buffer = current_line.to_s
-      # reset
+      @buffer = ""
     end
 
-    def index=(idx)
-      @index = idx
-      peek_reset
+    def index=(index)
+      move(index: index)
+    end
+
+    def prev_index
+      @index - 1
     end
 
     def next_index
@@ -36,8 +38,7 @@ module M3U8
     end
 
     def rewind
-      @index = 0
-      peek_reset
+      move(index: 0)
     end
 
     def current_line
@@ -45,10 +46,11 @@ module M3U8
     end
 
     def next
-      @index += 1
-      peek_reset
-      @buffer += @reader[index]?.to_s
-      current_line
+      move(offset: 1)
+    end
+
+    def prev
+      move(offset: -1)
     end
 
     def peek
@@ -75,12 +77,26 @@ module M3U8
     end
 
     def lineno=(number)
-      @index = number - 1
-      peek_reset
+      move(index: number - 1)
     end
 
     def [](index : Int32)
       @reader[index]?
+    end
+    
+    private def set_index(index : Int32) : Nil
+      @index = index
+      peek_reset
+    end
+
+    private def push_buffer(index : Int32 = @index) : String
+      @buffer += @reader[index]?.to_s
+    end
+
+    private def move(index : Int32 = @index, offset : Int32 = 0) : String?
+      push_buffer
+      set_index index + offset
+      current_line
     end
   end
 end

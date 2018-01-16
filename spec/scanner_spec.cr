@@ -48,6 +48,10 @@ module M3U8
           scanner.next_index.should eq 1
         end
 
+        it "prev_index" do
+          scanner.prev_index.should eq -1
+        end
+
         it "#max_index" do
           scanner.max_index.should eq string.lines.size - 1
         end
@@ -82,16 +86,17 @@ module M3U8
         it "#eof?" do
           scanner.index = scanner.max_index
           scanner.eof?.should be_true
+
           scanner.rewind
           scanner.eof?.should be_false
         end
 
         it "#next" do
-          peek_line = scanner.peek
-          scanner.next.should eq peek_line
-          scanner.index.should eq 1
-          scanner.current_line.should eq peek_line
-          scanner.rewind
+          scanner.next.should eq string.lines[1]
+        end
+
+        it "#prev" do
+          scanner.prev.should eq string.lines[0]
         end
 
         it "#next out of bound" do
@@ -139,17 +144,47 @@ module M3U8
       describe "buffer" do
         it "initialize" do
           scanner = Scanner.new string
-          scanner.buffer.should eq string.lines[0]
+          scanner.buffer.should eq ""
         end
 
-        it "add buffer" do
-          scanner = Scanner.new(string)
-          scanner.next
-          scanner.buffer.should eq string.lines[0..1].join
+        describe "add buffer" do
+          it "#next" do
+            scanner = Scanner.new(string)
+            scanner.next
+            scanner.buffer.should eq string.lines[0]
+            scanner.next
+            scanner.buffer.should eq string.lines[0..1].join
+          end
+
+          it "#prev" do
+            scanner = Scanner.new(string)
+            scanner.prev
+            scanner.buffer.should eq string.lines[0]
+            scanner.prev
+            scanner.buffer.should eq string.lines[0] + string.lines[-1]
+          end
+
+          it "#lineno=" do
+            scanner = Scanner.new(string)
+            scanner.lineno = 2
+            scanner.buffer.should eq string.lines[0]
+            scanner.lineno = 3
+            scanner.buffer.should eq string.lines[0..1].join
+          end
+
+          it "#index=" do
+            scanner = Scanner.new(string)
+            scanner.index = 1
+            scanner.buffer.should eq string.lines[0]
+            scanner.index = 2
+            scanner.buffer.should eq string.lines[0..1].join
+          end
         end
 
         it "clear" do
           scanner = Scanner.new(string)
+          scanner.next
+          scanner.buffer.should eq string.lines[0]
           scanner.clear
           scanner.buffer.should eq ""
         end
@@ -167,7 +202,7 @@ module M3U8
         it "buffer" do
           scanner = Scanner.new(string)
           scanner.next
-          scanner.buffer.should eq string.lines[0..1].join
+          scanner.buffer.should eq string.lines[0]
           scanner.reset
           scanner.buffer.should eq ""
         end
