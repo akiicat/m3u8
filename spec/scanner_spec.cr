@@ -8,39 +8,45 @@ module M3U8
         "#foo\n" \
         "#bar\n" \
         "#qxz",
-        ["#foo", "#bar", "#qxz"]
+        ["#foo", "#bar", "#qxz"],
+        [1, 2, 3]
       },
       {
         "#foo\n\n" \
         "#bar\n\n" \
         "#qxz",
-        ["#foo", "#bar", "#qxz"]
+        ["#foo", "#bar", "#qxz"],
+        [1, 3, 5]
       },
       {
         "#foo\n" \
         "bar\n"  \
         "qxz",
-        ["#foobarqxz"]
+        ["#foobarqxz"],
+        [1]
       },
       {
         "#foo \\\n" \
         "bar  \\\n" \
         "qxz",
-        ["#foobarqxz"]
+        ["#foobarqxz"],
+        [1]
       },
       {
         "#foo \\\n" \
         "#bar \\\n" \
         "#qxz",
-        ["#foo#bar#qxz"]
+        ["#foo#bar#qxz"],
+        [1]
       },
       {
         "#foo\n\n" \
         "bar\n\n"  \
         "qxz",
-        ["#foobarqxz"]
+        ["#foobarqxz"],
+        [1]
       }
-    }.each do |(string, paragraph)|
+    }.each do |(string, paragraphs, paragraphs_lineno)|
       it "#initialize" do
         scanner = Scanner.new string
         scanner[0].should eq scanner.reader[0]
@@ -225,8 +231,9 @@ module M3U8
       end
 
       describe "reset" do
+        scanner = Scanner.new(string)
+
         it "index" do
-          scanner = Scanner.new(string)
           scanner.next
           scanner.index.should eq 1
           scanner.reset
@@ -234,7 +241,6 @@ module M3U8
         end
 
         it "buffer" do
-          scanner = Scanner.new(string)
           scanner.next
           scanner.buffer.should eq string.lines[0]
           scanner.reset
@@ -243,22 +249,29 @@ module M3U8
       end
 
       describe "each" do
-        it "paragraph" do
-          scanner = Scanner.new(string)
-          scanner.each_paragraph do |line|
-            line.should eq paragraph.shift
+        scanner = Scanner.new(string)
+
+        it "paragraph with index" do
+          scanner.each_paragraph do |line, index|
+            line.should eq paragraphs[index]
           end
         end
 
         it "paragraph with index" do
-          scanner = Scanner.new(string)
-          scanner.each_paragraph do |line, index|
-            line.should eq paragraph[index]
+          numbers = paragraphs_lineno.clone
+          scanner.each_paragraph do |line, index, lineno|
+            numbers.delete(lineno).should eq lineno
+          end
+        end
+
+        it "paragraph" do
+          parts = paragraphs.clone
+          scanner.each_paragraph do |line|
+            line.should eq parts.shift
           end
         end
 
         it "line" do
-          scanner = Scanner.new(string)
           index = 0
           scanner.each do |line|
             line.should eq string.lines[index]
@@ -267,7 +280,6 @@ module M3U8
         end
 
         it "line with index" do
-          scanner = Scanner.new(string)
           scanner.each do |line, index|
             line.should eq string.lines[index]
           end
