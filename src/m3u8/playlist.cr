@@ -50,9 +50,9 @@ module M3U8
       Codecs.new(options).to_s
     end
 
-    # def self.read(input)
-    #   Reader.new.read(input)
-    # end
+    def self.parse(input)
+      Parser.read(input)
+    end
 
     def live?
       master? ? false : live
