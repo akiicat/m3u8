@@ -16,6 +16,7 @@ module M3U8
       @live = nil
       @open = nil
       @item = nil
+      @extm3u = true
     end
 
     def self.read(string : String)
@@ -28,9 +29,11 @@ module M3U8
       end
       push_item
 
-      pp @playlist.items
-
       @playlist.live = true if !@playlist.master && @live.nil?
+
+      raise "missing #EXTM3U tag" if @extm3u
+
+      @playlist
     end
 
     def parse(line)
@@ -38,7 +41,7 @@ module M3U8
       # Basic Tags
       case tag
       when EXTM3U
-        pp line
+        @extm3u = false
       when EXT_X_VERSION
         @playlist.version = value.to_i
 
