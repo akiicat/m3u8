@@ -34,6 +34,7 @@ TODO: Write usage instructions here
 - [x] playlist
 - [x] playlist_item
 - [ ] reader
+- [ ] scanner
 - [x] segment_item
 - [x] session_data_item
 - [x] session_key_item
