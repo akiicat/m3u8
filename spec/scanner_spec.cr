@@ -7,24 +7,40 @@ module M3U8
       {
         "#foo\n" \
         "#bar\n" \
-        "#qxz"
+        "#qxz",
+        ["#foo", "#bar", "#qxz"]
+      },
+      {
+        "#foo\n\n" \
+        "#bar\n\n" \
+        "#qxz",
+        ["#foo", "#bar", "#qxz"]
       },
       {
         "#foo\n" \
         "bar\n"  \
-        "qxz"
+        "qxz",
+        ["#foobarqxz"]
       },
       {
         "#foo \\\n" \
         "bar  \\\n" \
-        "qxz"
+        "qxz",
+        ["#foobarqxz"]
+      },
+      {
+        "#foo \\\n" \
+        "#bar \\\n" \
+        "#qxz",
+        ["#foo#bar#qxz"]
       },
       {
         "#foo\n\n" \
         "bar\n\n"  \
-        "qxz"
+        "qxz",
+        ["#foobarqxz"]
       }
-    }.each do |(string)|
+    }.each do |(string, paragraph)|
       it "#initialize" do
         scanner = Scanner.new string
         scanner[0].should eq scanner.reader[0]
@@ -84,11 +100,20 @@ module M3U8
         scanner = Scanner.new string
 
         it "#eof?" do
-          scanner.index = scanner.max_index
+          scanner.index = scanner.max_index + 1
           scanner.eof?.should be_true
 
           scanner.rewind
           scanner.eof?.should be_false
+        end
+
+        it "#current_line" do
+          scanner = Scanner.new string
+          scanner.current_line.should eq string.lines[0]
+          scanner.next
+          scanner.current_line.should eq string.lines[1]
+          scanner.prev
+          scanner.current_line.should eq string.lines[0]
         end
 
         it "#next" do
@@ -135,7 +160,7 @@ module M3U8
         end
 
         it "end of file" do
-          scanner.index = scanner.max_index
+          scanner.index = scanner.max_index + 1
           scanner.peek.should eq nil
           scanner.rewind
         end
@@ -214,6 +239,15 @@ module M3U8
           scanner.buffer.should eq string.lines[0]
           scanner.reset
           scanner.buffer.should eq ""
+        end
+      end
+
+      describe "each" do
+        it "paragraph" do
+          scanner = Scanner.new(string)
+          scanner.each_paragraph do |line|
+            line.should eq paragraph.shift
+          end
         end
       end
     end

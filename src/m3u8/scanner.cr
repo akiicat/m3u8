@@ -5,7 +5,7 @@ module M3U8
     property reader : Array(String)
     property buffer : String
 
-    def initialize(string : String)
+    def initialize(string : String = "")
       @reader = string.lines.map { |line| line.strip }
       @buffer = ""
       @index = 0
@@ -33,7 +33,7 @@ module M3U8
     end
 
     def eof?
-      next_index > max_index
+      @index > max_index
     end
 
     def rewind
@@ -41,7 +41,15 @@ module M3U8
     end
 
     def current_line
-      @reader[index]?
+      @reader[@index]?
+    end
+
+    def prev_line
+      @reader[prev_index]?
+    end
+
+    def next_line
+      @reader[next_index]?
     end
 
     def next
@@ -82,6 +90,21 @@ module M3U8
     def [](index : Int32)
       @reader[index]?
     end
+
+    def each_paragraph(&block)
+      send_box do
+        while !eof?
+          self.next
+
+          if split?
+            yield @buffer
+            clear
+          else
+            @buffer = @buffer.rstrip(" \\")
+          end
+        end
+      end
+    end
     
     private def set_index(index : Int32) : Nil
       @index = index
@@ -96,6 +119,20 @@ module M3U8
       push_buffer
       set_index index + offset
       current_line
+    end
+
+    private def send_box(&block)
+      a, b, c = @buffer, @index, @peek_index
+      reset
+      yield
+      @buffer, @index, @peek_index = a, b, c
+    end
+
+    private def split? : Bool
+      prev = prev_line
+      curr = current_line
+
+      !(prev && prev.ends_with?("\\") || curr && !curr.starts_with?("#"))
     end
   end
 end
