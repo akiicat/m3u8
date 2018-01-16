@@ -139,6 +139,15 @@ module M3U8
           scanner.peek.should eq nil
           scanner.rewind
         end
+
+        it "rewind" do
+          first_peek = scanner.peek
+          second_peek = scanner.peek
+          first_peek.should_not eq second_peek
+
+          scanner.peek_rewind
+          scanner.peek.should eq first_peek
+        end
       end
 
       describe "buffer" do

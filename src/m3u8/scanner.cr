@@ -1,16 +1,15 @@
 module M3U8
   class Scanner
     getter index : Int32
+    property peek_index : Int32
     property reader : Array(String)
     property buffer : String
 
     def initialize(string : String)
       @reader = string.lines.map { |line| line.strip }
-
+      @buffer = ""
       @index = 0
       @peek_index = 1
-
-      @buffer = ""
     end
 
     def index=(index)
@@ -63,7 +62,7 @@ module M3U8
       @buffer = ""
     end
 
-    def peek_reset
+    def peek_rewind
       @peek_index = next_index
     end
 
@@ -86,7 +85,7 @@ module M3U8
     
     private def set_index(index : Int32) : Nil
       @index = index
-      peek_reset
+      peek_rewind
     end
 
     private def push_buffer(index : Int32 = @index) : String
