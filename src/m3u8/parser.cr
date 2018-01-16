@@ -79,6 +79,7 @@ module M3U8
 
       # Media Playlist Tags
       when EXT_X_TARGETDURATION
+        @playlist.target = value.to_f
 
       when EXT_X_MEDIA_SEQUENCE
         @playlist.sequence = value.to_i
