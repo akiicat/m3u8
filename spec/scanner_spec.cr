@@ -250,6 +250,13 @@ module M3U8
           end
         end
 
+        it "paragraph with index" do
+          scanner = Scanner.new(string)
+          scanner.each_paragraph do |line, index|
+            line.should eq paragraph[index]
+          end
+        end
+
         it "line" do
           scanner = Scanner.new(string)
           index = 0

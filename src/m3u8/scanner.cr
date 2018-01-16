@@ -99,11 +99,13 @@ module M3U8
 
     def each_paragraph(&block)
       send_box do
+        idx = 0
         while !eof?
           self.next
 
           if split?
-            yield @buffer
+            yield @buffer, idx
+            idx += 1
             clear
           else
             @buffer = @buffer.rstrip(" \\")
