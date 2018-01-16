@@ -81,6 +81,7 @@ module M3U8
       when EXT_X_TARGETDURATION
 
       when EXT_X_MEDIA_SEQUENCE
+        @playlist.sequence = value.to_i
 
       when EXT_X_DISCONTINUITY_SEQUENCE
         @playlist.discontinuity_sequence = value.to_i
