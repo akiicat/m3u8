@@ -1,0 +1,62 @@
+module M3U8
+  # ByteRange represents sub range of a resource
+  class ByteRange
+    property length : Int32?
+    property start : Int32?
+
+    def self.new
+      new(length: nil, start: nil)
+    end
+
+    def self.new(string : String)
+      values = string.split("@")
+
+      length = values[0]
+      start = values[1]?
+
+      length = length.empty? ? length.to_i : nil
+      start = start ? start.to_i : nil
+
+      new(
+        length: length,
+        start: start
+      )
+    end
+
+    def self.new(params : NamedTuple = NamedTuple.new)
+      new(
+        length: params[:length]?,
+        start: params[:start]?
+      )
+    end
+
+    def initialize(@length, @start = nil)
+      @length = length.nil? || length.empty? ? nil : length.to_i
+      @start  = start.nil? || start.empty? nil : start.to_i
+    end
+
+    # def self.parse(text)
+    #   values = text.split('@').map &.to_i
+    #   ByteRange.new(length: values[0], start: values[1]?)
+    # end
+
+    def to_s
+      attributes.join('@')
+    end
+
+    def attributes
+      [
+        length_format,
+        start_format
+      ].compact
+    end
+
+    private def length_format
+      "#{length}"
+    end
+
+    private def start_format
+      "#{start}" unless start.nil?
+    end
+  end
+end

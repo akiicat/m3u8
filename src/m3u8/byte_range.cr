@@ -4,20 +4,24 @@ module M3U8
     property length : Int32
     property start : Int32?
 
+    def self.new(string : String)
+      values = string.split('@').map &.to_i
+      new(
+        length: values[0],
+        start: values[1]?
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
-        length: params[:length],
+        length: params[:length]?,
         start: params[:start]?
       )
     end
 
-    def initialize(@length, @start = nil)
+    def initialize(length = 0, @start = nil)
+      @length = length || 0
     end
-
-    # def self.parse(text)
-    #   values = text.split('@').map &.to_i
-    #   ByteRange.new(length: values[0], start: values[1]?)
-    # end
 
     def to_s
       attributes.join('@')

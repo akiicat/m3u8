@@ -10,7 +10,7 @@ module M3U8
 
     private def parse_byterange(item)
       case item
-      when NamedTuple then ByteRange.new(item)
+      when String, NamedTuple then ByteRange.new(item)
       when ByteRange then item
       end
     end

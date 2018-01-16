@@ -1,5 +1,21 @@
 require "./spec_helper"
 
+private def assets(item, params, format)
+  describe "initialize" do
+    it "length" do
+      item.length.should eq params[:length]
+    end
+
+    it "start" do
+      item.start.should eq params[:start]?
+    end
+  end
+
+  it "to_s" do
+    item.to_s.should eq format
+  end
+end
+
 module M3U8
   describe ByteRange do
 
@@ -21,6 +37,10 @@ module M3U8
       it "hash like" do
         ByteRange.new(**options).to_s.should eq expected
       end
+      
+      it "string format" do
+        ByteRange.new(expected).to_s.should eq expected
+      end
     end
 
     {
@@ -37,34 +57,8 @@ module M3U8
         "3300"
       },
     }.each do |(params, format)|
-      item = ByteRange.new(params)
-
-      describe "initialize" do
-        it "length" do
-          item.length.should eq params[:length]
-        end
-
-        it "start" do
-          item.start.should eq params[:start]?
-        end
-      end
-
-      it "to_s" do
-        item.to_s.should eq format
-      end
+      assets ByteRange.new(params), params, format
+      assets ByteRange.new(format), params, format
     end
-
-    # describe "parse" do
-    #   {
-    #     {"3500@300", {length: 3500, start: 300}},
-    #     {"4000", {length: 4000}},
-    #   }.each do |(input, output)|
-    #     it "#{input}" do
-    #       range = M3U8::ByteRange.parse(input)
-    #       range.length.should eq output[:length]
-    #       range.start.should eq output[:start]?
-    #     end
-    #   end
-    # end
   end
 end
