@@ -27,6 +27,10 @@ module M3U8
 
     {
       {
+        NamedTuple.new,
+        %(#EXTINF:,)
+      },
+      {
         {
           duration: 10.991,
           segment: "test.ts",
@@ -103,11 +107,11 @@ module M3U8
       
       describe "initialize" do
         it "duration" do
-          item.duration.should eq params[:duration]
+          item.duration.should eq params[:duration]?
         end
 
         it "segment" do
-          item.segment.should eq params[:segment]
+          item.segment.should eq params[:segment]?
         end
 
         it "comment" do

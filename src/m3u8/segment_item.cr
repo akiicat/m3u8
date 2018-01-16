@@ -5,16 +5,16 @@ module M3U8
     
     include Concern
 
-    property duration : Float64
-    property segment : String
+    property duration : Float64?
+    property segment : String?
     property comment : String?
     property byterange : ByteRange?
     property program_date_time : TimeItem?
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
-        duration: params[:duration],
-        segment: params[:segment],
+        duration: params[:duration]?,
+        segment: params[:segment]?,
         comment: params[:comment]?,
         byterange: params[:byterange]?,
         program_date_time: params[:program_date_time]?,
