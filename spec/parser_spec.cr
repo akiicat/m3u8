@@ -99,7 +99,8 @@ module M3U8
         file = File.read("spec/playlists/iframes.m3u8")
         playlist = Parser.read file
 
-        # playlist.iframes_only.should be_true
+        playlist.version.should eq(4)
+        playlist.iframes_only.should be_true
         playlist.items.size.should eq(3)
 
         item = playlist.items[0]

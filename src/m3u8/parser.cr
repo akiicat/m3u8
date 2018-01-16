@@ -94,6 +94,7 @@ module M3U8
         @playlist.type = value
 
       when EXT_X_I_FRAMES_ONLY
+        @playlist.iframes_only = true
 
       when EXT_X_ALLOW_CACHE
 
