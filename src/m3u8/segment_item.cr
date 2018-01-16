@@ -8,8 +8,8 @@ module M3U8
     property duration : Float64?
     property segment : String?
     property comment : String?
-    property byterange : ByteRange?
-    property program_date_time : TimeItem?
+    getter byterange : ByteRange?
+    getter program_date_time : TimeItem?
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -24,6 +24,14 @@ module M3U8
     def initialize(@duration, @segment, @comment = nil, byterange = nil, program_date_time = nil)
       @byterange = parse_byterange(byterange)
       @program_date_time = parse_time_item(program_date_time)
+    end
+
+    def byterange=(byterange)
+      @byterange = parse_byterange(byterange)
+    end
+
+    def program_date_time=(time)
+      @program_date_time = parse_time_item(time)
     end
 
     def to_s

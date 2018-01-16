@@ -73,7 +73,9 @@ module M3U8
 
     def duration
       items.reduce(0.0) do |acc, item| 
-        item.is_a?(SegmentItem) ? acc + item.duration : acc
+        duration = item.duration if item.is_a?(SegmentItem)
+        duration ||= 0.0
+        acc + duration
       end
     end
 

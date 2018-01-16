@@ -33,8 +33,8 @@ TODO: Write usage instructions here
 - [x] playback_start
 - [x] playlist
 - [x] playlist_item
-- [ ] reader
 - [x] scanner
+- [ ] parser
 - [x] segment_item
 - [x] session_data_item
 - [x] session_key_item
