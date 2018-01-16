@@ -249,6 +249,22 @@ module M3U8
             line.should eq paragraph.shift
           end
         end
+
+        it "line" do
+          scanner = Scanner.new(string)
+          index = 0
+          scanner.each do |line|
+            line.should eq string.lines[index]
+            index += 1
+          end
+        end
+
+        it "line with index" do
+          scanner = Scanner.new(string)
+          scanner.each do |line, index|
+            line.should eq string.lines[index]
+          end
+        end
       end
     end
   end

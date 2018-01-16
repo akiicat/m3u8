@@ -91,6 +91,12 @@ module M3U8
       @reader[index]?
     end
 
+    def each(&block)
+      @reader.each_with_index do |line, index|
+        yield line, index
+      end
+    end
+
     def each_paragraph(&block)
       send_box do
         while !eof?
