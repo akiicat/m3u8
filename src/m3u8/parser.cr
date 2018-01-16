@@ -1,6 +1,6 @@
 module M3U8
   class Parser
-    alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem
+    alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem | TimeItem | DiscontinuityItem
 
     property playlist : Playlist
 
@@ -27,7 +27,6 @@ module M3U8
       @reader.each do |line|
         parse line
       end
-      push_item
 
       @playlist.live = true if !@playlist.master && @live.nil?
 
@@ -47,8 +46,6 @@ module M3U8
 
       # media segment tags
       when EXTINF
-        push_item
-
         item = SegmentItem.new
 
         duration, comment = value.split(',')
@@ -65,6 +62,7 @@ module M3U8
         @item = item
 
       when EXT_X_DISCONTINUITY
+        push_item DiscontinuityItem.new
 
       when EXT_X_KEY
 
@@ -72,8 +70,13 @@ module M3U8
 
       when EXT_X_PROGRAM_DATE_TIME
         item = @item
-        item.program_date_time = value if item.is_a?(SegmentItem)
-        @item = item
+        case item
+        when SegmentItem
+          item.program_date_time = value
+          @item = item
+        when Nil
+          push_item TimeItem.new(value)
+        end
 
       when EXT_X_DATERANGE
 
@@ -133,14 +136,13 @@ module M3U8
       case item
       when SegmentItem
         item.segment = line
+        push_item
       else
         puts "can't cache this line: #{line}"
       end
-      @item = item
     end
 
-    private def push_item
-      item = @item
+    private def push_item(item = @item)
       @playlist.items << item if item
       @item = nil
     end
