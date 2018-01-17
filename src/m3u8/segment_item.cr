@@ -8,7 +8,7 @@ module M3U8
     property duration : Float64?
     property segment : String?
     property comment : String?
-    getter byterange : ByteRange?
+    getter byterange : ByteRange
     getter program_date_time : TimeItem
 
     def self.new(params : NamedTuple = NamedTuple.new)
