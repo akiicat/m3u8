@@ -5,25 +5,26 @@ module M3U8
     property start : Int32?
 
     def self.new(string : String)
+      return new(0, nil) if string.empty?
+
       values = string.split('@').map &.to_i
-      new(
-        length: values[0],
-        start: values[1]?
-      )
+      new(values[0], values[1]?)
     end
 
     def self.new(params : NamedTuple = NamedTuple.new)
-      new(
-        length: params[:length]?,
-        start: params[:start]?
-      )
+      length, start = params[:length]? || 0, params[:start]?
+      new(length, start)
     end
 
-    def initialize(length = 0, @start = nil)
-      @length = length || 0
+    def initialize(@length = 0, @start = nil)
+    end
+
+    def empty?
+      @length.zero?
     end
 
     def to_s
+      return "" if empty?
       attributes.join('@')
     end
 
@@ -43,3 +44,4 @@ module M3U8
     end
   end
 end
+pp M3U8::ByteRange.new ""

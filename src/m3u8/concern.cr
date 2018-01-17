@@ -12,6 +12,7 @@ module M3U8
       case item
       when String, NamedTuple then ByteRange.new(item)
       when ByteRange then item
+      else ByteRange.new
       end
     end
 

@@ -6,7 +6,7 @@ module M3U8
     include Concern
 
     property uri : String
-    property byterange : ByteRange?
+    property byterange : ByteRange
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -43,7 +43,7 @@ module M3U8
     end
 
     private def byterange_format
-      %(BYTERANGE="#{byterange.to_s}") unless byterange.nil?
+      %(BYTERANGE="#{byterange.to_s}") unless byterange.empty?
     end
   end
 end

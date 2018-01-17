@@ -119,8 +119,7 @@ module M3U8
         end
 
         it "byterange" do
-          exist = params[:byterange]? ? ByteRange : Nil
-          item.byterange.class.should eq exist
+          item.byterange.should be_a ByteRange
         end
 
         it "program_date_time" do

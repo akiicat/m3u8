@@ -53,7 +53,7 @@ module M3U8
     end
 
     private def byterange_format
-      "#EXT-X-BYTERANGE:#{byterange.to_s}" unless byterange.nil?
+      "#EXT-X-BYTERANGE:#{byterange.to_s}" unless byterange.empty?
     end
 
     private def program_date_time_format

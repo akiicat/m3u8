@@ -3,7 +3,7 @@ require "./spec_helper"
 private def assets(item, params, format)
   describe "initialize" do
     it "length" do
-      item.length.should eq params[:length]
+      item.length.should eq params[:length]? || 0
     end
 
     it "start" do
@@ -13,6 +13,10 @@ private def assets(item, params, format)
 
   it "to_s" do
     item.to_s.should eq format
+  end
+  
+  it "not empty" do
+    item.empty?.should be_false
   end
 end
 
@@ -59,6 +63,19 @@ module M3U8
     }.each do |(params, format)|
       assets ByteRange.new(params), params, format
       assets ByteRange.new(format), params, format
+    end
+  end
+
+  describe "empty?" do
+    item = ByteRange.new
+
+    it "initialize" do
+      item.empty?.should be_true
+    end
+
+    it "give value" do
+      item.length = 2
+      item.empty?.should be_false
     end
   end
 end
