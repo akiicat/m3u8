@@ -9,7 +9,7 @@ module M3U8
     property segment : String?
     property comment : String?
     getter byterange : ByteRange?
-    getter program_date_time : TimeItem?
+    getter program_date_time : TimeItem
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -57,7 +57,7 @@ module M3U8
     end
 
     private def program_date_time_format
-      program_date_time.to_s unless program_date_time.nil?
+      program_date_time.to_s unless program_date_time.empty?
     end
   end
 end

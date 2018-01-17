@@ -5,7 +5,8 @@ module M3U8
       case time
       when String then Time.iso8601(time)
       when Time then time
-      end.not_nil!
+      else Time.epoch 0
+      end
     end
 
     private def parse_byterange(item)
@@ -20,6 +21,7 @@ module M3U8
       case item
       when String, Time then TimeItem.new item
       when TimeItem then item
+      else TimeItem.new
       end
     end
   end

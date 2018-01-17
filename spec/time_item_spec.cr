@@ -29,6 +29,23 @@ module M3U8
       it "to_s" do
         item.to_s.should eq format
       end
+
+      it "not empty" do
+        item.empty?.should be_false
+      end
+    end
+
+    describe "empty?" do
+      item = TimeItem.new
+
+      it "initialize" do
+        item.empty?.should be_true
+      end
+
+      it "give value" do
+        item.time = Time.new
+        item.empty?.should be_false
+      end
     end
 
     # {

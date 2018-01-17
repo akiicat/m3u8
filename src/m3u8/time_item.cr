@@ -19,7 +19,12 @@ module M3U8
     #   new({ time: Time.iso8601(time) })
     # end
 
+    def empty?
+      @time.epoch.zero?
+    end
+
     def to_s
+      return "" if empty?
       %(#EXT-X-PROGRAM-DATE-TIME:#{time_format})
     end
 

@@ -123,8 +123,7 @@ module M3U8
         end
 
         it "program_date_time" do
-          exist = params[:program_date_time]? ? TimeItem : Nil
-          item.program_date_time.class.should eq exist
+          item.program_date_time.should be_a TimeItem
         end
       end
 
