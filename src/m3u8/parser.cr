@@ -206,25 +206,6 @@ module M3U8
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
 
-    def parse_playback_start_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        time_offset: attributes["TIME-OFFSET"].to_f,
-        precise: attributes["PRECISE"]?.try &.to_boolean,
-      }
-    end
-
-    def parse_session_key_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        method: attributes["METHOD"],
-        uri: attributes["URI"]?,
-        iv: attributes["IV"]?,
-        key_format: attributes["KEYFORMAT"]?,
-        key_format_versions: attributes["KEYFORMATVERSIONS"]?,
-      }
-    end
-
     def parse_media_attributes(text)
       attributes = parse_attributes(text)
       {
@@ -261,6 +242,25 @@ module M3U8
         closed_captions: attributes["CLOSED-CAPTIONS"]?,
         name: attributes["NAME"]?,
         hdcp_level: attributes["HDCP-LEVEL"]?
+      }
+    end
+
+    def parse_playback_start_attributes(text)
+      attributes = parse_attributes(text)
+      {
+        time_offset: attributes["TIME-OFFSET"].to_f,
+        precise: attributes["PRECISE"]?.try &.to_boolean,
+      }
+    end
+
+    def parse_session_key_attributes(text)
+      attributes = parse_attributes(text)
+      {
+        method: attributes["METHOD"],
+        uri: attributes["URI"]?,
+        iv: attributes["IV"]?,
+        key_format: attributes["KEYFORMAT"]?,
+        key_format_versions: attributes["KEYFORMATVERSIONS"]?,
       }
     end
 
