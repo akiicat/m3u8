@@ -164,9 +164,12 @@ module M3U8
         options = parse_playback_start_attributes(value)
         push_item PlaybackStart.new options
 
-      when '#'
-        pp line
+      when .starts_with?('#')
+        puts "skip comment:#{@lineno} #{line}"
         # comment
+        # pass
+      when .empty?
+        puts "skip empty line:#{@lineno} #{line}"
         # pass
       else
         parse_item line
