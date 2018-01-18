@@ -71,18 +71,6 @@ module M3U8
       })
     end
 
-    # def self.parse(text)
-    #   item = PlaylistItem.new
-    #   item.parse(text)
-    #   item
-    # end
-
-    # def parse(text)
-    #   attributes = parse_attributes(text)
-    #   options = options_from_attributes(attributes)
-    #   initialize(options)
-    # end
-
     def resolution
       "#{width}x#{height}" unless width.nil?
     end
@@ -94,44 +82,6 @@ module M3U8
         %(#EXT-X-STREAM-INF:#{attributes.join(',')}\n#{uri})
       end
     end
-
-    # private
-
-    # def options_from_attributes(attributes)
-    #   resolution = parse_resolution(attributes["RESOLUTION"])
-    #   { program_id: attributes["PROGRAM-ID"],
-    #     codecs: attributes["CODECS"],
-    #     width: resolution[:width],
-    #     height: resolution[:height],
-    #     bandwidth: attributes["BANDWIDTH"].to_i,
-    #     average_bandwidth:
-    #       parse_average_bandwidth(attributes["AVERAGE-BANDWIDTH"]),
-    #     frame_rate: parse_frame_rate(attributes["FRAME-RATE"]),
-    #     video: attributes["VIDEO"], audio: attributes["AUDIO"],
-    #     uri: attributes["URI"], subtitles: attributes["SUBTITLES"],
-    #     closed_captions: attributes["CLOSED-CAPTIONS"],
-    #     name: attributes["NAME"], hdcp_level: attributes["HDCP-LEVEL"] }
-    # end
-
-    # def parse_average_bandwidth(value)
-    #   value.to_i unless value.nil?
-    # end
-
-    # def parse_resolution(resolution)
-    #   return { width: nil, height: nil } if resolution.nil?
-
-    #   values = resolution.split('x')
-    #   width = values[0].to_i
-    #   height = values[1].to_i
-    #   { width: width, height: height }
-    # end
-
-    # def parse_frame_rate(frame_rate)
-    #   return if frame_rate.nil?
-
-    #   value = BigDecimal(frame_rate)
-    #   value if value > 0
-    # end
 
     private def attributes
       [
