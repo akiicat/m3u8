@@ -37,6 +37,24 @@ module M3U8
 
     def parse(line)
       tag, del, value = line.partition(':')
+
+      if BASIC_TAGS.includes? tag
+      end
+      if MEDIA_SEGMENT_TAGS.includes? tag
+        not_master!
+      end
+      if MEDIA_PLAYLIST_TAGS.includes? tag
+        not_master!
+      end
+      if MASTER_PLAYLIST_TAGS.includes? tag
+        master!
+      end
+      if MASTER_MEDIA_PLAYLIST_TAGS.includes? tag
+      end
+      if EXPERIMENTAL_TAGS.includes? tag
+      end
+
+
       # Basic Tags
       case tag
       when EXTM3U
@@ -52,7 +70,6 @@ module M3U8
         item.duration = duration.to_f
         item.comment = comment
 
-        @playlist.master = false
         @open = true
         @item = item
 
@@ -145,6 +162,16 @@ module M3U8
     private def push_item(item = @item)
       @playlist.items << item if item
       @item = nil
+    end
+
+    private def master!
+      raise "invalid playlist. both both playlist tag and media tag." if @playlist.master == false
+      @playlist.master = true
+    end
+
+    private def not_master!
+      raise "invalid playlist. both both playlist tag and media tag." if @playlist.master == true
+      @playlist.master = false
     end
   end
 end

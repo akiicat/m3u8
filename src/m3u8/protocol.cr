@@ -4,6 +4,11 @@ module M3U8
     EXTM3U = "#EXTM3U"
     EXT_X_VERSION = "#EXT-X-VERSION"
 
+    BASIC_TAGS = [
+      EXTM3U,
+      EXT_X_VERSION,
+    ]
+
     # media segment tags
     EXTINF = "#EXTINF"
     EXT_X_BYTERANGE = "#EXT-X-BYTERANGE"
@@ -12,6 +17,16 @@ module M3U8
     EXT_X_MAP = "#EXT-X-MAP"
     EXT_X_PROGRAM_DATE_TIME = "#EXT-X-PROGRAM-DATE-TIME"
     EXT_X_DATERANGE = "#EXT-X-DATERANGE"
+
+    MEDIA_SEGMENT_TAGS = [
+      EXTINF,
+      EXT_X_BYTERANGE,
+      EXT_X_DISCONTINUITY,
+      EXT_X_KEY,
+      EXT_X_MAP,
+      EXT_X_PROGRAM_DATE_TIME,
+      EXT_X_DATERANGE,
+    ]
 
     # Media Playlist Tags
     EXT_X_TARGETDURATION = "#EXT-X-TARGETDURATION"
@@ -22,6 +37,16 @@ module M3U8
     EXT_X_I_FRAMES_ONLY = "#EXT-X-I-FRAMES-ONLY"
     EXT_X_ALLOW_CACHE = "#EXT-X-ALLOW-CACHE"
 
+    MEDIA_PLAYLIST_TAGS = [
+      EXT_X_TARGETDURATION,
+      EXT_X_MEDIA_SEQUENCE,
+      EXT_X_DISCONTINUITY_SEQUENCE,
+      EXT_X_ENDLIST,
+      EXT_X_PLAYLIST_TYPE,
+      EXT_X_I_FRAMES_ONLY,
+      EXT_X_ALLOW_CACHE,
+    ]
+
     # Master Playlist Tags
     EXT_X_MEDIA = "#EXT-X-MEDIA"
     EXT_X_STREAM_INF = "#EXT-X-STREAM-INF"
@@ -29,9 +54,22 @@ module M3U8
     EXT_X_SESSION_DATA = "#EXT-X-SESSION-DATA"
     EXT_X_SESSION_KEY = "#EXT-X-SESSION-KEY"
 
+    MASTER_PLAYLIST_TAGS = [
+      EXT_X_MEDIA,
+      EXT_X_STREAM_INF,
+      EXT_X_I_FRAME_STREAM_INF,
+      EXT_X_SESSION_DATA,
+      EXT_X_SESSION_KEY,
+    ]
+
     # Media or Master Playlist Tags
     EXT_X_INDEPENDENT_SEGMENTS = "#EXT-X-INDEPENDENT-SEGMENTS"
     EXT_X_START = "#EXT-X-START"
+
+    MASTER_MEDIA_PLAYLIST_TAGS = [
+      EXT_X_INDEPENDENT_SEGMENTS,
+      EXT_X_START,
+    ]
 
     # Experimental Tags
     EXT_X_CUE_OUT = "#EXT-X-CUE-OUT"
@@ -39,6 +77,14 @@ module M3U8
     EXT_X_CUE_IN = "#EXT-X-CUE-IN"
     EXT_X_CUE_SPAN = "#EXT-X-CUE-SPAN"
     EXT_OATCLS_SCTE35 = "#EXT-OATCLS-SCTE35"
+
+    EXPERIMENTAL_TAGS = [
+      EXT_X_CUE_OUT,
+      EXT_X_CUE_OUT_CONT,
+      EXT_X_CUE_IN,
+      EXT_X_CUE_SPAN,
+      EXT_OATCLS_SCTE35,
+    ]
   end
 end
 
