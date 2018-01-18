@@ -76,12 +76,16 @@ module M3U8
         item.byterange = value if item.is_a?(SegmentItem)
         @item = item
 
+
       when EXT_X_DISCONTINUITY
         push_item DiscontinuityItem.new
 
+
       when EXT_X_KEY
 
+
       when EXT_X_MAP
+
 
       when EXT_X_PROGRAM_DATE_TIME
         item = @item
@@ -93,54 +97,64 @@ module M3U8
           push_item TimeItem.new(value)
         end
 
+
       when EXT_X_DATERANGE
+
 
       # Media Playlist Tags
       when EXT_X_TARGETDURATION
         @playlist.target = value.to_f
 
+
       when EXT_X_MEDIA_SEQUENCE
         @playlist.sequence = value.to_i
 
+
       when EXT_X_DISCONTINUITY_SEQUENCE
         @playlist.discontinuity_sequence = value.to_i
+
 
         # EXT-X-DISCONTINUITY-SEQUENCE:8
 
       when EXT_X_ENDLIST
         @live = false
 
+
       when EXT_X_PLAYLIST_TYPE
         @playlist.type = value
+
 
       when EXT_X_I_FRAMES_ONLY
         @playlist.iframes_only = true
 
+
       when EXT_X_ALLOW_CACHE
         @playlist.cache = value.to_boolean
+
 
       # Master Playlist Tags
       when EXT_X_MEDIA
         @playlist.master = true
 
       when EXT_X_STREAM_INF
-        @item = PlaylistItem.new
-
-        parse_playlist_item(value)
+        options = parse_playlist_item(value)
+        @item = PlaylistItem.new options
 
       when EXT_X_I_FRAME_STREAM_INF
 
       when EXT_X_SESSION_DATA
 
       when EXT_X_SESSION_KEY
-        push_item parse_session_key_item(value)
+        options = parse_session_key_attributes(value)
+        push_item SessionKeyItem.new options
 
       # Media or Master Playlist Tags
       when EXT_X_INDEPENDENT_SEGMENTS
         @playlist.independent_segments = true
 
       when EXT_X_START
-        push_item parse_playback_start_item(value)
+        options = parse_playback_start_attributes(value)
+        push_item PlaybackStart.new options
 
       when '#'
         pp line
@@ -185,26 +199,18 @@ module M3U8
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
 
-    def parse_playback_start_item(text)
+    def parse_playback_start_attributes(text)
       attributes = parse_attributes(text)
-      options = playback_start_attributes(attributes)
-      PlaybackStart.new(options)
-    end
 
-    def playback_start_attributes(attributes)
       {
         time_offset: attributes["TIME-OFFSET"].to_f,
         precise: attributes["PRECISE"]?.try &.to_boolean,
       }
     end
 
-    def parse_session_key_item(text)
+    def parse_session_key_attributes(text)
       attributes = parse_attributes(text)
-      options = session_key_attributes(attributes)
-      SessionKeyItem.new(options)
-    end
 
-    def session_key_attributes(attributes)
       {
         method: attributes["METHOD"],
         uri: attributes["URI"]?,
@@ -216,19 +222,15 @@ module M3U8
 
     def parse_playlist_item(value)
       attributes = parse_attributes(value)
-      options = options_from_attributes(attributes)
-      Playlist.new(options)
-    end
-
-    private def options_from_attributes(attributes)
       resolution = parse_resolution(attributes["RESOLUTION"]?)
+
       {
         program_id: attributes["PROGRAM-ID"]?,
         codecs: attributes["CODECS"]?,
         width: resolution[:width]?,
         height: resolution[:height]?,
         bandwidth: attributes["BANDWIDTH"]?.try &.to_i,
-        average_bandwidth: parse_average_bandwidth(attributes["AVERAGE-BANDWIDTH"]?),
+        average_bandwidth: attributes["AVERAGE-BANDWIDTH"]?.try &.to_i,
         frame_rate: parse_frame_rate(attributes["FRAME-RATE"]?),
         video: attributes["VIDEO"]?,
         audio: attributes["AUDIO"]?,
@@ -238,10 +240,6 @@ module M3U8
         name: attributes["NAME"]?,
         hdcp_level: attributes["HDCP-LEVEL"]?
       }
-    end
-
-    def parse_average_bandwidth(value)
-      value.to_i unless value.nil?
     end
 
     def parse_resolution(resolution)
