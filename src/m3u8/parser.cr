@@ -134,6 +134,7 @@ module M3U8
 
       # Media or Master Playlist Tags
       when EXT_X_INDEPENDENT_SEGMENTS
+        @playlist.independent_segments = true
 
       when EXT_X_START
 
