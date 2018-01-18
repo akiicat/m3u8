@@ -136,26 +136,25 @@ module M3U8
         playlist.items.size.should eq(139)
       end
 
-  #     it "parses variant playlist with audio options and groups" do
-  #       file = File.open("spec/fixtures/variant_audio.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "parses variant playlist with audio options and groups" do
+        file = File.read("spec/playlists/variant_audio.m3u8")
+        playlist = Parser.read file
 
-  #       expect(playlist.master?).to be true
-  #       expect(playlist.items.size).to eq(10)
+        playlist.master?.should be_true
+        playlist.items.size.should eq(10)
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(MediaItem)
-  #       expect(item.type).to eq("AUDIO")
-  #       expect(item.group_id).to eq("audio-lo")
-  #       expect(item.language).to eq("eng")
-  #       expect(item.assoc_language).to eq("spoken")
-  #       expect(item.name).to eq("English")
-  #       expect(item.autoselect).to be true
-  #       expect(item.default).to be true
-  #       expect(item.uri).to eq("englo/prog_index.m3u8")
-  #       expect(item.forced).to be true
-  #     end
+        item = playlist.items[0]
+        item.should be_a(MediaItem)
+        item.type.should eq("AUDIO")
+        item.group_id.should eq("audio-lo")
+        item.language.should eq("eng")
+        item.assoc_language.should eq("spoken")
+        item.name.should eq("English")
+        item.autoselect.should be_true
+        item.default.should be_true
+        item.uri.should eq("englo/prog_index.m3u8")
+        item.forced.should be_true
+      end
 
   #     it "parses variant playlist with camera angles" do
   #       file = File.open("spec/fixtures/variant_angles.m3u8")

@@ -38,22 +38,6 @@ module M3U8
                    @characteristics = nil, @channels = nil)
     end
 
-    # def self.parse(text)
-    #   attributes = parse_attributes(text)
-    #   options = { type: attributes["TYPE"], group_id: attributes["GROUP-ID"],
-    #               language: attributes["LANGUAGE"],
-    #               assoc_language: attributes["ASSOC-LANGUAGE"],
-    #               name: attributes["NAME"],
-    #               autoselect: parse_yes_no(attributes["AUTOSELECT"]),
-    #               default: parse_yes_no(attributes["DEFAULT"]),
-    #               forced: parse_yes_no(attributes["FORCED"]),
-    #               uri: attributes["URI"],
-    #               instream_id: attributes["INSTREAM-ID"],
-    #               characteristics: attributes["CHARACTERISTICS"],
-    #               channels: attributes["CHANNELS"] }
-    #   MediaItem.new(options)
-    # end
-
     def to_s
       "#EXT-X-MEDIA:#{attributes.join(',')}"
     end
