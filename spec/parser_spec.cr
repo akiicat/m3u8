@@ -181,18 +181,18 @@ module M3U8
         item.subtitles.should eq("subs")
       end
 
-  #     it "processes multiple reads as separate playlists" do
-  #       file = File.open("spec/fixtures/master.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "processes multiple reads as separate playlists" do
+        file = File.read("spec/playlists/master.m3u8")
+        parser = Parser.new file
+        playlist = parser.read
 
-  #       expect(playlist.items.size).to eq(8)
+        playlist.items.size.should eq(8)
 
-  #       file = File.open("spec/fixtures/master.m3u8")
-  #       playlist = reader.read(file)
+        file = File.read("spec/playlists/master.m3u8")
+        playlist = parser.read file
 
-  #       expect(playlist.items.size).to eq(8)
-  #     end
+        playlist.items.size.should eq(8)
+      end
 
   #     it "parses playlist with session data" do
   #       file = File.open("spec/fixtures/session_data.m3u8")

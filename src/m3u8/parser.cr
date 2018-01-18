@@ -21,6 +21,10 @@ module M3U8
       new(string).read
     end
 
+    def read(string : String)
+      Parser.read(string)
+    end
+
     def read
       @reader.each do |line|
         parse line
