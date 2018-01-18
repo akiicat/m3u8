@@ -1,7 +1,5 @@
 module M3U8
   class Parser
-    alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem | TimeItem | DiscontinuityItem
-
     property playlist : Playlist
 
     @live : Bool?
