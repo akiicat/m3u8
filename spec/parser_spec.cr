@@ -3,97 +3,91 @@ require "./spec_helper"
 
 module M3U8
   describe Parser do
-  #   let(:reader) { described_class.new }
+    describe "#read" do
+      it "parses master playlist" do
+        file = File.read("spec/playlists/master.m3u8")
+        playlist = Parser.read file
+        playlist.master?.should be_true
+        playlist.discontinuity_sequence.should be_nil
+        playlist.independent_segments.should be_true
 
-  #   describe "#read" do
-  #     it "parses master playlist" do
-  #       file = File.open("spec/fixtures/master.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
-  #       expect(playlist.master?).to be true
-  #       expect(playlist.discontinuity_sequence).to be_nil
-  #       expect(playlist.independent_segments).to be true
+        item = playlist.items[0]
+        item.should be_a(SessionKeyItem)
+        item.method.should eq("AES-128")
+        item.uri.should eq("https://priv.example.com/key.php?r=52")
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(SessionKeyItem)
-  #       expect(item.method).to eq("AES-128")
-  #       expect(item.uri).to eq("https://priv.example.com/key.php?r=52")
+        item = playlist.items[1]
+        item.should be_a(PlaybackStart)
+        item.time_offset.should eq(20.2)
 
-  #       item = playlist.items[1]
-  #       expect(item).to be_a(PlaybackStart)
-  #       expect(item.time_offset).to eq(20.2)
+        item = playlist.items[2]
+        item.should be_a(PlaylistItem)
+        item.uri.should eq("hls/1080-7mbps/1080-7mbps.m3u8")
+        item.program_id.should eq(1)
+        item.width.should eq(1920)
+        item.height.should eq(1080)
+        item.resolution.should eq("1920x1080")
+        item.codecs.should eq("avc1.640028,mp4a.40.2")
+        item.bandwidth.should eq(5_042_000)
+        item.iframe.should be_false
+        item.average_bandwidth.should be_nil
 
-  #       item = playlist.items[2]
-  #       expect(item).to be_a(PlaylistItem)
-  #       expect(item.uri).to eq("hls/1080-7mbps/1080-7mbps.m3u8")
-  #       expect(item.program_id).to eq("1")
-  #       expect(item.width).to eq(1920)
-  #       expect(item.height).to eq(1080)
-  #       expect(item.resolution).to eq("1920x1080")
-  #       expect(item.codecs).to eq("avc1.640028,mp4a.40.2")
-  #       expect(item.bandwidth).to eq(5_042_000)
-  #       expect(item.iframe).to be false
-  #       expect(item.average_bandwidth).to be_nil
+        item = playlist.items[7]
+        item.should be_a(PlaylistItem)
+        item.uri.should eq("hls/64k/64k.m3u8")
+        item.program_id.should eq(1)
+        item.width.should be_nil
+        item.height.should be_nil
+        item.resolution.should be_nil
+        item.codecs.should eq("mp4a.40.2")
+        item.bandwidth.should eq(6400)
+        item.iframe.should be_false
+        item.average_bandwidth.should be_nil
 
-  #       item = playlist.items[7]
-  #       expect(item).to be_a(PlaylistItem)
-  #       expect(item.uri).to eq("hls/64k/64k.m3u8")
-  #       expect(item.program_id).to eq("1")
-  #       expect(item.width).to be_nil
-  #       expect(item.height).to be_nil
-  #       expect(item.resolution).to be_nil
-  #       expect(item.codecs).to eq("mp4a.40.2")
-  #       expect(item.bandwidth).to eq(6400)
-  #       expect(item.iframe).to be false
-  #       expect(item.average_bandwidth).to be_nil
+        playlist.items.size.should eq(8)
 
-  #       expect(playlist.items.size).to eq(8)
+        item = playlist.items.last
+        item.should be_a(PlaylistItem)
+        item.resolution.should be_nil
+      end
 
-  #       item = playlist.items.last
-  #       expect(item.resolution).to be_nil
-  #     end
+      it "parses master playlist with I-Frames" do
+        file = File.read("spec/playlists/master_iframes.m3u8")
+        playlist = Parser.read file
 
-  #     it "parses master playlist with I-Frames" do
+        playlist.master?.should be_true
 
-  #       file = File.read("spec/playlists/master_iframes.m3u8")
-  #       # playlist = Parser.read file.gets_to_end
-  #       playlist = Parser.read file
-  #       pp playlist
+        playlist.items.size.should eq(7)
 
-  #       # playlist.master?.should be true
+        item = playlist.items[1]
+        item.should be_a(PlaylistItem)
+        item.bandwidth.should eq(86_000)
+        item.iframe.should be_true
+        item.uri.should eq("low/iframe.m3u8")
+      end
 
-  #       # playlist.items.size.should eq(7)
+      it "parses media playlist" do
+        file = File.read("spec/playlists/playlist.m3u8")
+        playlist = Parser.read file
+        playlist.master?.should be_false
+        playlist.version.should eq(4)
+        playlist.sequence.should eq(1)
+        playlist.discontinuity_sequence.should eq(8)
+        playlist.cache.should be_false
+        playlist.target.should eq(12)
+        playlist.type.should eq("VOD")
 
-  #       # item = playlist.items[1]
-  #       # item.should be_a(PlaylistItem)
-  #       # item.bandwidth.should eq(86_000)
-  #       # item.iframe.should be true
-  #       # item.uri.should eq("low/iframe.m3u8")
-  #     end
+        item = playlist.items[0]
+        item.should be_a(SegmentItem)
+        item.duration.should eq(11.344644)
+        item.comment.should eq ""
 
-  #     it "parses media playlist" do
-  #       file = File.open("spec/fixtures/playlist.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
-  #       expect(playlist.master?).to be false
-  #       expect(playlist.version).to eq(4)
-  #       expect(playlist.sequence).to eq(1)
-  #       expect(playlist.discontinuity_sequence).to eq(8)
-  #       expect(playlist.cache).to be false
-  #       expect(playlist.target).to eq(12)
-  #       expect(playlist.type).to eq("VOD")
+        item = playlist.items[4]
+        item.should be_a(TimeItem)
+        item.time.should eq(Time.iso8601("2010-02-19T14:54:23Z"))
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(SegmentItem)
-  #       expect(item.duration).to eq(11.344644)
-  #       expect(item.comment).to be_nil
-
-  #       item = playlist.items[4]
-  #       expect(item).to be_a(TimeItem)
-  #       expect(item.time).to eq(Time.iso8601("2010-02-19T14:54:23Z"))
-
-  #       expect(playlist.items.size).to eq(140)
-  #     end
+        playlist.items.size.should eq(140)
+      end
 
       it "parses I-Frame playlist" do
         file = File.read("spec/playlists/iframes.m3u8")
@@ -105,41 +99,42 @@ module M3U8
 
         item = playlist.items[0]
         item.should be_a(SegmentItem)
+        item.duration.should eq(4.12)
+        item.segment.should eq("segment1.ts")
+
+        item.byterange.should be_a(ByteRange)
         if item.is_a?(SegmentItem)
-          item.duration.should eq(4.12)
-          item.segment.should eq("segment1.ts")
-          item.byterange.try(&.length).should eq(9400)
-          item.byterange.try(&.start).should eq(376)
+          item.byterange.length.should eq(9400)
+          item.byterange.start.should eq(376)
         end
 
         item = playlist.items[1]
         if item.is_a?(SegmentItem)
-          item.byterange.try(&.length).should eq(7144)
-          item.byterange.try(&.start).should be_nil
+          item.byterange.length.should eq(7144)
+          item.byterange.start.should be_nil
         end
       end
 
-  #     it "parses segment playlist with comments" do
-  #       file = File.open("spec/fixtures/playlist_with_comments.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
-  #       expect(playlist.master?).to be false
-  #       expect(playlist.version).to eq(4)
-  #       expect(playlist.sequence).to eq(1)
-  #       expect(playlist.cache).to be false
-  #       expect(playlist.target).to eq(12)
-  #       expect(playlist.type).to eq("VOD")
+      it "parses segment playlist with comments" do
+        file = File.read("spec/playlists/playlist_with_comments.m3u8")
+        playlist = Parser.read file
+        playlist.master?.should be_false
+        playlist.version.should eq(4)
+        playlist.sequence.should eq(1)
+        playlist.cache.should be_false
+        playlist.target.should eq(12)
+        playlist.type.should eq("VOD")
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(SegmentItem)
-  #       expect(item.duration).to eq(11.344644)
-  #       expect(item.comment).to eq("anything")
+        item = playlist.items[0]
+        item.should be_a(SegmentItem)
+        item.duration.should eq(11.344644)
+        item.comment.should eq("anything")
 
-  #       item = playlist.items[1]
-  #       expect(item).to be_a(DiscontinuityItem)
+        item = playlist.items[1]
+        item.should be_a(DiscontinuityItem)
 
-  #       expect(playlist.items.size).to eq(139)
-  #     end
+        playlist.items.size.should eq(139)
+      end
 
   #     it "parses variant playlist with audio options and groups" do
   #       file = File.open("spec/fixtures/variant_audio.m3u8")
@@ -273,6 +268,6 @@ module M3U8
   #           .to raise_error(InvalidPlaylistError, message)
   #       end
   #     end
-  #   end
+    end
   end
 end
