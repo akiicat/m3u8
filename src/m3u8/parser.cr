@@ -140,6 +140,7 @@ module M3U8
         @playlist.independent_segments = true
 
       when EXT_X_START
+        push_item parse_playback_start_item(value)
 
       when '#'
         pp line
@@ -182,6 +183,19 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
+    end
+
+    def parse_playback_start_item(text)
+      attributes = parse_attributes(text)
+      options = playback_start_attributes(attributes)
+      PlaybackStart.new(options)
+    end
+
+    def playback_start_attributes(attributes)
+      {
+        time_offset: attributes["TIME-OFFSET"].to_f,
+        precise: attributes["PRECISE"]?.try &.to_boolean,
+      }
     end
 
     def parse_session_key_item(text)

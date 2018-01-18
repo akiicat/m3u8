@@ -15,13 +15,6 @@ module M3U8
       @time_offset = time_offset.not_nil!.to_f
     end
 
-    # def parse(text)
-    #   attributes = parse_attributes(text)
-    #   @time_offset = attributes['TIME-OFFSET'].to_f
-    #   precise = attributes['PRECISE']
-    #   @precise = parse_yes_no(precise) unless precise.nil?
-    # end
-
     def to_s
       "#EXT-X-START:#{attributes.join(',')}"
     end
