@@ -156,31 +156,30 @@ module M3U8
         item.forced.should be_true
       end
 
-  #     it "parses variant playlist with camera angles" do
-  #       file = File.open("spec/fixtures/variant_angles.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "parses variant playlist with camera angles" do
+        file = File.read("spec/playlists/variant_angles.m3u8")
+        playlist = Parser.read file
 
-  #       expect(playlist.master?).to be true
-  #       expect(playlist.items.size).to eq(11)
+        playlist.master?.should be_true
+        playlist.items.size.should eq(11)
 
-  #       item = playlist.items[1]
-  #       expect(item).to be_a(MediaItem)
-  #       expect(item.type).to eq("VIDEO")
-  #       expect(item.group_id).to eq("200kbs")
-  #       expect(item.language).to be_nil
-  #       expect(item.name).to eq("Angle2")
-  #       expect(item.autoselect).to be true
-  #       expect(item.default).to be false
-  #       expect(item.uri).to eq("Angle2/200kbs/prog_index.m3u8")
+        item = playlist.items[1]
+        item.should be_a(MediaItem)
+        item.type.should eq("VIDEO")
+        item.group_id.should eq("200kbs")
+        item.language.should be_nil
+        item.name.should eq("Angle2")
+        item.autoselect.should be_true
+        item.default.should be_false
+        item.uri.should eq("Angle2/200kbs/prog_index.m3u8")
 
-  #       item = playlist.items[9]
-  #       expect(item.average_bandwidth).to eq(300_001)
-  #       expect(item.audio).to eq("aac")
-  #       expect(item.video).to eq("200kbs")
-  #       expect(item.closed_captions).to eq("captions")
-  #       expect(item.subtitles).to eq("subs")
-  #     end
+        item = playlist.items[9]
+        item.average_bandwidth.should eq(300_001)
+        item.audio.should eq("aac")
+        item.video.should eq("200kbs")
+        item.closed_captions.should eq("captions")
+        item.subtitles.should eq("subs")
+      end
 
   #     it "processes multiple reads as separate playlists" do
   #       file = File.open("spec/fixtures/master.m3u8")
