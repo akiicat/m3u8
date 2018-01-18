@@ -20,13 +20,6 @@ module M3U8
     def initialize(@data_id, @value = nil, @uri = nil, @language = nil)
     end
 
-    # def self.parse(text)
-    #   attributes = parse_attributes text
-    #   options = { data_id: attributes['DATA-ID'], value: attributes['VALUE'],
-    #               uri: attributes['URI'], language: attributes['LANGUAGE'] }
-    #   M3u8::SessionDataItem.new options
-    # end
-
     def to_s
       "#EXT-X-SESSION-DATA:#{attributes.join(',')}"
     end

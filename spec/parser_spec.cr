@@ -194,18 +194,17 @@ module M3U8
         playlist.items.size.should eq(8)
       end
 
-  #     it "parses playlist with session data" do
-  #       file = File.open("spec/fixtures/session_data.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "parses playlist with session data" do
+        file = File.read("spec/playlists/session_data.m3u8")
+        playlist = Parser.read file
 
-  #       expect(playlist.items.size).to eq(3)
+        playlist.items.size.should eq(3)
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(SessionDataItem)
-  #       expect(item.data_id).to eq("com.example.lyrics")
-  #       expect(item.uri).to eq("lyrics.json")
-  #     end
+        item = playlist.items[0]
+        item.should be_a(SessionDataItem)
+        item.data_id.should eq("com.example.lyrics")
+        item.uri.should eq("lyrics.json")
+      end
 
   #     it "parses encrypted playlist" do
   #       file = File.open("spec/fixtures/encrypted.m3u8")
