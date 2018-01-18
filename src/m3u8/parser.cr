@@ -27,6 +27,7 @@ module M3U8
 
     def read
       @reader.each do |line|
+        @lineno += 1
         parse line
       end
 
