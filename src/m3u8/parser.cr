@@ -137,11 +137,11 @@ module M3U8
         @playlist.master = true
 
       when EXT_X_STREAM_INF
-        options = parse_playlist_item(value)
+        options = parse_playlist_attributes(value)
         @item = PlaylistItem.new options
 
       when EXT_X_I_FRAME_STREAM_INF
-        options = parse_playlist_item(value).merge({ iframe: true })
+        options = parse_playlist_attributes(value).merge({ iframe: true })
         push_item PlaylistItem.new options
 
       when EXT_X_SESSION_DATA
@@ -203,7 +203,6 @@ module M3U8
 
     def parse_playback_start_attributes(text)
       attributes = parse_attributes(text)
-
       {
         time_offset: attributes["TIME-OFFSET"].to_f,
         precise: attributes["PRECISE"]?.try &.to_boolean,
@@ -212,7 +211,6 @@ module M3U8
 
     def parse_session_key_attributes(text)
       attributes = parse_attributes(text)
-
       {
         method: attributes["METHOD"],
         uri: attributes["URI"]?,
@@ -222,10 +220,9 @@ module M3U8
       }
     end
 
-    def parse_playlist_item(value)
+    def parse_playlist_attributes(value)
       attributes = parse_attributes(value)
       resolution = parse_resolution(attributes["RESOLUTION"]?)
-
       {
         program_id: attributes["PROGRAM-ID"]?,
         codecs: attributes["CODECS"]?,
