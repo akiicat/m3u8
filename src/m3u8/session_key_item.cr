@@ -5,11 +5,6 @@ module M3U8
 
     include Encryptable
 
-    # def self.parse(text)
-    #   attributes = parse_attributes(text)
-    #   SessionKeyItem.new(attributes)
-    # end
-
     def to_s
       "#EXT-X-SESSION-KEY:#{attributes_to_s}"
     end

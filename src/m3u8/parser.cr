@@ -133,6 +133,7 @@ module M3U8
       when EXT_X_SESSION_DATA
 
       when EXT_X_SESSION_KEY
+        push_item parse_session_key_item(value)
 
       # Media or Master Playlist Tags
       when EXT_X_INDEPENDENT_SEGMENTS
@@ -178,15 +179,31 @@ module M3U8
       @playlist.master = false
     end
 
+    def parse_attributes(line)
+      array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
+      array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
+    end
+
+    def parse_session_key_item(text)
+      attributes = parse_attributes(text)
+      options = session_key_attributes(attributes)
+      SessionKeyItem.new(options)
+    end
+
+    def session_key_attributes(attributes)
+      {
+        method: attributes["METHOD"],
+        uri: attributes["URI"]?,
+        iv: attributes["IV"]?,
+        key_format: attributes["KEYFORMAT"]?,
+        key_format_versions: attributes["KEYFORMATVERSIONS"]?,
+      }
+    end
+
     def parse_playlist_item(value)
       attributes = parse_attributes(value)
       options = options_from_attributes(attributes)
       Playlist.new(options)
-    end
-
-    def parse_attributes(line)
-      array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
-      array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
 
     private def options_from_attributes(attributes)
