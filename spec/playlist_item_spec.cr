@@ -94,7 +94,7 @@ module M3U8
         end
 
         it "codecs" do
-          item.codecs.to_s.should eq options[:codecs]?
+          item.codecs.should eq options[:codecs]?
         end
 
         it "bandwidth" do
@@ -227,17 +227,17 @@ module M3U8
 
       {
         {
-          "when profile and level are not set" + "when audio codec is recognized" + "specifies CODECS with audio codec",
+          "when profile and level are not set, when audio codec is recognized, specifies CODECS with audio codec",
           { bandwidth: 540, uri: "test.url", audio_codec: "aac-lc" },
           %(CODECS="mp4a.40.2")
         },
         {
-          "when profile and level are recognized" + "when audio codec is not set" + "specifies CODECS with video codec",
+          "when profile and level are recognized, when audio codec is not set, specifies CODECS with video codec",
           { bandwidth: 540, uri: "test.url", profile: "high", level: 4.1 },
           %(CODECS="avc1.640029")
         },
         {
-          "when profile and level are recognized" + "when audio codec is recognized" + "specifies CODECS with video codec and audio_codec",
+          "when profile and level are recognized, when audio codec is recognized, specifies CODECS with video codec and audio_codec",
           { bandwidth: 540, uri: "test.url", profile: "high", level: 4.1, audio_codec: "aac-lc" },
           %(CODECS="avc1.640029,mp4a.40.2")
         }

@@ -3,8 +3,8 @@ require "./spec_helper"
 module M3U8
   describe Codecs do
     {
-      { NamedTuple.new, nil },
-      { { codecs: "" }, nil },
+      { NamedTuple.new, "" },
+      { { codecs: "" }, "" },
       { { codecs: "test" }, "test" },
       { { audio_codec: "aac-lc" }, "mp4a.40.2" },
       { { audio_codec: "AAC-LC" }, "mp4a.40.2" },

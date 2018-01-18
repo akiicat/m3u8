@@ -117,8 +117,7 @@ module M3U8
     end
 
     private def codecs_format
-      codecs = @codecs.to_s
-      %(CODECS="#{codecs}") unless codecs.nil?
+      %(CODECS="#{codecs.to_s}") unless codecs.empty?
     end
 
     private def bandwidth_format

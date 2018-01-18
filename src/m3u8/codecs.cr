@@ -23,7 +23,7 @@ module M3U8
     end
 
     def to_s
-      return codecs.empty? ? nil : codecs if codecs
+      return codecs.empty? ? "" : codecs if codecs
 
       video_codec_string = video_codec_code
 
@@ -38,7 +38,23 @@ module M3U8
       return if audio_codec && audio_codec_string.nil?
 
       codec_strings = [video_codec_string, audio_codec_string].compact
-      codec_strings.empty? ? nil : codec_strings.join(',')
+      codec_strings.empty? ? "" : codec_strings.join(',')
+    end
+
+    def empty?
+      to_s.empty?
+    end
+
+    def ==(other : Codecs)
+      to_s == other.to_s
+    end
+
+    def ==(other : String)
+      to_s == other
+    end
+
+    def ==(other : Nil)
+      empty?
     end
 
     private def audio_codec_code
