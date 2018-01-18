@@ -141,6 +141,8 @@ module M3U8
         @item = PlaylistItem.new options
 
       when EXT_X_I_FRAME_STREAM_INF
+        options = parse_playlist_item(value).merge({ iframe: true })
+        push_item PlaylistItem.new options
 
       when EXT_X_SESSION_DATA
 
