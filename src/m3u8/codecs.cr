@@ -1,5 +1,7 @@
 module M3U8
   class Codecs
+    include Concern
+
     property codecs : String?
     property audio_codec : String?
     property level : Float64?

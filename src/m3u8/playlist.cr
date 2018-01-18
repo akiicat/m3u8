@@ -2,6 +2,8 @@ module M3U8
   # Playlist represents an m3u8 playlist, it can be a master playlist or a set
   # of media segments
   class Playlist
+    include Concern
+
     property master : Bool?
 
     property version : Int32?

@@ -1,6 +1,7 @@
 module M3U8
   # SessionDataItem represents a set of EXT-X-SESSION-DATA attributes
   class SessionDataItem
+    include Concern
 
     property data_id : String
     property value : String?

@@ -1,6 +1,8 @@
 module M3U8
   # PlaybackStart represents a #EXT-X-START tag and attributes
   class PlaybackStart
+    include Concern
+
     property time_offset : Float64
     property precise : Bool?
 

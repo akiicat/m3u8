@@ -2,6 +2,8 @@ module M3U8
   # PlaylistItem represents a set of EXT-X-STREAM-INF or
   # EXT-X-I-FRAME-STREAM-INF attributes
   class PlaylistItem
+    include Concern
+
     property program_id : Int32?
     property width : Int32?
     property height : Int32?

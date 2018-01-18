@@ -2,7 +2,6 @@ module M3U8
   # MapItem represents a EXT-X-MAP tag which specifies how to obtain the Media
   # Initialization Section
   class MapItem
-
     include Concern
 
     property uri : String

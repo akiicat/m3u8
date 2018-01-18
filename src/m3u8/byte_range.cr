@@ -1,6 +1,8 @@
 module M3U8
   # ByteRange represents sub range of a resource
   class ByteRange
+    include Concern
+
     property length : Int32
     property start : Int32?
 

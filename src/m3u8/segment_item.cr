@@ -2,7 +2,6 @@ module M3U8
   # SegmentItem represents EXTINF attributes with the URI that follows,
   # optionally allowing an EXT-X-BYTERANGE tag to be set.
   class SegmentItem
-    
     include Concern
 
     property duration : Float64?

@@ -2,7 +2,6 @@ require "./spec_helper"
 
 module M3U8
   describe PlaylistItem do
-
     describe "initialize" do
       options = {
         program_id: 1,

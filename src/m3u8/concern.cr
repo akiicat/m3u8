@@ -1,6 +1,5 @@
 module M3U8
   module Concern
-
     private def parse_time(time)
       case time
       when String then Time.iso8601(time)
@@ -23,6 +22,10 @@ module M3U8
       when TimeItem then item
       else TimeItem.new
       end
+    end
+
+    macro method_missing(call)
+      nil
     end
   end
 end

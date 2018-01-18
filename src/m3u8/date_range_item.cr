@@ -3,6 +3,8 @@ require "json"
 module M3U8
   # DateRangeItem represents a #EXT-X-DATERANGE tag
   class DateRangeItem
+    include Concern
+
     private alias ClientAttributeType = Hash(String | Symbol, String | Int32 | Float64 | Bool | Nil)
 
     property id : String

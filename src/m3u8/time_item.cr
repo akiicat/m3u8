@@ -1,7 +1,6 @@
 module M3U8
   # TimeItem represents EXT-X-PROGRAM-DATE-TIME
   class TimeItem
-
     include Concern
 
     property time : Time

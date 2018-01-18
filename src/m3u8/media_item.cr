@@ -1,6 +1,8 @@
 module M3U8
   # MediaItem represents a set of EXT-X-MEDIA attributes
   class MediaItem
+    include Concern
+
     property type : String?
     property group_id : String?
     property language : String?
