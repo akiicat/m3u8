@@ -233,16 +233,19 @@ module M3U8
         end
       end
 
-  #     it "reads segment with timestamp" do
-  #       file = File.open("spec/fixtures/timestamp_playlist.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
-  #       expect(playlist.items.count).to eq(6)
+      it "reads segment with timestamp" do
+        file = File.read("spec/playlists/timestamp_playlist.m3u8")
+        playlist = Parser.read file
 
-  #       item_date_time = playlist.items.first.program_date_time
-  #       expect(item_date_time).to be_a(TimeItem)
-  #       expect(item_date_time.time).to eq(Time.iso8601("2016-04-11T15:24:31Z"))
-  #     end
+        playlist.items.size.should eq(6)
+
+        item = playlist.items[0]
+        item.should be_a(SegmentItem)
+        if item.is_a?(SegmentItem)
+          item.program_date_time.should be_a(TimeItem)
+          item.program_date_time.time.should eq(Time.iso8601("2016-04-11T15:24:31Z"))
+        end
+      end
 
   #     it "parses playlist with daterange" do
   #       file = File.open("spec/fixtures/date_range_scte35.m3u8")
