@@ -41,15 +41,15 @@ module M3U8
     end
 
     def current_line
-      @reader[@index]?
+      @reader[@index]? || ""
     end
 
     def prev_line
-      @reader[prev_index]?
+      @reader[prev_index]? || ""
     end
 
     def next_line
-      @reader[next_index]?
+      @reader[next_index]? || ""
     end
 
     def next
@@ -61,7 +61,7 @@ module M3U8
     end
 
     def peek
-      line = @reader[@peek_index]?
+      line = @reader[@peek_index]? || ""
       @peek_index += 1
       line
     end
@@ -88,7 +88,7 @@ module M3U8
     end
 
     def [](index : Int32)
-      @reader[index]?
+      @reader[index]? || ""
     end
 
     def each(&block)

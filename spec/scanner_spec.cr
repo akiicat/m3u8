@@ -98,7 +98,7 @@ module M3U8
         end
 
         it "#[] out of bound" do
-          scanner[9].should be_nil
+          scanner[9].should eq ""
         end
       end
 
@@ -132,7 +132,7 @@ module M3U8
 
         it "#next out of bound" do
           5.times { scanner.next }
-          scanner.current_line.should be_nil
+          scanner.current_line.should eq ""
           scanner.rewind
         end
 
@@ -167,7 +167,7 @@ module M3U8
 
         it "end of file" do
           scanner.index = scanner.max_index + 1
-          scanner.peek.should eq nil
+          scanner.peek.should eq ""
           scanner.rewind
         end
 
