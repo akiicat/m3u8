@@ -18,14 +18,6 @@ module M3U8
       @byterange = parse_byterange(byterange)
     end
 
-    # def self.parse(text)
-    #   attributes = parse_attributes(text)
-    #   range_value = attributes['BYTERANGE']
-    #   range = ByteRange.parse(range_value) unless range_value.nil?
-    #   options = { uri: attributes['URI'], byterange: range }
-    #   MapItem.new(options)
-    # end
-
     def to_s
       %(#EXT-X-MAP:#{attributes.join(',')})
     end

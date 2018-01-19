@@ -1,5 +1,7 @@
 module M3U8
   class Parser
+    include Concern
+
     property playlist : Playlist
 
     @live : Bool?
@@ -91,7 +93,8 @@ module M3U8
         push_item KeyItem.new options
 
       when EXT_X_MAP
-
+        options = parse_map_item_attributes(value)
+        push_item MapItem.new options
 
       when EXT_X_PROGRAM_DATE_TIME
         item = @item
@@ -225,6 +228,15 @@ module M3U8
         iv: attributes["IV"]?,
         key_format: attributes["KEYFORMAT"]?,
         key_format_versions: attributes["KEYFORMATVERSIONS"]?
+      }
+    end
+
+    def parse_map_item_attributes(text)
+      attributes = parse_attributes(text)
+
+      {
+        uri: attributes["URI"],
+        byterange: parse_byterange(attributes["BYTERANGE"]?),
       }
     end
 

@@ -218,19 +218,20 @@ module M3U8
         item.uri.should eq("https://priv.example.com/key.php?r=52")
       end
 
-  #     it "parses map (media intialization section) playlists" do
-  #       file = File.open("spec/fixtures/map_playlist.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "parses map (media intialization section) playlists" do
+        file = File.read("spec/playlists/map_playlist.m3u8")
+        playlist = Parser.read file
 
-  #       expect(playlist.items.size).to eq(1)
+        playlist.items.size.should eq(1)
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(MapItem)
-  #       expect(item.uri).to eq("frelo/prog_index.m3u8")
-  #       expect(item.byterange.length).to eq(4500)
-  #       expect(item.byterange.start).to eq(600)
-  #     end
+        item = playlist.items[0]
+        item.should be_a(MapItem)
+        item.uri.should eq("frelo/prog_index.m3u8")
+        if item.is_a?(MapItem)
+          item.byterange.length.should eq(4500)
+          item.byterange.start.should eq(600)
+        end
+      end
 
   #     it "reads segment with timestamp" do
   #       file = File.open("spec/fixtures/timestamp_playlist.m3u8")
