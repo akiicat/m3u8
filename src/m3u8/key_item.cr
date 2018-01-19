@@ -4,11 +4,6 @@ module M3U8
     include Concern
     include Encryptable
 
-    # def self.parse(text)
-    #   attributes = parse_attributes(text)
-    #   KeyItem.new(attributes)
-    # end
-
     def to_s
       "#EXT-X-KEY:#{attributes_to_s}"
     end

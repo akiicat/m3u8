@@ -206,18 +206,17 @@ module M3U8
         item.uri.should eq("lyrics.json")
       end
 
-  #     it "parses encrypted playlist" do
-  #       file = File.open("spec/fixtures/encrypted.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
+      it "parses encrypted playlist" do
+        file = File.read("spec/playlists/encrypted.m3u8")
+        playlist = Parser.read file
 
-  #       expect(playlist.items.size).to eq(6)
+        playlist.items.size.should eq(6)
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(KeyItem)
-  #       expect(item.method).to eq("AES-128")
-  #       expect(item.uri).to eq("https://priv.example.com/key.php?r=52")
-  #     end
+        item = playlist.items[0]
+        item.should be_a(KeyItem)
+        item.method.should eq("AES-128")
+        item.uri.should eq("https://priv.example.com/key.php?r=52")
+      end
 
   #     it "parses map (media intialization section) playlists" do
   #       file = File.open("spec/fixtures/map_playlist.m3u8")

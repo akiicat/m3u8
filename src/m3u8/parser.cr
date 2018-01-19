@@ -87,7 +87,8 @@ module M3U8
 
 
       when EXT_X_KEY
-
+        options = parse_key_item_attributes(value)
+        push_item KeyItem.new options
 
       when EXT_X_MAP
 
@@ -210,6 +211,21 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
+    end
+
+    def parse_key_item_attributes(text)
+      attributes = parse_attributes(text)
+      encryptable_attributes(attributes)
+    end
+
+    def encryptable_attributes(attributes)
+      {
+        method: attributes["METHOD"],
+        uri: attributes["URI"]?,
+        iv: attributes["IV"]?,
+        key_format: attributes["KEYFORMAT"]?,
+        key_format_versions: attributes["KEYFORMATVERSIONS"]?
+      }
     end
 
     def parse_media_attributes(text)
