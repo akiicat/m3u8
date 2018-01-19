@@ -28,9 +28,9 @@ module M3U8
     end
 
     def read
-      @reader.each do |line|
-        @lineno += 1
-        parse line
+      while !@reader.eof?
+        parse @reader.current_line
+        @reader.next
       end
 
       @playlist.live = true if !@playlist.master && @live.nil?
