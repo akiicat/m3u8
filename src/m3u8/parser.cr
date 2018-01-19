@@ -10,7 +10,7 @@ module M3U8
 
     def initialize(string : String)
       @reader = Scanner.new string
-      @lineno = 0
+      @is_parse = false
 
       @playlist = M3U8::Playlist.new
       @live = nil
@@ -28,6 +28,8 @@ module M3U8
     end
 
     def read
+      return @playlist if @is_parse
+
       while !@reader.eof?
         parse @reader.current_line
         @reader.next
@@ -36,6 +38,8 @@ module M3U8
       @playlist.live = true if !@playlist.master && @live.nil?
 
       raise "missing #EXTM3U tag" if @extm3u
+
+      @is_parse = true
 
       @playlist
     end
@@ -171,11 +175,11 @@ module M3U8
         push_item PlaybackStart.new options
 
       when .starts_with?('#')
-        puts "skip comment:#{@lineno} #{line}"
+        puts "skip comment:#{@reader.lineno} #{line}"
         # comment
         # pass
       when .empty?
-        puts "skip empty line:#{@lineno} #{line}"
+        puts "skip empty line:#{@reader.lineno} #{line}"
         # pass
       else
         parse_item line
