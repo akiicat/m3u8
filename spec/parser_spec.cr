@@ -247,18 +247,18 @@ module M3U8
         end
       end
 
-  #     it "parses playlist with daterange" do
-  #       file = File.open("spec/fixtures/date_range_scte35.m3u8")
-  #       reader = Parser.new
-  #       playlist = reader.read(file)
-  #       expect(playlist.items.count).to eq(5)
+      it "parses playlist with daterange" do
+        file = File.read("spec/playlists/date_range_scte35.m3u8")
+        playlist = Parser.read file
 
-  #       item = playlist.items[0]
-  #       expect(item).to be_a(DateRangeItem)
+        playlist.items.size.should eq(5)
 
-  #       item = playlist.items[4]
-  #       expect(item).to be_a(DateRangeItem)
-  #     end
+        item = playlist.items[0]
+        item.should be_a(DateRangeItem)
+
+        item = playlist.items[4]
+        item.should be_a(DateRangeItem)
+      end
 
   #     context "when playlist source is invalid" do
   #       it "raises error with message" do

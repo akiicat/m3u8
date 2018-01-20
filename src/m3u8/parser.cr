@@ -44,7 +44,7 @@ module M3U8
       @playlist
     end
 
-    def parse(line)
+    def parse(line : String)
       tag, del, value = line.partition(':')
 
       if BASIC_TAGS.includes? tag
@@ -112,7 +112,16 @@ module M3U8
 
 
       when EXT_X_DATERANGE
+        next_line = @reader.next
+        while !next_line.starts_with?('#')
+          line += next_line
+          next_line = @reader.next
+        end
 
+        options = parse_data_range_item_attrubtes(value)
+        push_item DateRangeItem.new options
+
+        parse next_line
 
       # Media Playlist Tags
       when EXT_X_TARGETDURATION
@@ -242,6 +251,34 @@ module M3U8
         uri: attributes["URI"],
         byterange: parse_byterange(attributes["BYTERANGE"]?),
       }
+    end
+
+
+    def parse_data_range_item_attrubtes(text)
+      attributes = parse_attributes(text)
+      {
+        id: attributes["ID"]?,
+        class_name: attributes["CLASS"]?,
+        start_date: attributes["START-DATE"]?,
+        end_date: attributes["END-DATE"]?,
+        duration: attributes["DURATION"]?.try &.to_f,
+        planned_duration: attributes["PLANNED-DURATION"]?.try &.to_f,
+        scte35_cmd: attributes["SCTE35-CMD"]?,
+        scte35_out: attributes["SCTE35-OUT"]?,
+        scte35_in: attributes["SCTE35-IN"]?,
+        end_on_next: attributes.key?("END-ON-NEXT") ? true : false,
+        client_attributes: parse_client_attributes(attributes),
+      }
+    end
+
+    # dup
+    private alias ClientAttributeType = Hash(String | Symbol, String | Int32 | Float64 | Bool | Nil)
+    private def parse_client_attributes(attributes)
+      hash = ClientAttributeType.new
+      if attributes
+        hash.merge!(attributes.select { |key| key.starts_with?("X-") if key.is_a?(String) })
+      end
+      hash
     end
 
     def parse_media_attributes(text)

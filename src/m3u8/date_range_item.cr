@@ -7,8 +7,8 @@ module M3U8
 
     private alias ClientAttributeType = Hash(String | Symbol, String | Int32 | Float64 | Bool | Nil)
 
-    property id : String
-    property start_date : String
+    property id : String?
+    property start_date : String?
     property class_name : String?
     property end_date : String?
     property duration : Float64?
@@ -21,8 +21,8 @@ module M3U8
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
-        id: params[:id],
-        start_date: params[:start_date],
+        id: params[:id]?,
+        start_date: params[:start_date]?,
         class_name: params[:class_name]?,
         end_date: params[:end_date]?,
         duration: params[:duration]?,
@@ -39,84 +39,6 @@ module M3U8
                    @scte35_cmd = nil, @scte35_out = nil, @scte35_in = nil, @end_on_next = nil, client_attributes = nil)
       @client_attributes = parse_client_attributes(client_attributes)
     end
-
-    # def parse(text)
-    #   array = text.delete("\n").scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
-    #   array.each do |arr|
-    #     key, value = arr[1], arr[2]
-
-    #     case value
-    #     # float
-    #     when /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/
-    #       write_attr(key, value.to_f)
-    #     # int
-    #     when /^([+-]?[0-9]\d*|0)$/
-    #       write_attr(key, value.to_i)
-    #     # bool
-    #     when "true", "false"
-    #       write_attr(key, value.to_boolean)
-    #     else
-    #       write_attr(key, value.delete('"'))
-    #     end
-    #   end
-    # end
-
-    # def write_attr(key, value)
-    #   case value
-    #   when String
-    #     case key
-    #     when :id, "ID"
-    #       @id = value
-    #     when :class_name, "CLASS"
-    #       @class_name = value
-    #     when :start_date, "START-DATE"
-    #       @start_date = value
-    #     when :end_date, "END-DATE"
-    #       @end_date = value
-    #     when :duration, "DURATION"
-    #       @duration = value.to_f
-    #     when :planned_duration, "PLANNED-DURATION"
-    #       @planned_duration = value.to_f
-    #     when :scte35_cmd, "SCTE35-CMD"
-    #       @scte35_cmd = value
-    #     when :scte35_out, "SCTE35-OUT"
-    #       @scte35_out = value
-    #     when :scte35_in, "SCTE35-IN"
-    #       @scte35_in = value
-    #     when :end_on_next, "END-ON-NEXT"
-    #       @end_on_next = value.to_boolean
-    #     when /^X-/
-    #       @client_attributes[key] = value
-    #     end
-
-    #   when Float64
-    #     case key
-    #     when :duration, "DURATION"
-    #       @duration = value
-    #     when :planned_duration, "PLANNED-DURATION"
-    #       @planned_duration = value
-    #     when /^X-/
-    #       @client_attributes[key] = value
-    #     end
-
-    #   when Bool
-    #     case key
-    #     when :end_on_next, "END-ON-NEXT"
-    #       @end_on_next = value
-    #     when /^X-/
-    #       @client_attributes[key] = value
-    #     end
-
-    #   when Hash
-    #     case key
-    #     when :client_attributes
-    #       parse_client_attributes(value).each do |k, v|
-    #         write_attr(k, v)
-    #       end
-    #     end
-
-    #   end
-    # end
 
     def to_s
       "#EXT-X-DATERANGE:#{attributes.join(',')}"
@@ -190,7 +112,7 @@ module M3U8
     private def parse_client_attributes(attributes)
       hash = ClientAttributeType.new
       if attributes
-        hash.merge!(attributes.select { |key| key.starts_with?("X-") })
+        hash.merge!(attributes.select { |key| key.starts_with?("X-") if key.is_a?(String) })
       end
       hash
     end

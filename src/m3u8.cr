@@ -4,7 +4,7 @@ require "./m3u8/concern" # preload
 require "./m3u8/*"
 
 module M3U8
-  alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem | TimeItem | DiscontinuityItem | SessionKeyItem | PlaybackStart | MediaItem | MapItem
+  alias Items = SegmentItem | PlaylistItem | SessionDataItem | KeyItem | TimeItem | DiscontinuityItem | SessionKeyItem | PlaybackStart | MediaItem | MapItem | DateRangeItem
 
   include Protocol
 
