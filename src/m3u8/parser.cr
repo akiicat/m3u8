@@ -5,7 +5,6 @@ module M3U8
     property playlist : Playlist
 
     @live : Bool?
-    @open : Bool?
     @item : Items?
 
     def initialize(string : String)
@@ -14,7 +13,6 @@ module M3U8
 
       @playlist = M3U8::Playlist.new
       @live = nil
-      @open = nil
       @item = nil
       @extm3u = true
     end
@@ -30,14 +28,14 @@ module M3U8
     def read
       return @playlist if @is_parse
 
+      validate_file_format
+
       while !@reader.eof?
         parse @reader.current_line
         @reader.next
       end
 
       @playlist.live = true if !@playlist.master && @live.nil?
-
-      raise "missing #EXTM3U tag" if @extm3u
 
       @is_parse = true
 
@@ -79,7 +77,6 @@ module M3U8
         item.duration = duration.to_f
         item.comment = comment
 
-        @open = true
         @item = item
 
       when EXT_X_BYTERANGE
@@ -215,13 +212,23 @@ module M3U8
     end
 
     private def master!
-      raise "invalid playlist. both both playlist tag and media tag." if @playlist.master == false
+      message = "both playlist tag and media tag. #{@reader.current_line}"
+      raise InvalidPlaylistError.new message if @playlist.master == false
       @playlist.master = true
     end
 
     private def not_master!
-      raise "invalid playlist. both both playlist tag and media tag." if @playlist.master == true
+      message = "both playlist tag and media tag. #{@reader.current_line}"
+      raise InvalidPlaylistError.new message if @playlist.master == true
       @playlist.master = false
+    end
+
+    def validate_file_format
+      line = @reader[0]
+      return if line == EXTM3U
+      message = "Playlist must start with a #EXTM3U tag, line read " \
+                "contained the value: #{line}"
+      raise InvalidPlaylistError.new message
     end
 
     def parse_attributes(line)

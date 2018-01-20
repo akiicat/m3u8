@@ -260,14 +260,14 @@ module M3U8
         item.should be_a(DateRangeItem)
       end
 
-  #     context "when playlist source is invalid" do
-  #       it "raises error with message" do
-  #         message = "Playlist must start with a #EXTM3U tag, line read " \
-  #           "contained the value: /path/to/file"
-  #         expect { reader.read("/path/to/file") }
-  #           .to raise_error(InvalidPlaylistError, message)
-  #       end
-  #     end
+      context "when playlist source is invalid" do
+        it "raises error with message" do
+          message = "Playlist must start with a #EXTM3U tag, line read contained the value: /path/to/file"
+          expect_raises(InvalidPlaylistError, message) do
+            Parser.read("/path/to/file")
+          end
+        end
+      end
     end
   end
 end
