@@ -2,7 +2,6 @@ require "./spec_helper"
 
 module M3U8
   describe SessionDataItem do
-
     describe "initialize" do
       options = {
         data_id: "com.test.movie.title",
@@ -55,44 +54,36 @@ module M3U8
       item = SessionDataItem.new(params)
 
       describe "initialize" do
-        it "data_id" do
-          item.data_id.should eq params[:data_id]
-        end
-
-        it "value" do
-          item.value.should eq params[:value]?
-        end
-
-        it "uri" do
-          item.uri.should eq params[:uri]?
-        end
-        
-        it "language" do
-          item.language.should eq params[:language]?
-        end
+        assets_attributes item, params
       end
 
       it "to_s" do
         item.to_s.should eq format
       end
+
+      describe "parse" do
+        item = SessionDataItem.parse format
+        assets_attributes item, params
+      end
     end
-
-    # it "should parse m3u8 format into instance" do
-    #   format = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",) +
-    #     %(VALUE="Test",LANGUAGE="en")
-    #   item = SessionDataItem.parse format
-    #   item.data_id.should eq "com.test.movie.title"
-    #   item.value.should eq "Test"
-    #   item.uri.should be_nil
-    #   item.language.should eq "en"
-
-    #   format = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",) +
-    #     %(URI="http://test",LANGUAGE="en")
-    #   item = SessionDataItem.parse format
-    #   item.data_id.should eq "com.test.movie.title"
-    #   item.value.should be_nil
-    #   item.uri.should eq "http://test"
-    #   item.language.should eq "en"
-    # end
   end
+end
+
+private def assets_attributes(item, params)
+  it "data_id" do
+    item.data_id.should eq params[:data_id]
+  end
+
+  it "value" do
+    item.value.should eq params[:value]?
+  end
+
+  it "uri" do
+    item.uri.should eq params[:uri]?
+  end
+
+  it "language" do
+    item.language.should eq params[:language]?
+  end
+
 end

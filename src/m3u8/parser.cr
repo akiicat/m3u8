@@ -152,8 +152,7 @@ module M3U8
         push_item PlaylistItem.new options
 
       when EXT_X_SESSION_DATA
-        options = parse_session_data_attributes(value)
-        push_item SessionDataItem.new options
+        push_item SessionDataItem.parse value
 
       when EXT_X_SESSION_KEY
         push_item SessionKeyItem.parse value
@@ -239,16 +238,6 @@ module M3U8
         closed_captions: attributes["CLOSED-CAPTIONS"]?,
         name: attributes["NAME"]?,
         hdcp_level: attributes["HDCP-LEVEL"]?
-      }
-    end
-
-    def parse_session_data_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        data_id: attributes["DATA-ID"],
-        value: attributes["VALUE"]?,
-        uri: attributes["URI"]?,
-        language: attributes["LANGUAGE"]?
       }
     end
 

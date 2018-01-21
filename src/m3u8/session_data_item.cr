@@ -3,14 +3,24 @@ module M3U8
   class SessionDataItem
     include Concern
 
-    property data_id : String
+    property data_id : String?
     property value : String?
     property uri : String?
     property language : String?
 
+    def self.parse(text)
+      attributes = parse_attributes(text)
+      new(
+        data_id: attributes["DATA-ID"]?,
+        value: attributes["VALUE"]?,
+        uri: attributes["URI"]?,
+        language: attributes["LANGUAGE"]?
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
-        data_id: params[:data_id],
+        data_id: params[:data_id]?,
         value: params[:value]?,
         uri: params[:uri]?,
         language: params[:language]?
@@ -38,15 +48,15 @@ module M3U8
     end
 
     private def value_format
-      %(VALUE="#{value}") if !value.empty?
+      %(VALUE="#{value}") unless value.empty?
     end
 
     private def uri_format
-      %(URI="#{uri}") if !uri.empty?
+      %(URI="#{uri}") unless uri.empty?
     end
 
     private def language_format
-      %(LANGUAGE="#{language}") if !language.empty?
+      %(LANGUAGE="#{language}") unless language.empty?
     end
   end
 end
