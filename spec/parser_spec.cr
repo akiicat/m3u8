@@ -260,6 +260,14 @@ module M3U8
         item.should be_a(DateRangeItem)
       end
 
+      it "Live Media Playlist Using HTTPS" do
+        file = File.read("spec/playlists/live_media_playlist.m3u8")
+        playlist = Parser.read file
+
+        playlist.items.size.should eq(3)
+        playlist.live?.should be_true
+      end
+
       it "parsers playlist allow change line" do
         file = File.read("spec/playlists/allow_change_line.m3u8")
         playlist = Parser.read file
