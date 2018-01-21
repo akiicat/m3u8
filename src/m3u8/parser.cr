@@ -88,7 +88,6 @@ module M3U8
       when EXT_X_DISCONTINUITY
         push_item DiscontinuityItem.new
 
-
       when EXT_X_KEY
         push_item KeyItem.parse value
 
@@ -104,7 +103,6 @@ module M3U8
         when Nil
           push_item TimeItem.new(value)
         end
-
 
       when EXT_X_DATERANGE
         next_line = @reader.next
@@ -122,32 +120,25 @@ module M3U8
       when EXT_X_TARGETDURATION
         @playlist.target = value.to_f
 
-
       when EXT_X_MEDIA_SEQUENCE
         @playlist.sequence = value.to_i
 
-
       when EXT_X_DISCONTINUITY_SEQUENCE
         @playlist.discontinuity_sequence = value.to_i
-
 
         # EXT-X-DISCONTINUITY-SEQUENCE:8
 
       when EXT_X_ENDLIST
         @live = false
 
-
       when EXT_X_PLAYLIST_TYPE
         @playlist.type = value
-
 
       when EXT_X_I_FRAMES_ONLY
         @playlist.iframes_only = true
 
-
       when EXT_X_ALLOW_CACHE
         @playlist.cache = value.to_boolean
-
 
       # Master Playlist Tags
       when EXT_X_MEDIA
