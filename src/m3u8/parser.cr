@@ -141,8 +141,7 @@ module M3U8
 
       # Master Playlist Tags
       when EXT_X_MEDIA
-        options = parse_media_attributes(value)
-        push_item MediaItem.new options
+        push_item MediaItem.parse value
 
       when EXT_X_STREAM_INF
         options = parse_playlist_attributes(value)
@@ -221,24 +220,6 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
-    end
-
-    def parse_media_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        type: attributes["TYPE"]?,
-        group_id: attributes["GROUP-ID"]?,
-        language: attributes["LANGUAGE"]?,
-        assoc_language: attributes["ASSOC-LANGUAGE"]?,
-        name: attributes["NAME"]?,
-        autoselect: attributes["AUTOSELECT"]?.try &.to_boolean,
-        default: attributes["DEFAULT"]?.try &.to_boolean,
-        forced: attributes["FORCED"]?.try &.to_boolean,
-        uri: attributes["URI"]?,
-        instream_id: attributes["INSTREAM-ID"]?,
-        characteristics: attributes["CHARACTERISTICS"]?,
-        channels: attributes["CHANNELS"]?,
-      }
     end
 
     def parse_playlist_attributes(value)

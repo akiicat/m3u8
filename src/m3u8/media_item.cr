@@ -16,6 +16,24 @@ module M3U8
     property characteristics : String?
     property channels : String?
 
+    def self.parse(text)
+      attributes = parse_attributes(text)
+      new(
+        type: attributes["TYPE"]?,
+        group_id: attributes["GROUP-ID"]?,
+        language: attributes["LANGUAGE"]?,
+        assoc_language: attributes["ASSOC-LANGUAGE"]?,
+        name: attributes["NAME"]?,
+        autoselect: attributes["AUTOSELECT"]?.try &.to_boolean,
+        default: attributes["DEFAULT"]?.try &.to_boolean,
+        forced: attributes["FORCED"]?.try &.to_boolean,
+        uri: attributes["URI"]?,
+        instream_id: attributes["INSTREAM-ID"]?,
+        characteristics: attributes["CHARACTERISTICS"]?,
+        channels: attributes["CHANNELS"]?,
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         type: params[:type]?,
