@@ -20,6 +20,27 @@ module M3U8
     property hdcp_level : String?
     property codecs : Codecs
 
+    def self.parse(value)
+      attributes = parse_attributes(value)
+      resolution = parse_resolution(attributes["RESOLUTION"]?)
+      new(
+        program_id: attributes["PROGRAM-ID"]?,
+        codecs: attributes["CODECS"]?,
+        width: resolution[:width]?,
+        height: resolution[:height]?,
+        bandwidth: attributes["BANDWIDTH"]?.try &.to_i,
+        average_bandwidth: attributes["AVERAGE-BANDWIDTH"]?.try &.to_i,
+        frame_rate: parse_frame_rate(attributes["FRAME-RATE"]?),
+        video: attributes["VIDEO"]?,
+        audio: attributes["AUDIO"]?,
+        uri: attributes["URI"]?,
+        subtitles: attributes["SUBTITLES"]?,
+        closed_captions: attributes["CLOSED-CAPTIONS"]?,
+        name: attributes["NAME"]?,
+        hdcp_level: attributes["HDCP-LEVEL"]?
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         program_id: params[:program_id]?,

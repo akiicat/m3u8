@@ -125,8 +125,6 @@ module M3U8
       when EXT_X_DISCONTINUITY_SEQUENCE
         @playlist.discontinuity_sequence = value.to_i
 
-        # EXT-X-DISCONTINUITY-SEQUENCE:8
-
       when EXT_X_ENDLIST
         @live = false
 
@@ -144,12 +142,12 @@ module M3U8
         push_item MediaItem.parse value
 
       when EXT_X_STREAM_INF
-        options = parse_playlist_attributes(value)
-        @item = PlaylistItem.new options
+        @item = PlaylistItem.parse value
 
       when EXT_X_I_FRAME_STREAM_INF
-        options = parse_playlist_attributes(value).merge({ iframe: true })
-        push_item PlaylistItem.new options
+        item = PlaylistItem.parse value
+        item.iframe = true
+        push_item item
 
       when EXT_X_SESSION_DATA
         push_item SessionDataItem.parse value
@@ -208,7 +206,7 @@ module M3U8
       @playlist.master = false
     end
 
-    def validate_file_format
+    private def validate_file_format
       line = @reader[0]
       return if line == EXTM3U
       message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
@@ -218,27 +216,6 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
-    end
-
-    def parse_playlist_attributes(value)
-      attributes = parse_attributes(value)
-      resolution = parse_resolution(attributes["RESOLUTION"]?)
-      {
-        program_id: attributes["PROGRAM-ID"]?,
-        codecs: attributes["CODECS"]?,
-        width: resolution[:width]?,
-        height: resolution[:height]?,
-        bandwidth: attributes["BANDWIDTH"]?.try &.to_i,
-        average_bandwidth: attributes["AVERAGE-BANDWIDTH"]?.try &.to_i,
-        frame_rate: parse_frame_rate(attributes["FRAME-RATE"]?),
-        video: attributes["VIDEO"]?,
-        audio: attributes["AUDIO"]?,
-        uri: attributes["URI"]?,
-        subtitles: attributes["SUBTITLES"]?,
-        closed_captions: attributes["CLOSED-CAPTIONS"]?,
-        name: attributes["NAME"]?,
-        hdcp_level: attributes["HDCP-LEVEL"]?
-      }
     end
 
     def parse_playback_start_attributes(text)
