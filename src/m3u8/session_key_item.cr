@@ -5,6 +5,11 @@ module M3U8
     include Concern
     include Encryptable
 
+    def self.parse(text)
+      attributes = parse_attributes(text)
+      new Encryptable.convert_key(attributes)
+    end
+
     def to_s
       "#EXT-X-SESSION-KEY:#{attributes_to_s}"
     end

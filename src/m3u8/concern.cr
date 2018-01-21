@@ -1,5 +1,14 @@
 module M3U8
   module Concern
+    macro included
+      extend Concern
+    end
+
+    private def parse_attributes(line)
+      array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
+      array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
+    end
+
     private def parse_time(time)
       case time
       when String then Time.iso8601(time)

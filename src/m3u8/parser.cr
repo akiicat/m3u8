@@ -90,8 +90,7 @@ module M3U8
 
 
       when EXT_X_KEY
-        options = parse_key_item_attributes(value)
-        push_item KeyItem.new options
+        push_item KeyItem.parse value
 
       when EXT_X_MAP
         options = parse_map_item_attributes(value)
@@ -169,8 +168,7 @@ module M3U8
         push_item SessionDataItem.new options
 
       when EXT_X_SESSION_KEY
-        options = parse_session_key_attributes(value)
-        push_item SessionKeyItem.new options
+        push_item SessionKeyItem.parse value
 
       # Media or Master Playlist Tags
       when EXT_X_INDEPENDENT_SEGMENTS
@@ -234,21 +232,6 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
-    end
-
-    def parse_key_item_attributes(text)
-      attributes = parse_attributes(text)
-      encryptable_attributes(attributes)
-    end
-
-    def encryptable_attributes(attributes)
-      {
-        method: attributes["METHOD"],
-        uri: attributes["URI"]?,
-        iv: attributes["IV"]?,
-        key_format: attributes["KEYFORMAT"]?,
-        key_format_versions: attributes["KEYFORMATVERSIONS"]?
-      }
     end
 
     def parse_map_item_attributes(text)
@@ -334,17 +317,6 @@ module M3U8
         value: attributes["VALUE"]?,
         uri: attributes["URI"]?,
         language: attributes["LANGUAGE"]?
-      }
-    end
-
-    def parse_session_key_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        method: attributes["METHOD"],
-        uri: attributes["URI"]?,
-        iv: attributes["IV"]?,
-        key_format: attributes["KEYFORMAT"]?,
-        key_format_versions: attributes["KEYFORMATVERSIONS"]?,
       }
     end
 

@@ -7,6 +7,16 @@ module M3U8
     property key_format : String?
     property key_format_versions : String?
 
+    def self.convert_key(params)
+      {
+        method: params["METHOD"],
+        uri: params["URI"]?,
+        iv: params["IV"]?,
+        key_format: params["KEYFORMAT"]?,
+        key_format_versions: params["KEYFORMATVERSIONS"]?
+      }
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         method: params[:method],
