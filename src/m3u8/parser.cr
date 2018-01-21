@@ -111,8 +111,7 @@ module M3U8
           next_line = @reader.next
         end
 
-        options = parse_data_range_item_attrubtes(value)
-        push_item DateRangeItem.new options
+        push_item DateRangeItem.parse value
 
         parse next_line
 
@@ -222,33 +221,6 @@ module M3U8
     def parse_attributes(line)
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
-    end
-
-    def parse_data_range_item_attrubtes(text)
-      attributes = parse_attributes(text)
-      {
-        id: attributes["ID"]?,
-        class_name: attributes["CLASS"]?,
-        start_date: attributes["START-DATE"]?,
-        end_date: attributes["END-DATE"]?,
-        duration: attributes["DURATION"]?.try &.to_f,
-        planned_duration: attributes["PLANNED-DURATION"]?.try &.to_f,
-        scte35_cmd: attributes["SCTE35-CMD"]?,
-        scte35_out: attributes["SCTE35-OUT"]?,
-        scte35_in: attributes["SCTE35-IN"]?,
-        end_on_next: attributes.key?("END-ON-NEXT") ? true : false,
-        client_attributes: parse_client_attributes(attributes),
-      }
-    end
-
-    # dup
-    private alias ClientAttributeType = Hash(String | Symbol, String | Int32 | Float64 | Bool | Nil)
-    private def parse_client_attributes(attributes)
-      hash = ClientAttributeType.new
-      if attributes
-        hash.merge!(attributes.select { |key| key.starts_with?("X-") if key.is_a?(String) })
-      end
-      hash
     end
 
     def parse_media_attributes(text)

@@ -5,8 +5,6 @@ module M3U8
   class DateRangeItem
     include Concern
 
-    private alias ClientAttributeType = Hash(String | Symbol, String | Int32 | Float64 | Bool | Nil)
-
     property id : String?
     property start_date : String?
     property class_name : String?
@@ -18,6 +16,23 @@ module M3U8
     property scte35_in : String?
     property end_on_next : Bool?
     property client_attributes : ClientAttributeType
+
+    def self.parse(text)
+      params = parse_attributes(text)
+      new(
+        id: params["ID"]?,
+        class_name: params["CLASS"]?,
+        start_date: params["START-DATE"]?,
+        end_date: params["END-DATE"]?,
+        duration: params["DURATION"]?.try &.to_f,
+        planned_duration: params["PLANNED-DURATION"]?.try &.to_f,
+        scte35_cmd: params["SCTE35-CMD"]?,
+        scte35_out: params["SCTE35-OUT"]?,
+        scte35_in: params["SCTE35-IN"]?,
+        end_on_next: params["END-ON-NEXT"]?.try &.to_boolean,
+        client_attributes: parse_client_attributes(params),
+      )
+    end
 
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -107,14 +122,6 @@ module M3U8
         value_format = value.is_a?(String) ? %("#{value}") : value
         "#{attribute.first}=#{value_format}"
       end.join(',')
-    end
-
-    private def parse_client_attributes(attributes)
-      hash = ClientAttributeType.new
-      if attributes
-        hash.merge!(attributes.select { |key| key.starts_with?("X-") if key.is_a?(String) })
-      end
-      hash
     end
   end
 end

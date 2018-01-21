@@ -89,58 +89,16 @@ module M3U8
       item = DateRangeItem.new(params)
 
       describe "initialize" do
-        it "id" do
-          item.id.should eq params[:id]
-        end
-
-        it "class_name" do
-          item.class_name.should eq params[:class_name]?
-        end
-
-        it "start_date" do
-          item.start_date.should eq params[:start_date]
-        end
-
-        it "end_date" do
-          item.end_date.should eq params[:end_date]?
-        end
-        
-        it "duration" do
-          item.duration.should eq params[:duration]?
-        end
-        
-        it "planned_duration" do
-          item.planned_duration.should eq params[:planned_duration]?
-        end
-        
-        it "scte35_out" do
-          item.scte35_out.should eq params[:scte35_out]?
-        end
-        
-        it "scte35_in" do
-          item.scte35_in.should eq params[:scte35_in]?
-        end
-        
-        it "scte35_cmd" do
-          item.scte35_cmd.should eq params[:scte35_cmd]?
-        end
-        
-        it "end_on_next" do
-          item.end_on_next.should eq params[:end_on_next]?
-        end
-        
-        describe "client_attributes" do
-          item.client_attributes.each do |key, value|
-            it "#{key} => #{value}" do
-              client_attributes = params[:client_attributes]?
-              value.should eq client_attributes[key] unless client_attributes.nil?
-            end
-          end
-        end
+        assets_attributes item, params
       end
 
       it "to_s" do
         item.to_s.should eq format
+      end
+
+      describe "parse" do
+        item = DateRangeItem.parse(format)
+        assets_attributes item, params
       end
     end
 
@@ -214,5 +172,56 @@ module M3U8
     #     date_range_assets(item, expected)
     #   end
     # end
+  end
+end
+
+private def assets_attributes(item, params)
+  it "id" do
+    item.id.should eq params[:id]
+  end
+
+  it "class_name" do
+    item.class_name.should eq params[:class_name]?
+  end
+
+  it "start_date" do
+    item.start_date.should eq params[:start_date]
+  end
+
+  it "end_date" do
+    item.end_date.should eq params[:end_date]?
+  end
+
+  it "duration" do
+    item.duration.should eq params[:duration]?
+  end
+
+  it "planned_duration" do
+    item.planned_duration.should eq params[:planned_duration]?
+  end
+
+  it "scte35_out" do
+    item.scte35_out.should eq params[:scte35_out]?
+  end
+
+  it "scte35_in" do
+    item.scte35_in.should eq params[:scte35_in]?
+  end
+
+  it "scte35_cmd" do
+    item.scte35_cmd.should eq params[:scte35_cmd]?
+  end
+
+  it "end_on_next" do
+    item.end_on_next.should eq params[:end_on_next]?
+  end
+
+  describe "client_attributes" do
+    item.client_attributes.each do |key, value|
+      it "#{key} => #{value}" do
+        client_attributes = params[:client_attributes]?
+          value.should eq client_attributes[key] unless client_attributes.nil?
+      end
+    end
   end
 end
