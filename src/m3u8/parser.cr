@@ -2,19 +2,18 @@ module M3U8
   class Parser
     include Concern
 
-    property playlist : Playlist
-
-    @live : Bool?
+    getter reader : Scanner
+    getter playlist : Playlist
+    getter is_parse : Bool
+    getter live : Bool?
     @item : Items?
 
     def initialize(string : String)
       @reader = Scanner.new string
+      @playlist = Playlist.new
       @is_parse = false
-
-      @playlist = M3U8::Playlist.new
       @live = nil
       @item = nil
-      @extm3u = true
     end
 
     def self.read(string : String)
@@ -49,21 +48,12 @@ module M3U8
 
       tag, del, value = line.partition(':')
 
-      if MEDIA_SEGMENT_TAGS.includes? tag
-        not_master!
-      end
-      if MEDIA_PLAYLIST_TAGS.includes? tag
-        not_master!
-      end
-      if MASTER_PLAYLIST_TAGS.includes? tag
-        master!
-      end
+      not_master! if MEDIA_TAGS.includes? tag
+      master! if MASTER_PLAYLIST_TAGS.includes? tag
 
       # Basic Tags
       case tag
       when EXTM3U
-        @extm3u = false
-
       when EXT_X_VERSION
         @playlist.version = value.to_i
 
