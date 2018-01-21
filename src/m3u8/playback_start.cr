@@ -6,6 +6,14 @@ module M3U8
     property time_offset : Float64
     property precise : Bool?
 
+    def self.parse(text)
+      attributes = parse_attributes(text)
+      new(
+        time_offset: attributes["TIME-OFFSET"].to_f,
+        precise: attributes["PRECISE"]?.try &.to_boolean,
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         time_offset: params[:time_offset],

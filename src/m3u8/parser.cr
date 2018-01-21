@@ -160,8 +160,7 @@ module M3U8
         @playlist.independent_segments = true
 
       when EXT_X_START
-        options = parse_playback_start_attributes(value)
-        push_item PlaybackStart.new options
+        push_item PlaybackStart.parse value
 
       when .starts_with?('#')
         puts "skip comment:#{@reader.lineno} #{line}"
@@ -211,36 +210,6 @@ module M3U8
       return if line == EXTM3U
       message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
       raise InvalidPlaylistError.new message
-    end
-
-    def parse_attributes(line)
-      array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
-      array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
-    end
-
-    def parse_playback_start_attributes(text)
-      attributes = parse_attributes(text)
-      {
-        time_offset: attributes["TIME-OFFSET"].to_f,
-        precise: attributes["PRECISE"]?.try &.to_boolean,
-      }
-    end
-
-    def parse_resolution(resolution)
-      return { width: nil, height: nil } if resolution.nil?
-
-      values = resolution.split('x')
-      {
-        width: values[0].to_i,
-        height: values[1].to_i
-      }
-    end
-
-    def parse_frame_rate(frame_rate)
-      return if frame_rate.nil?
-
-      value = BigDecimal.new(frame_rate)
-      value if value > 0
     end
   end
 end

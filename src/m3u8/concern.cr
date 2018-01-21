@@ -58,6 +58,23 @@ module M3U8
       end
     end
 
+    private def parse_resolution(resolution)
+      return { width: nil, height: nil } if resolution.nil?
+
+      values = resolution.split('x')
+      {
+        width: values[0].to_i,
+        height: values[1].to_i
+      }
+    end
+
+    private def parse_frame_rate(frame_rate)
+      return if frame_rate.nil?
+
+      value = BigDecimal.new(frame_rate)
+      value if value > 0
+    end
+
     macro method_missing(call)
       nil
     end
