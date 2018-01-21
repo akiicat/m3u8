@@ -212,8 +212,7 @@ module M3U8
     def validate_file_format
       line = @reader[0]
       return if line == EXTM3U
-      message = "Playlist must start with a #EXTM3U tag, line read " \
-                "contained the value: #{line}"
+      message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
       raise InvalidPlaylistError.new message
     end
 
