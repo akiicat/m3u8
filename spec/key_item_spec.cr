@@ -54,41 +54,40 @@ module M3U8
       item = KeyItem.new(params)
 
       describe "initialize" do
-        it "method" do
-          item.method.should eq params[:method]
-        end
-
-        it "uri" do
-          item.uri.should eq params[:uri]?
-        end
-
-        it "iv" do
-          item.iv.should eq params[:iv]?
-        end
-
-        it "key_format" do
-          item.key_format.should eq params[:key_format]?
-        end
-
-        it "key_format_versions" do
-          item.key_format_versions.should eq params[:key_format_versions]?
-        end
+        assets_attributes item, params
       end
 
       it "to_s" do
         item.to_s.should eq format
       end
-    end
 
-    # it "should parse m3u8 format into instance" do
-    #   format = %(#EXT-X-KEY:METHOD=AES-128,URI="http://test.key",) +
-    #            %(IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3")
-    #   item = KeyItem.parse format
-    #   item.method.should eq "AES-128"
-    #   item.uri.should eq "http://test.key"
-    #   item.iv.should eq "D512BBF"
-    #   item.key_format.should eq "identity"
-    #   item.key_format_versions.should eq "1/3"
-    # end
+      describe "parse" do
+        item = KeyItem.parse format
+        assets_attributes item, params
+      end
+    end
   end
 end
+
+private def assets_attributes(item, params)
+  it "method" do
+    item.method.should eq params[:method]
+  end
+
+  it "uri" do
+    item.uri.should eq params[:uri]?
+  end
+
+  it "iv" do
+    item.iv.should eq params[:iv]?
+  end
+
+  it "key_format" do
+    item.key_format.should eq params[:key_format]?
+  end
+
+  it "key_format_versions" do
+    item.key_format_versions.should eq params[:key_format_versions]?
+  end
+end
+
