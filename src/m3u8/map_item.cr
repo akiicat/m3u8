@@ -7,6 +7,14 @@ module M3U8
     property uri : String
     property byterange : ByteRange
 
+    def self.parse(text)
+      params = parse_attributes(text)
+      new(
+        uri: params["URI"],
+        byterange: parse_byterange(params["BYTERANGE"]?),
+      )
+    end
+
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         uri: params[:uri],

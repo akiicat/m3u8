@@ -93,8 +93,7 @@ module M3U8
         push_item KeyItem.parse value
 
       when EXT_X_MAP
-        options = parse_map_item_attributes(value)
-        push_item MapItem.new options
+        push_item MapItem.parse value
 
       when EXT_X_PROGRAM_DATE_TIME
         item = @item
@@ -233,16 +232,6 @@ module M3U8
       array = line.scan(/([A-z0-9-]+)\s*=\s*("[^"]*"|[^,]*)/)
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
-
-    def parse_map_item_attributes(text)
-      attributes = parse_attributes(text)
-
-      {
-        uri: attributes["URI"],
-        byterange: parse_byterange(attributes["BYTERANGE"]?),
-      }
-    end
-
 
     def parse_data_range_item_attrubtes(text)
       attributes = parse_attributes(text)

@@ -23,7 +23,6 @@ module M3U8
       end
     end
 
-
     {
       {
         {
@@ -65,35 +64,30 @@ module M3U8
         %(#EXT-X-MAP:URI="frehi/prog_index.m3u8")
       }
     }.each do |(params, format)|
-      item = M3U8::MapItem.new(params)
+      item = MapItem.new(params)
 
       describe "initialize" do
-        it "uri" do
-          item.uri.should eq params[:uri]
-        end
+        assets_attributes item, params
       end
 
       it "to_s" do
         item.to_s.should eq format
       end
+
+      describe "parse" do
+        item = MapItem.parse format
+        assets_attributes item, params
+      end
     end
+  end
+end
 
-    # it "should parse m3u8 text into instance" do
-    #   input = "#EXT-X-MAP:URI="frelo/prog_index.m3u8"," \
-    #     "BYTERANGE="3500@300""
-
-    #   item = M3u8::MapItem.parse(input)
-
-    #   expect(item.uri).to eq "frelo/prog_index.m3u8"
-    #   expect(item.byterange.length).to eq 3500
-    #   expect(item.byterange.start).to eq 300
-
-    #   input = "#EXT-X-MAP:URI="frelo/prog_index.m3u8""
-
-    #   item = M3u8::MapItem.parse(input)
-
-    #   expect(item.uri).to eq "frelo/prog_index.m3u8"
-    #   expect(item.byterange).to be_nil
-    # end
+private def assets_attributes(item, params)
+  it "uri" do
+    item.uri.should eq params[:uri]
+  end
+  
+  it "byterange" do
+    item.byterange.should be_a(M3U8::ByteRange)
   end
 end
