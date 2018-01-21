@@ -49,8 +49,6 @@ module M3U8
 
       tag, del, value = line.partition(':')
 
-      if BASIC_TAGS.includes? tag
-      end
       if MEDIA_SEGMENT_TAGS.includes? tag
         not_master!
       end
@@ -60,16 +58,12 @@ module M3U8
       if MASTER_PLAYLIST_TAGS.includes? tag
         master!
       end
-      if MASTER_MEDIA_PLAYLIST_TAGS.includes? tag
-      end
-      if EXPERIMENTAL_TAGS.includes? tag
-      end
-
 
       # Basic Tags
       case tag
       when EXTM3U
         @extm3u = false
+
       when EXT_X_VERSION
         @playlist.version = value.to_i
 
@@ -87,7 +81,6 @@ module M3U8
         item = @item
         item.byterange = value if item.is_a?(SegmentItem)
         @item = item
-
 
       when EXT_X_DISCONTINUITY
         push_item DiscontinuityItem.new
@@ -166,12 +159,7 @@ module M3U8
       when EXT_X_START
         push_item PlaybackStart.parse value
 
-      when .starts_with?('#')
-        puts "skip comment:#{@reader.lineno} #{line}"
-        # comment
-        # pass
-      when .empty?
-        puts "skip empty line:#{@reader.lineno} #{line}"
+      when .starts_with?('#'), .empty?
         # pass
       else
         parse_item line
@@ -188,7 +176,7 @@ module M3U8
         item.uri = line
         push_item
       else
-        puts "can't cache this line: #{line}"
+        puts "BUG: Can't parse this line #{@reader.lineno} #{line}"
       end
     end
 
