@@ -43,6 +43,10 @@ module M3U8
     end
 
     def parse(line : String)
+      while line.ends_with?('\\')
+        line = line.rchop.rstrip + @reader.next
+      end
+
       tag, del, value = line.partition(':')
 
       if BASIC_TAGS.includes? tag

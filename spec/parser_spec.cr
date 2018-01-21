@@ -260,6 +260,17 @@ module M3U8
         item.should be_a(DateRangeItem)
       end
 
+      it "parsers playlist allow change line" do
+        file = File.read("spec/playlists/allow_change_line.m3u8")
+        playlist = Parser.read file
+
+        playlist.items.size.should eq(7)
+
+        item = playlist.items[0]
+        item.should be_a(MediaItem)
+        item.uri.should eq "main/english-audio.m3u8"
+      end
+
       context "when playlist source is invalid" do
         it "raises error with message" do
           message = "Playlist must start with a #EXTM3U tag, line read contained the value: /path/to/file"
