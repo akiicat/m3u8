@@ -48,17 +48,19 @@ module M3U8
 
       tag, del, value = line.partition(':')
 
+      tag = Protocol.parse tag
+
       not_master! if MEDIA_TAGS.includes? tag
       master! if MASTER_PLAYLIST_TAGS.includes? tag
 
       # Basic Tags
       case tag
-      when EXTM3U
-      when EXT_X_VERSION
+      when :extm3u
+      when :ext_x_version
         @playlist.version = value.to_i
 
       # media segment tags
-      when EXTINF
+      when :extinf
         item = SegmentItem.new
 
         duration, comment = value.split(',')
@@ -67,21 +69,21 @@ module M3U8
 
         @item = item
 
-      when EXT_X_BYTERANGE
+      when :ext_x_byterange
         item = @item
         item.byterange = value if item.is_a?(SegmentItem)
         @item = item
 
-      when EXT_X_DISCONTINUITY
+      when :ext_x_discontinuity
         push_item DiscontinuityItem.new
 
-      when EXT_X_KEY
+      when :ext_x_key
         push_item KeyItem.parse value
 
-      when EXT_X_MAP
+      when :ext_x_map
         push_item MapItem.parse value
 
-      when EXT_X_PROGRAM_DATE_TIME
+      when :ext_x_program_date_time
         item = @item
         case item
         when SegmentItem
@@ -91,7 +93,7 @@ module M3U8
           push_item TimeItem.new(value)
         end
 
-      when EXT_X_DATERANGE
+      when :ext_x_daterange
         next_line = @reader.next
         while !next_line.starts_with?('#')
           line += next_line
@@ -103,56 +105,65 @@ module M3U8
         parse next_line
 
       # Media Playlist Tags
-      when EXT_X_TARGETDURATION
+      when :ext_x_targetduration
         @playlist.target = value.to_f
 
-      when EXT_X_MEDIA_SEQUENCE
+      when :ext_x_media_sequence
         @playlist.sequence = value.to_i
 
-      when EXT_X_DISCONTINUITY_SEQUENCE
+      when :ext_x_discontinuity_sequence
         @playlist.discontinuity_sequence = value.to_i
 
-      when EXT_X_ENDLIST
+      when :ext_x_endlist
         @live = false
 
-      when EXT_X_PLAYLIST_TYPE
+      when :ext_x_playlist_type
         @playlist.type = value
 
-      when EXT_X_I_FRAMES_ONLY
+      when :ext_x_i_frames_only
         @playlist.iframes_only = true
 
-      when EXT_X_ALLOW_CACHE
+      when :ext_x_allow_cache
         @playlist.cache = value.to_boolean
 
       # Master Playlist Tags
-      when EXT_X_MEDIA
+      when :ext_x_media
         push_item MediaItem.parse value
 
-      when EXT_X_STREAM_INF
+      when :ext_x_stream_inf
         @item = PlaylistItem.parse value
 
-      when EXT_X_I_FRAME_STREAM_INF
+      when :ext_x_i_frame_stream_inf
         item = PlaylistItem.parse value
         item.iframe = true
         push_item item
 
-      when EXT_X_SESSION_DATA
+      when :ext_x_session_data
         push_item SessionDataItem.parse value
 
-      when EXT_X_SESSION_KEY
+      when :ext_x_session_key
         push_item SessionKeyItem.parse value
 
       # Media or Master Playlist Tags
-      when EXT_X_INDEPENDENT_SEGMENTS
+      when :ext_x_independent_segments
         @playlist.independent_segments = true
 
-      when EXT_X_START
+      when :ext_x_start
         push_item PlaybackStart.parse value
 
-      when .starts_with?('#'), .empty?
-        # pass
+      # Experimental Tags
+      when :ext_x_cue_out, :ext_x_cue_out_cont, :ext_x_cue_in, :ext_x_cue_span, :ext_oatcls_scte35
+        puts "not support this tag #{tag.to_s}"
+
       else
-        parse_item line
+        case line
+        when .starts_with?('#')
+          puts "comment #{@reader.lineno} #{line}"
+        when .empty?
+          puts "empty #{@reader.lineno} #{line}"
+        else
+          parse_item line
+        end
       end
     end
 
@@ -189,8 +200,9 @@ module M3U8
 
     private def validate_file_format
       line = @reader[0]
-      return if line == EXTM3U
+      return if Protocol.parse(line) == :extm3u
       message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
+      pp message
       raise InvalidPlaylistError.new message
     end
   end
