@@ -269,7 +269,7 @@ module M3U8
       end
 
       it "parsers playlist allow change line" do
-        file = File.read("spec/playlists/allow_change_line.m3u8")
+        file = File.read("spec/playlists/change_line.m3u8")
         playlist = Parser.read file
 
         playlist.items.size.should eq(7)
