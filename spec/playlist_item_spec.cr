@@ -147,44 +147,43 @@ module M3U8
     end
 
 
-    # describe ".parse" do
-    #   it "returns new instance from parsed tag" do
-    #     tag = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
-    #       %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
-    #       %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
-    #       %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
-    #       %(NAME="1080p",HDCP-LEVEL=TYPE-0)
-    #     expect_any_instance_of(described_class).to receive(:parse).with(tag)
-    #     item = described_class.parse(tag)
-    #     expect(item).to be_a(described_class)
-    #   end
-    # end
+    describe ".parse" do
+      it "returns new instance from parsed tag" do
+        tag = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
+          %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
+          %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
+          %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
+          %(NAME="1080p",HDCP-LEVEL=TYPE-0)
+        item = PlaylistItem.parse(tag)
+        item.should be_a(PlaylistItem)
+      end
+    end
 
-    # describe "#parse" do
-    #   it "assigns values from parsed tag" do
-    #     input = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
-    #       %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
-    #       %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
-    #       %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
-    #       %(NAME="1080p",HDCP-LEVEL=TYPE-0)
-    #     item = M3u8::PlaylistItem.parse(input)
-    #     expect(item.program_id).to eq "1"
-    #     expect(item.codecs).to eq "avc"
-    #     expect(item.bandwidth).to eq 540
-    #     expect(item.average_bandwidth).to eq 550
-    #     expect(item.width).to eq 1920
-    #     expect(item.height).to eq 1080
-    #     expect(item.frame_rate).to eq BigDecimal("23.976")
-    #     expect(item.audio).to eq "test"
-    #     expect(item.video).to eq "test2"
-    #     expect(item.subtitles).to eq "subs"
-    #     expect(item.closed_captions).to eq "caps"
-    #     expect(item.uri).to eq "test.url"
-    #     expect(item.name).to eq "1080p"
-    #     expect(item.iframe).to be false
-    #     expect(item.hdcp_level).to eq("TYPE-0")
-    #   end
-    # end
+    describe "#parse" do
+      it "assigns values from parsed tag" do
+        input = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
+          %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
+          %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
+          %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
+          %(NAME="1080p",HDCP-LEVEL=TYPE-0)
+        item = PlaylistItem.parse(input)
+        item.program_id.should eq 1
+        item.codecs.should eq "avc"
+        item.bandwidth.should eq 540
+        item.average_bandwidth.should eq 550
+        item.width.should eq 1920
+        item.height.should eq 1080
+        item.frame_rate.should eq 23.976
+        item.audio.should eq "test"
+        item.video.should eq "test2"
+        item.subtitles.should eq "subs"
+        item.closed_captions.should eq "caps"
+        item.uri.should eq "test.url"
+        item.name.should eq "1080p"
+        item.iframe.should be_false
+        item.hdcp_level.should eq("TYPE-0")
+      end
+    end
 
     describe "to_s" do
       describe "does not specify CODECS" do
