@@ -258,6 +258,7 @@ module M3U8
 
         item = playlist.items[4]
         item.should be_a(DateRangeItem)
+        item.scte35_in.should eq("0xFC002A0000000000FF00000F056FFFFFF000401162802E6100000000000A0008029896F50000008700000000")
       end
 
       it "Live Media Playlist Using HTTPS" do

@@ -46,9 +46,7 @@ module M3U8
         line = line.rchop.rstrip + @reader.next
       end
 
-      tag, del, value = line.partition(':')
-
-      tag = Protocol.parse tag
+      tag, value = partition(line)
 
       not_master! if MEDIA_TAGS.includes? tag
       master! if MASTER_PLAYLIST_TAGS.includes? tag
@@ -94,15 +92,8 @@ module M3U8
         end
 
       when :ext_x_daterange
-        next_line = @reader.next
-        while !next_line.starts_with?('#')
-          line += next_line
-          next_line = @reader.next
-        end
-
+        tag, value = partition full_line(line)
         push_item DateRangeItem.parse value
-
-        parse next_line
 
       # Media Playlist Tags
       when :ext_x_targetduration
@@ -153,17 +144,21 @@ module M3U8
 
       # Experimental Tags
       when :ext_x_cue_out, :ext_x_cue_out_cont, :ext_x_cue_in, :ext_x_cue_span, :ext_oatcls_scte35
-        puts "not support this tag #{tag.to_s}"
+        puts "Not support experimental tag #{@reader.lineno} #{line}"
 
       else
-        case line
-        when .starts_with?('#')
-          puts "comment #{@reader.lineno} #{line}"
-        when .empty?
-          puts "empty #{@reader.lineno} #{line}"
-        else
-          parse_item line
-        end
+        parse_line(line)
+      end
+    end
+
+    def parse_line(line)
+      case line
+      when .starts_with?('#')
+        # puts "comment #{@reader.lineno} #{line}"
+      when .empty?
+        # puts "empty #{@reader.lineno} #{line}"
+      else
+        parse_item line
       end
     end
 
@@ -184,6 +179,21 @@ module M3U8
     private def push_item(item = @item)
       @playlist.items << item if item
       @item = nil
+    end
+
+    private def full_line(line : String)
+      tag, value = partition(@reader.peek)
+      while !ALL_TAGS.includes?(tag)
+        str = @reader.next
+        line += str if !str.starts_with?('#')
+        tag, value = partition(@reader.peek)
+      end
+      line
+    end
+
+    private def partition(line)
+      tag, del, value = line.partition(':')
+      return Protocol.parse(tag), value
     end
 
     private def master!
