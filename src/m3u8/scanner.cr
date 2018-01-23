@@ -2,16 +2,20 @@ module M3U8
   class Scanner
     getter index : Int32
     property peek_index : Int32
-    property reader : Array(String)
+    getter reader : Array(String)
+    getter max_index : Int32
+    getter size : Int32
 
     def initialize(string : String = "")
       @reader = string.lines.map { |line| line.strip }
       @index = 0
-      @peek_index = 1
+      @peek_index = 0
+      @size = @reader.size
+      @max_index = size - 1
     end
 
     def index=(index)
-      move(index: index)
+      set(index)
     end
 
     def prev_index
@@ -22,50 +26,41 @@ module M3U8
       @index + 1
     end
 
-    def max_index
-      size - 1
-    end
-
-    def size
-      @reader.size
-    end
-
     def eof?
       @index > max_index
     end
 
     def rewind
-      move(index: 0)
+      set(0)
     end
 
     def current_line
-      @reader[@index]? || ""
+      get(@index)
     end
 
     def prev_line
-      @reader[prev_index]? || ""
+      get(prev_index)
     end
 
     def next_line
-      @reader[next_index]? || ""
+      get(next_index)
     end
 
     def next
-      move(offset: 1)
+      move(1)
     end
 
     def prev
-      move(offset: -1)
+      move(-1)
     end
 
     def peek
-      line = @reader[@peek_index]? || ""
       @peek_index += 1
-      line
+      get(@peek_index)
     end
 
     def peek_rewind
-      @peek_index = next_index
+      @peek_index = @index
     end
 
     def lineno
@@ -73,21 +68,33 @@ module M3U8
     end
 
     def lineno=(number)
-      move(index: number - 1)
+      set(number - 1)
+    end
+
+    def first
+      get(0)
+    end
+
+    def last
+      get(-1)
     end
 
     def [](index : Int32)
+      get(index)
+    end
+
+    private def get(index : Int32) : String
       @reader[index]? || ""
     end
 
-    private def set_index(index : Int32) : Nil
-      @index = index
+    private def set(index : Int32, offset : Int32 = 0) : String?
+      @index = index + offset
       peek_rewind
+      get(@index)
     end
 
-    private def move(index : Int32 = @index, offset : Int32 = 0) : String?
-      set_index index + offset
-      current_line
+    private def move(offset : Int32) : String?
+      set(@index, offset)
     end
   end
 end

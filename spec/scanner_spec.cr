@@ -93,6 +93,14 @@ module M3U8
           scanner.lineno.should eq 1
         end
 
+        it "first" do
+          scanner.first.should eq string.lines[0]
+        end
+
+        it "last" do
+          scanner.last.should eq string.lines[-1]
+        end
+
         it "#[]" do
           scanner[1].should eq string.lines[1]
         end

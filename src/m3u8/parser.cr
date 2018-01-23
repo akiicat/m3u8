@@ -202,7 +202,6 @@ module M3U8
       line = @reader[0]
       return if Protocol.parse(line) == :extm3u
       message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
-      pp message
       raise InvalidPlaylistError.new message
     end
   end
