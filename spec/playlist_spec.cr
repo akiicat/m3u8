@@ -56,14 +56,14 @@ module M3U8
       end
     end
 
-    # describe ".read" do
-    #   it "returns new playlist from content" do
-    #     file = File.open("spec/playlists/master.m3u8")
-    #     playlist = Playlist.read(file)
-    #     playlist.master?.should be true
-    #     playlist.items.size.should eq(8)
-    #   end
-    # end
+    describe ".read" do
+      it "returns new playlist from content" do
+        file = File.read("spec/playlists/master.m3u8")
+        playlist = Playlist.parse(file)
+        playlist.master?.should be_true
+        playlist.items.size.should eq(8)
+      end
+    end
 
     describe "#duration" do
       it "should return the total duration of a playlist" do
