@@ -18,40 +18,40 @@ dependencies:
 require "m3u8"
 ```
 
-TODO: Write usage instructions here
+TODO: Write Document
+
+### Generate
+
+```
+playlist = M3U8::Playlist.new
+playlist.items << M3U8::SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+playlist.to_s
+# => 
+# #EXTM3U
+# #EXT-X-MEDIA-SEQUENCE:0
+# #EXT-X-TARGETDURATION:10
+# #EXTINF:10.991,
+# test_01.ts
+# #EXT-X-ENDLIST
+```
+
+### Parse
+
+```
+file = File.read "spec/playlists/master.m3u8"
+playlist = M3U8::Playlist.parse(file)
+playlist.master? # => true
+```
 
 ## Development
 
-- [x] byte_range
-- [x] date_range_item
-- [x] discontinuity_item
-- [x] encryptable
-- [x] error
-- [x] key_item
-- [x] map_item
-- [x] media_item
-- [x] playback_start
-- [x] playlist
-- [x] playlist_item
-- [x] scanner
-- [x] parser
-- [x] segment_item
-- [x] session_data_item
-- [x] session_key_item
-- [x] time_item
-- [x] version
-- [x] ~writer~
-- [x] codecs
-- [x] concern
-- [x] protocol
+### Supported Playlist Tags
 
-## Supported Playlist Tags
-
-### Basic Tags
+#### Basic Tags
 - [x] EXTM3U
 - [x] EXT-X-VERSION
 
-### media segment tags
+#### media segment tags
 - [x] EXTINF
 - [x] EXT-X-BYTERANGE
 - [x] EXT-X-DISCONTINUITY
@@ -60,7 +60,7 @@ TODO: Write usage instructions here
 - [x] EXT-X-PROGRAM-DATE-TIME
 - [x] EXT-X-DATERANGE
 
-### Media Playlist Tags
+#### Media Playlist Tags
 - [x] EXT-X-TARGETDURATION
 - [x] EXT-X-MEDIA-SEQUENCE
 - [x] EXT-X-DISCONTINUITY-SEQUENCE
@@ -69,19 +69,18 @@ TODO: Write usage instructions here
 - [x] EXT-X-I-FRAMES-ONLY
 - [x] EXT-X-ALLOW-CACHE (was removed in protocol version 7)
 
-### Master Playlist Tags
+#### Master Playlist Tags
 - [x] EXT-X-MEDIA
 - [x] EXT-X-STREAM-INF
 - [x] EXT-X-I-FRAME-STREAM-INF
 - [x] EXT-X-SESSION-DATA
 - [x] EXT-X-SESSION-KEY
 
-### Media or Master Playlist Tags
+#### Media or Master Playlist Tags
 - [x] EXT-X-INDEPENDENT-SEGMENTS
 - [x] EXT-X-START
 
-### Experimental Tags
-
+#### Experimental Tags
 - [ ] EXT-X-CUE-OUT
 - [ ] EXT-X-CUE-OUT-CONT
 - [ ] EXT-X-CUE-IN
