@@ -69,25 +69,22 @@ module M3U8
       end
     end
 
-    # describe "#parse" do
-    #   it "parses tag with all attributes" do
-    #     start = described_class.new
-    #     tag = "#EXT-X-START:TIME-OFFSET=20.0,PRECISE=YES"
-    #     start.parse(tag)
+    describe "#parse" do
+      it "parses tag with all attributes" do
+        tag = "#EXT-X-START:TIME-OFFSET=20.0,PRECISE=YES"
+        item = PlaybackStart.parse(tag)
 
-    #     expect(start.time_offset).to eq(20.0)
-    #     expect(start.precise).to be true
-    #   end
+        item.time_offset.should eq(20.0)
+        item.precise.should be_true
+      end
 
-    #   it "parses tag without optional attributes" do
-    #     start = described_class.new
-    #     tag = "#EXT-X-START:TIME-OFFSET=-12.9"
-    #     start.parse(tag)
+      it "parses tag without optional attributes" do
+        tag = "#EXT-X-START:TIME-OFFSET=-12.9"
+        item = PlaybackStart.parse(tag)
 
-    #     expect(start.time_offset).to eq(-12.9)
-    #     expect(start.precise).to be_nil
-    #   end
-    # end
-
+        item.time_offset.should eq(-12.9)
+        item.precise.should be_nil
+      end
+    end
   end
 end
