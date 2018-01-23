@@ -59,13 +59,8 @@ module M3U8
 
       # media segment tags
       when :extinf
-        item = SegmentItem.new
-
         duration, comment = value.split(',')
-        item.duration = duration.to_f
-        item.comment = comment
-
-        @item = item
+        @item = SegmentItem.new(duration: duration.to_f, comment: comment)
 
       when :ext_x_byterange
         item = @item
@@ -87,7 +82,7 @@ module M3U8
         when SegmentItem
           item.program_date_time = value
           @item = item
-        when Nil
+        else
           push_item TimeItem.new(value)
         end
 

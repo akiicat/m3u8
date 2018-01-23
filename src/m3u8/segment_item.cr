@@ -20,8 +20,7 @@ module M3U8
       )
     end
 
-    def initialize(@duration, @segment, @comment = nil, byterange = nil, program_date_time = nil)
-      @comment = nil if @comment.try &.empty?
+    def initialize(@duration = nil, @segment = nil, @comment = nil, byterange = nil, program_date_time = nil)
       @byterange = parse_byterange(byterange)
       @program_date_time = parse_time_item(program_date_time)
     end
