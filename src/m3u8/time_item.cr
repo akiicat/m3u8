@@ -12,11 +12,6 @@ module M3U8
     def initialize(time)
       @time = parse_time(time)
     end
-    
-    # def self.parse(text)
-    #   time = text.gsub("#EXT-X-PROGRAM-DATE-TIME:", "")
-    #   new({ time: Time.iso8601(time) })
-    # end
 
     def empty?
       @time.epoch.zero?
