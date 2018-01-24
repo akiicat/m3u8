@@ -6,6 +6,10 @@ module M3U8
     property length : Int32?
     property start : Int32?
 
+    # ```
+    # ByteRange.new("4500")
+    # ByteRange.new("4500@600")
+    # ```
     def self.new(string : String)
       return new if string.empty?
 
@@ -13,6 +17,11 @@ module M3U8
       new(values[0]?, values[1]?)
     end
 
+    # ```
+    # byterange = { length: 4500, start: 600 }
+    # ByteRange.new(byterange)
+    # ByteRange.new(length: 4500, start: 600)
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         length: params[:length]?,
@@ -20,19 +29,32 @@ module M3U8
       )
     end
 
+    # ```
+    # ByteRange.new
+    # ```
     def initialize(@length = nil, @start = nil)
     end
 
+    # ```
+    # byterange = ByteRange.new
+    # byterange.empty? # => true
+    # byterange = ByteRange.new(length: 0)
+    # byterange.empty? # => true
+    # ```
     def empty?
       length = @length
       length.nil? || length.zero?
     end
 
+    # ```
+    # byterange = ByteRange.new(length: 4500, start: 600)
+    # byterange.to_s # => "4500@600"
+    # ```
     def to_s
       attributes.join('@')
     end
 
-    def attributes
+    private def attributes
       [
         length_format,
         start_format
