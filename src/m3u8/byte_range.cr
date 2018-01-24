@@ -18,8 +18,8 @@ module M3U8
     end
 
     # ```
-    # byterange = { length: 4500, start: 600 }
-    # ByteRange.new(byterange)
+    # options = { length: 4500, start: 600 }
+    # ByteRange.new(options)
     # ByteRange.new(length: 4500, start: 600)
     # ```
     def self.new(params : NamedTuple = NamedTuple.new)
