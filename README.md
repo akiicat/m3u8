@@ -22,22 +22,24 @@ TODO: Write Document
 
 ### Generate
 
-```
+```cr
 playlist = M3U8::Playlist.new
 playlist.items << M3U8::SegmentItem.new(duration: 10.991, segment: "test_01.ts")
 playlist.to_s
-# => 
-# #EXTM3U
-# #EXT-X-MEDIA-SEQUENCE:0
-# #EXT-X-TARGETDURATION:10
-# #EXTINF:10.991,
-# test_01.ts
-# #EXT-X-ENDLIST
+```
+
+```
+#EXTM3U
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-TARGETDURATION:10
+#EXTINF:10.991,
+test_01.ts
+#EXT-X-ENDLIST
 ```
 
 ### Parse
 
-```
+```cr
 file = File.read "spec/playlists/master.m3u8"
 playlist = M3U8::Playlist.parse(file)
 playlist.master? # => true
