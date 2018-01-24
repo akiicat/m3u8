@@ -1,5 +1,5 @@
 module M3U8
-  module Concern
+  private module Concern
     macro included
       extend Concern
     end
