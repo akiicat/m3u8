@@ -27,7 +27,7 @@ module M3U8
       )
     end
 
-    def initialize(@data_id, @value = nil, @uri = nil, @language = nil)
+    def initialize(@data_id = nil, @value = nil, @uri = nil, @language = nil)
     end
 
     def to_s
@@ -48,15 +48,15 @@ module M3U8
     end
 
     private def value_format
-      %(VALUE="#{value}") unless value.empty?
+      %(VALUE="#{value}") unless value.nil?
     end
 
     private def uri_format
-      %(URI="#{uri}") unless uri.empty?
+      %(URI="#{uri}") unless uri.nil?
     end
 
     private def language_format
-      %(LANGUAGE="#{language}") unless language.empty?
+      %(LANGUAGE="#{language}") unless language.nil?
     end
   end
 end

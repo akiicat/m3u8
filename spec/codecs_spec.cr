@@ -10,7 +10,7 @@ module M3U8
       { { audio_codec: "AAC-LC" }, "mp4a.40.2" },
       { { audio_codec: "he-aac" }, "mp4a.40.5" },
       { { audio_codec: "HE-AAC" }, "mp4a.40.5" },
-      { { audio_codec: "he-acc1" }, nil },
+      { { audio_codec: "he-acc1" }, "" },
       { { audio_codec: "mp3" }, "mp4a.40.34" },
       { { audio_codec: "MP3" }, "mp4a.40.34" },
       { { profile: "baseline", level: 3.0 }, "avc1.66.30" },
@@ -39,8 +39,7 @@ module M3U8
         end
 
         it "level" do
-          level = params[:level]?
-          item.level.should eq level ? level.to_f : nil
+          item.level.should eq params[:level]?.try &.to_f
         end
 
         it "profile" do

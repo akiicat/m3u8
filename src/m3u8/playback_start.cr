@@ -9,7 +9,7 @@ module M3U8
     def self.parse(text)
       attributes = parse_attributes(text)
       new(
-        time_offset: attributes["TIME-OFFSET"].to_f,
+        time_offset: attributes["TIME-OFFSET"],
         precise: parse_boolean(attributes["PRECISE"]?),
       )
     end
@@ -22,7 +22,7 @@ module M3U8
     end
 
     def initialize(time_offset, @precise = nil)
-      @time_offset = time_offset.not_nil!.to_f
+      @time_offset = time_offset.to_f
     end
 
     def to_s

@@ -20,27 +20,25 @@ module M3U8
                    @audio_codec = nil,
                    level = nil,
                    @profile = nil)
-
-      @level = level ? level.to_f : nil
+      @level = level.try &.to_f
     end
 
     def to_s
-      return codecs.empty? ? "" : codecs if codecs
+      return codecs || "" if codecs
 
       video_codec_string = video_codec_code
 
       # profile and/or level were specified but not recognized,
       # do not specify any codecs
-      return if profile && level && video_codec_string.nil?
+      return "" if profile && level && video_codec_string.nil?
 
       audio_codec_string = audio_codec_code
 
       # audio codec was specified but not recognized,
       # do not specify any codecs
-      return if audio_codec && audio_codec_string.nil?
+      return "" if audio_codec && audio_codec_string.nil?
 
-      codec_strings = [video_codec_string, audio_codec_string].compact
-      codec_strings.empty? ? "" : codec_strings.join(',')
+      [video_codec_string, audio_codec_string].compact.join(',')
     end
 
     def empty?
