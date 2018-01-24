@@ -3,30 +3,32 @@ module M3U8
   class ByteRange
     include Concern
 
-    property length : Int32
+    property length : Int32?
     property start : Int32?
 
     def self.new(string : String)
-      return new(0, nil) if string.empty?
+      return new if string.empty?
 
       values = string.split('@').map &.to_i
-      new(values[0], values[1]?)
+      new(values[0]?, values[1]?)
     end
 
     def self.new(params : NamedTuple = NamedTuple.new)
-      length, start = params[:length]? || 0, params[:start]?
-      new(length, start)
+      new(
+        length: params[:length]?,
+        start: params[:start]?,
+      )
     end
 
-    def initialize(@length = 0, @start = nil)
+    def initialize(@length = nil, @start = nil)
     end
 
     def empty?
-      @length.zero?
+      length = @length
+      length.nil? || length.zero?
     end
 
     def to_s
-      return "" if empty?
       attributes.join('@')
     end
 
