@@ -75,6 +75,14 @@ module M3U8
       value if value > 0
     end
 
+    private def parse_yes_no(value) : String
+      case value
+      when true then "YES"
+      when false then "NO"
+      else raise "invalid value #{value} parse yes no"
+      end
+    end
+
     macro method_missing(call)
       nil
     end

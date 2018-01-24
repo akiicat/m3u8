@@ -41,7 +41,7 @@ module M3U8
     end
 
     private def precise_format
-      "PRECISE=#{precise.not_nil!.to_yes_no}" unless precise.nil?
+      "PRECISE=#{parse_yes_no(precise)}" unless precise.nil?
     end
   end
 end

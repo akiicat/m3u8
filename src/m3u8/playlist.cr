@@ -191,7 +191,7 @@ module M3U8
     end
 
     private def cache_tag
-      "#EXT-X-ALLOW-CACHE:#{cache.not_nil!.to_yes_no}" unless cache.nil?
+      "#EXT-X-ALLOW-CACHE:#{parse_yes_no(cache)}" unless cache.nil?
     end
 
     private def target_duration_format

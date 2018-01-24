@@ -102,15 +102,15 @@ module M3U8
     end
 
     private def autoselect_format
-      %(AUTOSELECT=#{autoselect.not_nil!.to_yes_no}) unless autoselect.nil?
+      %(AUTOSELECT=#{parse_yes_no(autoselect)}) unless autoselect.nil?
     end
 
     private def default_format
-      %(DEFAULT=#{default.not_nil!.to_yes_no}) unless default.nil?
+      %(DEFAULT=#{parse_yes_no(default)}) unless default.nil?
     end
 
     private def forced_format
-      %(FORCED=#{forced.not_nil!.to_yes_no}) unless forced.nil?
+      %(FORCED=#{parse_yes_no(forced)}) unless forced.nil?
     end
 
     private def instream_id_format
