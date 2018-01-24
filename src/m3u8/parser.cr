@@ -110,7 +110,7 @@ module M3U8
         @playlist.iframes_only = true
 
       when :ext_x_allow_cache
-        @playlist.cache = value.to_boolean
+        @playlist.cache = parse_boolean(value)
 
       # Master Playlist Tags
       when :ext_x_media

@@ -29,7 +29,7 @@ module M3U8
         scte35_cmd: params["SCTE35-CMD"]?,
         scte35_out: params["SCTE35-OUT"]?,
         scte35_in: params["SCTE35-IN"]?,
-        end_on_next: params["END-ON-NEXT"]?.try &.to_boolean,
+        end_on_next: parse_boolean(params["END-ON-NEXT"]?),
         client_attributes: parse_client_attributes(params),
       )
     end

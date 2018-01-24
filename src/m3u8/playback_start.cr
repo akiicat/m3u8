@@ -10,7 +10,7 @@ module M3U8
       attributes = parse_attributes(text)
       new(
         time_offset: attributes["TIME-OFFSET"].to_f,
-        precise: attributes["PRECISE"]?.try &.to_boolean,
+        precise: parse_boolean(attributes["PRECISE"]?),
       )
     end
 

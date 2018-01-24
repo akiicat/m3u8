@@ -80,6 +80,12 @@ module M3U8
       when true then "YES"
       when false then "NO"
       else raise "invalid value #{value} parse yes no"
+
+    private def parse_boolean(value)
+      case value
+      when "true", "YES" then true
+      when "false", "NO" then false
+      else nil
       end
     end
 
