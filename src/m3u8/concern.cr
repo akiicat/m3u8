@@ -79,7 +79,6 @@ module M3U8
       case value
       when true then "YES"
       when false then "NO"
-      else nil
       end
     end
 
@@ -87,7 +86,6 @@ module M3U8
       case value
       when "true", "YES" then true
       when "false", "NO" then false
-      else nil
       end
     end
 
