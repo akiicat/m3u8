@@ -1,5 +1,5 @@
 module M3U8
-  module Protocol
+  private module Protocol
     def self.parse(tag : String)
       Mapping[tag]?
     end

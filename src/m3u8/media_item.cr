@@ -60,7 +60,7 @@ module M3U8
       "#EXT-X-MEDIA:#{attributes.join(',')}"
     end
 
-    def attributes
+    private def attributes
       [
         type_format,
         group_id_format,

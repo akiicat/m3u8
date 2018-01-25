@@ -38,7 +38,7 @@ module M3U8
       attributes.join(',')
     end
 
-    def attributes
+    private def attributes
       [
         method_format,
         uri_format,

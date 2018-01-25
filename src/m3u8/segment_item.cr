@@ -37,7 +37,7 @@ module M3U8
       attributes.join('\n')
     end
 
-    def attributes
+    private def attributes
       [
         inf_format,
         byterange_format,

@@ -82,7 +82,6 @@ module M3U8
                    audio_codec = nil,
                    level = nil,
                    profile = nil)
-
       @program_id = program_id ? program_id.to_i : nil
       @iframe = iframe ? true : false
       @frame_rate = frame_rate ? frame_rate.to_f : nil

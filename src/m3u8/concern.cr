@@ -1,6 +1,6 @@
 module M3U8
   private module Concern
-    macro included
+    private macro included
       extend Concern
     end
 
@@ -89,7 +89,7 @@ module M3U8
       end
     end
 
-    macro method_missing(call)
+    private macro method_missing(call)
       nil
     end
   end

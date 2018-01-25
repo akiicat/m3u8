@@ -30,7 +30,7 @@ module M3U8
       %(#EXT-X-MAP:#{attributes.join(',')})
     end
 
-    def attributes
+    private def attributes
       [
         uri_format,
         byterange_format

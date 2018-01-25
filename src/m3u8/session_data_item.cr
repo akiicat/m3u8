@@ -34,7 +34,7 @@ module M3U8
       "#EXT-X-SESSION-DATA:#{attributes.join(',')}"
     end
 
-    def attributes
+    private def attributes
       [
         data_id_format,
         value_format,

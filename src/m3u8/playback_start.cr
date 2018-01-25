@@ -29,7 +29,7 @@ module M3U8
       "#EXT-X-START:#{attributes.join(',')}"
     end
 
-    def attributes
+    private def attributes
       [
         time_offset_format,
         precise_format

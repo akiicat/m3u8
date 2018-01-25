@@ -50,13 +50,28 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidTimeItem" data-name="m3u8::error::invalidtimeitem">
+      <a href="M3U8/Error/InvalidTimeItem.html">InvalidTimeItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +107,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -159,14 +159,18 @@
 
 <h2>Usage</h2>
 
-<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;m3u8&quot;</span></code></pre>
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;m3u8&quot;</span>
+
+<span class="k">module</span> <span class="t">App</span>
+  <span class="k">include</span> <span class="t">M3U8</span>
+<span class="k">end</span></code></pre>
 
 <p><span class="flag orange">TODO</span>  Write Document</p>
 
 <h3>Generate</h3>
 
-<pre><code class='language-cr'>playlist = M3U8::Playlist.new
-playlist.items &lt;&lt; M3U8::SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+<pre><code class='language-crystal'>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test_01.ts&quot;</span>)
 playlist.to_s</code></pre>
 
 <pre><code><span class="c">#EXTM3U</span>
@@ -178,9 +182,9 @@ test_01.ts
 
 <h3>Parse</h3>
 
-<pre><code class='language-cr'>file = File.read "spec/playlists/master.m3u8"
-playlist = M3U8::Playlist.parse(file)
-playlist.master? # => true</code></pre>
+<pre><code class='language-crystal'>file <span class="o">=</span> <span class="t">File</span>.read <span class="s">&quot;spec/playlists/master.m3u8&quot;</span>
+playlist <span class="o">=</span> <span class="t">Playlist</span>.parse(file)
+playlist.master? <span class="c"># =&gt; true</span></code></pre>
 
 <h2>Development</h2>
 

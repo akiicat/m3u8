@@ -59,7 +59,7 @@ module M3U8
       "#EXT-X-DATERANGE:#{attributes.join(',')}"
     end
 
-    def attributes
+    private def attributes
       [
         id_format,
         class_name_format,

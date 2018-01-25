@@ -37,7 +37,6 @@ module M3U8
     def initialize(@master = nil, @version = nil, @cache = nil, @discontinuity_sequence = nil, @type = nil,
                    target = nil, sequence = nil, iframes_only = nil, independent_segments = nil, live = nil,
                    items = nil)
-
       @target = default_params(:target).to_f
       @sequence = default_params(:sequence)
       @iframes_only = default_params(:iframes_only)
@@ -83,28 +82,6 @@ module M3U8
       attributes.join('\n') + "\n"
     end
 
-    def attributes
-      valid!
-
-      [
-        header_attributes,
-        body_attributes,
-        footer_attributes
-      ].flatten
-    end
-
-    def header_attributes
-      master? ? master_header_attributes : media_header_attributes
-    end
-
-    def body_attributes
-      items.map { |item| item.to_s }
-    end
-
-    def footer_attributes
-      [endlist_tag].compact
-    end
-
     def header
       header_attributes.join('\n')
     end
@@ -115,6 +92,27 @@ module M3U8
 
     def footer
       footer_attributes.join('\n')
+    end
+
+    private def attributes
+      valid!
+      [
+        header_attributes,
+        body_attributes,
+        footer_attributes
+      ].flatten
+    end
+
+    private def header_attributes
+      master? ? master_header_attributes : media_header_attributes
+    end
+
+    private def body_attributes
+      items.map { |item| item.to_s }
+    end
+
+    private def footer_attributes
+      [endlist_tag].compact
     end
 
     private macro default_params(m)
@@ -201,6 +199,5 @@ module M3U8
     private def endlist_tag
       "#EXT-X-ENDLIST" unless live? || master?
     end
-
   end
 end

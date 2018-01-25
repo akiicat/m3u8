@@ -1,5 +1,5 @@
 module M3U8
-  class Scanner
+  private class Scanner
     getter index : Int32
     property peek_index : Int32
     getter reader : Array(String)

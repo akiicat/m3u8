@@ -41,7 +41,7 @@ module M3U8
       @playlist
     end
 
-    def parse(line : String)
+    private def parse(line : String)
       while line.ends_with?('\\')
         line = line.rchop.rstrip + @reader.next
       end
@@ -146,7 +146,7 @@ module M3U8
       end
     end
 
-    def parse_line(line)
+    private def parse_line(line)
       case line
       when .starts_with?('#')
         # puts "comment #{@reader.lineno} #{line}"
@@ -157,7 +157,7 @@ module M3U8
       end
     end
 
-    def parse_item(line)
+    private def parse_item(line)
       item = @item
       case item
       when SegmentItem
