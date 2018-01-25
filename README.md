@@ -1,5 +1,7 @@
 # m3u8
 
+[![Build Status](https://travis-ci.org/akiicat/m3u8.svg?branch=master)](https://travis-ci.org/akiicat/m3u8)
+
 TODO: Write a description here
 
 ## Installation
