@@ -315,7 +315,7 @@ module M3U8
 
           message = "Playlist is invalid."
 
-          expect_raises(PlaylistTypeError, message) do
+          expect_raises(Error::PlaylistType, message) do
             playlist.to_s
           end
         end
@@ -472,7 +472,7 @@ module M3U8
 
         message = "Playlist is invalid."
         
-        expect_raises(PlaylistTypeError, message) do
+        expect_raises(Error::PlaylistType, message) do
           playlist.to_s
         end
       end

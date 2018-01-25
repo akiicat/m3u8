@@ -193,13 +193,13 @@ module M3U8
 
     private def master!
       message = "both playlist tag and media tag. #{@reader.current_line}"
-      raise InvalidPlaylistError.new message if @playlist.master == false
+      raise Error::InvalidPlaylist.new message if @playlist.master == false
       @playlist.master = true
     end
 
     private def not_master!
       message = "both playlist tag and media tag. #{@reader.current_line}"
-      raise InvalidPlaylistError.new message if @playlist.master == true
+      raise Error::InvalidPlaylist.new message if @playlist.master == true
       @playlist.master = false
     end
 
@@ -207,7 +207,7 @@ module M3U8
       line = @reader[0]
       return if Protocol.parse(line) == :extm3u
       message = "Playlist must start with a #EXTM3U tag, line read contained the value: #{line}"
-      raise InvalidPlaylistError.new message
+      raise Error::InvalidPlaylist.new message
     end
   end
 end

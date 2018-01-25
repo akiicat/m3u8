@@ -1,10 +1,6 @@
 module M3U8
-  class InvalidPlaylistError < Exception
-  end
-
-  class InvalidTimeItemError < Exception
-  end
-
-  class PlaylistTypeError < Exception
+  module Error
+    class InvalidPlaylist < Exception; end
+    class PlaylistType < Exception; end
   end
 end

@@ -67,7 +67,7 @@ module M3U8
     end
 
     def valid!
-      raise PlaylistTypeError.new("Playlist is invalid.") unless valid?
+      raise Error::PlaylistType.new("Playlist is invalid.") unless valid?
     end
 
     def duration
