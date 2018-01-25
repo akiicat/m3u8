@@ -93,7 +93,7 @@ module M3U8
         end
 
         it "codecs" do
-          item.codecs.should eq options[:codecs]?
+          item.codecs.should eq options[:codecs]?.to_s
         end
 
         it "bandwidth" do

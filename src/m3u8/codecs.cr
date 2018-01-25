@@ -7,6 +7,11 @@ module M3U8
     property level : Float64?
     property profile : String?
 
+    # ```
+    # options = { audio_codec: "aac-lc" }
+    # M3U8::Codecs.new(options)
+    # M3U8::Codecs.new(audio_codec: "aac-lc")
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         codecs: params[:codecs]?,
@@ -16,6 +21,9 @@ module M3U8
       )
     end
 
+    # ```
+    # M3U8::Codecs.new
+    # ```
     def initialize(@codecs = nil,
                    @audio_codec = nil,
                    level = nil,
@@ -23,6 +31,12 @@ module M3U8
       @level = level.try &.to_f
     end
 
+    # ```
+    # 
+    # M3U8::Codecs.new(codecs: "test").to_s # => "test"
+    # M3U8::Codecs.new(audio_codec: "aac-lc").to_s # => "mp4a.40.2"
+    # M3U8::Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34"
+    # ```
     def to_s
       return codecs || "" if codecs
 
@@ -41,20 +55,32 @@ module M3U8
       [video_codec_string, audio_codec_string].compact.join(',')
     end
 
+    # ```
+    # codecs = M3U8::Codecs.new
+    # codecs.empty? # => true
+    # codecs.audio_codec = "aac-lc"
+    # codecs.empty? # => false
+    # ```
     def empty?
       to_s.empty?
     end
 
+    # ```
+    # left = M3U8::Codecs.new(audio_codec: "aac-lc")
+    # right = M3U8::Codecs.new(audio_codec: "aac-lc")
+    # left == right # => true
+    # ```
     def ==(other : Codecs)
       to_s == other.to_s
     end
 
+    # ```
+    # left = M3U8::Codecs.new(audio_codec: "aac-lc")
+    # right = "aac-lc"
+    # left == right # => true
+    # ```
     def ==(other : String)
       to_s == other
-    end
-
-    def ==(other : Nil)
-      empty?
     end
 
     private def audio_codec_code
@@ -102,3 +128,4 @@ module M3U8
     end
   end
 end
+
