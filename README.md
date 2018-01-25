@@ -18,7 +18,7 @@ dependencies:
 require "m3u8"
 
 module App
-  include "m3u8"
+  include M3U8
 end
 ```
 
@@ -27,8 +27,8 @@ TODO: Write Document
 ### Generate
 
 ```crystal
-playlist = M3U8::Playlist.new
-playlist.items << M3U8::SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+playlist = Playlist.new
+playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
 playlist.to_s
 ```
 
@@ -45,7 +45,7 @@ test_01.ts
 
 ```crystal
 file = File.read "spec/playlists/master.m3u8"
-playlist = M3U8::Playlist.parse(file)
+playlist = Playlist.parse(file)
 playlist.master? # => true
 ```
 
