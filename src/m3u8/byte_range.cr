@@ -38,8 +38,11 @@ module M3U8
     # ```
     # byterange = ByteRange.new
     # byterange.empty? # => true
+    #
     # byterange = ByteRange.new(length: 0)
     # byterange.empty? # => true
+    # byterange.length = 4500
+    # byterange.empty? # => false
     # ```
     def empty?
       length = @length

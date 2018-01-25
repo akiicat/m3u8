@@ -9,8 +9,8 @@ module M3U8
 
     # ```
     # options = { audio_codec: "aac-lc" }
-    # M3U8::Codecs.new(options)
-    # M3U8::Codecs.new(audio_codec: "aac-lc")
+    # Codecs.new(options)
+    # Codecs.new(audio_codec: "aac-lc")
     # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -22,7 +22,7 @@ module M3U8
     end
 
     # ```
-    # M3U8::Codecs.new
+    # Codecs.new
     # ```
     def initialize(@codecs = nil,
                    @audio_codec = nil,
@@ -33,9 +33,9 @@ module M3U8
 
     # ```
     # 
-    # M3U8::Codecs.new(codecs: "test").to_s # => "test"
-    # M3U8::Codecs.new(audio_codec: "aac-lc").to_s # => "mp4a.40.2"
-    # M3U8::Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34"
+    # Codecs.new(codecs: "test").to_s # => "test"
+    # Codecs.new(audio_codec: "aac-lc").to_s # => "mp4a.40.2"
+    # Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34"
     # ```
     def to_s
       return codecs || "" if codecs
@@ -56,7 +56,7 @@ module M3U8
     end
 
     # ```
-    # codecs = M3U8::Codecs.new
+    # codecs = Codecs.new
     # codecs.empty? # => true
     # codecs.audio_codec = "aac-lc"
     # codecs.empty? # => false
@@ -66,8 +66,8 @@ module M3U8
     end
 
     # ```
-    # left = M3U8::Codecs.new(audio_codec: "aac-lc")
-    # right = M3U8::Codecs.new(audio_codec: "aac-lc")
+    # left = Codecs.new(audio_codec: "aac-lc")
+    # right = Codecs.new(audio_codec: "aac-lc")
     # left == right # => true
     # ```
     def ==(other : Codecs)
@@ -75,7 +75,7 @@ module M3U8
     end
 
     # ```
-    # left = M3U8::Codecs.new(audio_codec: "aac-lc")
+    # left = Codecs.new(audio_codec: "aac-lc")
     # right = "aac-lc"
     # left == right # => true
     # ```
