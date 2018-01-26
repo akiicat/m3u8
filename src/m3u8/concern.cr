@@ -9,22 +9,6 @@ module M3U8
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
 
-    private def parse_time(time)
-      case time
-      when String then Time.iso8601(time)
-      when Time then time
-      else Time.epoch 0
-      end
-    end
-
-    private def parse_time_item(item)
-      case item
-      when String, Time then TimeItem.new item
-      when TimeItem then item
-      else TimeItem.new
-      end
-    end
-
     private def parse_client_attributes(attributes)
       hash = ClientAttributeType.new
       return hash if !attributes

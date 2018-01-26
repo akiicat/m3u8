@@ -34,7 +34,7 @@ module M3U8
     # ```
     def initialize(@duration = nil, @segment = nil, @comment = nil, byterange = nil, program_date_time = nil)
       @byterange = ByteRange.parse(byterange)
-      @program_date_time = parse_time_item(program_date_time)
+      @program_date_time = TimeItem.parse(program_date_time)
     end
 
     # ```
@@ -57,7 +57,7 @@ module M3U8
     # item.program_date_time # => #<M3U8::TimeItem......>
     # ```
     def program_date_time=(time)
-      @program_date_time = parse_time_item(time)
+      @program_date_time = TimeItem.parse(time)
     end
 
     # ```
