@@ -6,46 +6,45 @@ module M3U8
 
     Mapping = {
       # Basic Tags
-      "#EXTM3U": :extm3u,
+      "#EXTM3U":        :extm3u,
       "#EXT-X-VERSION": :ext_x_version,
 
       # media segment tags
-      "#EXTINF": :extinf,
-      "#EXT-X-BYTERANGE": :ext_x_byterange,
-      "#EXT-X-DISCONTINUITY": :ext_x_discontinuity,
-      "#EXT-X-KEY": :ext_x_key,
-      "#EXT-X-MAP": :ext_x_map,
+      "#EXTINF":                  :extinf,
+      "#EXT-X-BYTERANGE":         :ext_x_byterange,
+      "#EXT-X-DISCONTINUITY":     :ext_x_discontinuity,
+      "#EXT-X-KEY":               :ext_x_key,
+      "#EXT-X-MAP":               :ext_x_map,
       "#EXT-X-PROGRAM-DATE-TIME": :ext_x_program_date_time,
-      "#EXT-X-DATERANGE": :ext_x_daterange,
+      "#EXT-X-DATERANGE":         :ext_x_daterange,
 
       # Media Playlist Tags
-      "#EXT-X-TARGETDURATION": :ext_x_targetduration,
-      "#EXT-X-MEDIA-SEQUENCE": :ext_x_media_sequence,
+      "#EXT-X-TARGETDURATION":         :ext_x_targetduration,
+      "#EXT-X-MEDIA-SEQUENCE":         :ext_x_media_sequence,
       "#EXT-X-DISCONTINUITY-SEQUENCE": :ext_x_discontinuity_sequence,
-      "#EXT-X-ENDLIST": :ext_x_endlist,
-      "#EXT-X-PLAYLIST-TYPE": :ext_x_playlist_type,
-      "#EXT-X-I-FRAMES-ONLY": :ext_x_i_frames_only,
-      "#EXT-X-ALLOW-CACHE": :ext_x_allow_cache,
+      "#EXT-X-ENDLIST":                :ext_x_endlist,
+      "#EXT-X-PLAYLIST-TYPE":          :ext_x_playlist_type,
+      "#EXT-X-I-FRAMES-ONLY":          :ext_x_i_frames_only,
+      "#EXT-X-ALLOW-CACHE":            :ext_x_allow_cache,
 
       # Master Playlist Tags
-      "#EXT-X-MEDIA": :ext_x_media,
-      "#EXT-X-STREAM-INF": :ext_x_stream_inf,
+      "#EXT-X-MEDIA":              :ext_x_media,
+      "#EXT-X-STREAM-INF":         :ext_x_stream_inf,
       "#EXT-X-I-FRAME-STREAM-INF": :ext_x_i_frame_stream_inf,
-      "#EXT-X-SESSION-DATA": :ext_x_session_data,
-      "#EXT-X-SESSION-KEY": :ext_x_session_key,
+      "#EXT-X-SESSION-DATA":       :ext_x_session_data,
+      "#EXT-X-SESSION-KEY":        :ext_x_session_key,
 
       # Media or Master Playlist Tags
       "#EXT-X-INDEPENDENT-SEGMENTS": :ext_x_independent_segments,
-      "#EXT-X-START": :ext_x_start,
+      "#EXT-X-START":                :ext_x_start,
 
       # Experimental Tags
-      "#EXT-X-CUE-OUT": :ext_x_cue_out,
+      "#EXT-X-CUE-OUT":      :ext_x_cue_out,
       "#EXT-X-CUE-OUT-CONT": :ext_x_cue_out_cont,
-      "#EXT-X-CUE-IN": :ext_x_cue_in,
-      "#EXT-X-CUE-SPAN": :ext_x_cue_span,
-      "#EXT-OATCLS-SCTE35": :ext_oatcls_scte35,
+      "#EXT-X-CUE-IN":       :ext_x_cue_in,
+      "#EXT-X-CUE-SPAN":     :ext_x_cue_span,
+      "#EXT-OATCLS-SCTE35":  :ext_oatcls_scte35,
     }
-
 
     BASIC_TAGS = [
       :extm3u,
@@ -95,7 +94,7 @@ module M3U8
 
     MEDIA_TAGS = [
       MEDIA_SEGMENT_TAGS,
-      MEDIA_PLAYLIST_TAGS
+      MEDIA_PLAYLIST_TAGS,
     ].flatten
 
     ALL_TAGS = [
@@ -108,4 +107,3 @@ module M3U8
     ].flatten
   end
 end
-

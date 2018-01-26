@@ -22,7 +22,7 @@ module M3U8
     # ```
     # options = {
     #   time_offset: -12.9,
-    #   precise: true
+    #   precise:     true,
     # }
     # PlaybackStart.new(options)
     # ```
@@ -46,7 +46,7 @@ module M3U8
     # ```
     # options = {
     #   time_offset: -12.9,
-    #   precise: true
+    #   precise:     true,
     # }
     # PlaybackStart.new(options).to_s
     # # => "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
@@ -58,7 +58,7 @@ module M3U8
     private def attributes
       [
         time_offset_format,
-        precise_format
+        precise_format,
       ].compact
     end
 
@@ -71,4 +71,3 @@ module M3U8
     end
   end
 end
-

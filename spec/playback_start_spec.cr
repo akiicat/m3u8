@@ -2,11 +2,10 @@ require "./spec_helper"
 
 module M3U8
   describe PlaybackStart do
-
     describe "initialize" do
       options = {
         time_offset: -12.9,
-        precise: true
+        precise:     true,
       }
       expected = "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
 
@@ -27,30 +26,30 @@ module M3U8
       {
         {
           time_offset: -12.9,
-          precise: true
+          precise:     true,
         },
-        "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
+        "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES",
       },
       {
         {
           time_offset: -12.9,
-          precise: false
+          precise:     false,
         },
-        "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=NO"
+        "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=NO",
       },
       {
         {
           time_offset: 9.2,
-          precise: true
+          precise:     true,
         },
-        "#EXT-X-START:TIME-OFFSET=9.2,PRECISE=YES"
+        "#EXT-X-START:TIME-OFFSET=9.2,PRECISE=YES",
       },
       {
         {
           time_offset: 9.2,
         },
-        "#EXT-X-START:TIME-OFFSET=9.2"
-      }
+        "#EXT-X-START:TIME-OFFSET=9.2",
+      },
     }.each do |(params, format)|
       item = PlaybackStart.new(params)
 

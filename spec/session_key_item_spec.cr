@@ -2,13 +2,12 @@ require "./spec_helper"
 
 module M3U8
   describe SessionKeyItem do
-
     describe "initialize" do
       options = {
-        method: "AES-128",
-        uri: "http://test.key",
-        iv: "D512BBF",
-        key_format: "identity",
+        method:              "AES-128",
+        uri:                 "http://test.key",
+        iv:                  "D512BBF",
+        key_format:          "identity",
         key_format_versions: "1/3",
       }
       expected = %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3")
@@ -29,27 +28,27 @@ module M3U8
     {
       {
         {
-          method: "AES-128",
-          uri: "http://test.key",
-          iv: "D512BBF",
-          key_format: "identity",
-          key_format_versions: "1/3"
+          method:              "AES-128",
+          uri:                 "http://test.key",
+          iv:                  "D512BBF",
+          key_format:          "identity",
+          key_format_versions: "1/3",
         },
-        %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3")
+        %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3"),
       },
       {
         {
           method: "AES-128",
-          uri: "http://test.key"
+          uri:    "http://test.key",
         },
-        %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key")
+        %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key"),
       },
       {
         {
-          method: "NONE"
+          method: "NONE",
         },
-        "#EXT-X-SESSION-KEY:METHOD=NONE"
-      }
+        "#EXT-X-SESSION-KEY:METHOD=NONE",
+      },
     }.each do |(params, format)|
       item = SessionKeyItem.new(params)
 
@@ -90,4 +89,3 @@ private def assets_attributes(item, params)
     item.key_format_versions.should eq params[:key_format_versions]?
   end
 end
-

@@ -5,23 +5,23 @@ module M3U8
     {
       {
         "2010-02-19T14:54:23Z",
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z"
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z",
       },
       {
         "2010-02-19T14:54:23.031Z",
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
       },
       {
         Time.iso8601("2010-02-19T14:54:23.031Z"),
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
       },
       {
-        { time: "2010-02-19T14:54:23Z" },
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z"
+        {time: "2010-02-19T14:54:23Z"},
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z",
       },
       {
-        { time: Time.iso8601("2010-02-19T14:54:23.031Z") },
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
+        {time: Time.iso8601("2010-02-19T14:54:23.031Z")},
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
       },
     }.each do |(params, format)|
       item = TimeItem.new(params)

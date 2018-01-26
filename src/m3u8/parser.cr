@@ -89,26 +89,20 @@ module M3U8
       when :extm3u
       when :ext_x_version
         @playlist.version = value.to_i
-
-      # media segment tags
+        # media segment tags
       when :extinf
         duration, comment = value.split(',')
         @item = SegmentItem.new(duration: duration.to_f, comment: comment)
-
       when :ext_x_byterange
         item = @item
         item.byterange = value if item.is_a?(SegmentItem)
         @item = item
-
       when :ext_x_discontinuity
         push_item DiscontinuityItem.new
-
       when :ext_x_key
         push_item KeyItem.parse value
-
       when :ext_x_map
         push_item MapItem.parse value
-
       when :ext_x_program_date_time
         item = @item
         case item
@@ -118,62 +112,46 @@ module M3U8
         else
           push_item TimeItem.new(value)
         end
-
       when :ext_x_daterange
         tag, value = partition full_line(line)
         push_item DateRangeItem.parse value
 
-      # Media Playlist Tags
+        # Media Playlist Tags
       when :ext_x_targetduration
         @playlist.target = value.to_f
-
       when :ext_x_media_sequence
         @playlist.sequence = value.to_i
-
       when :ext_x_discontinuity_sequence
         @playlist.discontinuity_sequence = value.to_i
-
       when :ext_x_endlist
         @live = false
-
       when :ext_x_playlist_type
         @playlist.type = value
-
       when :ext_x_i_frames_only
         @playlist.iframes_only = true
-
       when :ext_x_allow_cache
         @playlist.cache = parse_boolean(value)
-
-      # Master Playlist Tags
+        # Master Playlist Tags
       when :ext_x_media
         push_item MediaItem.parse value
-
       when :ext_x_stream_inf
         @item = PlaylistItem.parse value
-
       when :ext_x_i_frame_stream_inf
         item = PlaylistItem.parse value
         item.iframe = true
         push_item item
-
       when :ext_x_session_data
         push_item SessionDataItem.parse value
-
       when :ext_x_session_key
         push_item SessionKeyItem.parse value
-
-      # Media or Master Playlist Tags
+        # Media or Master Playlist Tags
       when :ext_x_independent_segments
         @playlist.independent_segments = true
-
       when :ext_x_start
         push_item PlaybackStart.parse value
-
-      # Experimental Tags
+        # Experimental Tags
       when :ext_x_cue_out, :ext_x_cue_out_cont, :ext_x_cue_in, :ext_x_cue_span, :ext_oatcls_scte35
         puts "Not support experimental tag #{@reader.lineno} #{line}"
-
       else
         parse_line(line)
       end
@@ -244,4 +222,3 @@ module M3U8
     end
   end
 end
-

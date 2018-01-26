@@ -73,7 +73,7 @@ module M3U8
         forced_format,
         instream_id_format,
         characteristics_format,
-        channels_format
+        channels_format,
       ].compact
     end
 
@@ -126,4 +126,3 @@ module M3U8
     end
   end
 end
-

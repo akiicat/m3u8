@@ -9,4 +9,3 @@ module M3U8
 
   include Protocol
 end
-

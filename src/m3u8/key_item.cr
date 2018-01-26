@@ -30,4 +30,3 @@ module M3U8
     end
   end
 end
-

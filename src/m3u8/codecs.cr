@@ -8,7 +8,7 @@ module M3U8
     property profile : String?
 
     # ```
-    # options = { audio_codec: "aac-lc" }
+    # options = {audio_codec: "aac-lc"}
     # Codecs.new(options)
     # Codecs.new(audio_codec: "aac-lc")
     # ```
@@ -32,9 +32,8 @@ module M3U8
     end
 
     # ```
-    # 
-    # Codecs.new(codecs: "test").to_s # => "test"
-    # Codecs.new(audio_codec: "aac-lc").to_s # => "mp4a.40.2"
+    # Codecs.new(codecs: "test").to_s                                      # => "test"
+    # Codecs.new(audio_codec: "aac-lc").to_s                               # => "mp4a.40.2"
     # Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34"
     # ```
     def to_s
@@ -87,9 +86,9 @@ module M3U8
       return if audio_codec.nil?
 
       case audio_codec.not_nil!.downcase
-      when "aac-lc" then "mp4a.40.2" 
+      when "aac-lc" then "mp4a.40.2"
       when "he-aac" then "mp4a.40.5"
-      when "mp3" then "mp4a.40.34"
+      when "mp3"    then "mp4a.40.34"
       end
     end
 
@@ -98,8 +97,8 @@ module M3U8
 
       case profile
       when "baseline" then baseline_codec_string
-      when "main" then main_codec_string
-      when "high" then high_codec_string
+      when "main"     then main_codec_string
+      when "high"     then high_codec_string
       end
     end
 
@@ -128,4 +127,3 @@ module M3U8
     end
   end
 end
-

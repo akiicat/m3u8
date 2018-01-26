@@ -25,22 +25,22 @@ module M3U8
 
     private def parse_token(token : String)
       case token
-      when .to_f? then token.to_f
-      when .to_i? then token.to_i
-      when "true" then true
+      when .to_f?  then token.to_f
+      when .to_i?  then token.to_i
+      when "true"  then true
       when "false" then false
       when .empty? then ""
-      else token
+      else              token
       end
     end
 
     private def parse_resolution(resolution)
-      return { width: nil, height: nil } if resolution.nil?
+      return {width: nil, height: nil} if resolution.nil?
 
       values = resolution.split('x')
       {
-        width: values[0].to_i,
-        height: values[1].to_i
+        width:  values[0].to_i,
+        height: values[1].to_i,
       }
     end
 
@@ -53,7 +53,7 @@ module M3U8
 
     private def parse_yes_no(value)
       case value
-      when true then "YES"
+      when true  then "YES"
       when false then "NO"
       end
     end

@@ -2,50 +2,49 @@ require "./spec_helper"
 
 module M3U8
   describe Scanner do
-
     {
       {
         "#foo\n" \
         "#bar\n" \
         "#qxz",
         ["#foo", "#bar", "#qxz"],
-        [1, 2, 3]
+        [1, 2, 3],
       },
       {
         "#foo\n\n" \
         "#bar\n\n" \
         "#qxz",
         ["#foo", "#bar", "#qxz"],
-        [1, 3, 5]
+        [1, 3, 5],
       },
       {
         "#foo\n" \
-        "bar\n"  \
+        "bar\n" \
         "qxz",
         ["#foobarqxz"],
-        [1]
+        [1],
       },
       {
         "#foo \\\n" \
         "bar  \\\n" \
         "qxz",
         ["#foobarqxz"],
-        [1]
+        [1],
       },
       {
         "#foo \\\n" \
         "#bar \\\n" \
         "#qxz",
         ["#foo#bar#qxz"],
-        [1]
+        [1],
       },
       {
         "#foo\n\n" \
-        "bar\n\n"  \
+        "bar\n\n" \
         "qxz",
         ["#foobarqxz"],
-        [1]
-      }
+        [1],
+      },
     }.each do |(string, paragraphs, paragraphs_lineno)|
       it "#initialize" do
         scanner = Scanner.new string

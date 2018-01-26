@@ -2,7 +2,6 @@ require "./spec_helper"
 
 module M3U8
   describe KeyItem do
-
     describe "initialize" do
       options = {
         method:              "AES-128",
@@ -90,4 +89,3 @@ private def assets_attributes(item, params)
     item.key_format_versions.should eq params[:key_format_versions]?
   end
 end
-

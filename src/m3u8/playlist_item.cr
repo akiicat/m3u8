@@ -51,24 +51,24 @@ module M3U8
 
     # ```
     # options = {
-    #   program_id: 1,
-    #   width: 1920,
-    #   height: 1080,
-    #   bandwidth: 540,
-    #   video: "test_video",
-    #   audio: "test_a",
-    #   uri: "test.url",
+    #   program_id:        1,
+    #   width:             1920,
+    #   height:            1080,
+    #   bandwidth:         540,
+    #   video:             "test_video",
+    #   audio:             "test_a",
+    #   uri:               "test.url",
     #   average_bandwidth: 500,
-    #   subtitles: "subs",
-    #   closed_captions: "cc",
-    #   iframe: true,
-    #   frame_rate: 24.6,
-    #   name: "test_name",
-    #   hdcp_level: "TYPE-0",
-    #   codecs: "avc",
-    #   audio_codec: "mp3",
-    #   level: "2",
-    #   profile: "baseline",
+    #   subtitles:         "subs",
+    #   closed_captions:   "cc",
+    #   iframe:            true,
+    #   frame_rate:        24.6,
+    #   name:              "test_name",
+    #   hdcp_level:        "TYPE-0",
+    #   codecs:            "avc",
+    #   audio_codec:       "mp3",
+    #   level:             "2",
+    #   profile:           "baseline",
     # }
     # PlaylistItem.new(options)
     # ```
@@ -120,17 +120,17 @@ module M3U8
       @iframe = iframe ? true : false
       @frame_rate = frame_rate ? frame_rate.to_f : nil
       @codecs = Codecs.new({
-        codecs: codecs,
+        codecs:      codecs,
         audio_codec: audio_codec,
-        level: level,
-        profile: profile,
+        level:       level,
+        profile:     profile,
       })
     end
 
     # ```
     # options = {
-    #   width: 1920,
-    #   height: 1080
+    #   width:  1920,
+    #   height: 1080,
     # }
     # item = PlaylistItem.new(options)
     # item.resolution # => 1920x1080
@@ -168,7 +168,7 @@ module M3U8
     #      NAME="test_name",URI="test.url"
     def to_s
       if iframe
-        %(#EXT-X-I-FRAME-STREAM-INF:#{attributes.join(',')},URI="#{uri}") 
+        %(#EXT-X-I-FRAME-STREAM-INF:#{attributes.join(',')},URI="#{uri}")
       else
         %(#EXT-X-STREAM-INF:#{attributes.join(',')}\n#{uri})
       end
@@ -187,7 +187,7 @@ module M3U8
         video_format,
         subtitles_format,
         closed_captions_format,
-        name_format
+        name_format,
       ].compact
     end
 

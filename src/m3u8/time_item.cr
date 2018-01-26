@@ -14,7 +14,7 @@ module M3U8
     def self.parse(item = nil)
       case item
       when TimeItem then item
-      else new(item)
+      else               new(item)
       end
     end
 
@@ -66,10 +66,9 @@ module M3U8
     private def parse_time(time)
       case time
       when String then Time.iso8601(time)
-      when Time then time
-      else Time.epoch 0
+      when Time   then time
+      else             Time.epoch 0
       end
     end
   end
 end
-

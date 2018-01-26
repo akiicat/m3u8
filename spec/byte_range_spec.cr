@@ -14,7 +14,7 @@ private def assets(item, params, format)
   it "to_s" do
     item.to_s.should eq format
   end
-  
+
   it "not empty" do
     item.empty?.should be_false
   end
@@ -22,11 +22,10 @@ end
 
 module M3U8
   describe ByteRange do
-
     describe "initialize" do
       options = {
         length: 4500,
-        start: 600
+        start:  600,
       }
       expected = "4500@600"
 
@@ -41,7 +40,7 @@ module M3U8
       it "hash like" do
         ByteRange.new(**options).to_s.should eq expected
       end
-      
+
       it "string format" do
         ByteRange.new(expected).to_s.should eq expected
       end
@@ -49,16 +48,16 @@ module M3U8
 
     {
       {
-        { length: 4500, start: 600 },
-        "4500@600"
+        {length: 4500, start: 600},
+        "4500@600",
       },
       {
-        { length: 4000, start: nil },
-        "4000"
+        {length: 4000, start: nil},
+        "4000",
       },
       {
-        { length: 3300 },
-        "3300"
+        {length: 3300},
+        "3300",
       },
     }.each do |(params, format)|
       assets ByteRange.new(params), params, format
@@ -82,19 +81,19 @@ module M3U8
   {
     {
       ByteRange.new(length: 4500, start: 600),
-      ByteRange.new(length: 4500, start: 600)
+      ByteRange.new(length: 4500, start: 600),
     },
     {
-      { length: 4500, start: 600 },
-      ByteRange.new(length: 4500, start: 600)
+      {length: 4500, start: 600},
+      ByteRange.new(length: 4500, start: 600),
     },
     {
-      { length: 4500 },
-      ByteRange.new(length: 4500)
+      {length: 4500},
+      ByteRange.new(length: 4500),
     },
     {
       "4500@600",
-      ByteRange.new(length: 4500, start: 600)
+      ByteRange.new(length: 4500, start: 600),
     },
   }.each do |params, expected|
     item = ByteRange.parse(params)

@@ -19,9 +19,9 @@ module M3U8
 
     # ```
     # text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \
-    #        %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",)\
-    #        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,)\
-    #        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,)\
+    #        %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \
+    #        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \
+    #        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \
     #        %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
     # DateRangeItem.parse(text)
     # ```
@@ -44,17 +44,17 @@ module M3U8
 
     # ```
     # options = {
-    #   id: "test_id",
-    #   start_date: "2014-03-05T11:15:00Z",
-    #   class_name: "test_class",
-    #   end_date: "2014-03-05T11:16:00Z",
-    #   duration: 60.1,
-    #   planned_duration: 59.993,
-    #   scte35_out: "0xFC002F0000000000FF0",
-    #   scte35_in: "0xFC002F0000000000FF1",
-    #   scte35_cmd: "0xFC002F0000000000FF2",
-    #   end_on_next: true,
-    #   client_attributes: { "X-CUSTOM" => 45.3 }
+    #   id:                "test_id",
+    #   start_date:        "2014-03-05T11:15:00Z",
+    #   class_name:        "test_class",
+    #   end_date:          "2014-03-05T11:16:00Z",
+    #   duration:          60.1,
+    #   planned_duration:  59.993,
+    #   scte35_out:        "0xFC002F0000000000FF0",
+    #   scte35_in:         "0xFC002F0000000000FF1",
+    #   scte35_cmd:        "0xFC002F0000000000FF2",
+    #   end_on_next:       true,
+    #   client_attributes: {"X-CUSTOM" => 45.3},
     # }
     # DateRangeItem.new(options)
     # ```
@@ -84,24 +84,24 @@ module M3U8
 
     # ```
     # options = {
-    #   id: "test_id",
-    #   start_date: "2014-03-05T11:15:00Z",
-    #   class_name: "test_class",
-    #   end_date: "2014-03-05T11:16:00Z",
-    #   duration: 60.1,
-    #   planned_duration: 59.993,
-    #   scte35_out: "0xFC002F0000000000FF0",
-    #   scte35_in: "0xFC002F0000000000FF1",
-    #   scte35_cmd: "0xFC002F0000000000FF2",
-    #   end_on_next: true,
-    #   client_attributes: { "X-CUSTOM" => 45.3 }
+    #   id:                "test_id",
+    #   start_date:        "2014-03-05T11:15:00Z",
+    #   class_name:        "test_class",
+    #   end_date:          "2014-03-05T11:16:00Z",
+    #   duration:          60.1,
+    #   planned_duration:  59.993,
+    #   scte35_out:        "0xFC002F0000000000FF0",
+    #   scte35_in:         "0xFC002F0000000000FF1",
+    #   scte35_cmd:        "0xFC002F0000000000FF2",
+    #   end_on_next:       true,
+    #   client_attributes: {"X-CUSTOM" => 45.3},
     # }
-    # DateRangeItem.new(options).to_s 
+    # DateRangeItem.new(options).to_s
     # # => %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \
-    #      %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",)\
-    #      %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,)\
-    #      %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,)\
-    #      %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
+    # %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \
+    # %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \
+    # %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \
+    # %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
     # ```
     def to_s
       "#EXT-X-DATERANGE:#{attributes.join(',')}"
@@ -119,7 +119,7 @@ module M3U8
         scte35_cmd_format,
         scte35_out_format,
         scte35_in_format,
-        end_on_next_format
+        end_on_next_format,
       ].compact
     end
 
@@ -173,4 +173,3 @@ module M3U8
     end
   end
 end
-

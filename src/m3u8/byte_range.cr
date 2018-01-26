@@ -8,16 +8,16 @@ module M3U8
 
     # ```
     # ByteRange.parse(ByteRange.new(length: 4500, start: 600))
-    # ByteRange.parse({ length: 4500, start: 600 })
+    # ByteRange.parse({length: 4500, start: 600})
     # ByteRange.parse("4500@600")
     # ByteRange.parse
     # ```
     def self.parse(item = nil)
       case item
-      when String then new(item)
+      when String     then new(item)
       when NamedTuple then new(item)
-      when ByteRange then item
-      else new
+      when ByteRange  then item
+      else                 new
       end
     end
 
@@ -33,7 +33,7 @@ module M3U8
     end
 
     # ```
-    # options = { length: 4500, start: 600 }
+    # options = {length: 4500, start: 600}
     # ByteRange.new(options)
     # ByteRange.new(length: 4500, start: 600)
     # ```
@@ -80,7 +80,7 @@ module M3U8
     # right = "4500@600",
     # left == right # => true
     # ```
-    def == (other : String)
+    def ==(other : String)
       to_s == other
     end
 
@@ -89,7 +89,7 @@ module M3U8
     # right = { length: 4500, start: 600 },
     # left == right # => true
     # ```
-    def == (other : NamedTuple)
+    def ==(other : NamedTuple)
       to_s == ByteRange.new(other).to_s
     end
 
@@ -98,14 +98,14 @@ module M3U8
     # right =  ByteRange.new(length: 4500, start: 600)
     # left == right # => true
     # ```
-    def == (other : ByteRange)
+    def ==(other : ByteRange)
       to_s == other.to_s
     end
 
     private def attributes
       [
         length_format,
-        start_format
+        start_format,
       ].compact
     end
 
@@ -118,4 +118,3 @@ module M3U8
     end
   end
 end
-

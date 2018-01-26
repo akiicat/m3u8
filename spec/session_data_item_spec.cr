@@ -4,10 +4,10 @@ module M3U8
   describe SessionDataItem do
     describe "initialize" do
       options = {
-        data_id: "com.test.movie.title",
-        value: "Test",
-        uri: "http://test",
-        language: "en"
+        data_id:  "com.test.movie.title",
+        value:    "Test",
+        uri:      "http://test",
+        language: "en",
       }
       expected = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en")
 
@@ -27,29 +27,29 @@ module M3U8
     {
       {
         {
-          data_id: "com.test.movie.title",
-          value: "Test",
-          uri: "http://test",
-          language: "en"
+          data_id:  "com.test.movie.title",
+          value:    "Test",
+          uri:      "http://test",
+          language: "en",
         },
-        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en")
+        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en"),
       },
       {
         {
-          data_id: "com.test.movie.title",
-          value: "Test",
-          language: "en"
+          data_id:  "com.test.movie.title",
+          value:    "Test",
+          language: "en",
         },
-        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",LANGUAGE="en")
+        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",LANGUAGE="en"),
       },
       {
         {
-          data_id: "com.test.movie.title",
-          uri: "http://test",
-          language: "en"
+          data_id:  "com.test.movie.title",
+          uri:      "http://test",
+          language: "en",
         },
-        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",URI="http://test",LANGUAGE="en")
-      }
+        %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",URI="http://test",LANGUAGE="en"),
+      },
     }.each do |(params, format)|
       item = SessionDataItem.new(params)
 
@@ -85,5 +85,4 @@ private def assets_attributes(item, params)
   it "language" do
     item.language.should eq params[:language]?
   end
-
 end

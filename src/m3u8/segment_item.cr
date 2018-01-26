@@ -12,10 +12,10 @@ module M3U8
 
     # ```
     # options = {
-    #   duration: 10.991,
-    #   segment: "test.ts",
-    #   comment: "anything",
-    #   byterange: { length: 4500, start: 600 }
+    #   duration:  10.991,
+    #   segment:   "test.ts",
+    #   comment:   "anything",
+    #   byterange: {length: 4500, start: 600},
     # }
     # SegmentItem.new(options)
     # ```
@@ -40,7 +40,7 @@ module M3U8
     # ```
     # item = SegmentItem.new
     # item.byterange = ByteRange.new(length: 4500, start: 600)
-    # item.byterange = { length: 4500, start: 600 }
+    # item.byterange = {length: 4500, start: 600}
     # item.byterange = "4500@600"
     # item.byterange # => #<M3U8::ByteRange......>
     # ```
@@ -62,10 +62,10 @@ module M3U8
 
     # ```
     # options = {
-    #   duration: 10.991,
-    #   segment: "test.ts",
-    #   comment: "anything",
-    #   byterange: { length: 4500, start: 600 }
+    #   duration:  10.991,
+    #   segment:   "test.ts",
+    #   comment:   "anything",
+    #   byterange: {length: 4500, start: 600},
     # }
     # SegmentItem.new(options).to_s
     # # => %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
@@ -96,4 +96,3 @@ module M3U8
     end
   end
 end
-

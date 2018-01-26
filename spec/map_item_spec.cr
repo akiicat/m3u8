@@ -2,11 +2,10 @@ require "./spec_helper"
 
 module M3U8
   describe MapItem do
-
     describe "initialize" do
       options = {
-        uri: "frelo/prog_index.m3u8",
-        byterange: { length: 4500, start: 600 }
+        uri:       "frelo/prog_index.m3u8",
+        byterange: {length: 4500, start: 600},
       }
       expected = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
 
@@ -26,50 +25,50 @@ module M3U8
     {
       {
         {
-          uri: "frelo/prog_index.m3u8",
+          uri:       "frelo/prog_index.m3u8",
           byterange: {
             length: 4500,
-            start: 600
-          }
+            start:  600,
+          },
         },
-        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600"),
       },
       {
         {
-          uri: "frelo/prog_index.m3u8",
-          byterange: ByteRange.new(length: 4500, start: 600)
+          uri:       "frelo/prog_index.m3u8",
+          byterange: ByteRange.new(length: 4500, start: 600),
         },
-        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600"),
       },
       {
         {
-          uri: "frelo/prog_index.m3u8",
-          byterange: "4500@600"
+          uri:       "frelo/prog_index.m3u8",
+          byterange: "4500@600",
         },
-        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600"),
       },
       {
         {
-          uri: "frelo/prog_index.m3u8",
+          uri:       "frelo/prog_index.m3u8",
           byterange: {
-            length: 4500
-          }
+            length: 4500,
+          },
         },
-        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500")
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500"),
       },
       {
         {
-          uri: "frelo/prog_index.m3u8",
-          byterange: ByteRange.new(length: 4500)
+          uri:       "frelo/prog_index.m3u8",
+          byterange: ByteRange.new(length: 4500),
         },
-        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500")
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500"),
       },
       {
         {
           uri: "frehi/prog_index.m3u8",
         },
-        %(#EXT-X-MAP:URI="frehi/prog_index.m3u8")
-      }
+        %(#EXT-X-MAP:URI="frehi/prog_index.m3u8"),
+      },
     }.each do |(params, format)|
       item = MapItem.new(params)
 
@@ -93,7 +92,7 @@ private def assets_attributes(item, params)
   it "uri" do
     item.uri.should eq params[:uri]
   end
-  
+
   it "byterange" do
     item.byterange.should be_a(M3U8::ByteRange)
   end

@@ -2,13 +2,12 @@ require "./spec_helper"
 
 module M3U8
   describe SegmentItem do
-
     describe "initialize" do
       options = {
-        duration: 10.991,
-        segment: "test.ts",
-        comment: "anything",
-        byterange: { length: 4500, start: 600 }
+        duration:  10.991,
+        segment:   "test.ts",
+        comment:   "anything",
+        byterange: {length: 4500, start: 600},
       }
       expected = %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
 
@@ -28,83 +27,83 @@ module M3U8
     {
       {
         NamedTuple.new,
-        %(#EXTINF:,)
+        %(#EXTINF:,),
       },
       {
         {
-          duration: 10.991,
-          segment: "test.ts",
-          comment: "anything",
+          duration:  10.991,
+          segment:   "test.ts",
+          comment:   "anything",
           byterange: {
             length: 4500,
-            start: 600
-          }
+            start:  600,
+          },
         },
-        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts),
       },
       {
         {
-          duration: 10.991,
-          segment: "test.ts",
-          comment: "anything",
-          byterange: ByteRange.new(length: 4500, start: 600)
+          duration:  10.991,
+          segment:   "test.ts",
+          comment:   "anything",
+          byterange: ByteRange.new(length: 4500, start: 600),
         },
-        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts),
       },
       {
         {
-          duration: 10.991,
-          segment: "test.ts",
-          comment: "anything",
+          duration:  10.991,
+          segment:   "test.ts",
+          comment:   "anything",
           byterange: {
-            length: 4500
-          }
+            length: 4500,
+          },
         },
-        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts)
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts),
+      },
+      {
+        {
+          duration:  10.991,
+          segment:   "test.ts",
+          comment:   "anything",
+          byterange: ByteRange.new(length: 4500),
+        },
+        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts),
       },
       {
         {
           duration: 10.991,
-          segment: "test.ts",
-          comment: "anything",
-          byterange: ByteRange.new(length: 4500)
+          segment:  "test.ts",
+          comment:  "anything",
         },
-        %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500\ntest.ts)
+        %(#EXTINF:10.991,anything\ntest.ts),
+      },
+      {
+        {
+          duration:          10.991,
+          segment:           "test.ts",
+          program_date_time: "2010-02-19T06:54:23.031Z",
+        },
+        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts),
+      },
+      {
+        {
+          duration:          10.991,
+          segment:           "test.ts",
+          program_date_time: Time.iso8601("2010-02-19T06:54:23.031Z"),
+        },
+        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts),
       },
       {
         {
           duration: 10.991,
-          segment: "test.ts",
-          comment: "anything"
+          segment:  "test.ts",
         },
-        %(#EXTINF:10.991,anything\ntest.ts)
+        %(#EXTINF:10.991,\ntest.ts),
       },
-      {
-        {
-          duration: 10.991,
-          segment: "test.ts",
-          program_date_time: "2010-02-19T06:54:23.031Z"
-        },
-        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts)
-      },
-      {
-        {
-          duration: 10.991,
-          segment: "test.ts",
-          program_date_time: Time.iso8601("2010-02-19T06:54:23.031Z")
-        },
-        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts)
-      },
-      {
-        {
-          duration: 10.991,
-          segment: "test.ts"
-        },
-        %(#EXTINF:10.991,\ntest.ts)
-      }
     }.each do |(params, format)|
       item = SegmentItem.new(params)
-      
+
       describe "initialize" do
         it "duration" do
           item.duration.should eq params[:duration]?
@@ -133,4 +132,3 @@ module M3U8
     end
   end
 end
-

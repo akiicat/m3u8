@@ -9,11 +9,11 @@ module M3U8
 
     def self.convert_key(params)
       {
-        method: params["METHOD"],
-        uri: params["URI"]?,
-        iv: params["IV"]?,
-        key_format: params["KEYFORMAT"]?,
-        key_format_versions: params["KEYFORMATVERSIONS"]?
+        method:              params["METHOD"],
+        uri:                 params["URI"]?,
+        iv:                  params["IV"]?,
+        key_format:          params["KEYFORMAT"]?,
+        key_format_versions: params["KEYFORMATVERSIONS"]?,
       }
     end
 

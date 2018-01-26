@@ -24,10 +24,10 @@ module M3U8
 
     # ```
     # options = {
-    #   data_id: "com.test.movie.title",
-    #   value: "Test",
-    #   uri: "http://test",
-    #   language: "en"
+    #   data_id:  "com.test.movie.title",
+    #   value:    "Test",
+    #   uri:      "http://test",
+    #   language: "en",
     # }
     # SessionDataItem.new(options)
     # ```
@@ -48,14 +48,14 @@ module M3U8
 
     # ```
     # options = {
-    #   data_id: "com.test.movie.title",
-    #   value: "Test",
-    #   uri: "http://test",
-    #   language: "en"
+    #   data_id:  "com.test.movie.title",
+    #   value:    "Test",
+    #   uri:      "http://test",
+    #   language: "en",
     # }
     # SessionDataItem.new(options).to_s
     # # => %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",) \
-    #      %(VALUE="Test",URI="http://test",LANGUAGE="en") \
+    # %(VALUE="Test",URI="http://test",LANGUAGE="en")
     # ```
     def to_s
       "#EXT-X-SESSION-DATA:#{attributes.join(',')}"
@@ -66,7 +66,7 @@ module M3U8
         data_id_format,
         value_format,
         uri_format,
-        language_format
+        language_format,
       ].compact
     end
 

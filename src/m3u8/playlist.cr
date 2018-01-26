@@ -20,13 +20,13 @@ module M3U8
 
     # ```
     # options = {
-    #   version: 7,
-    #   cache: false,
-    #   target: 12,
-    #   sequence: 1,
+    #   version:                7,
+    #   cache:                  false,
+    #   target:                 12,
+    #   sequence:               1,
     #   discontinuity_sequence: 2,
-    #   type: "VOD",
-    #   independent_segments: true
+    #   type:                   "VOD",
+    #   independent_segments:   true,
     # }
     # Playlist.new(options)
     # ```
@@ -62,9 +62,9 @@ module M3U8
 
     # ```
     # options = {
-    #   profile: "baseline",
-    #   level: 3.0,
-    #   audio_codec: "aac-lc"
+    #   profile:     "baseline",
+    #   level:       3.0,
+    #   audio_codec: "aac-lc",
     # }
     # Playlist.codecs(options) # => "avc1.66.30,mp4a.40.2"
     # ```
@@ -91,7 +91,7 @@ module M3U8
     end
 
     # ```
-    # options = { master: true }
+    # options = {master: true}
     # playlist = Playlist.new(options)
     # playlist.master? # => true
     # ```
@@ -103,29 +103,29 @@ module M3U8
     # ```
     # playlist = Playlist.new
     #
-    # options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
+    # options = {program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url"}
     # playlist.items << PlaylistItem.new(options)
     #
     # playlist.valid? # => true
     #
-    # options = { duration: 10.991, segment: "test.ts" }
+    # options = {duration: 10.991, segment: "test.ts"}
     # playlist.items << SegmentItem.new(options)
     #
     # playlist.valid? # => false
     # ```
     def valid?
-      (playlist_size.zero? || segment_size.zero?) ? true : false 
+      (playlist_size.zero? || segment_size.zero?) ? true : false
     end
 
     # ```
     # playlist = Playlist.new
     #
-    # options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
+    # options = {program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url"}
     # playlist.items << PlaylistItem.new(options)
     #
     # playlist.valid! # => nil
     #
-    # options = { duration: 10.991, segment: "test.ts" }
+    # options = {duration: 10.991, segment: "test.ts"}
     # playlist.items << SegmentItem.new(options)
     #
     # playlist.valid! # => Playlist is invalid. (M3U8::Error::PlaylistType)
@@ -142,11 +142,11 @@ module M3U8
     # playlist.items << SegmentItem.new(duration: 10.556, segment: "test_03.ts")
     # playlist.items << SegmentItem.new(duration: 8.790, segment: "test_04.ts")
     #
-    # playlist.duration # => 40.227999999999994
+    # playlist.duration          # => 40.227999999999994
     # playlist.duration.round(3) # => 40.228
     # ```
     def duration
-      items.reduce(0.0) do |acc, item| 
+      items.reduce(0.0) do |acc, item|
         duration = item.duration if item.is_a?(SegmentItem)
         duration ||= 0.0
         acc + duration
@@ -156,13 +156,13 @@ module M3U8
     # ```
     # playlist = Playlist.new
     #
-    # options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
+    # options = {program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3"}
     # playlist.items << PlaylistItem.new(options)
     #
     # playlist.to_s
     # # => %(#EXTM3U\n) \
-    #      %(#EXT-X-STREAM-INF:PROGRAM-ID=1,CODECS="mp4a.40.34",) \
-    #      %(BANDWIDTH=6400\nplaylist_url\n)
+    # %(#EXT-X-STREAM-INF:PROGRAM-ID=1,CODECS="mp4a.40.34",) \
+    # %(BANDWIDTH=6400\nplaylist_url\n)
     # ```
     def to_s
       attributes.join('\n') + "\n"
@@ -172,10 +172,10 @@ module M3U8
     # playlist = Playlist.new(version: 6, independent_segments: true)
     # playlist.header
     # # => "#EXTM3U\n" \
-    #      "#EXT-X-VERSION:6\n" \
-    #      "#EXT-X-INDEPENDENT-SEGMENTS\n" \
-    #      "#EXT-X-MEDIA-SEQUENCE:0\n" \
-    #      "#EXT-X-TARGETDURATION:10"
+    # "#EXT-X-VERSION:6\n" \
+    # "#EXT-X-INDEPENDENT-SEGMENTS\n" \
+    # "#EXT-X-MEDIA-SEQUENCE:0\n" \
+    # "#EXT-X-TARGETDURATION:10"
     # ```
     def header
       header_attributes.join('\n')
@@ -183,8 +183,8 @@ module M3U8
 
     # ```
     # playlist = Playlist.new(version: 6, independent_segments: true)
-    # 
-    # options = { duration: 10.991, segment: "test.ts" }
+    #
+    # options = {duration: 10.991, segment: "test.ts"}
     # playlist.items << SegmentItem.new(options)
     #
     # playlist.body # => "#EXTINF:10.991,\ntest.ts"
@@ -195,8 +195,8 @@ module M3U8
 
     # ```
     # playlist = Playlist.new(version: 6, independent_segments: true)
-    # 
-    # options = { duration: 10.991, segment: "test.ts" }
+    #
+    # options = {duration: 10.991, segment: "test.ts"}
     # playlist.items << SegmentItem.new(options)
     #
     # playlist.footer # => "#EXT-X-ENDLIST"
@@ -210,7 +210,7 @@ module M3U8
       [
         header_attributes,
         body_attributes,
-        footer_attributes
+        footer_attributes,
       ].flatten
     end
 
@@ -232,12 +232,12 @@ module M3U8
 
     private def defaults
       {
-        sequence: 0,
-        target: 10,
-        iframes_only: false,
+        sequence:             0,
+        target:               10,
+        iframes_only:         false,
         independent_segments: false,
-        live: false,
-        items: [] of Items
+        live:                 false,
+        items:                [] of Items,
       }
     end
 
@@ -253,7 +253,7 @@ module M3U8
       [
         m3u_tag,
         version_tag,
-        independent_segments_tag
+        independent_segments_tag,
       ].compact
     end
 
@@ -267,7 +267,7 @@ module M3U8
         media_sequence,
         discontinuity_sequence_tag,
         cache_tag,
-        target_duration_format
+        target_duration_format,
       ].compact
     end
 
@@ -290,7 +290,7 @@ module M3U8
     private def iframes_only_tag
       "#EXT-X-I-FRAMES-ONLY" if iframes_only
     end
-    
+
     private def media_sequence
       "#EXT-X-MEDIA-SEQUENCE:#{sequence}"
     end
@@ -312,4 +312,3 @@ module M3U8
     end
   end
 end
-

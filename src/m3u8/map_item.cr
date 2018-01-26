@@ -22,23 +22,23 @@ module M3U8
 
     # ```
     # options = {
-    #   uri: "frelo/prog_index.m3u8",
+    #   uri:       "frelo/prog_index.m3u8",
     #   byterange: {
     #     length: 4500,
-    #     start: 600
-    #   }
+    #     start:  600,
+    #   },
     # }
     # MapItem.new(options)
     #
     # options = {
-    #   uri: "frelo/prog_index.m3u8",
-    #   byterange: ByteRange.new(length: 4500, start: 600)
+    #   uri:       "frelo/prog_index.m3u8",
+    #   byterange: ByteRange.new(length: 4500, start: 600),
     # }
     # MapItem.new(options)
     #
     # options = {
-    #   uri: "frelo/prog_index.m3u8",
-    #   byterange: "4500@600"
+    #   uri:       "frelo/prog_index.m3u8",
+    #   byterange: "4500@600",
     # }
     # MapItem.new(options)
     # ```
@@ -63,8 +63,8 @@ module M3U8
 
     # ```
     # options = {
-    #   uri: "frelo/prog_index.m3u8",
-    #   byterange: "4500@600"
+    #   uri:       "frelo/prog_index.m3u8",
+    #   byterange: "4500@600",
     # }
     # MapItem.new(options).to_s
     # # => %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
@@ -76,7 +76,7 @@ module M3U8
     private def attributes
       [
         uri_format,
-        byterange_format
+        byterange_format,
       ].compact
     end
 

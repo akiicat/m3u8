@@ -4,26 +4,26 @@ module M3U8
   describe MediaItem do
     describe "initialize" do
       options = {
-          type: "AUDIO",
-          group_id: "audio-lo",
-          language: "fre",
-          assoc_language: "spoken",
-          name: "Francais",
-          autoselect: true,
-          default: false,
-          forced: true,
-          uri: "frelo/prog_index.m3u8",
-          instream_id: "SERVICE3",
-          characteristics: "public.html",
-          channels: "6"
+        type:            "AUDIO",
+        group_id:        "audio-lo",
+        language:        "fre",
+        assoc_language:  "spoken",
+        name:            "Francais",
+        autoselect:      true,
+        default:         false,
+        forced:          true,
+        uri:             "frelo/prog_index.m3u8",
+        instream_id:     "SERVICE3",
+        characteristics: "public.html",
+        channels:        "6",
       }
       expected =
         %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",) +
-        %(LANGUAGE="fre",ASSOC-LANGUAGE="spoken",) +
-        %(NAME="Francais",AUTOSELECT=YES,) +
-        %(DEFAULT=NO,URI="frelo/prog_index.m3u8",FORCED=YES,) +
-        %(INSTREAM-ID="SERVICE3",CHARACTERISTICS="public.html",) +
-        %(CHANNELS="6")
+          %(LANGUAGE="fre",ASSOC-LANGUAGE="spoken",) +
+          %(NAME="Francais",AUTOSELECT=YES,) +
+          %(DEFAULT=NO,URI="frelo/prog_index.m3u8",FORCED=YES,) +
+          %(INSTREAM-ID="SERVICE3",CHARACTERISTICS="public.html",) +
+          %(CHANNELS="6")
 
       pending "hash" do
         MediaItem.new(options.to_h).to_s.should eq expected
@@ -41,38 +41,38 @@ module M3U8
     {
       {
         {
-          type: "AUDIO",
-          group_id: "audio-lo",
-          language: "fre",
-          assoc_language: "spoken",
-          name: "Francais",
-          autoselect: true,
-          default: false,
-          forced: true,
-          uri: "frelo/prog_index.m3u8",
-          instream_id: "SERVICE3",
+          type:            "AUDIO",
+          group_id:        "audio-lo",
+          language:        "fre",
+          assoc_language:  "spoken",
+          name:            "Francais",
+          autoselect:      true,
+          default:         false,
+          forced:          true,
+          uri:             "frelo/prog_index.m3u8",
+          instream_id:     "SERVICE3",
           characteristics: "public.html",
-          channels: "6"
+          channels:        "6",
         },
-        %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",) + 
-        %(LANGUAGE="fre",ASSOC-LANGUAGE="spoken",) +
-        %(NAME="Francais",AUTOSELECT=YES,) +
-        %(DEFAULT=NO,URI="frelo/prog_index.m3u8",FORCED=YES,) +
-        %(INSTREAM-ID="SERVICE3",CHARACTERISTICS="public.html",) +
-        %(CHANNELS="6")
+        %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",) +
+          %(LANGUAGE="fre",ASSOC-LANGUAGE="spoken",) +
+          %(NAME="Francais",AUTOSELECT=YES,) +
+          %(DEFAULT=NO,URI="frelo/prog_index.m3u8",FORCED=YES,) +
+          %(INSTREAM-ID="SERVICE3",CHARACTERISTICS="public.html",) +
+          %(CHANNELS="6"),
       },
       {
         {
-          type: "AUDIO",
+          type:     "AUDIO",
           group_id: "audio-lo",
-          name: "Francais"
+          name:     "Francais",
         },
-        %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",NAME="Francais")
+        %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-lo",NAME="Francais"),
       },
       {
         NamedTuple.new,
-        %(#EXT-X-MEDIA:TYPE=,GROUP-ID="",NAME="")
-      }
+        %(#EXT-X-MEDIA:TYPE=,GROUP-ID="",NAME=""),
+      },
     }.each do |(params, format)|
       item = MediaItem.new(params)
 
@@ -83,7 +83,7 @@ module M3U8
       it "to_s" do
         item.to_s.should eq format
       end
-      
+
       describe "parse" do
         item = MediaItem.parse(format)
         assets_attributes item, params

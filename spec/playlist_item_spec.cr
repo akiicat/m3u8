@@ -4,24 +4,24 @@ module M3U8
   describe PlaylistItem do
     describe "initialize" do
       options = {
-        program_id: 1,
-        width: 1920,
-        height: 1080,
-        codecs: "avc",
-        bandwidth: 540,
-        audio_codec: "mp3",
-        level: "2",
-        profile: "baseline",
-        video: "test_video",
-        audio: "test_a",
-        uri: "test.url",
+        program_id:        1,
+        width:             1920,
+        height:            1080,
+        codecs:            "avc",
+        bandwidth:         540,
+        audio_codec:       "mp3",
+        level:             "2",
+        profile:           "baseline",
+        video:             "test_video",
+        audio:             "test_a",
+        uri:               "test.url",
         average_bandwidth: 500,
-        subtitles: "subs",
-        closed_captions: "cc",
-        iframe: true,
-        frame_rate: 24.6,
-        name: "test_name",
-        hdcp_level: "TYPE-0",
+        subtitles:         "subs",
+        closed_captions:   "cc",
+        iframe:            true,
+        frame_rate:        24.6,
+        name:              "test_name",
+        hdcp_level:        "TYPE-0",
       }
 
       expected = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
@@ -42,36 +42,36 @@ module M3U8
     {
       {
         {
-          program_id: 1,
-          width: 1920,
-          height: 1080,
-          bandwidth: 540,
-          video: "test_video",
-          audio: "test_a",
-          uri: "test.url",
+          program_id:        1,
+          width:             1920,
+          height:            1080,
+          bandwidth:         540,
+          video:             "test_video",
+          audio:             "test_a",
+          uri:               "test.url",
           average_bandwidth: 500,
-          subtitles: "subs",
-          closed_captions: "cc",
-          iframe: true,
-          frame_rate: 24.6,
-          name: "test_name",
-          hdcp_level: "TYPE-0",
-          codecs: "avc",
-          audio_codec: "mp3",
-          level: "2",
-          profile: "baseline",
+          subtitles:         "subs",
+          closed_captions:   "cc",
+          iframe:            true,
+          frame_rate:        24.6,
+          name:              "test_name",
+          hdcp_level:        "TYPE-0",
+          codecs:            "avc",
+          audio_codec:       "mp3",
+          level:             "2",
+          profile:           "baseline",
         },
         %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url"),
-        { resolution: "1920x1080", codecs: "avc" }
+        {resolution: "1920x1080", codecs: "avc"},
       },
       {
         {
           bandwidth: 540,
-          iframe: false
+          iframe:    false,
         },
         %(#EXT-X-STREAM-INF:BANDWIDTH=540\n),
-        { resolution: nil, codecs: nil }
-      }
+        {resolution: nil, codecs: nil},
+      },
     }.each do |(params, format, options)|
       item = PlaylistItem.new(params)
 
@@ -146,14 +146,13 @@ module M3U8
       end
     end
 
-
     describe ".parse" do
       it "returns new instance from parsed tag" do
         tag = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
-          %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
-          %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
-          %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
-          %(NAME="1080p",HDCP-LEVEL=TYPE-0)
+              %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
+              %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
+              %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
+              %(NAME="1080p",HDCP-LEVEL=TYPE-0)
         item = PlaylistItem.parse(tag)
         item.should be_a(PlaylistItem)
       end
@@ -162,10 +161,10 @@ module M3U8
     describe "#parse" do
       it "assigns values from parsed tag" do
         input = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
-          %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
-          %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
-          %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
-          %(NAME="1080p",HDCP-LEVEL=TYPE-0)
+                %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
+                %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
+                %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
+                %(NAME="1080p",HDCP-LEVEL=TYPE-0)
         item = PlaylistItem.parse(input)
         item.program_id.should eq 1
         item.codecs.should eq "avc"
@@ -190,29 +189,28 @@ module M3U8
         {
           {
             "when codecs is missing",
-            { bandwidth: 540, uri: "test.url" }
+            {bandwidth: 540, uri: "test.url"},
           },
           {
             "when level is not recognized",
-            { bandwidth: 540, uri: "test.url", level: 9001 }
+            {bandwidth: 540, uri: "test.url", level: 9001},
           },
           {
             "when profile is not recognized",
-            { bandwidth: 540, uri: "test.url", profile: "best" }
+            {bandwidth: 540, uri: "test.url", profile: "best"},
           },
           {
             "when profile and level are not recognized",
-            { bandwidth: 540, uri: "test.url", profile: "best", level: 9001 }
+            {bandwidth: 540, uri: "test.url", profile: "best", level: 9001},
           },
           {
             "when audio codec is recognized",
-            { bandwidth: 540, uri: "test.url", profile: "best", level: 9001, audio_codec: "aac-lc" }
+            {bandwidth: 540, uri: "test.url", profile: "best", level: 9001, audio_codec: "aac-lc"},
           },
           {
             "when profile and level and audio codec are recognized",
-            { bandwidth: 540, uri: "test.url", profile: "high", level: 4.1, audio_codec: "fuzzy" }
-          }
-
+            {bandwidth: 540, uri: "test.url", profile: "high", level: 4.1, audio_codec: "fuzzy"},
+          },
         }.each do |(description, params)|
           item = PlaylistItem.new params
 
@@ -222,23 +220,22 @@ module M3U8
         end
       end
 
-
       {
         {
           "when profile and level are not set, when audio codec is recognized, specifies CODECS with audio codec",
-          { bandwidth: 540, uri: "test.url", audio_codec: "aac-lc" },
-          %(CODECS="mp4a.40.2")
+          {bandwidth: 540, uri: "test.url", audio_codec: "aac-lc"},
+          %(CODECS="mp4a.40.2"),
         },
         {
           "when profile and level are recognized, when audio codec is not set, specifies CODECS with video codec",
-          { bandwidth: 540, uri: "test.url", profile: "high", level: 4.1 },
-          %(CODECS="avc1.640029")
+          {bandwidth: 540, uri: "test.url", profile: "high", level: 4.1},
+          %(CODECS="avc1.640029"),
         },
         {
           "when profile and level are recognized, when audio codec is recognized, specifies CODECS with video codec and audio_codec",
-          { bandwidth: 540, uri: "test.url", profile: "high", level: 4.1, audio_codec: "aac-lc" },
-          %(CODECS="avc1.640029,mp4a.40.2")
-        }
+          {bandwidth: 540, uri: "test.url", profile: "high", level: 4.1, audio_codec: "aac-lc"},
+          %(CODECS="avc1.640029,mp4a.40.2"),
+        },
       }.each do |(description, params, format)|
         item = PlaylistItem.new params
 
@@ -247,13 +244,12 @@ module M3U8
         end
       end
 
-
       describe "returns tag" do
         {
           {
             "when only required attributes are present",
-            { codecs: "avc", bandwidth: 540, uri: "test.url" },
-            %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540\ntest.url)
+            {codecs: "avc", bandwidth: 540, uri: "test.url"},
+            %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540\ntest.url),
           },
           {
             "when all attributes are present",
@@ -261,32 +257,32 @@ module M3U8
               codecs: "avc", bandwidth: 540, uri: "test.url",
               audio: "test", video: "test2", average_bandwidth: 500,
               subtitles: "subs", frame_rate: 30, closed_captions: "caps",
-              name: "SD", hdcp_level: "TYPE-0", program_id: "1"
+              name: "SD", hdcp_level: "TYPE-0", program_id: "1",
             },
             %(#EXT-X-STREAM-INF:PROGRAM-ID=1,CODECS="avc",) +
-            "BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=30.000," \
-            "HDCP-LEVEL=TYPE-0," +
-            %(AUDIO="test",VIDEO="test2",SUBTITLES="subs",) +
-            %(CLOSED-CAPTIONS="caps",NAME="SD"\ntest.url)
+              "BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=30.000," \
+              "HDCP-LEVEL=TYPE-0," +
+              %(AUDIO="test",VIDEO="test2",SUBTITLES="subs",) +
+              %(CLOSED-CAPTIONS="caps",NAME="SD"\ntest.url),
           },
           {
             "when closed captions is NONE",
             {
               program_id: 1, width: 1920, height: 1080, codecs: "avc",
-              bandwidth: 540, uri: "test.url", closed_captions: "NONE"
+              bandwidth: 540, uri: "test.url", closed_captions: "NONE",
             },
             "#EXT-X-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080," +
-            %(CODECS="avc",BANDWIDTH=540,CLOSED-CAPTIONS=NONE\ntest.url)
+              %(CODECS="avc",BANDWIDTH=540,CLOSED-CAPTIONS=NONE\ntest.url),
           },
           {
             "when iframe is enabled" + "returns EXT-X-I-FRAME-STREAM-INF tag",
             {
               codecs: "avc", bandwidth: 540, uri: "test.url",
-              iframe: true, video: "test2", average_bandwidth: 550
+              iframe: true, video: "test2", average_bandwidth: 550,
             },
             %(#EXT-X-I-FRAME-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
-            %(AVERAGE-BANDWIDTH=550,VIDEO="test2",URI="test.url")
-          }
+              %(AVERAGE-BANDWIDTH=550,VIDEO="test2",URI="test.url"),
+          },
         }.each do |(description, params, format)|
           item = PlaylistItem.new params
 
