@@ -24,7 +24,7 @@ module App
 end
 ```
 
-TODO: Write Document
+[Document](https://akiicat.github.io/m3u8/)
 
 ### Generate
 
