@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/akiicat/m3u8.svg?branch=master)](https://travis-ci.org/akiicat/m3u8)
 
-TODO: Write a description here
+Crystal m3u8 generator and parser.
 
 ## Installation
 
