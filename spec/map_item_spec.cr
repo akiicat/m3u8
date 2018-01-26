@@ -44,6 +44,13 @@ module M3U8
       {
         {
           uri: "frelo/prog_index.m3u8",
+          byterange: "4500@600"
+        },
+        %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+      },
+      {
+        {
+          uri: "frelo/prog_index.m3u8",
           byterange: {
             length: 4500
           }
