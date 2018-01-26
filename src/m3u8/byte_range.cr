@@ -7,8 +7,8 @@ module M3U8
     property start : Int32?
 
     # ```
-    # ByteRange.new("4500")
     # ByteRange.new("4500@600")
+    # ByteRange.new("4500")
     # ```
     def self.new(string : String)
       return new if string.empty?
@@ -38,7 +38,6 @@ module M3U8
     # ```
     # byterange = ByteRange.new
     # byterange.empty? # => true
-    #
     # byterange = ByteRange.new(length: 0)
     # byterange.empty? # => true
     # byterange.length = 4500
@@ -52,6 +51,10 @@ module M3U8
     # ```
     # byterange = ByteRange.new(length: 4500, start: 600)
     # byterange.to_s # => "4500@600"
+    # byterange = ByteRange.new(length: 4500)
+    # byterange.to_s # => "4500"
+    # byterange = ByteRange.new
+    # byterange.to_s # => ""
     # ```
     def to_s
       attributes.join('@')

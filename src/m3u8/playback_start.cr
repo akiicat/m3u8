@@ -6,6 +6,11 @@ module M3U8
     property time_offset : Float64
     property precise : Bool?
 
+    # ```
+    # text = "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
+    # PlaybackStart.parse(text)
+    # # => #<M3U8::PlaybackStart......>
+    # ```
     def self.parse(text)
       attributes = parse_attributes(text)
       new(
@@ -14,6 +19,13 @@ module M3U8
       )
     end
 
+    # ```
+    # options = {
+    #   time_offset: -12.9,
+    #   precise: true
+    # }
+    # PlaybackStart.new(options)
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         time_offset: params[:time_offset],
@@ -21,10 +33,24 @@ module M3U8
       )
     end
 
+    # ```
+    # time_offset = -12.9
+    # precise = true
+    # PlaybackStart.new(time_offset)
+    # PlaybackStart.new(time_offset, precise)
+    # ```
     def initialize(time_offset, @precise = nil)
       @time_offset = time_offset.to_f
     end
 
+    # ```
+    # options = {
+    #   time_offset: -12.9,
+    #   precise: true
+    # }
+    # PlaybackStart.new(options).to_s
+    # # => "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
+    # ```
     def to_s
       "#EXT-X-START:#{attributes.join(',')}"
     end

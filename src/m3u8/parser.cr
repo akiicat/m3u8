@@ -8,6 +8,22 @@ module M3U8
     getter live : Bool?
     @item : Items?
 
+    # ```
+    # m3u8_string = "#EXTM3U...."
+    # parser = Parser.new
+    # parser.read(m3u8_string)
+    # # => #<M3U8::Playlist...>
+    # ```
+    def self.new
+      new("")
+    end
+
+    # ```
+    # m3u8_string = "#EXTM3U...."
+    # parser = Parser.new(m3u8_string)
+    # parser.read
+    # # => #<M3U8::Playlist...>
+    # ```
     def initialize(string : String)
       @reader = Scanner.new string
       @playlist = Playlist.new
@@ -16,14 +32,31 @@ module M3U8
       @item = nil
     end
 
+    # ```
+    # m3u8_string = "#EXTM3U...."
+    # parser = Parser.read(m3u8_string)
+    # # => #<M3U8::Playlist...>
+    # ```
     def self.read(string : String)
       new(string).read
     end
 
+    # ```
+    # m3u8_string = "#EXTM3U...."
+    # parser = Parser.new
+    # parser.read(m3u8_string)
+    # # => #<M3U8::Playlist...>
+    # ```
     def read(string : String)
       Parser.read(string)
     end
 
+    # ```
+    # m3u8_string = "#EXTM3U...."
+    # parser = Parser.new(m3u8_string)
+    # parser.read
+    # # => #<M3U8::Playlist...>
+    # ```
     def read
       return @playlist if @is_parse
 
@@ -211,3 +244,4 @@ module M3U8
     end
   end
 end
+

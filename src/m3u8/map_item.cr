@@ -7,6 +7,11 @@ module M3U8
     property uri : String
     property byterange : ByteRange
 
+    # ```
+    # text = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+    # MapItem.parse(text)
+    # # => #<M3U8::MapItem......>
+    # ```
     def self.parse(text)
       params = parse_attributes(text)
       new(
@@ -15,6 +20,28 @@ module M3U8
       )
     end
 
+    # ```
+    # options = {
+    #   uri: "frelo/prog_index.m3u8",
+    #   byterange: {
+    #     length: 4500,
+    #     start: 600
+    #   }
+    # }
+    # MapItem.new(options)
+    #
+    # options = {
+    #   uri: "frelo/prog_index.m3u8",
+    #   byterange: ByteRange.new(length: 4500, start: 600)
+    # }
+    # MapItem.new(options)
+    #
+    # options = {
+    #   uri: "frelo/prog_index.m3u8",
+    #   byterange: "4500@600"
+    # }
+    # MapItem.new(options)
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         uri: params[:uri],
@@ -22,10 +49,26 @@ module M3U8
       )
     end
 
+    # ```
+    # uri = "frelo/prog_index.m3u8"
+    # byterange = "4500@600"
+    # MapItem.new(uri)
+    # MapItem.new(uri, byterange)
+    # MapItem.new(uri: uri)
+    # MapItem.new(uri: uri, byterange: byterange)
+    # ```
     def initialize(@uri, byterange = nil)
       @byterange = parse_byterange(byterange)
     end
 
+    # ```
+    # options = {
+    #   uri: "frelo/prog_index.m3u8",
+    #   byterange: "4500@600"
+    # }
+    # MapItem.new(options).to_s
+    # # => %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600")
+    # ```
     def to_s
       %(#EXT-X-MAP:#{attributes.join(',')})
     end

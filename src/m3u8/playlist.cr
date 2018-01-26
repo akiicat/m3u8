@@ -18,6 +18,18 @@ module M3U8
     property live : Bool
     property items : Array(Items)
 
+    # ```
+    # options = {
+    #   version: 7,
+    #   cache: false,
+    #   target: 12,
+    #   sequence: 1,
+    #   discontinuity_sequence: 2,
+    #   type: "VOD",
+    #   independent_segments: true
+    # }
+    # Playlist.new(options)
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         master: params[:master]?,
@@ -34,6 +46,9 @@ module M3U8
       )
     end
 
+    # ```
+    # Playlist.new
+    # ```
     def initialize(@master = nil, @version = nil, @cache = nil, @discontinuity_sequence = nil, @type = nil,
                    target = nil, sequence = nil, iframes_only = nil, independent_segments = nil, live = nil,
                    items = nil)
@@ -45,31 +60,91 @@ module M3U8
       @items = default_params(:items)
     end
 
+    # ```
+    # options = {
+    #   profile: "baseline",
+    #   level: 3.0,
+    #   audio_codec: "aac-lc"
+    # }
+    # Playlist.codecs(options) # => "avc1.66.30,mp4a.40.2"
+    # ```
     def self.codecs(options = NamedTuple.new)
       Codecs.new(options).to_s
     end
 
+    # ```
+    # m3u8_string = "#EXTM3U....."
+    # Playlist.parse(m3u8_string)
+    # # => #<M3U8::Playlist......>
+    # ```
     def self.parse(input)
       Parser.read(input)
     end
 
+    # ```
+    # playlist = Playlist.new(live: true)
+    # playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+    # playlist.live? # => true
+    # ```
     def live?
       master? ? false : live
     end
 
+    # ```
+    # options = { master: true }
+    # playlist = Playlist.new(options)
+    # playlist.master? # => true
+    # ```
     def master?
       return master unless master.nil?
       (playlist_size.zero? && segment_size.zero?) ? false : playlist_size > 0
     end
 
+    # ```
+    # playlist = Playlist.new
+    #
+    # options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
+    # playlist.items << PlaylistItem.new(options)
+    #
+    # playlist.valid? # => true
+    #
+    # options = { duration: 10.991, segment: "test.ts" }
+    # playlist.items << SegmentItem.new(options)
+    #
+    # playlist.valid? # => false
+    # ```
     def valid?
       (playlist_size.zero? || segment_size.zero?) ? true : false 
     end
 
+    # ```
+    # playlist = Playlist.new
+    #
+    # options = { program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url" }
+    # playlist.items << PlaylistItem.new(options)
+    #
+    # playlist.valid! # => nil
+    #
+    # options = { duration: 10.991, segment: "test.ts" }
+    # playlist.items << SegmentItem.new(options)
+    #
+    # playlist.valid! # => Playlist is invalid. (M3U8::Error::PlaylistType)
+    # ```
     def valid!
       raise Error::PlaylistType.new("Playlist is invalid.") unless valid?
     end
 
+    # ```
+    # playlist = Playlist.new
+    #
+    # playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
+    # playlist.items << SegmentItem.new(duration: 9.891, segment: "test_02.ts")
+    # playlist.items << SegmentItem.new(duration: 10.556, segment: "test_03.ts")
+    # playlist.items << SegmentItem.new(duration: 8.790, segment: "test_04.ts")
+    #
+    # playlist.duration # => 40.227999999999994
+    # playlist.duration.round(3) # => 40.228
+    # ```
     def duration
       items.reduce(0.0) do |acc, item| 
         duration = item.duration if item.is_a?(SegmentItem)
@@ -78,18 +153,54 @@ module M3U8
       end
     end
 
+    # ```
+    # playlist = Playlist.new
+    #
+    # options = { program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3" }
+    # playlist.items << PlaylistItem.new(options)
+    #
+    # playlist.to_s
+    # # => %(#EXTM3U\n) \
+    #      %(#EXT-X-STREAM-INF:PROGRAM-ID=1,CODECS="mp4a.40.34",) \
+    #      %(BANDWIDTH=6400\nplaylist_url\n)
+    # ```
     def to_s
       attributes.join('\n') + "\n"
     end
 
+    # ```
+    # playlist = Playlist.new(version: 6, independent_segments: true)
+    # playlist.header
+    # # => "#EXTM3U\n" \
+    #      "#EXT-X-VERSION:6\n" \
+    #      "#EXT-X-INDEPENDENT-SEGMENTS\n" \
+    #      "#EXT-X-MEDIA-SEQUENCE:0\n" \
+    #      "#EXT-X-TARGETDURATION:10"
+    # ```
     def header
       header_attributes.join('\n')
     end
 
+    # ```
+    # playlist = Playlist.new(version: 6, independent_segments: true)
+    # 
+    # options = { duration: 10.991, segment: "test.ts" }
+    # playlist.items << SegmentItem.new(options)
+    #
+    # playlist.body # => "#EXTINF:10.991,\ntest.ts"
+    # ```
     def body
       body_attributes.join('\n')
     end
 
+    # ```
+    # playlist = Playlist.new(version: 6, independent_segments: true)
+    # 
+    # options = { duration: 10.991, segment: "test.ts" }
+    # playlist.items << SegmentItem.new(options)
+    #
+    # playlist.footer # => "#EXT-X-ENDLIST"
+    # ```
     def footer
       footer_attributes.join('\n')
     end
@@ -201,3 +312,4 @@ module M3U8
     end
   end
 end
+

@@ -4,6 +4,10 @@ module M3U8
   class DiscontinuityItem
     include Concern
 
+    # ```
+    # DiscontinuityItem.new.to_s
+    # # => "#EXT-X-DISCONTINUITY\n"
+    # ```
     def to_s
       %(#EXT-X-DISCONTINUITY\n)
     end

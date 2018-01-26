@@ -8,6 +8,10 @@ module M3U8
     property uri : String?
     property language : String?
 
+    # ```
+    # text = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en")
+    # SessionDataItem.parse(text) # => #<M3U8::SessionDataItem......>
+    # ```
     def self.parse(text)
       attributes = parse_attributes(text)
       new(
@@ -18,6 +22,15 @@ module M3U8
       )
     end
 
+    # ```
+    # options = {
+    #   data_id: "com.test.movie.title",
+    #   value: "Test",
+    #   uri: "http://test",
+    #   language: "en"
+    # }
+    # SessionDataItem.new(options)
+    # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
         data_id: params[:data_id]?,
@@ -27,9 +40,23 @@ module M3U8
       )
     end
 
+    # ```
+    # SessionDataItem.new
+    # ```
     def initialize(@data_id = nil, @value = nil, @uri = nil, @language = nil)
     end
 
+    # ```
+    # options = {
+    #   data_id: "com.test.movie.title",
+    #   value: "Test",
+    #   uri: "http://test",
+    #   language: "en"
+    # }
+    # SessionDataItem.new(options).to_s
+    # # => %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",) \
+    #      %(VALUE="Test",URI="http://test",LANGUAGE="en") \
+    # ```
     def to_s
       "#EXT-X-SESSION-DATA:#{attributes.join(',')}"
     end
