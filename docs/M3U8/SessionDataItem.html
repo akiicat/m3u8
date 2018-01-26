@@ -50,13 +50,23 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="../M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="../M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +102,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="../M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="../M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="../M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -191,7 +186,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L3" target="_blank">m3u8/session_data_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L3" target="_blank">m3u8/session_data_item.cr</a>
     
     <br/>
   
@@ -206,10 +201,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
+          <div class="summary"><pre><code class='language-options = {   data_id: "com.test.movie.title",   value: "Test",   uri: "http://test",   language: "en" } SessionDataItem.new(options) ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28data_id%3Dnil%2Cvalue%3Dnil%2Curi%3Dnil%2Clanguage%3Dnil%29-class-method" class="signature"><strong>.new</strong>(data_id = <span class="n">nil</span>, value = <span class="n">nil</span>, uri = <span class="n">nil</span>, language = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-SessionDataItem.new ```'></code></pre></div>
         
       </li>
     
@@ -223,6 +222,8 @@
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
+          <div class="summary"><pre><code class='language-text = %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",VALUE="Test",URI="http://test",LANGUAGE="en") SessionDataItem.parse(text) # => #<M3U8::SessionDataItem......> ```'></code></pre></div>
+        
       </li>
     
   </ul>
@@ -231,11 +232,6 @@
 
   <h2>Instance Method Summary</h2>
   <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#attributes-instance-method" class="signature"><strong>#attributes</strong></a>
-        
-      </li>
     
       <li class="entry-summary">
         <a href="#data_id%3AString%3F-instance-method" class="signature"><strong>#data_id</strong> : String?</a>
@@ -259,6 +255,8 @@
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = {   data_id: "com.test.movie.title",   value: "Test",   uri: "http://test",   language: "en" } SessionDataItem.new(options).to_s # => %(#EXT-X-SESSION-DATA:DATA-ID="com.test.movie.title",) \      %(VALUE="Test",URI="http://test",LANGUAGE="en") \ ```'></code></pre></div>
         
       </li>
     
@@ -333,10 +331,18 @@
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  data_id: <span class="s">&quot;com.test.movie.title&quot;</span>,
+  value: <span class="s">&quot;Test&quot;</span>,
+  uri: <span class="s">&quot;http://test&quot;</span>,
+  language: <span class="s">&quot;en&quot;</span>
+}
+<span class="t">SessionDataItem</span>.<span class="k">new</span>(options)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -349,10 +355,12 @@
         <a class="method-permalink" href="#new%28data_id%3Dnil%2Cvalue%3Dnil%2Curi%3Dnil%2Clanguage%3Dnil%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code><span class="t">SessionDataItem</span>.<span class="k">new</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -370,10 +378,13 @@
         <a class="method-permalink" href="#parse%28text%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</span>
+<span class="t">SessionDataItem</span>.parse(text) <span class="c"># =&gt; #&lt;M3U8::SessionDataItem......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -382,22 +393,6 @@
 
 
   <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail" id="attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>attributes</strong>
-
-        <a class="method-permalink" href="#attributes-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L37" target="_blank">View source</a>]
-        
-      </div>
-    </div>
   
     <div class="entry-detail" id="data_id:String?-instance-method">
       <div class="signature">
@@ -410,7 +405,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -426,7 +421,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -442,7 +437,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -458,7 +453,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -471,10 +466,20 @@
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  data_id: <span class="s">&quot;com.test.movie.title&quot;</span>,
+  value: <span class="s">&quot;Test&quot;</span>,
+  uri: <span class="s">&quot;http://test&quot;</span>,
+  language: <span class="s">&quot;en&quot;</span>
+}
+<span class="t">SessionDataItem</span>.<span class="k">new</span>(options).to_s
+<span class="c"># =&gt; %(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,) \</span>
+     <span class="s">%(VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -490,7 +495,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -506,7 +511,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -522,7 +527,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -538,7 +543,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_data_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_data_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>

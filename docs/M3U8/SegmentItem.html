@@ -50,13 +50,23 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="../M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="../M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +102,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="../M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="../M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="../M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -192,7 +187,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L4" target="_blank">m3u8/segment_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L4" target="_blank">m3u8/segment_item.cr</a>
     
     <br/>
   
@@ -207,10 +202,14 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
+          <div class="summary"><pre><code class='language-options = {   duration: 10.991,   segment: "test.ts",   comment: "anything",   byterange: { length: 4500, start: 600 } } SegmentItem.new(options) ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28duration%3Dnil%2Csegment%3Dnil%2Ccomment%3Dnil%2Cbyterange%3Dnil%2Cprogram_date_time%3Dnil%29-class-method" class="signature"><strong>.new</strong>(duration = <span class="n">nil</span>, segment = <span class="n">nil</span>, comment = <span class="n">nil</span>, byterange = <span class="n">nil</span>, program_date_time = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-SegmentItem.new ```'></code></pre></div>
         
       </li>
     
@@ -224,17 +223,14 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#attributes-instance-method" class="signature"><strong>#attributes</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#byterange%3AByteRange-instance-method" class="signature"><strong>#byterange</strong> : ByteRange</a>
         
       </li>
     
       <li class="entry-summary">
         <a href="#byterange%3D%28byterange%29-instance-method" class="signature"><strong>#byterange=</strong>(byterange)</a>
+        
+          <div class="summary"><pre><code class='language-item = SegmentItem.new item.byterange = ByteRange.new(length: 4500, start: 600) item.byterange = { length: 4500, start: 600 } item.byterange = "4500@600" item.byterange # => #<M3U8::ByteRange......> ```'></code></pre></div>
         
       </li>
     
@@ -266,6 +262,8 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <li class="entry-summary">
         <a href="#program_date_time%3D%28time%29-instance-method" class="signature"><strong>#program_date_time=</strong>(time)</a>
         
+          <div class="summary"><pre><code class='language-item = SegmentItem.new item.program_date_time = TimeItem.new("2010-02-19T14:54:23Z") item.program_date_time = TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z")) item.program_date_time = Time.iso8601("2010-02-19T14:54:23.031Z") item.program_date_time = "2010-02-19T14:54:23.031Z" item.program_date_time # => #<M3U8::TimeItem......> ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -280,6 +278,8 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = {   duration: 10.991,   segment: "test.ts",   comment: "anything",   byterange: { length: 4500, start: 600 } } SegmentItem.new(options).to_s # => %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts) ```'></code></pre></div>
         
       </li>
     
@@ -334,10 +334,18 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  duration: <span class="n">10.991</span>,
+  segment: <span class="s">&quot;test.ts&quot;</span>,
+  comment: <span class="s">&quot;anything&quot;</span>,
+  byterange: { length: <span class="n">4500</span>, start: <span class="n">600</span> }
+}
+<span class="t">SegmentItem</span>.<span class="k">new</span>(options)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -350,10 +358,12 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#new%28duration%3Dnil%2Csegment%3Dnil%2Ccomment%3Dnil%2Cbyterange%3Dnil%2Cprogram_date_time%3Dnil%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code><span class="t">SegmentItem</span>.<span class="k">new</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -364,22 +374,6 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
 
 
   <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail" id="attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>attributes</strong>
-
-        <a class="method-permalink" href="#attributes-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L40" target="_blank">View source</a>]
-        
-      </div>
-    </div>
   
     <div class="entry-detail" id="byterange:ByteRange-instance-method">
       <div class="signature">
@@ -392,7 +386,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -405,10 +399,16 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#byterange%3D%28byterange%29-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>item <span class="o">=</span> <span class="t">SegmentItem</span>.<span class="k">new</span>
+item.byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+item.byterange <span class="o">=</span> { length: <span class="n">4500</span>, start: <span class="n">600</span> }
+item.byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
+item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -424,7 +424,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -440,7 +440,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -456,7 +456,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -472,7 +472,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -488,7 +488,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -501,10 +501,17 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#program_date_time%3D%28time%29-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>item <span class="o">=</span> <span class="t">SegmentItem</span>.<span class="k">new</span>
+item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.<span class="k">new</span>(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
+item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.<span class="k">new</span>(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+item.program_date_time <span class="o">=</span> <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+item.program_date_time <span class="o">=</span> <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>
+item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -520,7 +527,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -536,7 +543,7 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -549,10 +556,19 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  duration: <span class="n">10.991</span>,
+  segment: <span class="s">&quot;test.ts&quot;</span>,
+  comment: <span class="s">&quot;anything&quot;</span>,
+  byterange: { length: <span class="n">4500</span>, start: <span class="n">600</span> }
+}
+<span class="t">SegmentItem</span>.<span class="k">new</span>(options).to_s
+<span class="c"># =&gt; %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/segment_item.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/segment_item.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>

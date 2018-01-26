@@ -50,13 +50,23 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="../M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="../M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +102,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="../M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="../M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="../M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -192,7 +187,7 @@ of media segments</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L4" target="_blank">m3u8/playlist.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L4" target="_blank">m3u8/playlist.cr</a>
     
     <br/>
   
@@ -207,10 +202,14 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
+          <div class="summary"><pre><code class='language-options = {   version: 7,   cache: false,   target: 12,   sequence: 1,   discontinuity_sequence: 2,   type: "VOD",   independent_segments: true } Playlist.new(options) ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28master%3Dnil%2Cversion%3Dnil%2Ccache%3Dnil%2Cdiscontinuity_sequence%3Dnil%2Ctype%3Dnil%2Ctarget%3Dnil%2Csequence%3Dnil%2Ciframes_only%3Dnil%2Cindependent_segments%3Dnil%2Clive%3Dnil%2Citems%3Dnil%29-class-method" class="signature"><strong>.new</strong>(master = <span class="n">nil</span>, version = <span class="n">nil</span>, cache = <span class="n">nil</span>, discontinuity_sequence = <span class="n">nil</span>, type = <span class="n">nil</span>, target = <span class="n">nil</span>, sequence = <span class="n">nil</span>, iframes_only = <span class="n">nil</span>, independent_segments = <span class="n">nil</span>, live = <span class="n">nil</span>, items = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-Playlist.new ```'></code></pre></div>
         
       </li>
     
@@ -224,10 +223,14 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#codecs%28options%3DNamedTuple.new%29-class-method" class="signature"><strong>.codecs</strong>(options = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
+          <div class="summary"><pre><code class='language-options = {   profile: "baseline",   level: 3.0,   audio_codec: "aac-lc" } Playlist.codecs(options) # => "avc1.66.30,mp4a.40.2" ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#parse%28input%29-class-method" class="signature"><strong>.parse</strong>(input)</a>
+        
+          <div class="summary"><pre><code class='language-m3u8_string = "#EXTM3U....." Playlist.parse(m3u8_string) # => #<M3U8::Playlist......> ```'></code></pre></div>
         
       </li>
     
@@ -239,17 +242,9 @@ of media segments</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#attributes-instance-method" class="signature"><strong>#attributes</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#body-instance-method" class="signature"><strong>#body</strong></a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#body_attributes-instance-method" class="signature"><strong>#body_attributes</strong></a>
+          <div class="summary"><pre><code class='language-playlist = Playlist.new(version: 6, independent_segments: true)'></code></pre></div>
         
       </li>
     
@@ -276,25 +271,21 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#duration-instance-method" class="signature"><strong>#duration</strong></a>
         
+          <div class="summary"><pre><code class='language-playlist = Playlist.new'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#footer-instance-method" class="signature"><strong>#footer</strong></a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#footer_attributes-instance-method" class="signature"><strong>#footer_attributes</strong></a>
+          <div class="summary"><pre><code class='language-playlist = Playlist.new(version: 6, independent_segments: true)'></code></pre></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#header-instance-method" class="signature"><strong>#header</strong></a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#header_attributes-instance-method" class="signature"><strong>#header_attributes</strong></a>
+          <div class="summary"><pre><code class='language-playlist = Playlist.new(version: 6, independent_segments: true) playlist.header # => "#EXTM3U\n" \      "#EXT-X-VERSION:6\n" \      "#EXT-X-INDEPENDENT-SEGMENTS\n" \      "#EXT-X-MEDIA-SEQUENCE:0\n" \      "#EXT-X-TARGETDURATION:10" ```'></code></pre></div>
         
       </li>
     
@@ -341,6 +332,8 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#live%3F-instance-method" class="signature"><strong>#live?</strong></a>
         
+          <div class="summary"><pre><code class='language-playlist = Playlist.new(live: true) playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts") playlist.live? # => true ```'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -355,6 +348,8 @@ of media segments</p>
     
       <li class="entry-summary">
         <a href="#master%3F-instance-method" class="signature"><strong>#master?</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = { master: true } playlist = Playlist.new(options) playlist.master? # => true ```'></code></pre></div>
         
       </li>
     
@@ -381,6 +376,8 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
+          <div class="summary"><pre><code class='language-playlist = Playlist.new'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -396,10 +393,14 @@ of media segments</p>
       <li class="entry-summary">
         <a href="#valid%21-instance-method" class="signature"><strong>#valid!</strong></a>
         
+          <div class="summary"><pre><code class='language-playlist = Playlist.new'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#valid%3F-instance-method" class="signature"><strong>#valid?</strong></a>
+        
+          <div class="summary"><pre><code class='language-playlist = Playlist.new'></code></pre></div>
         
       </li>
     
@@ -464,10 +465,21 @@ of media segments</p>
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  version: <span class="n">7</span>,
+  cache: <span class="n">false</span>,
+  target: <span class="n">12</span>,
+  sequence: <span class="n">1</span>,
+  discontinuity_sequence: <span class="n">2</span>,
+  <span class="k">type</span>: <span class="s">&quot;VOD&quot;</span>,
+  independent_segments: <span class="n">true</span>
+}
+<span class="t">Playlist</span>.<span class="k">new</span>(options)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -480,10 +492,12 @@ of media segments</p>
         <a class="method-permalink" href="#new%28master%3Dnil%2Cversion%3Dnil%2Ccache%3Dnil%2Cdiscontinuity_sequence%3Dnil%2Ctype%3Dnil%2Ctarget%3Dnil%2Csequence%3Dnil%2Ciframes_only%3Dnil%2Cindependent_segments%3Dnil%2Clive%3Dnil%2Citems%3Dnil%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code><span class="t">Playlist</span>.<span class="k">new</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -501,10 +515,17 @@ of media segments</p>
         <a class="method-permalink" href="#codecs%28options%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  profile: <span class="s">&quot;baseline&quot;</span>,
+  level: <span class="n">3.0</span>,
+  audio_codec: <span class="s">&quot;aac-lc&quot;</span>
+}
+<span class="t">Playlist</span>.codecs(options) <span class="c"># =&gt; &quot;avc1.66.30,mp4a.40.2&quot;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L49" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L71" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -517,10 +538,14 @@ of media segments</p>
         <a class="method-permalink" href="#parse%28input%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U.....&quot;</span>
+<span class="t">Playlist</span>.parse(m3u8_string)
+<span class="c"># =&gt; #&lt;M3U8::Playlist......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -530,22 +555,6 @@ of media segments</p>
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>attributes</strong>
-
-        <a class="method-permalink" href="#attributes-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L86" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="body-instance-method">
       <div class="signature">
         
@@ -554,26 +563,17 @@ of media segments</p>
         <a class="method-permalink" href="#body-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L112" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="body_attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>body_attributes</strong>
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>(version: <span class="n">6</span>, independent_segments: <span class="n">true</span>)
 
-        <a class="method-permalink" href="#body_attributes-instance-method">#</a>
-      </div>
+options <span class="o">=</span> { duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test.ts&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(options)
+
+playlist.body <span class="c"># =&gt; &quot;#EXTINF:10.991,\ntest.ts&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L192" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -589,7 +589,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -605,7 +605,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -621,7 +621,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -637,7 +637,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -650,10 +650,20 @@ of media segments</p>
         <a class="method-permalink" href="#duration-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test_01.ts&quot;</span>)
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">9.891</span>, segment: <span class="s">&quot;test_02.ts&quot;</span>)
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.556</span>, segment: <span class="s">&quot;test_03.ts&quot;</span>)
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">8.790</span>, segment: <span class="s">&quot;test_04.ts&quot;</span>)
+
+playlist.duration <span class="c"># =&gt; 40.227999999999994</span>
+playlist.duration.round(<span class="n">3</span>) <span class="c"># =&gt; 40.228</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L74" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -666,26 +676,17 @@ of media segments</p>
         <a class="method-permalink" href="#footer-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L116" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="footer_attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>footer_attributes</strong>
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>(version: <span class="n">6</span>, independent_segments: <span class="n">true</span>)
 
-        <a class="method-permalink" href="#footer_attributes-instance-method">#</a>
-      </div>
+options <span class="o">=</span> { duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test.ts&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(options)
+
+playlist.footer <span class="c"># =&gt; &quot;#EXT-X-ENDLIST&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L104" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L204" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -698,26 +699,18 @@ of media segments</p>
         <a class="method-permalink" href="#header-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L108" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="header_attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>header_attributes</strong>
-
-        <a class="method-permalink" href="#header_attributes-instance-method">#</a>
-      </div>
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>(version: <span class="n">6</span>, independent_segments: <span class="n">true</span>)
+playlist.header
+<span class="c"># =&gt; &quot;#EXTM3U\n&quot; \</span>
+     <span class="s">&quot;#EXT-X-VERSION:6\n&quot;</span> \
+     <span class="s">&quot;#EXT-X-INDEPENDENT-SEGMENTS\n&quot;</span> \
+     <span class="s">&quot;#EXT-X-MEDIA-SEQUENCE:0\n&quot;</span> \
+     <span class="s">&quot;#EXT-X-TARGETDURATION:10&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L180" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -733,7 +726,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -749,7 +742,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -765,7 +758,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -781,7 +774,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -797,7 +790,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -813,7 +806,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -829,7 +822,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -845,7 +838,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -858,10 +851,14 @@ of media segments</p>
         <a class="method-permalink" href="#live%3F-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>(live: <span class="n">true</span>)
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test_01.ts&quot;</span>)
+playlist.live? <span class="c"># =&gt; true</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L89" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -877,7 +874,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -893,7 +890,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -906,10 +903,14 @@ of media segments</p>
         <a class="method-permalink" href="#master%3F-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> { master: <span class="n">true</span> }
+playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>(options)
+playlist.master? <span class="c"># =&gt; true</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -925,7 +926,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -941,7 +942,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -957,7 +958,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -973,7 +974,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -986,10 +987,20 @@ of media segments</p>
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+
+options <span class="o">=</span> { program_id: <span class="s">&quot;1&quot;</span>, uri: <span class="s">&quot;playlist_url&quot;</span>, bandwidth: <span class="n">6400</span>, audio_codec: <span class="s">&quot;mp3&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">PlaylistItem</span>.<span class="k">new</span>(options)
+
+playlist.to_s
+<span class="c"># =&gt; %(#EXTM3U\n) \</span>
+     <span class="s">%(#EXT-X-STREAM-INF:PROGRAM-ID=1,CODECS=&quot;mp4a.40.34&quot;,)</span> \
+     <span class="s">%(BANDWIDTH=6400\nplaylist_url\n)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L82" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L167" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1005,7 +1016,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1021,7 +1032,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1034,10 +1045,22 @@ of media segments</p>
         <a class="method-permalink" href="#valid%21-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+
+options <span class="o">=</span> { program_id: <span class="n">1</span>, width: <span class="n">1920</span>, height: <span class="n">1080</span>, codecs: <span class="s">&quot;avc&quot;</span>, bandwidth: <span class="n">540</span>, uri: <span class="s">&quot;test.url&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">PlaylistItem</span>.<span class="k">new</span>(options)
+
+playlist.valid! <span class="c"># =&gt; nil</span>
+
+options <span class="o">=</span> { duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test.ts&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(options)
+
+playlist.valid! <span class="c"># =&gt; Playlist is invalid. (M3U8::Error::PlaylistType)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L133" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1050,10 +1073,22 @@ of media segments</p>
         <a class="method-permalink" href="#valid%3F-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+
+options <span class="o">=</span> { program_id: <span class="n">1</span>, width: <span class="n">1920</span>, height: <span class="n">1080</span>, codecs: <span class="s">&quot;avc&quot;</span>, bandwidth: <span class="n">540</span>, uri: <span class="s">&quot;test.url&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">PlaylistItem</span>.<span class="k">new</span>(options)
+
+playlist.valid? <span class="c"># =&gt; true</span>
+
+options <span class="o">=</span> { duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test.ts&quot;</span> }
+playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(options)
+
+playlist.valid? <span class="c"># =&gt; false</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L116" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1069,7 +1104,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1085,7 +1120,7 @@ of media segments</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/playlist.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/playlist.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>

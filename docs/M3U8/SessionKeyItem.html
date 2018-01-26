@@ -50,13 +50,23 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="../M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="../M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +102,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="../M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="../M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="../M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -194,7 +189,7 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_key_item.cr#L4" target="_blank">m3u8/session_key_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_key_item.cr#L4" target="_blank">m3u8/session_key_item.cr</a>
     
     <br/>
   
@@ -211,6 +206,8 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
+          <div class="summary"><pre><code class='language-text = %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3") SessionKeyItem.parse(text) # => #<M3U8::SessionKeyItem......> ```'></code></pre></div>
+        
       </li>
     
   </ul>
@@ -222,6 +219,8 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = {   method:              "AES-128",   uri:                 "http://test.key",   iv:                  "D512BBF",   key_format:          "identity",   key_format_versions: "1/3", } SessionKeyItem.new(options).to_s # => %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3") ```'></code></pre></div>
         
       </li>
     
@@ -237,11 +236,6 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
 
   <h3>Instance methods inherited from module <code><a href="../M3U8/Encryptable.html">M3U8::Encryptable</a></code></h3>
   
-  
-    <a href="../M3U8/Encryptable.html#attributes-instance-method" class="tooltip">
-      <span>attributes</span>
-    attributes</a>, 
-    
   
     <a href="../M3U8/Encryptable.html#attributes_to_s-instance-method" class="tooltip">
       <span>attributes_to_s</span>
@@ -370,10 +364,14 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
         <a class="method-permalink" href="#parse%28text%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span>
+<span class="t">SessionKeyItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::SessionKeyItem......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_key_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_key_item.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -391,10 +389,20 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  method:              <span class="s">&quot;AES-128&quot;</span>,
+  uri:                 <span class="s">&quot;http://test.key&quot;</span>,
+  iv:                  <span class="s">&quot;D512BBF&quot;</span>,
+  key_format:          <span class="s">&quot;identity&quot;</span>,
+  key_format_versions: <span class="s">&quot;1/3&quot;</span>,
+}
+<span class="t">SessionKeyItem</span>.<span class="k">new</span>(options).to_s
+<span class="c"># =&gt; %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/session_key_item.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/session_key_item.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -50,13 +50,23 @@
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidPlaylistError" data-name="m3u8::invalidplaylisterror">
-      <a href="../M3U8/InvalidPlaylistError.html">InvalidPlaylistError</a>
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
       
     </li>
   
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/InvalidTimeItemError" data-name="m3u8::invalidtimeitemerror">
-      <a href="../M3U8/InvalidTimeItemError.html">InvalidTimeItemError</a>
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -92,21 +102,6 @@
   
   <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
       <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistTypeError" data-name="m3u8::playlisttypeerror">
-      <a href="../M3U8/PlaylistTypeError.html">PlaylistTypeError</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Protocol" data-name="m3u8::protocol">
-      <a href="../M3U8/Protocol.html">Protocol</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Scanner" data-name="m3u8::scanner">
-      <a href="../M3U8/Scanner.html">Scanner</a>
       
     </li>
   
@@ -192,7 +187,7 @@ Initialization Section</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L4" target="_blank">m3u8/map_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L4" target="_blank">m3u8/map_item.cr</a>
     
     <br/>
   
@@ -207,10 +202,14 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
+          <div class="summary"><pre><code class='language-options = {   uri: "frelo/prog_index.m3u8",   byterange: {     length: 4500,     start: 600   } } MapItem.new(options)'></code></pre></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28uri%2Cbyterange%3Dnil%29-class-method" class="signature"><strong>.new</strong>(uri, byterange = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-uri = "frelo/prog_index.m3u8" byterange = "4500@600" MapItem.new(uri) MapItem.new(uri, byterange) MapItem.new(uri: uri) MapItem.new(uri: uri, byterange: byterange) ```'></code></pre></div>
         
       </li>
     
@@ -224,6 +223,8 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
+          <div class="summary"><pre><code class='language-text = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") MapItem.parse(text) # => #<M3U8::MapItem......> ```'></code></pre></div>
+        
       </li>
     
   </ul>
@@ -232,11 +233,6 @@ Initialization Section</p>
 
   <h2>Instance Method Summary</h2>
   <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#attributes-instance-method" class="signature"><strong>#attributes</strong></a>
-        
-      </li>
     
       <li class="entry-summary">
         <a href="#byterange%3AByteRange-instance-method" class="signature"><strong>#byterange</strong> : ByteRange</a>
@@ -250,6 +246,8 @@ Initialization Section</p>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = {   uri: "frelo/prog_index.m3u8",   byterange: "4500@600" } MapItem.new(options).to_s # => %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") ```'></code></pre></div>
         
       </li>
     
@@ -314,10 +312,31 @@ Initialization Section</p>
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  uri: <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
+  byterange: {
+    length: <span class="n">4500</span>,
+    start: <span class="n">600</span>
+  }
+}
+<span class="t">MapItem</span>.<span class="k">new</span>(options)
+
+options <span class="o">=</span> {
+  uri: <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
+  byterange: <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+}
+<span class="t">MapItem</span>.<span class="k">new</span>(options)
+
+options <span class="o">=</span> {
+  uri: <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
+  byterange: <span class="s">&quot;4500@600&quot;</span>
+}
+<span class="t">MapItem</span>.<span class="k">new</span>(options)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -330,10 +349,17 @@ Initialization Section</p>
         <a class="method-permalink" href="#new%28uri%2Cbyterange%3Dnil%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>uri <span class="o">=</span> <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>
+byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
+<span class="t">MapItem</span>.<span class="k">new</span>(uri)
+<span class="t">MapItem</span>.<span class="k">new</span>(uri, byterange)
+<span class="t">MapItem</span>.<span class="k">new</span>(uri: uri)
+<span class="t">MapItem</span>.<span class="k">new</span>(uri: uri, byterange: byterange)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L25" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -351,10 +377,14 @@ Initialization Section</p>
         <a class="method-permalink" href="#parse%28text%29-class-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>text <span class="o">=</span> <span class="s">%(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)</span>
+<span class="t">MapItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::MapItem......&gt;</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -363,22 +393,6 @@ Initialization Section</p>
 
 
   <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail" id="attributes-instance-method">
-      <div class="signature">
-        
-        def <strong>attributes</strong>
-
-        <a class="method-permalink" href="#attributes-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L33" target="_blank">View source</a>]
-        
-      </div>
-    </div>
   
     <div class="entry-detail" id="byterange:ByteRange-instance-method">
       <div class="signature">
@@ -391,7 +405,7 @@ Initialization Section</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -407,7 +421,7 @@ Initialization Section</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -420,10 +434,17 @@ Initialization Section</p>
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  uri: <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
+  byterange: <span class="s">&quot;4500@600&quot;</span>
+}
+<span class="t">MapItem</span>.<span class="k">new</span>(options).to_s
+<span class="c"># =&gt; %(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)</span></code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -439,7 +460,7 @@ Initialization Section</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -455,7 +476,7 @@ Initialization Section</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/5cfdb2380e506b7f7b1eb1ffab6fb835903c75e2/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/dcb3b73b5158c9847f84759032661070b0b7c039/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
