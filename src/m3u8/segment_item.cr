@@ -33,7 +33,7 @@ module M3U8
     # SegmentItem.new
     # ```
     def initialize(@duration = nil, @segment = nil, @comment = nil, byterange = nil, program_date_time = nil)
-      @byterange = parse_byterange(byterange)
+      @byterange = ByteRange.parse(byterange)
       @program_date_time = parse_time_item(program_date_time)
     end
 
@@ -45,7 +45,7 @@ module M3U8
     # item.byterange # => #<M3U8::ByteRange......>
     # ```
     def byterange=(byterange)
-      @byterange = parse_byterange(byterange)
+      @byterange = ByteRange.parse(byterange)
     end
 
     # ```

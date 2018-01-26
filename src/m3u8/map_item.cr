@@ -16,7 +16,7 @@ module M3U8
       params = parse_attributes(text)
       new(
         uri: params["URI"],
-        byterange: parse_byterange(params["BYTERANGE"]?),
+        byterange: ByteRange.parse(params["BYTERANGE"]?),
       )
     end
 
@@ -58,7 +58,7 @@ module M3U8
     # MapItem.new(uri: uri, byterange: byterange)
     # ```
     def initialize(@uri, byterange = nil)
-      @byterange = parse_byterange(byterange)
+      @byterange = ByteRange.parse(byterange)
     end
 
     # ```

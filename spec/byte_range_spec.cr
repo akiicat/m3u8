@@ -78,4 +78,35 @@ module M3U8
       item.empty?.should be_false
     end
   end
+
+  {
+    {
+      ByteRange.new(length: 4500, start: 600),
+      ByteRange.new(length: 4500, start: 600)
+    },
+    {
+      { length: 4500, start: 600 },
+      ByteRange.new(length: 4500, start: 600)
+    },
+    {
+      { length: 4500 },
+      ByteRange.new(length: 4500)
+    },
+    {
+      "4500@600",
+      ByteRange.new(length: 4500, start: 600)
+    },
+  }.each do |params, expected|
+    item = ByteRange.parse(params)
+
+    describe "parse" do
+      it "item" do
+        item.to_s.should eq expected.to_s
+      end
+    end
+
+    it "==" do
+      (expected == params).should be_true
+    end
+  end
 end

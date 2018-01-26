@@ -7,6 +7,21 @@ module M3U8
     property start : Int32?
 
     # ```
+    # ByteRange.parse(ByteRange.new(length: 4500, start: 600))
+    # ByteRange.parse({ length: 4500, start: 600 })
+    # ByteRange.parse("4500@600")
+    # ByteRange.parse
+    # ```
+    def self.parse(item)
+      case item
+      when String then new(item)
+      when NamedTuple then new(item)
+      when ByteRange then item
+      else new
+      end
+    end
+
+    # ```
     # ByteRange.new("4500@600")
     # ByteRange.new("4500")
     # ```
@@ -58,6 +73,33 @@ module M3U8
     # ```
     def to_s
       attributes.join('@')
+    end
+
+    # ```
+    # left = ByteRange.new(length: 4500, start: 600)
+    # right = "4500@600",
+    # left == right # => true
+    # ```
+    def == (other : String)
+      to_s == other
+    end
+
+    # ```
+    # left = ByteRange.new(length: 4500, start: 600)
+    # right = { length: 4500, start: 600 },
+    # left == right # => true
+    # ```
+    def == (other : NamedTuple)
+      to_s == ByteRange.new(other).to_s
+    end
+
+    # ```
+    # left =  ByteRange.new(length: 4500, start: 600),
+    # right =  ByteRange.new(length: 4500, start: 600)
+    # left == right # => true
+    # ```
+    def == (other : ByteRange)
+      to_s == other.to_s
     end
 
     private def attributes
