@@ -12,7 +12,7 @@ module M3U8
     # ByteRange.parse("4500@600")
     # ByteRange.parse
     # ```
-    def self.parse(item)
+    def self.parse(item = nil)
       case item
       when String then new(item)
       when NamedTuple then new(item)
