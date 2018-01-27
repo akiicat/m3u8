@@ -1,6 +1,7 @@
 # m3u8
 
 [![Build Status](https://travis-ci.org/akiicat/m3u8.svg?branch=master)](https://travis-ci.org/akiicat/m3u8)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://akiicat.github.io/m3u8)
 
 Crystal m3u8 generator and parser.
 
