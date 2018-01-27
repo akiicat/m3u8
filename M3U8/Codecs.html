@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/akiicat/m3u8">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>M3U8::Codecs - github.com/akiicat/m3u8</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
+      <a href="../M3U8.html">M3U8</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/ByteRange" data-name="m3u8::byterange">
+      <a href="../M3U8/ByteRange.html">ByteRange</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/akiicat/m3u8/M3U8/Codecs" data-name="m3u8::codecs">
+      <a href="../M3U8/Codecs.html">Codecs</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DateRangeItem" data-name="m3u8::daterangeitem">
+      <a href="../M3U8/DateRangeItem.html">DateRangeItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DiscontinuityItem" data-name="m3u8::discontinuityitem">
+      <a href="../M3U8/DiscontinuityItem.html">DiscontinuityItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Encryptable" data-name="m3u8::encryptable">
+      <a href="../M3U8/Encryptable.html">Encryptable</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/KeyItem" data-name="m3u8::keyitem">
+      <a href="../M3U8/KeyItem.html">KeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MapItem" data-name="m3u8::mapitem">
+      <a href="../M3U8/MapItem.html">MapItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MediaItem" data-name="m3u8::mediaitem">
+      <a href="../M3U8/MediaItem.html">MediaItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Parser" data-name="m3u8::parser">
+      <a href="../M3U8/Parser.html">Parser</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaybackStart" data-name="m3u8::playbackstart">
+      <a href="../M3U8/PlaybackStart.html">PlaybackStart</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Playlist" data-name="m3u8::playlist">
+      <a href="../M3U8/Playlist.html">Playlist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
+      <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SegmentItem" data-name="m3u8::segmentitem">
+      <a href="../M3U8/SegmentItem.html">SegmentItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionDataItem" data-name="m3u8::sessiondataitem">
+      <a href="../M3U8/SessionDataItem.html">SessionDataItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionKeyItem" data-name="m3u8::sessionkeyitem">
+      <a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/TimeItem" data-name="m3u8::timeitem">
+      <a href="../M3U8/TimeItem.html">TimeItem</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/Time" data-name="time">
+      <a href="../Time.html">Time</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> M3U8::Codecs
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../M3U8/Codecs.html">M3U8::Codecs</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+  <h2>Extended Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L2" target="_blank">m3u8/codecs.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
+        
+          <div class="summary"><pre><code class='language-options = {audio_codec: "aac-lc"} Codecs.new(options) Codecs.new(audio_codec: "aac-lc") ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28codecs%3Dnil%2Caudio_codec%3Dnil%2Clevel%3Dnil%2Cprofile%3Dnil%29-class-method" class="signature"><strong>.new</strong>(codecs = <span class="n">nil</span>, audio_codec = <span class="n">nil</span>, level = <span class="n">nil</span>, profile = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-Codecs.new ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3ACodecs%29-instance-method" class="signature"><strong>#==</strong>(other : Codecs)</a>
+        
+          <div class="summary"><pre><code class='language-left = Codecs.new(audio_codec: "aac-lc") right = Codecs.new(audio_codec: "aac-lc") left == right # => true ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3AString%29-instance-method" class="signature"><strong>#==</strong>(other : String)</a>
+        
+          <div class="summary"><pre><code class='language-left = Codecs.new(audio_codec: "aac-lc") right = "aac-lc" left == right # => true ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#audio_codec%3AString%3F-instance-method" class="signature"><strong>#audio_codec</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#audio_codec%3D%28audio_codec%3AString%3F%29-instance-method" class="signature"><strong>#audio_codec=</strong>(audio_codec : String?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#codecs%3AString%3F-instance-method" class="signature"><strong>#codecs</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#codecs%3D%28codecs%3AString%3F%29-instance-method" class="signature"><strong>#codecs=</strong>(codecs : String?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
+        
+          <div class="summary"><pre><code class='language-codecs = Codecs.new codecs.empty? # => true codecs.audio_codec = "aac-lc" codecs.empty? # => false ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#level%3AFloat64%3F-instance-method" class="signature"><strong>#level</strong> : Float64?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#level%3D%28level%3AFloat64%3F%29-instance-method" class="signature"><strong>#level=</strong>(level : Float64?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#profile%3AString%3F-instance-method" class="signature"><strong>#profile</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#profile%3D%28profile%3AString%3F%29-instance-method" class="signature"><strong>#profile=</strong>(profile : String?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-Codecs.new(codecs: "test").to_s                                      # => "test" Codecs.new(audio_codec: "aac-lc").to_s                               # => "mp4a.40.2" Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34" ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(params:NamedTuple=NamedTuple.new)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)
+
+        <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>options <span class="o">=</span> {audio_codec: <span class="s">&quot;aac-lc&quot;</span>}
+<span class="t">Codecs</span>.<span class="k">new</span>(options)
+<span class="t">Codecs</span>.<span class="k">new</span>(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(codecs=nil,audio_codec=nil,level=nil,profile=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(codecs = <span class="n">nil</span>, audio_codec = <span class="n">nil</span>, level = <span class="n">nil</span>, profile = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28codecs%3Dnil%2Caudio_codec%3Dnil%2Clevel%3Dnil%2Cprofile%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">Codecs</span>.<span class="k">new</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="==(other:Codecs)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <a href="../M3U8/Codecs.html">Codecs</a>)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3ACodecs%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>left <span class="o">=</span> <span class="t">Codecs</span>.<span class="k">new</span>(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
+right <span class="o">=</span> <span class="t">Codecs</span>.<span class="k">new</span>(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
+left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L72" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : String)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>left <span class="o">=</span> <span class="t">Codecs</span>.<span class="k">new</span>(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
+right <span class="o">=</span> <span class="s">&quot;aac-lc&quot;</span>
+left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L81" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="audio_codec:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>audio_codec</strong> : String?
+
+        <a class="method-permalink" href="#audio_codec%3AString%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="audio_codec=(audio_codec:String?)-instance-method">
+      <div class="signature">
+        
+        def <strong>audio_codec=</strong>(audio_codec : String?)
+
+        <a class="method-permalink" href="#audio_codec%3D%28audio_codec%3AString%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="codecs:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>codecs</strong> : String?
+
+        <a class="method-permalink" href="#codecs%3AString%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="codecs=(codecs:String?)-instance-method">
+      <div class="signature">
+        
+        def <strong>codecs=</strong>(codecs : String?)
+
+        <a class="method-permalink" href="#codecs%3D%28codecs%3AString%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="empty?-instance-method">
+      <div class="signature">
+        
+        def <strong>empty?</strong>
+
+        <a class="method-permalink" href="#empty%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>codecs <span class="o">=</span> <span class="t">Codecs</span>.<span class="k">new</span>
+codecs.empty? <span class="c"># =&gt; true</span>
+codecs.audio_codec <span class="o">=</span> <span class="s">&quot;aac-lc&quot;</span>
+codecs.empty? <span class="c"># =&gt; false</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L63" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="level:Float64?-instance-method">
+      <div class="signature">
+        
+        def <strong>level</strong> : Float64?
+
+        <a class="method-permalink" href="#level%3AFloat64%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="level=(level:Float64?)-instance-method">
+      <div class="signature">
+        
+        def <strong>level=</strong>(level : Float64?)
+
+        <a class="method-permalink" href="#level%3D%28level%3AFloat64%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="profile:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>profile</strong> : String?
+
+        <a class="method-permalink" href="#profile%3AString%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="profile=(profile:String?)-instance-method">
+      <div class="signature">
+        
+        def <strong>profile=</strong>(profile : String?)
+
+        <a class="method-permalink" href="#profile%3D%28profile%3AString%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">Codecs</span>.<span class="k">new</span>(codecs: <span class="s">&quot;test&quot;</span>).to_s                                      <span class="c"># =&gt; &quot;test&quot;</span>
+<span class="t">Codecs</span>.<span class="k">new</span>(audio_codec: <span class="s">&quot;aac-lc&quot;</span>).to_s                               <span class="c"># =&gt; &quot;mp4a.40.2&quot;</span>
+<span class="t">Codecs</span>.<span class="k">new</span>(profile: <span class="s">&quot;baseline&quot;</span>, level: <span class="n">3.0</span>, audio_codec: <span class="s">&quot;mp3&quot;</span>).to_s <span class="c"># =&gt; &quot;avc1.66.30,mp4a.40.34&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/codecs.cr#L39" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

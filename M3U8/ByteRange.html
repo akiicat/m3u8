@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/akiicat/m3u8">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>M3U8::ByteRange - github.com/akiicat/m3u8</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
+      <a href="../M3U8.html">M3U8</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/akiicat/m3u8/M3U8/ByteRange" data-name="m3u8::byterange">
+      <a href="../M3U8/ByteRange.html">ByteRange</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Codecs" data-name="m3u8::codecs">
+      <a href="../M3U8/Codecs.html">Codecs</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DateRangeItem" data-name="m3u8::daterangeitem">
+      <a href="../M3U8/DateRangeItem.html">DateRangeItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DiscontinuityItem" data-name="m3u8::discontinuityitem">
+      <a href="../M3U8/DiscontinuityItem.html">DiscontinuityItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Encryptable" data-name="m3u8::encryptable">
+      <a href="../M3U8/Encryptable.html">Encryptable</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/KeyItem" data-name="m3u8::keyitem">
+      <a href="../M3U8/KeyItem.html">KeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MapItem" data-name="m3u8::mapitem">
+      <a href="../M3U8/MapItem.html">MapItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MediaItem" data-name="m3u8::mediaitem">
+      <a href="../M3U8/MediaItem.html">MediaItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Parser" data-name="m3u8::parser">
+      <a href="../M3U8/Parser.html">Parser</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaybackStart" data-name="m3u8::playbackstart">
+      <a href="../M3U8/PlaybackStart.html">PlaybackStart</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Playlist" data-name="m3u8::playlist">
+      <a href="../M3U8/Playlist.html">Playlist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
+      <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SegmentItem" data-name="m3u8::segmentitem">
+      <a href="../M3U8/SegmentItem.html">SegmentItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionDataItem" data-name="m3u8::sessiondataitem">
+      <a href="../M3U8/SessionDataItem.html">SessionDataItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionKeyItem" data-name="m3u8::sessionkeyitem">
+      <a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/TimeItem" data-name="m3u8::timeitem">
+      <a href="../M3U8/TimeItem.html">TimeItem</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/Time" data-name="time">
+      <a href="../Time.html">Time</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> M3U8::ByteRange
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../M3U8/ByteRange.html">M3U8::ByteRange</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>ByteRange represents sub range of a resource</p>
+
+
+
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+  <h2>Extended Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L3" target="_blank">m3u8/byte_range.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28string%3AString%29-class-method" class="signature"><strong>.new</strong>(string : String)</a>
+        
+          <div class="summary"><pre><code class='language-ByteRange.new("4500@600") ByteRange.new("4500") ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
+        
+          <div class="summary"><pre><code class='language-options = {length: 4500, start: 600} ByteRange.new(options) ByteRange.new(length: 4500, start: 600) ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28length%3Dnil%2Cstart%3Dnil%29-class-method" class="signature"><strong>.new</strong>(length = <span class="n">nil</span>, start = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-ByteRange.new ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#parse%28item%3Dnil%29-class-method" class="signature"><strong>.parse</strong>(item = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-ByteRange.parse(ByteRange.new(length: 4500, start: 600)) ByteRange.parse({length: 4500, start: 600}) ByteRange.parse("4500@600") ByteRange.parse ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3AString%29-instance-method" class="signature"><strong>#==</strong>(other : String)</a>
+        
+          <div class="summary"><pre><code class='language-left = ByteRange.new(length: 4500, start: 600) right = "4500@600", left == right # => true ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3ANamedTuple%29-instance-method" class="signature"><strong>#==</strong>(other : NamedTuple)</a>
+        
+          <div class="summary"><pre><code class='language-left = ByteRange.new(length: 4500, start: 600) right = { length: 4500, start: 600 }, left == right # => true ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3AByteRange%29-instance-method" class="signature"><strong>#==</strong>(other : ByteRange)</a>
+        
+          <div class="summary"><pre><code class='language-left =  ByteRange.new(length: 4500, start: 600), right =  ByteRange.new(length: 4500, start: 600) left == right # => true ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
+        
+          <div class="summary"><pre><code class='language-byterange = ByteRange.new byterange.empty? # => true byterange = ByteRange.new(length: 0) byterange.empty? # => true byterange.length = 4500 byterange.empty? # => false ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#length%3AInt32%3F-instance-method" class="signature"><strong>#length</strong> : Int32?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#length%3D%28length%3AInt32%3F%29-instance-method" class="signature"><strong>#length=</strong>(length : Int32?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#start%3AInt32%3F-instance-method" class="signature"><strong>#start</strong> : Int32?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#start%3D%28start%3AInt32%3F%29-instance-method" class="signature"><strong>#start=</strong>(start : Int32?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-byterange = ByteRange.new(length: 4500, start: 600) byterange.to_s # => "4500@600" byterange = ByteRange.new(length: 4500) byterange.to_s # => "4500" byterange = ByteRange.new byterange.to_s # => "" ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(string:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(string : String)
+
+        <a class="method-permalink" href="#new%28string%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">ByteRange</span>.<span class="k">new</span>(<span class="s">&quot;4500@600&quot;</span>)
+<span class="t">ByteRange</span>.<span class="k">new</span>(<span class="s">&quot;4500&quot;</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(params:NamedTuple=NamedTuple.new)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)
+
+        <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>options <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
+<span class="t">ByteRange</span>.<span class="k">new</span>(options)
+<span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L40" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(length=nil,start=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(length = <span class="n">nil</span>, start = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28length%3Dnil%2Cstart%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">ByteRange</span>.<span class="k">new</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L50" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="parse(item=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>parse</strong>(item = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#parse%28item%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">ByteRange</span>.parse(<span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>))
+<span class="t">ByteRange</span>.parse({length: <span class="n">4500</span>, start: <span class="n">600</span>})
+<span class="t">ByteRange</span>.parse(<span class="s">&quot;4500@600&quot;</span>)
+<span class="t">ByteRange</span>.parse</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="==(other:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : String)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>left <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+right <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>,
+left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L83" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other:NamedTuple)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : NamedTuple)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3ANamedTuple%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>left <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+right <span class="o">=</span> { length: <span class="n">4500</span>, start: <span class="n">600</span> },
+left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L92" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other:ByteRange)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <a href="../M3U8/ByteRange.html">ByteRange</a>)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3AByteRange%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>left <span class="o">=</span>  <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>),
+right <span class="o">=</span>  <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L101" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="empty?-instance-method">
+      <div class="signature">
+        
+        def <strong>empty?</strong>
+
+        <a class="method-permalink" href="#empty%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>
+byterange.empty? <span class="c"># =&gt; true</span>
+byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">0</span>)
+byterange.empty? <span class="c"># =&gt; true</span>
+byterange.length <span class="o">=</span> <span class="n">4500</span>
+byterange.empty? <span class="c"># =&gt; false</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="length:Int32?-instance-method">
+      <div class="signature">
+        
+        def <strong>length</strong> : Int32?
+
+        <a class="method-permalink" href="#length%3AInt32%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="length=(length:Int32?)-instance-method">
+      <div class="signature">
+        
+        def <strong>length=</strong>(length : Int32?)
+
+        <a class="method-permalink" href="#length%3D%28length%3AInt32%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="start:Int32?-instance-method">
+      <div class="signature">
+        
+        def <strong>start</strong> : Int32?
+
+        <a class="method-permalink" href="#start%3AInt32%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="start=(start:Int32?)-instance-method">
+      <div class="signature">
+        
+        def <strong>start=</strong>(start : Int32?)
+
+        <a class="method-permalink" href="#start%3D%28start%3AInt32%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+byterange.to_s <span class="c"># =&gt; &quot;4500@600&quot;</span>
+byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>)
+byterange.to_s <span class="c"># =&gt; &quot;4500&quot;</span>
+byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>
+byterange.to_s <span class="c"># =&gt; &quot;&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/byte_range.cr#L74" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

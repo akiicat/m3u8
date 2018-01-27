@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/akiicat/m3u8">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>M3U8::SegmentItem - github.com/akiicat/m3u8</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
+      <a href="../M3U8.html">M3U8</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/ByteRange" data-name="m3u8::byterange">
+      <a href="../M3U8/ByteRange.html">ByteRange</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Codecs" data-name="m3u8::codecs">
+      <a href="../M3U8/Codecs.html">Codecs</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DateRangeItem" data-name="m3u8::daterangeitem">
+      <a href="../M3U8/DateRangeItem.html">DateRangeItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/DiscontinuityItem" data-name="m3u8::discontinuityitem">
+      <a href="../M3U8/DiscontinuityItem.html">DiscontinuityItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Encryptable" data-name="m3u8::encryptable">
+      <a href="../M3U8/Encryptable.html">Encryptable</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/akiicat/m3u8/M3U8/Error" data-name="m3u8::error">
+      <a href="../M3U8/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/InvalidPlaylist" data-name="m3u8::error::invalidplaylist">
+      <a href="../M3U8/Error/InvalidPlaylist.html">InvalidPlaylist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Error/PlaylistType" data-name="m3u8::error::playlisttype">
+      <a href="../M3U8/Error/PlaylistType.html">PlaylistType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/KeyItem" data-name="m3u8::keyitem">
+      <a href="../M3U8/KeyItem.html">KeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MapItem" data-name="m3u8::mapitem">
+      <a href="../M3U8/MapItem.html">MapItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/MediaItem" data-name="m3u8::mediaitem">
+      <a href="../M3U8/MediaItem.html">MediaItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Parser" data-name="m3u8::parser">
+      <a href="../M3U8/Parser.html">Parser</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaybackStart" data-name="m3u8::playbackstart">
+      <a href="../M3U8/PlaybackStart.html">PlaybackStart</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/Playlist" data-name="m3u8::playlist">
+      <a href="../M3U8/Playlist.html">Playlist</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/PlaylistItem" data-name="m3u8::playlistitem">
+      <a href="../M3U8/PlaylistItem.html">PlaylistItem</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/akiicat/m3u8/M3U8/SegmentItem" data-name="m3u8::segmentitem">
+      <a href="../M3U8/SegmentItem.html">SegmentItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionDataItem" data-name="m3u8::sessiondataitem">
+      <a href="../M3U8/SessionDataItem.html">SessionDataItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/SessionKeyItem" data-name="m3u8::sessionkeyitem">
+      <a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/M3U8/TimeItem" data-name="m3u8::timeitem">
+      <a href="../M3U8/TimeItem.html">TimeItem</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/akiicat/m3u8/Time" data-name="time">
+      <a href="../Time.html">Time</a>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> M3U8::SegmentItem
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../M3U8/SegmentItem.html">M3U8::SegmentItem</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>SegmentItem represents EXTINF attributes with the URI that follows,
+optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
+
+
+
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+  <h2>Extended Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">M3U8::Concern</li>
+  
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L4" target="_blank">m3u8/segment_item.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
+        
+          <div class="summary"><pre><code class='language-options = {   duration:  10.991,   segment:   "test.ts",   comment:   "anything",   byterange: {length: 4500, start: 600}, } SegmentItem.new(options) ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28duration%3Dnil%2Csegment%3Dnil%2Ccomment%3Dnil%2Cbyterange%3Dnil%2Cprogram_date_time%3Dnil%29-class-method" class="signature"><strong>.new</strong>(duration = <span class="n">nil</span>, segment = <span class="n">nil</span>, comment = <span class="n">nil</span>, byterange = <span class="n">nil</span>, program_date_time = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><pre><code class='language-SegmentItem.new ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#byterange%3AByteRange-instance-method" class="signature"><strong>#byterange</strong> : ByteRange</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#byterange%3D%28byterange%29-instance-method" class="signature"><strong>#byterange=</strong>(byterange)</a>
+        
+          <div class="summary"><pre><code class='language-item = SegmentItem.new item.byterange = ByteRange.new(length: 4500, start: 600) item.byterange = {length: 4500, start: 600} item.byterange = "4500@600" item.byterange # => #<M3U8::ByteRange......> ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comment%3AString%3F-instance-method" class="signature"><strong>#comment</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comment%3D%28comment%3AString%3F%29-instance-method" class="signature"><strong>#comment=</strong>(comment : String?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#duration%3AFloat64%3F-instance-method" class="signature"><strong>#duration</strong> : Float64?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#duration%3D%28duration%3AFloat64%3F%29-instance-method" class="signature"><strong>#duration=</strong>(duration : Float64?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#program_date_time%3ATimeItem-instance-method" class="signature"><strong>#program_date_time</strong> : TimeItem</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#program_date_time%3D%28time%29-instance-method" class="signature"><strong>#program_date_time=</strong>(time)</a>
+        
+          <div class="summary"><pre><code class='language-item = SegmentItem.new item.program_date_time = TimeItem.new("2010-02-19T14:54:23Z") item.program_date_time = TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z")) item.program_date_time = Time.iso8601("2010-02-19T14:54:23.031Z") item.program_date_time = "2010-02-19T14:54:23.031Z" item.program_date_time # => #<M3U8::TimeItem......> ```'></code></pre></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segment%3AString%3F-instance-method" class="signature"><strong>#segment</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segment%3D%28segment%3AString%3F%29-instance-method" class="signature"><strong>#segment=</strong>(segment : String?)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><pre><code class='language-options = {   duration:  10.991,   segment:   "test.ts",   comment:   "anything",   byterange: {length: 4500, start: 600}, } SegmentItem.new(options).to_s # => %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts) ```'></code></pre></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(params:NamedTuple=NamedTuple.new)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)
+
+        <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  duration:  <span class="n">10.991</span>,
+  segment:   <span class="s">&quot;test.ts&quot;</span>,
+  comment:   <span class="s">&quot;anything&quot;</span>,
+  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+}
+<span class="t">SegmentItem</span>.<span class="k">new</span>(options)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(duration=nil,segment=nil,comment=nil,byterange=nil,program_date_time=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(duration = <span class="n">nil</span>, segment = <span class="n">nil</span>, comment = <span class="n">nil</span>, byterange = <span class="n">nil</span>, program_date_time = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28duration%3Dnil%2Csegment%3Dnil%2Ccomment%3Dnil%2Cbyterange%3Dnil%2Cprogram_date_time%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code><span class="t">SegmentItem</span>.<span class="k">new</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L35" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="byterange:ByteRange-instance-method">
+      <div class="signature">
+        
+        def <strong>byterange</strong> : <a href="../M3U8/ByteRange.html">ByteRange</a>
+
+        <a class="method-permalink" href="#byterange%3AByteRange-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="byterange=(byterange)-instance-method">
+      <div class="signature">
+        
+        def <strong>byterange=</strong>(byterange)
+
+        <a class="method-permalink" href="#byterange%3D%28byterange%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>item <span class="o">=</span> <span class="t">SegmentItem</span>.<span class="k">new</span>
+item.byterange <span class="o">=</span> <span class="t">ByteRange</span>.<span class="k">new</span>(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+item.byterange <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
+item.byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
+item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comment:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>comment</strong> : String?
+
+        <a class="method-permalink" href="#comment%3AString%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comment=(comment:String?)-instance-method">
+      <div class="signature">
+        
+        def <strong>comment=</strong>(comment : String?)
+
+        <a class="method-permalink" href="#comment%3D%28comment%3AString%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="duration:Float64?-instance-method">
+      <div class="signature">
+        
+        def <strong>duration</strong> : Float64?
+
+        <a class="method-permalink" href="#duration%3AFloat64%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="duration=(duration:Float64?)-instance-method">
+      <div class="signature">
+        
+        def <strong>duration=</strong>(duration : Float64?)
+
+        <a class="method-permalink" href="#duration%3D%28duration%3AFloat64%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="program_date_time:TimeItem-instance-method">
+      <div class="signature">
+        
+        def <strong>program_date_time</strong> : <a href="../M3U8/TimeItem.html">TimeItem</a>
+
+        <a class="method-permalink" href="#program_date_time%3ATimeItem-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="program_date_time=(time)-instance-method">
+      <div class="signature">
+        
+        def <strong>program_date_time=</strong>(time)
+
+        <a class="method-permalink" href="#program_date_time%3D%28time%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>item <span class="o">=</span> <span class="t">SegmentItem</span>.<span class="k">new</span>
+item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.<span class="k">new</span>(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
+item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.<span class="k">new</span>(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+item.program_date_time <span class="o">=</span> <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+item.program_date_time <span class="o">=</span> <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>
+item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L59" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segment:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>segment</strong> : String?
+
+        <a class="method-permalink" href="#segment%3AString%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segment=(segment:String?)-instance-method">
+      <div class="signature">
+        
+        def <strong>segment=</strong>(segment : String?)
+
+        <a class="method-permalink" href="#segment%3D%28segment%3AString%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><pre><code>options <span class="o">=</span> {
+  duration:  <span class="n">10.991</span>,
+  segment:   <span class="s">&quot;test.ts&quot;</span>,
+  comment:   <span class="s">&quot;anything&quot;</span>,
+  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+}
+<span class="t">SegmentItem</span>.<span class="k">new</span>(options).to_s
+<span class="c"># =&gt; %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/akiicat/m3u8/blob/e88fd116dafa21826d5a83d793f8fe28a0d1bacd/src/m3u8/segment_item.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
