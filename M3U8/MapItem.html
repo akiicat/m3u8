@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
   <meta id="repository-name" content="github.com/akiicat/m3u8">
-  <link href="../css/style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="../js/doc.js"></script>
   <title>M3U8::MapItem - github.com/akiicat/m3u8</title>
 </head>
 <body>
 
-<div id="types-list">
-  <div id="search-box">
-    <input type="search" id="search-input" placeholder="Search...">
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
   </div>
 
-  <ul>
-    <li><a href="../index.html">README</a></li>
-  </ul>
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
 
-  <ul>
+  <div class="types-list">
+    <ul>
   
   <li class="parent open current" data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
       <a href="../M3U8.html">M3U8</a>
@@ -137,9 +153,11 @@
   
 </ul>
 
+  </div>
 </div>
 
-<div id="main-content">
+
+<div class="main-content">
 <h1 class="type-name">
 
   <span class="kind">class</span> M3U8::MapItem
@@ -187,7 +205,9 @@ Initialization Section</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L4" target="_blank">m3u8/map_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L4" target="_blank">
+        m3u8/map_item.cr
+      </a>
     
     <br/>
   
@@ -202,14 +222,14 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
-          <div class="summary"><pre><code class='language-options = {   uri:       "frelo/prog_index.m3u8",   byterange: {     length: 4500,     start:  600,   }, } MapItem.new(options)'></code></pre></div>
+          <div class="summary"><pre><code class="language-options = {   uri:       "frelo/prog_index.m3u8",   byterange: {     length: 4500,     start:  600,   }, } MapItem.new(options)"></code></pre></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28uri%2Cbyterange%3Dnil%29-class-method" class="signature"><strong>.new</strong>(uri, byterange = <span class="n">nil</span>)</a>
         
-          <div class="summary"><pre><code class='language-uri = "frelo/prog_index.m3u8" byterange = "4500@600" MapItem.new(uri) MapItem.new(uri, byterange) MapItem.new(uri: uri) MapItem.new(uri: uri, byterange: byterange) ```'></code></pre></div>
+          <div class="summary"><p><code></code>` uri = "frelo/prog_index.m3u8" byterange = "4500@600" MapItem.new(uri) MapItem.new(uri, byterange) MapItem.new(uri: uri) MapItem.new(uri: uri, byterange: byterange) <code></code>`</p></div>
         
       </li>
     
@@ -223,7 +243,7 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><pre><code class='language-text = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") MapItem.parse(text) # => #<M3U8::MapItem......> ```'></code></pre></div>
+          <div class="summary"><p><code></code>` text = %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") MapItem.parse(text) # => #&lt;M3U8::MapItem......> <code></code>`</p></div>
         
       </li>
     
@@ -247,7 +267,7 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><pre><code class='language-options = {   uri:       "frelo/prog_index.m3u8",   byterange: "4500@600", } MapItem.new(options).to_s # => %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") ```'></code></pre></div>
+          <div class="summary"><p><code></code>` options = {   uri:       "frelo/prog_index.m3u8",   byterange: "4500@600", } MapItem.new(options).to_s # => %(#EXT-X-MAP:URI="frelo/prog_index.m3u8",BYTERANGE="4500@600") <code></code>`</p></div>
         
       </li>
     
@@ -336,7 +356,7 @@ options <span class="o">=</span> {
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -359,7 +379,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -384,7 +404,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -405,7 +425,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -421,7 +441,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -444,7 +464,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -460,7 +480,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -476,7 +496,7 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/map_item.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>

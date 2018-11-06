@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
   <meta id="repository-name" content="github.com/akiicat/m3u8">
-  <link href="../css/style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="../js/doc.js"></script>
   <title>M3U8::DateRangeItem - github.com/akiicat/m3u8</title>
 </head>
 <body>
 
-<div id="types-list">
-  <div id="search-box">
-    <input type="search" id="search-input" placeholder="Search...">
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
   </div>
 
-  <ul>
-    <li><a href="../index.html">README</a></li>
-  </ul>
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
 
-  <ul>
+  <div class="types-list">
+    <ul>
   
   <li class="parent open current" data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
       <a href="../M3U8.html">M3U8</a>
@@ -137,9 +153,11 @@
   
 </ul>
 
+  </div>
 </div>
 
-<div id="main-content">
+
+<div class="main-content">
 <h1 class="type-name">
 
   <span class="kind">class</span> M3U8::DateRangeItem
@@ -186,7 +204,9 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L5" target="_blank">m3u8/date_range_item.cr</a>
+      <a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L5" target="_blank">
+        m3u8/date_range_item.cr
+      </a>
     
     <br/>
   
@@ -201,14 +221,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.<span class="k">new</span>)</a>
         
-          <div class="summary"><pre><code class='language-options = {   id:                "test_id",   start_date:        "2014-03-05T11:15:00Z",   class_name:        "test_class",   end_date:          "2014-03-05T11:16:00Z",   duration:          60.1,   planned_duration:  59.993,   scte35_out:        "0xFC002F0000000000FF0",   scte35_in:         "0xFC002F0000000000FF1",   scte35_cmd:        "0xFC002F0000000000FF2",   end_on_next:       true,   client_attributes: {"X-CUSTOM" => 45.3}, } DateRangeItem.new(options) ```'></code></pre></div>
+          <div class="summary"><p><code></code>` options = {   id:                "test_id",   start_date:        "2014-03-05T11:15:00Z",   class_name:        "test_class",   end_date:          "2014-03-05T11:16:00Z",   duration:          60.1,   planned_duration:  59.993,   scte35_out:        "0xFC002F0000000000FF0",   scte35_in:         "0xFC002F0000000000FF1",   scte35_cmd:        "0xFC002F0000000000FF2",   end_on_next:       true,   client_attributes: {"X-CUSTOM" => 45.3}, } DateRangeItem.new(options) <code></code>`</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28id%3Dnil%2Cstart_date%3Dnil%2Cclass_name%3Dnil%2Cend_date%3Dnil%2Cduration%3Dnil%2Cplanned_duration%3Dnil%2Cscte35_cmd%3Dnil%2Cscte35_out%3Dnil%2Cscte35_in%3Dnil%2Cend_on_next%3Dnil%2Cclient_attributes%3Dnil%29-class-method" class="signature"><strong>.new</strong>(id = <span class="n">nil</span>, start_date = <span class="n">nil</span>, class_name = <span class="n">nil</span>, end_date = <span class="n">nil</span>, duration = <span class="n">nil</span>, planned_duration = <span class="n">nil</span>, scte35_cmd = <span class="n">nil</span>, scte35_out = <span class="n">nil</span>, scte35_in = <span class="n">nil</span>, end_on_next = <span class="n">nil</span>, client_attributes = <span class="n">nil</span>)</a>
         
-          <div class="summary"><pre><code class='language-DateRangeItem.new ```'></code></pre></div>
+          <div class="summary"><p><code></code>` DateRangeItem.new <code></code>`</p></div>
         
       </li>
     
@@ -222,7 +242,7 @@
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><pre><code class='language-text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \        %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \        %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES) DateRangeItem.parse(text) ```'></code></pre></div>
+          <div class="summary"><p><code></code>` text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \        %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \        %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES) DateRangeItem.parse(text) <code></code>`</p></div>
         
       </li>
     
@@ -346,7 +366,7 @@
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><pre><code class='language-options = {   id:                "test_id",   start_date:        "2014-03-05T11:15:00Z",   class_name:        "test_class",   end_date:          "2014-03-05T11:16:00Z",   duration:          60.1,   planned_duration:  59.993,   scte35_out:        "0xFC002F0000000000FF0",   scte35_in:         "0xFC002F0000000000FF1",   scte35_cmd:        "0xFC002F0000000000FF2",   end_on_next:       true,   client_attributes: {"X-CUSTOM" => 45.3}, } DateRangeItem.new(options).to_s # => %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \ %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \ %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \ %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \ %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES) ```'></code></pre></div>
+          <div class="summary"><p><code></code>` options = {   id:                "test_id",   start_date:        "2014-03-05T11:15:00Z",   class_name:        "test_class",   end_date:          "2014-03-05T11:16:00Z",   duration:          60.1,   planned_duration:  59.993,   scte35_out:        "0xFC002F0000000000FF0",   scte35_in:         "0xFC002F0000000000FF1",   scte35_cmd:        "0xFC002F0000000000FF2",   end_on_next:       true,   client_attributes: {"X-CUSTOM" => 45.3}, } DateRangeItem.new(options).to_s # => %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \ %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \ %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \ %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \ %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES) <code></code>`</p></div>
         
       </li>
     
@@ -419,7 +439,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -437,7 +457,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -465,7 +485,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -486,7 +506,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -502,7 +522,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -518,7 +538,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -534,7 +554,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -550,7 +570,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -566,7 +586,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -582,7 +602,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -598,7 +618,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -614,7 +634,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -630,7 +650,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -646,7 +666,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -662,7 +682,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -678,7 +698,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -694,7 +714,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -710,7 +730,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -726,7 +746,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -742,7 +762,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -758,7 +778,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -774,7 +794,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -790,7 +810,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -806,7 +826,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -822,7 +842,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -858,7 +878,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/akiicat/m3u8/blob/77d73f3543a73cab1ebddf42fb8ef1e2dce02f4e/src/m3u8/date_range_item.cr#L106" target="_blank">View source</a>]
+          [<a href="https://github.com/akiicat/m3u8/blob/fedf36d65cc53e38f349d0afdf22700f5fceda13/src/m3u8/date_range_item.cr#L106" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
   <meta id="repository-name" content="github.com/akiicat/m3u8">
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="js/doc.js"></script>
   <title>README - github.com/akiicat/m3u8</title>
 </head>
 <body>
 
-<div id="types-list">
-  <div id="search-box">
-    <input type="search" id="search-input" placeholder="Search...">
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
   </div>
 
-  <ul>
-    <li class="current"><a href="index.html">README</a></li>
-  </ul>
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
 
-  <ul>
+  <div class="types-list">
+    <ul>
   
   <li class="parent " data-id="github.com/akiicat/m3u8/M3U8" data-name="m3u8">
       <a href="M3U8.html">M3U8</a>
@@ -137,9 +153,11 @@
   
 </ul>
 
+  </div>
 </div>
 
-<div id="main-content">
+
+<div class="main-content">
 <h1>m3u8</h1>
 
 <p><a href="https://travis-ci.org/akiicat/m3u8" target="_blank"><img src="https://travis-ci.org/akiicat/m3u8.svg?branch=master" alt="Build Status"/></a>
@@ -152,13 +170,13 @@
 
 <p>Add this to your application's <code>shard.yml</code>:</p>
 
-<pre><code class='language-yaml'>dependencies:
+<pre><code class="language-yaml">dependencies:
   m3u8:
     github: akiicat/m3u8</code></pre>
 
 <h2>Usage</h2>
 
-<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;m3u8&quot;</span>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;m3u8&quot;</span>
 
 <span class="k">module</span> <span class="t">App</span>
   <span class="k">include</span> <span class="t">M3U8</span>
@@ -168,8 +186,8 @@
 
 <h3>Generate</h3>
 
-<pre><code class='language-crystal'>playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
-playlist.items <span class="o"><<</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test_01.ts&quot;</span>)
+<pre><code class="language-crystal">playlist <span class="o">=</span> <span class="t">Playlist</span>.<span class="k">new</span>
+playlist.items <span class="o">&lt;&lt;</span> <span class="t">SegmentItem</span>.<span class="k">new</span>(duration: <span class="n">10.991</span>, segment: <span class="s">&quot;test_01.ts&quot;</span>)
 playlist.to_s</code></pre>
 
 <pre><code><span class="c">#EXTM3U</span>
@@ -181,7 +199,7 @@ test_01.ts
 
 <h3>Parse</h3>
 
-<pre><code class='language-crystal'>file <span class="o">=</span> <span class="t">File</span>.read <span class="s">&quot;spec/playlists/master.m3u8&quot;</span>
+<pre><code class="language-crystal">file <span class="o">=</span> <span class="t">File</span>.read <span class="s">&quot;spec/playlists/master.m3u8&quot;</span>
 playlist <span class="o">=</span> <span class="t">Playlist</span>.parse(file)
 playlist.master? <span class="c"># =&gt; true</span></code></pre>
 
