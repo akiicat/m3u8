@@ -6,9 +6,9 @@ struct Time
 
   def self.iso8601(time : String)
     begin
-      parse(time, "%FT%T.%L%z").to_utc
+      parse!(time, "%FT%T.%L%z").to_utc
     rescue
-      parse(time, "%FT%T%z").to_utc
+      parse!(time, "%FT%T%z").to_utc
     end
   end
 end
