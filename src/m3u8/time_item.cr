@@ -45,7 +45,7 @@ module M3U8
     # item.empty? # => false
     # ```
     def empty?
-      @time.epoch.zero?
+      @time.to_unix.zero?
     end
 
     # ```
@@ -67,7 +67,7 @@ module M3U8
       case time
       when String then Time.iso8601(time)
       when Time   then time
-      else             Time.epoch 0
+      else             Time.unix 0
       end
     end
   end
