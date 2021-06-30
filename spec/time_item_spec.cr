@@ -43,7 +43,7 @@ module M3U8
       end
 
       it "give value" do
-        item.time = Time.new
+        item.time = Time.utc
         item.empty?.should be_false
       end
     end
