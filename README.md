@@ -1,6 +1,6 @@
 # m3u8
 
-[![Build Status](https://travis-ci.org/akiicat/m3u8.svg?branch=master)](https://travis-ci.org/akiicat/m3u8)
+[![Build Status](https://github.com/akiicat/m3u8/actions/workflows/crystal.yml/badge.svg)](https://github.com/akiicat/m3u8/actions)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://akiicat.github.io/m3u8)
 [![GitHub release](https://img.shields.io/github/release/akiicat/m3u8.svg)](https://github.com/akiicat/m3u8/releases)
 
