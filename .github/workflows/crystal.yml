@@ -1,0 +1,34 @@
+name: Crystal CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: crystallang/crystal
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: shards install
+    - name: Run tests
+      run: crystal spec
+    - name: Check format
+      run: crystal tool format --check
+    - name: Generate Docs
+      run: crystal docs
+
+    - name: Deploy docs to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # Adjust publish_dir if your docs are generated somewhere else
+        publish_dir: ./docs
+        publish_branch: gh-pages
