@@ -9,7 +9,7 @@ module M3U8
       array.map { |reg| [reg[1], reg[2].delete('"')] }.to_h
     end
 
-    private def parse_client_attributes(attributes)
+    private def parse_client_attributes(attributes : Hash?)
       hash = ClientAttributeType.new
       return hash if !attributes
 
@@ -34,13 +34,32 @@ module M3U8
       end
     end
 
-    private def parse_resolution(resolution)
+    private def parse_resolution(resolution : String?)
       return {width: nil, height: nil} if resolution.nil?
 
       values = resolution.split('x')
+
+      # Append an empty string to ensure there are at least two elements.
+      values.push("")
+
+      width  = nil
+      height = nil
+
+      # Attempt to convert the width part first to an integer.
+      case values[0]
+      when .to_i?  then width = values[0].to_i
+      when .to_f?  then width = values[0].to_f.to_big_i.to_i
+      end
+
+      # Attempt to convert the height part similarly.
+      case values[1]
+      when .to_i?  then height = values[1].to_i
+      when .to_f?  then height = values[1].to_f.to_big_i.to_i
+      end
+
       {
-        width:  values[0].to_i,
-        height: values[1].to_i,
+        width: width,
+        height: height,
       }
     end
 
