@@ -63,14 +63,14 @@ module M3U8
       }
     end
 
-    private def parse_frame_rate(frame_rate)
+    private def parse_frame_rate(frame_rate : String?)
       return if frame_rate.nil?
 
       value = BigDecimal.new(frame_rate)
       value if value > 0
     end
 
-    private def parse_yes_no(value)
+    private def parse_yes_no(value : Bool?)
       case value
       when true  then "YES"
       when false then "NO"
