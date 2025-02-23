@@ -77,10 +77,13 @@ module M3U8
       end
     end
 
-    private def parse_boolean(value)
-      case value
-      when "true", "YES" then true
-      when "false", "NO" then false
+    private def parse_boolean(value : String?)
+      return nil if value.nil?
+
+      case value.downcase
+      when "true", "yes" then true
+      when "false", "no" then false
+      else nil
       end
     end
 
