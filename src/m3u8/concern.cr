@@ -25,8 +25,8 @@ module M3U8
 
     private def parse_token(token : String)
       case token
-      when .to_f?  then token.to_f
       when .to_i?  then token.to_i
+      when .to_f?  then token.to_f
       when "true"  then true
       when "false" then false
       when .empty? then ""
