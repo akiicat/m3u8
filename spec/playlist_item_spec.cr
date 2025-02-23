@@ -3,39 +3,79 @@ require "./spec_helper"
 module M3U8
   describe PlaylistItem do
     describe "initialize" do
-      options = {
-        program_id:        1,
-        width:             1920,
-        height:            1080,
-        codecs:            "avc",
-        bandwidth:         540,
-        audio_codec:       "mp3",
-        level:             "2",
-        profile:           "baseline",
-        video:             "test_video",
-        audio:             "test_a",
-        uri:               "test.url",
-        average_bandwidth: 500,
-        subtitles:         "subs",
-        closed_captions:   "cc",
-        iframe:            true,
-        frame_rate:        24.6,
-        name:              "test_name",
-        hdcp_level:        "TYPE-0",
-      }
+      describe "EXT-X-I-FRAME-STREAM-INF" do
+        options = {
+          program_id:        1,
+          width:             1920,
+          height:            1080,
+          codecs:            "avc",
+          bandwidth:         540,
+          audio_codec:       "mp3",
+          level:             "2",
+          profile:           "baseline",
+          video:             "test_video",
+          audio:             "test_a",
+          uri:               "test.url",
+          average_bandwidth: 500,
+          subtitles:         "subs",
+          closed_captions:   "cc",
+          iframe:            true,
+          frame_rate:        24.6,
+          name:              "test_name",
+          hdcp_level:        "TYPE-0",
+        }
 
-      expected = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
+        expected = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
 
-      pending "hash" do
-        PlaylistItem.new(options.to_h).to_s.should eq expected
+        pending "hash" do
+          PlaylistItem.new(options.to_h).to_s.should eq expected
+        end
+
+        it "namedtuple" do
+          PlaylistItem.new(options).to_s.should eq expected
+        end
+
+        it "hash like" do
+          PlaylistItem.new(**options).to_s.should eq expected
+        end
       end
 
-      it "namedtuple" do
-        PlaylistItem.new(options).to_s.should eq expected
-      end
+      describe "EXT-X-STREAM-INF" do
+        options = {
+          program_id:        1,
+          width:             1920,
+          height:            1080,
+          codecs:            "avc",
+          bandwidth:         540,
+          audio_codec:       "mp3",
+          level:             "2",
+          profile:           "baseline",
+          video:             "test_video",
+          audio:             "test_a",
+          uri:               "test.url",
+          average_bandwidth: 500,
+          subtitles:         "subs",
+          closed_captions:   "cc",
+          iframe:            false,
+          frame_rate:        24.6,
+          name:              "test_name",
+          hdcp_level:        "TYPE-0",
+        }
 
-      it "hash like" do
-        PlaylistItem.new(**options).to_s.should eq expected
+        expected = %(#EXT-X-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name") +
+                   "\n" + %(test.url)
+
+        pending "hash" do
+          PlaylistItem.new(options.to_h).to_s.should eq expected
+        end
+
+        it "namedtuple" do
+          PlaylistItem.new(options).to_s.should eq expected
+        end
+
+        it "hash like" do
+          PlaylistItem.new(**options).to_s.should eq expected
+        end
       end
     end
 
@@ -75,7 +115,7 @@ module M3U8
     }.each do |(params, format, options)|
       item = PlaylistItem.new(params)
 
-      describe "initialize" do
+      describe "properties" do
         it "program_id" do
           item.program_id.should eq params[:program_id]?
         end
@@ -147,14 +187,60 @@ module M3U8
     end
 
     describe ".parse" do
-      it "returns new instance from parsed tag" do
-        tag = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
+      describe "EXT-X-I-FRAME-STREAM-INF" do
+        tag = %(#EXT-X-I-FRAME-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
               %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
               %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
               %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",URI="test.url",) +
               %(NAME="1080p",HDCP-LEVEL=TYPE-0)
-        item = PlaylistItem.parse(tag)
-        item.should be_a(PlaylistItem)
+
+        it "returns new instance from parsed tag" do
+          item = PlaylistItem.parse(tag)
+          item.should be_a(PlaylistItem)
+          item.program_id.should eq 1
+          item.codecs.should eq "avc"
+          item.bandwidth.should eq 540
+          item.average_bandwidth.should eq 550
+          item.width.should eq 1920
+          item.height.should eq 1080
+          item.frame_rate.should eq 23.976
+          item.audio.should eq "test"
+          item.video.should eq "test2"
+          item.subtitles.should eq "subs"
+          item.closed_captions.should eq "caps"
+          item.uri.should eq "test.url"
+          item.name.should eq "1080p"
+          item.iframe.should be_true
+          item.hdcp_level.should eq("TYPE-0")
+        end
+      end
+
+      describe "EXT-X-STREAM-INF" do
+        tag = %(#EXT-X-STREAM-INF:CODECS="avc",BANDWIDTH=540,) +
+              %(PROGRAM-ID=1,RESOLUTION=1920x1080,FRAME-RATE=23.976,) +
+              %(AVERAGE-BANDWIDTH=550,AUDIO="test",VIDEO="test2",) +
+              %(SUBTITLES="subs",CLOSED-CAPTIONS="caps",) +
+              %(NAME="1080p",HDCP-LEVEL=TYPE-0)
+
+        it "returns new instance from parsed tag" do
+          item = PlaylistItem.parse(tag)
+          item.should be_a(PlaylistItem)
+          item.program_id.should eq 1
+          item.codecs.should eq "avc"
+          item.bandwidth.should eq 540
+          item.average_bandwidth.should eq 550
+          item.width.should eq 1920
+          item.height.should eq 1080
+          item.frame_rate.should eq 23.976
+          item.audio.should eq "test"
+          item.video.should eq "test2"
+          item.subtitles.should eq "subs"
+          item.closed_captions.should eq "caps"
+          item.uri.should eq nil
+          item.name.should eq "1080p"
+          item.iframe.should be_false
+          item.hdcp_level.should eq("TYPE-0")
+        end
       end
     end
 

@@ -38,6 +38,7 @@ module M3U8
         height: resolution[:height]?,
         bandwidth: attributes["BANDWIDTH"]?.try &.to_i,
         average_bandwidth: attributes["AVERAGE-BANDWIDTH"]?.try &.to_i,
+        iframe: value.includes?("#EXT-X-I-FRAME-STREAM-INF:"),
         frame_rate: parse_frame_rate(attributes["FRAME-RATE"]?),
         video: attributes["VIDEO"]?,
         audio: attributes["AUDIO"]?,
