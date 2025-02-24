@@ -191,6 +191,18 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>The <code><a href="../M3U8/Parser.html">Parser</a></code> class is responsible for processing an M3U8 (playlist) string,
+converting it into a structured <code><a href="../M3U8/Playlist.html">Playlist</a></code> object.</p>
+
 
 
 
@@ -264,14 +276,14 @@
       <li class="entry-summary">
         <a href="#new%28string%3AString%29-class-method" class="signature"><strong>.new</strong>(string : String)</a>
         
-          <div class="summary"><p><code>m3u8_string = &quot;#EXTM3U....&quot; parser = <a href="../M3U8/Parser.html#new%28string%3AString%29-class-method">Parser.new(m3u8_string)</a> parser.read # =&gt; #&lt;<a href="../M3U8/Playlist.html">M3U8::Playlist</a>...&gt;</code></p></div>
+          <div class="summary"><p>Initializes the <code><a href="../M3U8/Parser.html">Parser</a></code> with the given M3U8 string.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new-class-method" class="signature"><strong>.new</strong></a>
         
-          <div class="summary"><p><code>m3u8_string = &quot;#EXTM3U....&quot; parser = <a href="../M3U8/Parser.html#new-class-method">Parser.new</a> parser.read(m3u8_string) # =&gt; #&lt;<a href="../M3U8/Playlist.html">M3U8::Playlist</a>...&gt;</code></p></div>
+          <div class="summary"><p>Constract a <code><a href="../M3U8/Parser.html">Parser</a></code> instance.</p></div>
         
       </li>
     
@@ -292,7 +304,7 @@
       <li class="entry-summary">
         <a href="#read%28string%3AString%29-class-method" class="signature"><strong>.read</strong>(string : String)</a>
         
-          <div class="summary"><p><code>m3u8_string = &quot;#EXTM3U....&quot; parser = <a href="../M3U8/Parser.html#read%28string%3AString%29-class-method">Parser.read(m3u8_string)</a> # =&gt; #&lt;<a href="../M3U8/Playlist.html">M3U8::Playlist</a>...&gt;</code></p></div>
+          <div class="summary"><p>A convenience class method to create a parser and parse the input in one call.</p></div>
         
       </li>
     
@@ -315,34 +327,42 @@
       <li class="entry-summary">
         <a href="#is_parse%3ABool-instance-method" class="signature"><strong>#is_parse</strong> : Bool</a>
         
+          <div class="summary"><p>Flag indicating whether the input has been parsed.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#live%3ABool%7CNil-instance-method" class="signature"><strong>#live</strong> : Bool | Nil</a>
+        
+          <div class="summary"><p>Indicates if the playlist is a live stream.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#playlist%3APlaylist-instance-method" class="signature"><strong>#playlist</strong> : Playlist</a>
         
+          <div class="summary"><p>The resulting <code><a href="../M3U8/Playlist.html">Playlist</a></code> after parsing.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#read%28string%3AString%29-instance-method" class="signature"><strong>#read</strong>(string : String)</a>
         
-          <div class="summary"><p><code>m3u8_string = &quot;#EXTM3U....&quot; parser = <a href="../M3U8/Parser.html#new-class-method">Parser.new</a> parser.read(m3u8_string) # =&gt; #&lt;<a href="../M3U8/Playlist.html">M3U8::Playlist</a>...&gt;</code></p></div>
+          <div class="summary"><p>Overloaded instance method to allow re-parsing with a provided string.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read-instance-method" class="signature"><strong>#read</strong></a>
         
-          <div class="summary"><p><code>m3u8_string = &quot;#EXTM3U....&quot; parser = <a href="../M3U8/Parser.html#new%28string%3AString%29-class-method">Parser.new(m3u8_string)</a> parser.read # =&gt; #&lt;<a href="../M3U8/Playlist.html">M3U8::Playlist</a>...&gt;</code></p></div>
+          <div class="summary"><p>Main method that processes the input, line by line.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#reader%3AScanner-instance-method" class="signature"><strong>#reader</strong> : Scanner</a>
+        
+          <div class="summary"><p><code>Scanner</code> instance to iterate through the input string.</p></div>
         
       </li>
     
@@ -413,10 +433,11 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
+          <p>Initializes the <code><a href="../M3U8/Parser.html">Parser</a></code> with the given M3U8 string.</p>
+<p>Usage Example:</p>
+<pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
 parser <span class="o">=</span> <span class="t">Parser</span>.new(m3u8_string)
-parser.read
-<span class="c"># =&gt; #&lt;M3U8::Playlist...&gt;</span></code></pre>
+parser.read</code></pre>
         </div>
       
       <br/>
@@ -435,10 +456,11 @@ parser.read
       
         <div class="doc">
           
-          <pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
+          <p>Constract a <code><a href="../M3U8/Parser.html">Parser</a></code> instance. Override the default new method to allow for a no-argument instantiation.</p>
+<p>Usage Example:</p>
+<pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
 parser <span class="o">=</span> <span class="t">Parser</span>.new
-parser.read(m3u8_string)
-<span class="c"># =&gt; #&lt;M3U8::Playlist...&gt;</span></code></pre>
+parser.read(m3u8_string)</code></pre>
         </div>
       
       <br/>
@@ -469,9 +491,11 @@ parser.read(m3u8_string)
       
         <div class="doc">
           
-          <pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
-parser <span class="o">=</span> <span class="t">Parser</span>.read(m3u8_string)
-<span class="c"># =&gt; #&lt;M3U8::Playlist...&gt;</span></code></pre>
+          <p>A convenience class method to create a parser and parse the input in one call.</p>
+<p>Usage Example:</p>
+<pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
+parser <span class="o">=</span> <span class="t">Parser</span>.new
+parser.read(m3u8_string)</code></pre>
         </div>
       
       <br/>
@@ -502,6 +526,11 @@ parser <span class="o">=</span> <span class="t">Parser</span>.read(m3u8_string)
         <a class="method-permalink" href="#is_parse%3ABool-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Flag indicating whether the input has been parsed.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -516,6 +545,11 @@ parser <span class="o">=</span> <span class="t">Parser</span>.read(m3u8_string)
         <a class="method-permalink" href="#live%3ABool%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Indicates if the playlist is a live stream.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -529,6 +563,11 @@ parser <span class="o">=</span> <span class="t">Parser</span>.read(m3u8_string)
 
         <a class="method-permalink" href="#playlist%3APlaylist-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The resulting <code><a href="../M3U8/Playlist.html">Playlist</a></code> after parsing.</p>
+        </div>
       
       <br/>
       <div>
@@ -546,10 +585,10 @@ parser <span class="o">=</span> <span class="t">Parser</span>.read(m3u8_string)
       
         <div class="doc">
           
-          <pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
-parser <span class="o">=</span> <span class="t">Parser</span>.new
-parser.read(m3u8_string)
-<span class="c"># =&gt; #&lt;M3U8::Playlist...&gt;</span></code></pre>
+          <p>Overloaded instance method to allow re-parsing with a provided string.</p>
+<p>Usage Example:</p>
+<pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
+<span class="t">Parser</span>.read(m3u8_string)</code></pre>
         </div>
       
       <br/>
@@ -568,10 +607,91 @@ parser.read(m3u8_string)
       
         <div class="doc">
           
-          <pre><code class="language-crystal">m3u8_string <span class="o">=</span> <span class="s">&quot;#EXTM3U....&quot;</span>
+          <p>Main method that processes the input, line by line. Returns the fully parsed <code><a href="../M3U8/Playlist.html">Playlist</a></code>.</p>
+<p>Usage Example:</p>
+<pre><code class="language-crystal"><span class="c"># spec/playlists/live_media_playlist.m3u8</span>
+m3u8_string <span class="o">=</span> <span class="s">&quot;
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:8
+#EXT-X-MEDIA-SEQUENCE:2680
+
+#EXTINF:7.975,
+https://priv.example.com/fileSequence2680.ts
+#EXTINF:7.941,
+https://priv.example.com/fileSequence2681.ts
+#EXTINF:7.975,
+https://priv.example.com/fileSequence2682.ts
+&quot;</span>
+
 parser <span class="o">=</span> <span class="t">Parser</span>.new(m3u8_string)
+<span class="c"># =&gt; #&lt;M3U8::Parser:0x7f0d038dbd40</span>
+<span class="c">#     @is_parse=false,</span>
+<span class="c">#     @item=nil,</span>
+<span class="c">#     @live=nil,</span>
+<span class="c">#     @playlist=</span>
+<span class="c">#      #&lt;M3U8::Playlist:0x7f0d04a925b0</span>
+<span class="c">#       @cache=nil,</span>
+<span class="c">#       @discontinuity_sequence=nil,</span>
+<span class="c">#       @iframes_only=false,</span>
+<span class="c">#       @independent_segments=false,</span>
+<span class="c">#       @items=[],</span>
+<span class="c">#       @live=false,</span>
+<span class="c">#       @master=nil,</span>
+<span class="c">#       @sequence=0,</span>
+<span class="c">#       @target=10.0,</span>
+<span class="c">#       @type=nil,</span>
+<span class="c">#       @version=nil&gt;,</span>
+<span class="c">#     @reader=</span>
+<span class="c">#      #&lt;M3U8::Scanner:0x7f0d038d9450</span>
+<span class="c">#       @index=0,</span>
+<span class="c">#       @max_index=10,</span>
+<span class="c">#       @peek_index=0,</span>
+<span class="c">#       @reader=</span>
+<span class="c">#        [&quot;#EXTM3U&quot;,</span>
+<span class="c">#         &quot;#EXT-X-VERSION:3&quot;,</span>
+<span class="c">#         &quot;#EXT-X-TARGETDURATION:8&quot;,</span>
+<span class="c">#         &quot;#EXT-X-MEDIA-SEQUENCE:2680&quot;,</span>
+<span class="c">#         &quot;&quot;,</span>
+<span class="c">#         &quot;#EXTINF:7.975,&quot;,</span>
+<span class="c">#         &quot;https://priv.example.com/fileSequence2680.ts&quot;,</span>
+<span class="c">#         &quot;#EXTINF:7.941,&quot;,</span>
+<span class="c">#         &quot;https://priv.example.com/fileSequence2681.ts&quot;,</span>
+<span class="c">#         &quot;#EXTINF:7.975,&quot;,</span>
+<span class="c">#         &quot;https://priv.example.com/fileSequence2682.ts&quot;],</span>
+<span class="c">#       @size=11&gt;&gt;</span>
+
 parser.read
-<span class="c"># =&gt; #&lt;M3U8::Playlist...&gt;</span></code></pre>
+<span class="o">=&gt;</span> <span class="c">#&lt;M3U8::Playlist:0x7f0d04a925b0</span>
+<span class="c">#   @cache=nil,</span>
+<span class="c">#   @discontinuity_sequence=nil,</span>
+<span class="c">#   @iframes_only=false,</span>
+<span class="c">#   @independent_segments=false,</span>
+<span class="c">#   @items=</span>
+<span class="c">#    [#&lt;M3U8::SegmentItem:0x7f0d038dbbc0</span>
+<span class="c">#      @byterange=#&lt;M3U8::ByteRange:0x7f0d04a60900 @length=nil, @start=nil&gt;,</span>
+<span class="c">#      @comment=&quot;&quot;,</span>
+<span class="c">#      @duration=7.975,</span>
+<span class="c">#      @program_date_time=#&lt;M3U8::TimeItem:0x7f0d038e1930 @time=1970-01-01 00:00:00.0 UTC&gt;,</span>
+<span class="c">#      @segment=&quot;https://priv.example.com/fileSequence2680.ts&quot;&gt;,</span>
+<span class="c">#     #&lt;M3U8::SegmentItem:0x7f0d038dbb80</span>
+<span class="c">#      @byterange=#&lt;M3U8::ByteRange:0x7f0d04a608d0 @length=nil, @start=nil&gt;,</span>
+<span class="c">#      @comment=&quot;&quot;,</span>
+<span class="c">#      @duration=7.941,</span>
+<span class="c">#      @program_date_time=#&lt;M3U8::TimeItem:0x7f0d038e1900 @time=1970-01-01 00:00:00.0 UTC&gt;,</span>
+<span class="c">#      @segment=&quot;https://priv.example.com/fileSequence2681.ts&quot;&gt;,</span>
+<span class="c">#     #&lt;M3U8::SegmentItem:0x7f0d038dbb40</span>
+<span class="c">#      @byterange=#&lt;M3U8::ByteRange:0x7f0d04a608a0 @length=nil, @start=nil&gt;,</span>
+<span class="c">#      @comment=&quot;&quot;,</span>
+<span class="c">#      @duration=7.975,</span>
+<span class="c">#      @program_date_time=#&lt;M3U8::TimeItem:0x7f0d038e18d0 @time=1970-01-01 00:00:00.0 UTC&gt;,</span>
+<span class="c">#      @segment=&quot;https://priv.example.com/fileSequence2682.ts&quot;&gt;],</span>
+<span class="c">#   @live=true,</span>
+<span class="c">#   @master=false,</span>
+<span class="c">#   @sequence=2680,</span>
+<span class="c">#   @target=8.0,</span>
+<span class="c">#   @type=nil,</span>
+<span class="c">#   @version=3&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -587,6 +707,11 @@ parser.read
 
         <a class="method-permalink" href="#reader%3AScanner-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p><code>Scanner</code> instance to iterate through the input string.</p>
+        </div>
       
       <br/>
       <div>

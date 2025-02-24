@@ -200,7 +200,30 @@
     Overview
   </h2>
 
-  <p>MediaItem represents a set of EXT-X-MEDIA attributes</p>
+  <p><code><a href="../M3U8/MediaItem.html">MediaItem</a></code> represents a set of attributes for the <code>EXT-X-MEDIA</code> tag in an HLS playlist.</p>
+<p>The <code>EXT-X-MEDIA</code> tag (defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.1">RFC 8216, Section 4.3.4.1</a>) is used in HLS Master Playlists
+to associate media renditions with alternative tracks (e.g., audio or subtitles). It carries
+information such as the media type, group identifier, language, human-readable name, and
+additional parameters like auto-selection, default status, and more.</p>
+<p>The following attributes are typically included:</p>
+<ul>
+<li><strong>TYPE</strong>: Indicates the type of media (e.g., AUDIO, VIDEO, SUBTITLES, CLOSED-CAPTIONS).</li>
+<li><strong>GROUP-ID</strong>: A string that groups related renditions together.</li>
+<li><strong>LANGUAGE</strong>: A language tag (as defined in <a href="https://datatracker.ietf.org/doc/html/rfc5646">RFC 5646</a>) representing the primary language.</li>
+<li><strong>ASSOC-LANGUAGE</strong>: An associated language tag for alternate language roles.</li>
+<li><strong>NAME</strong>: A human-readable name for the rendition.</li>
+<li><strong>URI</strong>: An optional URI that points to a separate Media Playlist for this rendition.</li>
+<li><strong>AUTOSELECT</strong>: A flag indicating whether the rendition should be automatically selected.</li>
+<li><strong>DEFAULT</strong>: A flag indicating whether the rendition is the default selection.</li>
+<li><strong>FORCED</strong>: A flag for subtitles that indicates whether the rendition is forced.</li>
+<li><strong>INSTREAM-ID</strong>: For closed-caption renditions, an identifier for the specific caption channel.</li>
+<li><strong>CHARACTERISTICS</strong>: Additional characteristics for the rendition, as a comma-separated list.</li>
+<li><strong>CHANNELS</strong>: For audio, a string indicating the number of channels and their order.</li>
+</ul>
+<p>Example <code>EXT-X-MEDIA</code> tag:</p>
+<pre><code class="language-txt">#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=&quot;aac&quot;,LANGUAGE=&quot;en&quot;,NAME=&quot;English&quot;,AUTOSELECT=YES,DEFAULT=YES,URI=&quot;eng_audio.m3u8&quot;</code></pre>
+<p>This class provides methods to parse such a tag from a text string, create a new instance
+using a NamedTuple of parameters, and output the tag as a properly formatted string.</p>
 
 
 
@@ -275,10 +298,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance from a NamedTuple of parameters.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28type%3ANil%7CString%3Dnil%2Cgroup_id%3ANil%7CString%3Dnil%2Clanguage%3ANil%7CString%3Dnil%2Cassoc_language%3ANil%7CString%3Dnil%2Cname%3ANil%7CString%3Dnil%2Curi%3ANil%7CString%3Dnil%2Cautoselect%3ABool%7CNil%3Dnil%2Cdefault%3ABool%7CNil%3Dnil%2Cforced%3ABool%7CNil%3Dnil%2Cinstream_id%3ANil%7CString%3Dnil%2Ccharacteristics%3ANil%7CString%3Dnil%2Cchannels%3ANil%7CString%3Dnil%29-class-method" class="signature"><strong>.new</strong>(type : Nil | String = <span class="n">nil</span>, group_id : Nil | String = <span class="n">nil</span>, language : Nil | String = <span class="n">nil</span>, assoc_language : Nil | String = <span class="n">nil</span>, name : Nil | String = <span class="n">nil</span>, uri : Nil | String = <span class="n">nil</span>, autoselect : Bool | Nil = <span class="n">nil</span>, default : Bool | Nil = <span class="n">nil</span>, forced : Bool | Nil = <span class="n">nil</span>, instream_id : Nil | String = <span class="n">nil</span>, characteristics : Nil | String = <span class="n">nil</span>, channels : Nil | String = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance.</p></div>
         
       </li>
     
@@ -298,6 +325,8 @@
     
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
+        
+          <div class="summary"><p>Parses a text string representing an <code>EXT-X-MEDIA</code> tag and returns a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance.</p></div>
         
       </li>
     
@@ -420,7 +449,7 @@
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p>Returns a nicely readable and concise string representation of this object, typically intended for users.</p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-MEDIA</code> tag.</p></div>
         
       </li>
     
@@ -509,6 +538,37 @@
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Constructs a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance from a NamedTuple of parameters.</p>
+<p>The NamedTuple can include keys corresponding to the <code>EXT-X-MEDIA</code> attributes:
+<code><a href="../M3U8/MediaItem.html#type%3AString%7CNil-instance-method">#type</a></code>, <code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">#group_id</a></code>, <code><a href="../M3U8/MediaItem.html#language%3AString%7CNil-instance-method">#language</a></code>, <code><a href="../M3U8/MediaItem.html#assoc_language%3AString%7CNil-instance-method">#assoc_language</a></code>, <code><a href="../M3U8/MediaItem.html#name%3AString%7CNil-instance-method">#name</a></code>, <code><a href="../M3U8/MediaItem.html#uri%3AString%7CNil-instance-method">#uri</a></code>, <code><a href="../M3U8/MediaItem.html#autoselect%3ABool%7CNil-instance-method">#autoselect</a></code>, <code><a href="../M3U8/MediaItem.html#default%3ABool%7CNil-instance-method">#default</a></code>, <code><a href="../M3U8/MediaItem.html#forced%3ABool%7CNil-instance-method">#forced</a></code>, <code><a href="../M3U8/MediaItem.html#instream_id%3AString%7CNil-instance-method">#instream_id</a></code>, <code><a href="../M3U8/MediaItem.html#characteristics%3AString%7CNil-instance-method">#characteristics</a></code>, <code><a href="../M3U8/MediaItem.html#channels%3AString%7CNil-instance-method">#channels</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  <span class="k">type</span>:       <span class="s">&quot;AUDIO&quot;</span>,
+  group_id:   <span class="s">&quot;aac&quot;</span>,
+  language:   <span class="s">&quot;en&quot;</span>,
+  name:       <span class="s">&quot;English&quot;</span>,
+  autoselect: <span class="n">true</span>,
+  default:    <span class="n">true</span>,
+  uri:        <span class="s">&quot;eng_audio.m3u8&quot;</span>,
+}
+<span class="t">MediaItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::MediaItem:0x7b19ac8eb2d0</span>
+<span class="c">#     @assoc_language=nil,</span>
+<span class="c">#     @autoselect=true,</span>
+<span class="c">#     @channels=nil,</span>
+<span class="c">#     @characteristics=nil,</span>
+<span class="c">#     @default=true,</span>
+<span class="c">#     @forced=nil,</span>
+<span class="c">#     @group_id=&quot;aac&quot;,</span>
+<span class="c">#     @instream_id=nil,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @name=&quot;English&quot;,</span>
+<span class="c">#     @type=&quot;AUDIO&quot;,</span>
+<span class="c">#     @uri=&quot;eng_audio.m3u8&quot;&gt;</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -522,6 +582,35 @@
 
         <a class="method-permalink" href="#new%28type%3ANil%7CString%3Dnil%2Cgroup_id%3ANil%7CString%3Dnil%2Clanguage%3ANil%7CString%3Dnil%2Cassoc_language%3ANil%7CString%3Dnil%2Cname%3ANil%7CString%3Dnil%2Curi%3ANil%7CString%3Dnil%2Cautoselect%3ABool%7CNil%3Dnil%2Cdefault%3ABool%7CNil%3Dnil%2Cforced%3ABool%7CNil%3Dnil%2Cinstream_id%3ANil%7CString%3Dnil%2Ccharacteristics%3ANil%7CString%3Dnil%2Cchannels%3ANil%7CString%3Dnil%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Initializes a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance.</p>
+<p>All attributes default to nil if not provided.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">MediaItem</span>.new(
+  <span class="k">type</span>: <span class="s">&quot;AUDIO&quot;</span>,
+  group_id: <span class="s">&quot;aac&quot;</span>,
+  language: <span class="s">&quot;en&quot;</span>,
+  name: <span class="s">&quot;English&quot;</span>,
+  autoselect: <span class="n">true</span>,
+  default: <span class="n">true</span>,
+  uri: <span class="s">&quot;eng_audio.m3u8&quot;</span>,
+)
+<span class="c"># =&gt; #&lt;M3U8::MediaItem:0x7ea38df181b0</span>
+<span class="c">#     @assoc_language=nil,</span>
+<span class="c">#     @autoselect=true,</span>
+<span class="c">#     @channels=nil,</span>
+<span class="c">#     @characteristics=nil,</span>
+<span class="c">#     @default=true,</span>
+<span class="c">#     @forced=nil,</span>
+<span class="c">#     @group_id=&quot;aac&quot;,</span>
+<span class="c">#     @instream_id=nil,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @name=&quot;English&quot;,</span>
+<span class="c">#     @type=&quot;AUDIO&quot;,</span>
+<span class="c">#     @uri=&quot;eng_audio.m3u8&quot;&gt;</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -548,6 +637,29 @@
 
         <a class="method-permalink" href="#parse%28text%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Parses a text string representing an <code>EXT-X-MEDIA</code> tag and returns a new <code><a href="../M3U8/MediaItem.html">MediaItem</a></code> instance.</p>
+<p>The method extracts key/value pairs using <code>parse_attributes</code> (from <code>M3U8::Concern</code>) and
+converts them to appropriate types (e.g., booleans using <code>parse_boolean</code>).</p>
+<p>Example:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=&quot;aac&quot;,LANGUAGE=&quot;en&quot;,NAME=&quot;English&quot;,AUTOSELECT=YES,DEFAULT=YES,URI=&quot;eng_audio.m3u8&quot;)</span>
+<span class="t">MediaItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::MediaItem:0x7cd7249453f0</span>
+<span class="c">#     @assoc_language=nil,</span>
+<span class="c">#     @autoselect=true,</span>
+<span class="c">#     @channels=nil,</span>
+<span class="c">#     @characteristics=nil,</span>
+<span class="c">#     @default=true,</span>
+<span class="c">#     @forced=nil,</span>
+<span class="c">#     @group_id=&quot;aac&quot;,</span>
+<span class="c">#     @instream_id=nil,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @name=&quot;English&quot;,</span>
+<span class="c">#     @type=&quot;AUDIO&quot;,</span>
+<span class="c">#     @uri=&quot;eng_audio.m3u8&quot;&gt;</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -859,15 +971,20 @@
       
         <div class="doc">
           
-            <div class="doc-inherited">
-              Description copied from class Object
-            </div>
-          
-          <p>Returns a nicely readable and concise string representation of this object,
-typically intended for users.</p>
-<p>This method should usually <strong>not</strong> be overridden. It delegates to
-<code>#to_s(IO)</code> which can be overridden for custom implementations.</p>
-<p>Also see <code>#inspect</code>.</p>
+          <p>Returns the string representation of the <code>EXT-X-MEDIA</code> tag.</p>
+<p>The output is constructed by joining the formatted attributes with commas,
+and then prefixing the result with <code>#EXT-X-MEDIA:</code>.</p>
+<p>Examples:</p>
+<pre><code class="language-txt">MediaItem.new(
+  type: &quot;AUDIO&quot;,
+  group_id: &quot;aac&quot;,
+  language: &quot;en&quot;,
+  name: &quot;English&quot;,
+  autoselect: true,
+  default: true,
+  uri: &quot;eng_audio.m3u8&quot;,
+).to_s
+# =&gt; &quot;#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\&quot;aac\&quot;,LANGUAGE=\&quot;en\&quot;,NAME=\&quot;English\&quot;,AUTOSELECT=YES,DEFAULT=YES,URI=\&quot;eng_audio.m3u8\&quot;&quot;</code></pre>
         </div>
       
       <br/>

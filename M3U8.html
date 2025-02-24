@@ -189,6 +189,61 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>This <code><a href="M3U8.html">M3U8</a></code> module provides functionality for working with m3u8 playlists in HTTP Live Streaming (HLS).</p>
+<p>In HLS, a <code><a href="M3U8/Playlist.html">Playlist</a></code> can be one of two types:</p>
+<ul>
+<li>A Master Playlist, which defines a set of Variant Streams using tags.</li>
+<li>A Media Playlist, which lists individual media segments.</li>
+</ul>
+<p>The following tags and their corresponding classes or properties are supported:</p>
+<p><strong>Basic Tags:</strong></p>
+<ul>
+<li><code>EXTM3U</code>: Represents the start of a playlist (handled by the <code><a href="M3U8/Playlist.html">Playlist</a></code> class).</li>
+<li><code>EXT-X-<a href="M3U8.html#VERSION">VERSION</a></code>: Indicates the protocol compatibility version (<code><a href="M3U8/Playlist.html#version%3AInt32%7CNil-instance-method">Playlist#version</a></code>).</li>
+</ul>
+<p><strong>Media Playlist Tags:</strong></p>
+<ul>
+<li><code>EXT-X-TARGETDURATION</code>: The maximum segment duration (<code><a href="M3U8/Playlist.html#target%3AFloat64-instance-method">Playlist#target</a></code>).</li>
+<li><code>EXT-X-MEDIA-SEQUENCE</code>: The sequence number of the first segment (<code><a href="M3U8/Playlist.html#sequence%3AInt32-instance-method">Playlist#sequence</a></code>).</li>
+<li><code>EXT-X-DISCONTINUITY-SEQUENCE</code>: The discontinuity sequence number (<code><a href="M3U8/Playlist.html#discontinuity_sequence%3AInt32%7CNil-instance-method">Playlist#discontinuity_sequence</a></code>).</li>
+<li><code>EXT-X-ENDLIST</code>: Indicates that no more segments will be added (<code><a href="M3U8/Playlist.html#footer-instance-method">Playlist.footer</a></code>).</li>
+<li><code>EXT-X-PLAYLIST-TYPE</code>: Specifies the playlist type (e.g., VOD or EVENT; <code><a href="M3U8/Playlist.html#type%3AString%7CNil-instance-method">Playlist#type</a></code>).</li>
+<li><code>EXT-X-I-FRAMES-ONLY</code>: Marks an I-frame only playlist (<code><a href="M3U8/Playlist.html#iframes_only%3ABool-instance-method">Playlist#iframes_only</a></code>).</li>
+<li><code>EXT-X-ALLOW-CACHE</code>: Indicates whether caching is allowed (<code><a href="M3U8/Playlist.html#cache%3ABool%7CNil-instance-method">Playlist#cache</a></code>, deprecated in protocol version 7).</li>
+</ul>
+<p><strong>Media Segment Tags:</strong></p>
+<ul>
+<li><code>EXTINF</code>: Provides segment duration and an optional comment (<code><a href="M3U8/SegmentItem.html">SegmentItem</a></code>).</li>
+<li><code>EXT-X-BYTERANGE</code>: Specifies a sub-range of a media segment (<code><a href="M3U8/ByteRange.html">ByteRange</a></code>).</li>
+<li><code>EXT-X-DISCONTINUITY</code>: Marks a discontinuity between segments (<code><a href="M3U8/DiscontinuityItem.html">DiscontinuityItem</a></code>).</li>
+<li><code>EXT-X-KEY</code>: Contains encryption key attributes (<code><a href="M3U8/KeyItem.html">KeyItem</a></code>).</li>
+<li><code>EXT-X-MAP</code>: Specifies the media initialization section (<code><a href="M3U8/MapItem.html">MapItem</a></code>).</li>
+<li><code>EXT-X-PROGRAM-DATE-TIME</code>: Associates an absolute date and time with a segment (<code><a href="M3U8/TimeItem.html">TimeItem</a></code>).</li>
+<li><code>EXT-X-DATERANGE</code>: Associates a date range with a set of attributes (<code><a href="M3U8/DateRangeItem.html">DateRangeItem</a></code>).</li>
+</ul>
+<p><strong>Master Playlist Tags:</strong></p>
+<ul>
+<li><code>EXT-X-MEDIA</code>: Specifies alternative renditions (<code><a href="M3U8/MediaItem.html">MediaItem</a></code>).</li>
+<li><code>EXT-X-STREAM-INF</code>: Defines a Variant Stream (<code><a href="M3U8/PlaylistItem.html">PlaylistItem</a></code> with <code><a href="M3U8/PlaylistItem.html#iframe%3ABool-instance-method">PlaylistItem#iframe</a></code> set to false).</li>
+<li><code>EXT-X-I-FRAME-STREAM-INF</code>: Defines an I-frame only Variant Stream (<code><a href="M3U8/PlaylistItem.html">PlaylistItem</a></code> with <code><a href="M3U8/PlaylistItem.html#iframe%3ABool-instance-method">PlaylistItem#iframe</a></code> set to true).</li>
+<li><code>EXT-X-SESSION-DATA</code>: Contains session-level metadata (<code><a href="M3U8/SessionDataItem.html">SessionDataItem</a></code>).</li>
+<li><code>EXT-X-SESSION-KEY</code>: Contains session-level encryption key attributes (<code><a href="M3U8/SessionKeyItem.html">SessionKeyItem</a></code>).</li>
+</ul>
+<p><strong>Common Tags (Applicable to both Media and Master Playlists):</strong></p>
+<ul>
+<li><code>EXT-X-INDEPENDENT-SEGMENTS</code>: Indicates that each segment can be decoded independently (<code><a href="M3U8/Playlist.html#independent_segments%3ABool-instance-method">Playlist#independent_segments</a></code>).</li>
+<li><code>EXT-X-START</code>: Specifies the preferred start point for playback (<code><a href="M3U8/PlaybackStart.html">PlaybackStart</a></code>).</li>
+</ul>
+
 
 
 

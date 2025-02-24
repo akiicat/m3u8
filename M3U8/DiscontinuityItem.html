@@ -200,8 +200,15 @@
     Overview
   </h2>
 
-  <p>DiscontinuityItem represents a EXT-X-DISCONTINUITY tag to indicate a
-discontinuity between the SegmentItems that proceed and follow it.</p>
+  <p><code><a href="../M3U8/DiscontinuityItem.html">DiscontinuityItem</a></code> represents an <code>EXT-X-DISCONTINUITY</code> tag used in HLS playlists.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.4">RFC 8216, Section 4.3.2.4</a>,
+the <code>EXT-X-DISCONTINUITY</code> tag signals that a discontinuity exists between Media Segment items.
+This break in continuity can occur due to changes in encoding parameters, stream content,
+or other reasons that require the client to reset its decoding process.</p>
+<p>For example, an HLS playlist might include the following tag to indicate a discontinuity:</p>
+<pre><code class="language-txt">#EXT-X-DISCONTINUITY</code></pre>
+<p>When the client parses this tag, it understands that the next Media Segment should be treated
+as starting from a new point, independent of the segments that came before.</p>
 
 
 
@@ -282,7 +289,7 @@ discontinuity between the SegmentItems that proceed and follow it.</p>
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>DiscontinuityItem.new.to_s # =&gt; &quot;#EXT-X-DISCONTINUITY\n&quot;</code></p></div>
+          <div class="summary"><p>Returns the <code>EXT-X-DISCONTINUITY</code> tag as a string, followed by a newline.</p></div>
         
       </li>
     
@@ -359,8 +366,12 @@ discontinuity between the SegmentItems that proceed and follow it.</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">DiscontinuityItem</span>.new.to_s
+          <p>Returns the <code>EXT-X-DISCONTINUITY</code> tag as a string, followed by a newline.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">DiscontinuityItem</span>.new.to_s
 <span class="c"># =&gt; &quot;#EXT-X-DISCONTINUITY\n&quot;</span></code></pre>
+<p>The newline character ensures that when concatenated in a Playlist,
+the tag is correctly terminated as a separate line.</p>
         </div>
       
       <br/>

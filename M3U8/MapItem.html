@@ -200,8 +200,16 @@
     Overview
   </h2>
 
-  <p>MapItem represents a EXT-X-MAP tag which specifies how to obtain the Media
-Initialization Section</p>
+  <p><code><a href="../M3U8/MapItem.html">MapItem</a></code> represents an <code>EXT-X-MAP</code> tag in an HLS playlist.</p>
+<p>The <code>EXT-X-MAP</code> tag (defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.5">RFC 8216, Section 4.3.2.5</a>)
+specifies how to obtain the Media Initialization Section, which is required to parse the Media Segments.</p>
+<p>For example, a valid <code>EXT-X-MAP</code> tag might look like:</p>
+<pre><code class="language-txt">#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;</code></pre>
+<p>The <code><a href="../M3U8/MapItem.html">MapItem</a></code> class stores the following properties:</p>
+<ul>
+<li><code><a href="../M3U8/MapItem.html#uri%3AString-instance-method">#uri</a></code> (String): the URI for the Media Initialization Section.</li>
+<li><code><a href="../M3U8/MapItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> (<code><a href="../M3U8/ByteRange.html">ByteRange</a></code>): the byte range indicating which part of the resource to use.</li>
+</ul>
 
 
 
@@ -276,14 +284,14 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><pre><code class="language-options"></code></pre></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance from a NamedTuple of parameters.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28uri%3AString%2Cbyterange%3Dnil%29-class-method" class="signature"><strong>.new</strong>(uri : String, byterange = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code>uri = &quot;frelo/prog_index.m3u8&quot; byterange = &quot;4500@600&quot; <a href="../M3U8/MapItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">MapItem.new(uri)</a> <a href="../M3U8/MapItem.html#new%28uri%3AString%2Cbyterange%3Dnil%29-class-method">MapItem.new(uri, byterange)</a> <a href="../M3U8/MapItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">MapItem.new(uri: uri)</a> <a href="../M3U8/MapItem.html#new%28uri%3AString%2Cbyterange%3Dnil%29-class-method">MapItem.new(uri: uri, byterange: byterange)</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance.</p></div>
         
       </li>
     
@@ -304,7 +312,7 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;) <a href="../M3U8/MapItem.html#parse%28text%29-class-method">MapItem.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/MapItem.html">M3U8::MapItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a string representing an <code>EXT-X-MAP</code> tag and returns a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance.</p></div>
         
       </li>
     
@@ -327,27 +335,35 @@ Initialization Section</p>
       <li class="entry-summary">
         <a href="#byterange%3AByteRange-instance-method" class="signature"><strong>#byterange</strong> : ByteRange</a>
         
+          <div class="summary"><p>The byte range indicating which part of the resource to use.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#byterange%3D%28byterange%3AByteRange%29-instance-method" class="signature"><strong>#byterange=</strong>(byterange : ByteRange)</a>
+        
+          <div class="summary"><p>The byte range indicating which part of the resource to use.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   uri:       &quot;frelo/prog_index.m3u8&quot;,   byterange: &quot;4500@600&quot;, } <a href="../M3U8/MapItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">MapItem.new(options)</a><a href="../M3U8/MapItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-MAP</code> tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3AString-instance-method" class="signature"><strong>#uri</strong> : String</a>
         
+          <div class="summary"><p>The URI for the Media Initialization Section.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3D%28uri%3AString%29-instance-method" class="signature"><strong>#uri=</strong>(uri : String)</a>
+        
+          <div class="summary"><p>The URI for the Media Initialization Section.</p></div>
         
       </li>
     
@@ -418,26 +434,39 @@ Initialization Section</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Constructs a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance from a NamedTuple of parameters.</p>
+<p>The NamedTuple can include the following keys:</p>
+<ul>
+<li><code>:uri</code> (String): the URI for the initialization section.</li>
+<li><code>:byterange</code> (can be a Hash, a NamedTuple, a <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> instance, or a String like &quot;4500@600&quot;).</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   uri:       <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
-  byterange: {
-    length: <span class="n">4500</span>,
-    start:  <span class="n">600</span>,
-  },
+  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
 }
 <span class="t">MapItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::MapItem:0x7adc917c08a0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7adc91795d50 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</span>
 
 options <span class="o">=</span> {
   uri:       <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
   byterange: <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>),
 }
 <span class="t">MapItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::MapItem:0x7adc917c01e0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7adc91795c60 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</span>
 
 options <span class="o">=</span> {
   uri:       <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
   byterange: <span class="s">&quot;4500@600&quot;</span>,
 }
-<span class="t">MapItem</span>.new(options)</code></pre>
+<span class="t">MapItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::MapItem:0x7adc917c1ba0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7adc91795b70 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -456,12 +485,23 @@ options <span class="o">=</span> {
       
         <div class="doc">
           
-          <pre><code class="language-crystal">uri <span class="o">=</span> <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>
+          <p>Initializes a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance.</p>
+<p>Accepts a <code><a href="../M3U8/MapItem.html#uri%3AString-instance-method">#uri</a></code> as the first parameter and an optional <code><a href="../M3U8/MapItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> parameter,
+which is passed to <code><a href="../M3U8/ByteRange.html#parse%28item%3Dnil%29-class-method">ByteRange.parse</a></code>.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">uri <span class="o">=</span> <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>
 byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
 <span class="t">MapItem</span>.new(uri)
-<span class="t">MapItem</span>.new(uri, byterange)
 <span class="t">MapItem</span>.new(uri: uri)
-<span class="t">MapItem</span>.new(uri: uri, byterange: byterange)</code></pre>
+<span class="c"># =&gt; #&lt;M3U8::MapItem:0x789a5325c760</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x789a5322e8a0 @length=nil, @start=nil&gt;,</span>
+<span class="c">#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</span>
+
+<span class="t">MapItem</span>.new(uri, byterange)
+<span class="t">MapItem</span>.new(uri: uri, byterange: byterange)
+<span class="c"># =&gt; #&lt;M3U8::MapItem:0x789a5325c0a0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x789a5322e7b0 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -492,9 +532,15 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)</span>
-<span class="t">MapItem</span>.parse(text)
-<span class="c"># =&gt; #&lt;M3U8::MapItem......&gt;</span></code></pre>
+          <p>Parses a string representing an <code>EXT-X-MAP</code> tag and returns a new <code><a href="../M3U8/MapItem.html">MapItem</a></code> instance.</p>
+<p>The method extracts attributes from the tag line using <code>parse_attributes</code> and
+converts the <code><a href="../M3U8/MapItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> value using <code><a href="../M3U8/ByteRange.html#parse%28item%3Dnil%29-class-method">ByteRange.parse</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">text = %(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)
+MapItem.parse(text)
+# =&gt; #&lt;M3U8::MapItem:0x79d016ab9f60
+#     @byterange=#&lt;M3U8::ByteRange:0x79d016a8ee40 @length=4500, @start=600&gt;,
+#     @uri=&quot;frelo/prog_index.m3u8&quot;&gt;</code></pre>
         </div>
       
       <br/>
@@ -525,6 +571,11 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
         <a class="method-permalink" href="#byterange%3AByteRange-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The byte range indicating which part of the resource to use.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -538,6 +589,11 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
 
         <a class="method-permalink" href="#byterange%3D%28byterange%3AByteRange%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The byte range indicating which part of the resource to use.</p>
+        </div>
       
       <br/>
       <div>
@@ -555,12 +611,16 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  uri:       <span class="s">&quot;frelo/prog_index.m3u8&quot;</span>,
-  byterange: <span class="s">&quot;4500@600&quot;</span>,
+          <p>Returns the string representation of the <code>EXT-X-MAP</code> tag.</p>
+<p>It concatenates the formatted <code><a href="../M3U8/MapItem.html#uri%3AString-instance-method">#uri</a></code> and <code><a href="../M3U8/MapItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> attributes, separated by commas,
+and prefixes the result with <code>#EXT-X-MAP:</code>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">options = {
+  uri:       &quot;frelo/prog_index.m3u8&quot;,
+  byterange: &quot;4500@600&quot;,
 }
-<span class="t">MapItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;)</span></code></pre>
+MapItem.new(options).to_s
+# =&gt; #EXT-X-MAP:URI=&quot;frelo/prog_index.m3u8&quot;,BYTERANGE=&quot;4500@600&quot;</code></pre>
         </div>
       
       <br/>
@@ -577,6 +637,11 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
         <a class="method-permalink" href="#uri%3AString-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The URI for the Media Initialization Section.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -590,6 +655,11 @@ byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
 
         <a class="method-permalink" href="#uri%3D%28uri%3AString%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The URI for the Media Initialization Section.</p>
+        </div>
       
       <br/>
       <div>

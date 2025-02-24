@@ -200,7 +200,48 @@
     Overview
   </h2>
 
-  <p>TimeItem represents EXT-X-PROGRAM-DATE-TIME</p>
+  <p><code><a href="../M3U8/TimeItem.html">TimeItem</a></code> represents an <code>EXT-X-PROGRAM-DATE-TIME</code> tag in an HLS playlist.</p>
+<p>The <code>EXT-X-PROGRAM-DATE-TIME</code> tag (as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.6">RFC 8216, Section 4.3.2.6</a>) is used to
+associate the first sample of a Media Segment with an absolute date and time. The time
+is formatted in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO 8601</a>, ensuring a consistent representation across clients.</p>
+<p>For example:</p>
+<pre><code class="language-crystal"><span class="c"># EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z</span></code></pre>
+<p>This class encapsulates a <code><a href="../Time.html">Time</a></code> value and provides methods for parsing, formatting, and
+checking whether a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> is &quot;empty&quot; (i.e. represents the Unix epoch).</p>
+<p>Examples:</p>
+<p>Parsing various inputs:</p>
+<pre><code class="language-crystal"><span class="c"># Passing a TimeItem returns the same instance</span>
+<span class="t">TimeItem</span>.parse(<span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>))
+
+<span class="c"># Parsing a Time value directly</span>
+<span class="t">TimeItem</span>.parse(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+
+<span class="c"># Parsing a time string in ISO8601 format</span>
+<span class="t">TimeItem</span>.parse(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+
+<span class="c"># Calling parse with no argument returns a default TimeItem (Unix epoch)</span>
+<span class="t">TimeItem</span>.parse</code></pre>
+<p>Creating a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
+
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
+
+<span class="t">TimeItem</span>.new
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b880 @time=1970-01-01 00:00:00 UTC&gt;</span></code></pre>
+<p>Checking if a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> is empty (i.e. represents the Unix epoch):</p>
+<pre><code class="language-crystal">item <span class="o">=</span> <span class="t">TimeItem</span>.new
+item.empty? <span class="c"># =&gt; true</span>
+
+item <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
+item.empty? <span class="c"># =&gt; false</span></code></pre>
+<p>Converting a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> to a string:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>).to_s
+<span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span>
+
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
+<span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span></code></pre>
 
 
 
@@ -275,14 +316,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code><a href="../Time.html#iso8601%28time%3AString%29-class-method">Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a> # =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</code></p></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> using a NamedTuple with a <code>:time</code> key.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28time%3Dnil%29-class-method" class="signature"><strong>.new</strong>(time = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(&quot;2010-02-19T14:54:23Z&quot;)</a> # =&gt; #&lt;<a href="../M3U8/TimeItem.html">M3U8::TimeItem</a>:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt; <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a>) # =&gt; #&lt;<a href="../M3U8/TimeItem.html">M3U8::TimeItem</a>:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt; <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new</a> # =&gt; #&lt;<a href="../M3U8/TimeItem.html">M3U8::TimeItem</a>:0x10581b880 @time=1970-01-01 00:00:00 UTC&gt;</code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>.</p></div>
         
       </li>
     
@@ -303,7 +344,7 @@
       <li class="entry-summary">
         <a href="#parse%28item%3Dnil%29-class-method" class="signature"><strong>.parse</strong>(item = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse(TimeItem.new(&quot;2010-02-19T14:54:23Z&quot;)</a>) <a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse(Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a>) <a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse(&quot;2010-02-19T14:54:23.031Z&quot;)</a> <a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse</a></code></p></div>
+          <div class="summary"><p>Parses an input item into a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>.</p></div>
         
       </li>
     
@@ -326,24 +367,28 @@
       <li class="entry-summary">
         <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
         
-          <div class="summary"><p><code>item = <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new</a> item.empty? # =&gt; true item = <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(&quot;2010-02-19T14:54:23Z&quot;)</a> item.empty? # =&gt; false</code></p></div>
+          <div class="summary"><p>Returns true if the <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>'s time represents the Unix epoch.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#time%3ATime-instance-method" class="signature"><strong>#time</strong> : Time</a>
         
+          <div class="summary"><p>The <code>EXT-X-PROGRAM-DATE-TIME</code> tag associates the first sample of a Media Segment with an absolute date and/or time.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#time%3D%28time%3ATime%29-instance-method" class="signature"><strong>#time=</strong>(time : Time)</a>
+        
+          <div class="summary"><p>The <code>EXT-X-PROGRAM-DATE-TIME</code> tag associates the first sample of a Media Segment with an absolute date and/or time.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code><a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(&quot;2010-02-19T14:54:23Z&quot;)</a><a href="../M3U8/TimeItem.html#to_s-instance-method">.to_s</a> # =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot; <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a>) # =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-PROGRAM-DATE-TIME</code> tag.</p></div>
         
       </li>
     
@@ -414,8 +459,13 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
-<span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span></code></pre>
+          <p>Constructs a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> using a NamedTuple with a <code>:time</code> key.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x7e461bbd8ba0 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
+
+<span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x7bb643931a80 @time=1970-01-01 00:00:00.0 UTC&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -434,12 +484,17 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
-<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
+          <p>Initializes a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>.</p>
+<p>If no time is provided, it defaults to the Unix epoch (1970-01-01 00:00:00 UTC).</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x79134e1fd960 @time=2010-02-19 14:54:23.0 UTC&gt;</span>
+
 <span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
-<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x79134e1fd840 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
+
 <span class="t">TimeItem</span>.new
-<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b880 @time=1970-01-01 00:00:00 UTC&gt;</span></code></pre>
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x79134e1fd720 @time=1970-01-01 00:00:00.0 UTC&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -470,10 +525,21 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">TimeItem</span>.parse(<span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>))
+          <p>Parses an input item into a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>.</p>
+<p>If the input is already a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, it is returned as-is.
+Otherwise, it attempts to create a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> from the input.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.parse(<span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>))
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78510c60 @time=2010-02-19 14:54:23.0 UTC&gt;</span>
+
 <span class="t">TimeItem</span>.parse(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78517f00 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
+
 <span class="t">TimeItem</span>.parse(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
-<span class="t">TimeItem</span>.parse</code></pre>
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78517de0 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
+
+<span class="t">TimeItem</span>.parse
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78517cc0 @time=1970-01-01 00:00:00.0 UTC&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -506,8 +572,12 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">item <span class="o">=</span> <span class="t">TimeItem</span>.new
+          <p>Returns true if the <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>'s time represents the Unix epoch.</p>
+<p>This can be used to check whether the <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> has been set to a meaningful time.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">item <span class="o">=</span> <span class="t">TimeItem</span>.new
 item.empty? <span class="c"># =&gt; true</span>
+
 item <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
 item.empty? <span class="c"># =&gt; false</span></code></pre>
         </div>
@@ -526,6 +596,12 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
         <a class="method-permalink" href="#time%3ATime-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The <code>EXT-X-PROGRAM-DATE-TIME</code> tag associates the first sample of a
+Media Segment with an absolute date and/or time.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -539,6 +615,12 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
 
         <a class="method-permalink" href="#time%3D%28time%3ATime%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The <code>EXT-X-PROGRAM-DATE-TIME</code> tag associates the first sample of a
+Media Segment with an absolute date and/or time.</p>
+        </div>
       
       <br/>
       <div>
@@ -556,9 +638,15 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>).to_s
-<span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span>
-<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+          <p>Returns the string representation of the <code>EXT-X-PROGRAM-DATE-TIME</code> tag.</p>
+<p>The output is generated by prefixing the
+<a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO 8601</a>-formatted time
+with <code>#EXT-X-PROGRAM-DATE-TIME:</code>.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>).to_s
+<span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z&quot;</span>
+
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
 <span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span></code></pre>
         </div>
       

@@ -191,6 +191,69 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p><code><a href="../M3U8/Codecs.html">Codecs</a></code> represents the <em>CODECS</em> attribute used in HTTP Live Streaming (HLS).</p>
+<p>In HLS (<a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a>), the <em>CODECS</em> attribute (further detailed in <a href="https://datatracker.ietf.org/doc/html/rfc6381">RFC 6381</a>)
+is a comma-separated list of codec identifiers that describe the media
+contained in a Media Segment. This attribute is used in the <code>EXT-X-STREAM-INF</code>
+tag to indicate what codecs (and profiles) are required to play back a stream.</p>
+<pre><code class="language-txt">#EXT-X-STREAM-INF:BANDWIDTH=65000,CODECS=&quot;mp4a.40.5&quot;
+audio-only.m3u8</code></pre>
+<p>There are two primary ways to use <code><a href="../M3U8/Codecs.html">Codecs</a></code>:</p>
+<ol>
+<li>
+<p>If the <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> property is set, that pre-computed string is used directly.</p>
+</li>
+<li>
+<p>Otherwise, the <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is constructed by deriving the video and audio
+codec codes from the remaining properties:</p>
+<ul>
+<li>For audio, the <code><a href="../M3U8/Codecs.html#audio_codec%3AString%7CNil-instance-method">#audio_codec</a></code> property is mapped as follows:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-txt">        &quot;aac-lc&quot;  =&gt; &quot;mp4a.40.2&quot;  (AAC low complexity)
+        &quot;he-aac&quot;  =&gt; &quot;mp4a.40.5&quot;  (HE-AAC)
+        &quot;mp3&quot;     =&gt; &quot;mp4a.40.34&quot; (MPEG-1 Audio Layer 3)</code></pre>
+<ul>
+<li>For video, both the <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code> properties must be provided.
+For example, for H.264 (AVC) video the following mappings are used:</li>
+</ul>
+<pre><code class="language-txt">        Baseline Profile:
+          Level 3.0 =&gt; &quot;avc1.66.30&quot;
+          Level 3.1 =&gt; &quot;avc1.42001f&quot;
+
+        Main Profile:
+          Level 3.0 =&gt; &quot;avc1.77.30&quot;
+          Level 3.1 =&gt; &quot;avc1.4d001f&quot;
+          Level 4.0 =&gt; &quot;avc1.4d0028&quot;
+          Level 4.1 =&gt; &quot;avc1.4d0029&quot;
+
+        High Profile:
+          Level 3.1 =&gt; &quot;avc1.64001f&quot;
+          Level 4.0 =&gt; &quot;avc1.640028&quot;
+          Level 4.1 =&gt; &quot;avc1.640029&quot;</code></pre>
+<p>When constructing the codec string:</p>
+<ul>
+<li>If a video codec is expected (i.e. both <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code> are provided) but the
+mapping is not recognized, no codec string is output.</li>
+<li>Likewise, if an <code><a href="../M3U8/Codecs.html#audio_codec%3AString%7CNil-instance-method">#audio_codec</a></code> is specified but unrecognized, the codec string is empty.</li>
+</ul>
+<p>For more details on these mappings and the overall semantics of HLS, refer to:</p>
+<ul>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> (HTTP Live Streaming) <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">Section 4.3.4.2</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc6381">RFC 6381</a> (The 'Codecs' and 'Profiles' Parameters for &quot;Bucket&quot; Media Types)</li>
+<li><a href="https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html">The HTTP Live Streaming FAQ</a> (which discusses recommended values for stream playback)</li>
+</ul>
+
 
 
 
@@ -264,14 +327,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {audio_codec: &quot;aac-lc&quot;} <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(options)</a> <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(audio_codec: &quot;aac-lc&quot;)</a></code></p></div>
+          <div class="summary"><p>Creates a new <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance from a NamedTuple.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28codecs%3ANil%7CString%3Dnil%2Caudio_codec%3ANil%7CString%3Dnil%2Clevel%3Dnil%2Cprofile%3ANil%7CString%3Dnil%29-class-method" class="signature"><strong>.new</strong>(codecs : Nil | String = <span class="n">nil</span>, audio_codec : Nil | String = <span class="n">nil</span>, level = <span class="n">nil</span>, profile : Nil | String = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance.</p></div>
         
       </li>
     
@@ -296,68 +359,84 @@
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3ACodecs%29-instance-method" class="signature"><strong>#==</strong>(other : Codecs)</a>
         
-          <div class="summary"><p><code>left = <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(audio_codec: &quot;aac-lc&quot;)</a> right = <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(audio_codec: &quot;aac-lc&quot;)</a> left == right # =&gt; true</code></p></div>
+          <div class="summary"><p>Compares this <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance with another <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3AString%29-instance-method" class="signature"><strong>#==</strong>(other : String)</a>
         
-          <div class="summary"><p><code>left = <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(audio_codec: &quot;aac-lc&quot;)</a> right = &quot;aac-lc&quot; left == right # =&gt; true</code></p></div>
+          <div class="summary"><p>Compares this <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance with a String.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#audio_codec%3AString%7CNil-instance-method" class="signature"><strong>#audio_codec</strong> : String | Nil</a>
         
+          <div class="summary"><p>Audio codec identifier (e.g., <code>aac-lc</code>)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#audio_codec%3D%28audio_codec%3AString%7CNil%29-instance-method" class="signature"><strong>#audio_codec=</strong>(audio_codec : String | Nil)</a>
+        
+          <div class="summary"><p>Audio codec identifier (e.g., <code>aac-lc</code>)</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#codecs%3AString%7CNil-instance-method" class="signature"><strong>#codecs</strong> : String | Nil</a>
         
+          <div class="summary"><p>Predefined codec string</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#codecs%3D%28codecs%3AString%7CNil%29-instance-method" class="signature"><strong>#codecs=</strong>(codecs : String | Nil)</a>
+        
+          <div class="summary"><p>Predefined codec string</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
         
-          <div class="summary"><p><code>codecs = <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new</a> codecs.empty? # =&gt; true codecs.audio_codec = &quot;aac-lc&quot; codecs.empty? # =&gt; false</code></p></div>
+          <div class="summary"><p>Returns true if the <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is empty.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#level%3AFloat64%7CNil-instance-method" class="signature"><strong>#level</strong> : Float64 | Nil</a>
         
+          <div class="summary"><p>Video level (e.g., <code>3.0</code>, <code>3.1</code>, etc.)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#level%3D%28level%3AFloat64%7CNil%29-instance-method" class="signature"><strong>#level=</strong>(level : Float64 | Nil)</a>
+        
+          <div class="summary"><p>Video level (e.g., <code>3.0</code>, <code>3.1</code>, etc.)</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#profile%3AString%7CNil-instance-method" class="signature"><strong>#profile</strong> : String | Nil</a>
         
+          <div class="summary"><p>Video profile (e.g., <code>baseline</code>, <code>main</code>, <code>high</code>)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#profile%3D%28profile%3AString%7CNil%29-instance-method" class="signature"><strong>#profile=</strong>(profile : String | Nil)</a>
+        
+          <div class="summary"><p>Video profile (e.g., <code>baseline</code>, <code>main</code>, <code>high</code>)</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code><a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(codecs: &quot;test&quot;)</a><a href="../M3U8/Codecs.html#to_s-instance-method">.to_s</a>                                      # =&gt; &quot;test&quot; <a href="../M3U8/Codecs.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">Codecs.new(audio_codec: &quot;aac-lc&quot;)</a><a href="../M3U8/Codecs.html#to_s-instance-method">.to_s</a>                               # =&gt; &quot;mp4a.40.2&quot; Codecs.new(profile: &quot;baseline&quot;, level: 3.0, audio_codec: &quot;mp3&quot;)<a href="../M3U8/Codecs.html#to_s-instance-method">.to_s</a> # =&gt; &quot;avc1.66.30,mp4a.40.34&quot;</code></p></div>
+          <div class="summary"><p>Returns the <em>CODECS</em> string for this instance.</p></div>
         
       </li>
     
@@ -428,7 +507,9 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {audio_codec: <span class="s">&quot;aac-lc&quot;</span>}
+          <p>Creates a new <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance from a NamedTuple.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {audio_codec: <span class="s">&quot;aac-lc&quot;</span>}
 <span class="t">Codecs</span>.new(options)
 <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)</code></pre>
         </div>
@@ -449,7 +530,17 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">Codecs</span>.new</code></pre>
+          <p>Initializes a new <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance.
+Parameters with <code>@</code> prefix are automatically assigned as instance variables.</p>
+<p>Parameters:</p>
+<ul>
+<li><code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code>: A pre-computed codec string (if provided, it is used directly).</li>
+<li><code><a href="../M3U8/Codecs.html#audio_codec%3AString%7CNil-instance-method">#audio_codec</a></code>: The name of the audio codec (e.g. <code>aac-lc</code>, <code>he-aac</code>, <code>mp3</code>).</li>
+<li><code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>: The numeric level used to determine the video codec.</li>
+<li><code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code>: The video profile (e.g. <code>baseline</code>, <code>main</code>, <code>high</code>).</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">Codecs</span>.new</code></pre>
         </div>
       
       <br/>
@@ -484,7 +575,10 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">left <span class="o">=</span> <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
+          <p>Compares this <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance with another <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance.</p>
+<p>Equality is determined by comparing their <em>CODECS</em> strings.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">left <span class="o">=</span> <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
 right <span class="o">=</span> <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
 left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre>
         </div>
@@ -505,7 +599,10 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
       
         <div class="doc">
           
-          <pre><code class="language-crystal">left <span class="o">=</span> <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
+          <p>Compares this <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance with a String.</p>
+<p>The instance is considered equal to the string if its <em>CODECS</em> string matches.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">left <span class="o">=</span> <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>)
 right <span class="o">=</span> <span class="s">&quot;aac-lc&quot;</span>
 left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre>
         </div>
@@ -524,6 +621,11 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
         <a class="method-permalink" href="#audio_codec%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Audio codec identifier (e.g., <code>aac-lc</code>)</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -537,6 +639,11 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
 
         <a class="method-permalink" href="#audio_codec%3D%28audio_codec%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Audio codec identifier (e.g., <code>aac-lc</code>)</p>
+        </div>
       
       <br/>
       <div>
@@ -552,6 +659,11 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
         <a class="method-permalink" href="#codecs%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Predefined codec string</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -565,6 +677,11 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
 
         <a class="method-permalink" href="#codecs%3D%28codecs%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Predefined codec string</p>
+        </div>
       
       <br/>
       <div>
@@ -582,7 +699,9 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
       
         <div class="doc">
           
-          <pre><code class="language-crystal">codecs <span class="o">=</span> <span class="t">Codecs</span>.new
+          <p>Returns true if the <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is empty.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">codecs <span class="o">=</span> <span class="t">Codecs</span>.new
 codecs.empty? <span class="c"># =&gt; true</span>
 codecs.audio_codec <span class="o">=</span> <span class="s">&quot;aac-lc&quot;</span>
 codecs.empty? <span class="c"># =&gt; false</span></code></pre>
@@ -602,6 +721,38 @@ codecs.empty? <span class="c"># =&gt; false</span></code></pre>
         <a class="method-permalink" href="#level%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Video level (e.g., <code>3.0</code>, <code>3.1</code>, etc.)</p>
+<p>The video <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is determined from both the video <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>.</p>
+<ul>
+<li>
+<p><code>baseline</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.66.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.42001f</code></li>
+</ul>
+</li>
+<li>
+<p><code>main</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.77.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.4d001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.4d0028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.4d0029</code></li>
+</ul>
+</li>
+<li>
+<p><code>high</code> Profile:</p>
+<ul>
+<li>Level <code>3.1</code> =&gt; <code>avc1.64001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.640028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.640029</code></li>
+</ul>
+</li>
+</ul>
+        </div>
+      
       <br/>
       <div>
         
@@ -615,6 +766,38 @@ codecs.empty? <span class="c"># =&gt; false</span></code></pre>
 
         <a class="method-permalink" href="#level%3D%28level%3AFloat64%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Video level (e.g., <code>3.0</code>, <code>3.1</code>, etc.)</p>
+<p>The video <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is determined from both the video <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>.</p>
+<ul>
+<li>
+<p><code>baseline</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.66.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.42001f</code></li>
+</ul>
+</li>
+<li>
+<p><code>main</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.77.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.4d001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.4d0028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.4d0029</code></li>
+</ul>
+</li>
+<li>
+<p><code>high</code> Profile:</p>
+<ul>
+<li>Level <code>3.1</code> =&gt; <code>avc1.64001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.640028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.640029</code></li>
+</ul>
+</li>
+</ul>
+        </div>
       
       <br/>
       <div>
@@ -630,6 +813,38 @@ codecs.empty? <span class="c"># =&gt; false</span></code></pre>
         <a class="method-permalink" href="#profile%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Video profile (e.g., <code>baseline</code>, <code>main</code>, <code>high</code>)</p>
+<p>The video <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is determined from both the video <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>.</p>
+<ul>
+<li>
+<p><code>baseline</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.66.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.42001f</code></li>
+</ul>
+</li>
+<li>
+<p><code>main</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.77.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.4d001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.4d0028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.4d0029</code></li>
+</ul>
+</li>
+<li>
+<p><code>high</code> Profile:</p>
+<ul>
+<li>Level <code>3.1</code> =&gt; <code>avc1.64001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.640028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.640029</code></li>
+</ul>
+</li>
+</ul>
+        </div>
+      
       <br/>
       <div>
         
@@ -643,6 +858,38 @@ codecs.empty? <span class="c"># =&gt; false</span></code></pre>
 
         <a class="method-permalink" href="#profile%3D%28profile%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Video profile (e.g., <code>baseline</code>, <code>main</code>, <code>high</code>)</p>
+<p>The video <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is determined from both the video <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>.</p>
+<ul>
+<li>
+<p><code>baseline</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.66.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.42001f</code></li>
+</ul>
+</li>
+<li>
+<p><code>main</code> Profile:</p>
+<ul>
+<li>Level <code>3.0</code> =&gt; <code>avc1.77.30</code></li>
+<li>Level <code>3.1</code> =&gt; <code>avc1.4d001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.4d0028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.4d0029</code></li>
+</ul>
+</li>
+<li>
+<p><code>high</code> Profile:</p>
+<ul>
+<li>Level <code>3.1</code> =&gt; <code>avc1.64001f</code></li>
+<li>Level <code>4.0</code> =&gt; <code>avc1.640028</code></li>
+<li>Level <code>4.1</code> =&gt; <code>avc1.640029</code></li>
+</ul>
+</li>
+</ul>
+        </div>
       
       <br/>
       <div>
@@ -660,7 +907,12 @@ codecs.empty? <span class="c"># =&gt; false</span></code></pre>
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">Codecs</span>.new(codecs: <span class="s">&quot;test&quot;</span>).to_s                                      <span class="c"># =&gt; &quot;test&quot;</span>
+          <p>Returns the <em>CODECS</em> string for this instance.</p>
+<p>If a pre-computed <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string is provided, it is returned directly.
+Otherwise, the method constructs the <code><a href="../M3U8/Codecs.html#codecs%3AString%7CNil-instance-method">#codecs</a></code> string by computing the video codec
+(from <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">#profile</a></code> and <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">#level</a></code>) and the audio codec (from <code><a href="../M3U8/Codecs.html#audio_codec%3AString%7CNil-instance-method">#audio_codec</a></code>).</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">Codecs</span>.new(codecs: <span class="s">&quot;test&quot;</span>).to_s                                      <span class="c"># =&gt; &quot;test&quot;</span>
 <span class="t">Codecs</span>.new(audio_codec: <span class="s">&quot;aac-lc&quot;</span>).to_s                               <span class="c"># =&gt; &quot;mp4a.40.2&quot;</span>
 <span class="t">Codecs</span>.new(profile: <span class="s">&quot;baseline&quot;</span>, level: <span class="n">3.0</span>, audio_codec: <span class="s">&quot;mp3&quot;</span>).to_s <span class="c"># =&gt; &quot;avc1.66.30,mp4a.40.34&quot;</span></code></pre>
         </div>

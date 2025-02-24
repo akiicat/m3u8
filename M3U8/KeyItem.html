@@ -200,7 +200,15 @@
     Overview
   </h2>
 
-  <p>KeyItem represents a set of EXT-X-KEY attributes</p>
+  <p><code><a href="../M3U8/KeyItem.html">KeyItem</a></code> represents a set of <code>EXT-X-KEY</code> attributes used for specifying
+the encryption parameters of Media Segments in an HLS playlist.</p>
+<p>In HLS, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.4">RFC 8216, Section 4.3.2.4</a>,
+the <code>EXT-X-KEY</code> tag specifies how Media Segments are encrypted. It includes
+attributes such as <code>METHOD</code>, <code>URI</code>, <code>IV</code>, <code>KEYFORMAT</code>, and <code>KEYFORMATVERSIONS</code>.</p>
+<p>Example of a key tag:</p>
+<pre><code class="language-txt">#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;</code></pre>
+<p>This class combines the functionality provided by the <code>Concern</code> and <code><a href="../M3U8/Encryptable.html">Encryptable</a></code>
+modules to parse and format these encryption key attributes.</p>
 
 
 
@@ -279,7 +287,7 @@
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;) <a href="../M3U8/KeyItem.html#parse%28text%29-class-method">KeyItem.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/KeyItem.html">M3U8::KeyItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a text line representing an <code>EXT-X-KEY</code> tag and returns a new <code><a href="../M3U8/KeyItem.html">KeyItem</a></code>.</p></div>
         
       </li>
     
@@ -302,7 +310,7 @@
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   method:              &quot;AES-128&quot;,   uri:                 &quot;http://test.key&quot;,   iv:                  &quot;D512BBF&quot;,   key_format:          &quot;identity&quot;,   key_format_versions: &quot;1/3&quot;, } KeyItem.new(options)<a href="../M3U8/KeyItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-KEY</code> tag.</p></div>
         
       </li>
     
@@ -465,9 +473,18 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span>
-<span class="t">KeyItem</span>.parse(text)
-<span class="c"># =&gt; #&lt;M3U8::KeyItem......&gt;</span></code></pre>
+          <p>Parses a text line representing an <code>EXT-X-KEY</code> tag and returns a new <code><a href="../M3U8/KeyItem.html">KeyItem</a></code>.</p>
+<p>The method extracts the attribute list from the tag line, converts the keys using
+<code><a href="../M3U8/Encryptable.html#convert_key%28params%29-class-method">Encryptable.convert_key</a></code>, and initializes a new instance.</p>
+<p>Example:</p>
+<pre><code class="language-txt">text = %(#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)
+KeyItem.parse(text)
+# =&gt; #&lt;M3U8::KeyItem:0x7f5ceff07a80
+      @iv=&quot;D512BBF&quot;,
+      @key_format=&quot;identity&quot;,
+      @key_format_versions=&quot;1/3&quot;,
+      @method=&quot;AES-128&quot;,
+      @uri=&quot;http://test.key&quot;&gt;</code></pre>
         </div>
       
       <br/>
@@ -500,15 +517,18 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  method:              <span class="s">&quot;AES-128&quot;</span>,
-  uri:                 <span class="s">&quot;http://test.key&quot;</span>,
-  iv:                  <span class="s">&quot;D512BBF&quot;</span>,
-  key_format:          <span class="s">&quot;identity&quot;</span>,
-  key_format_versions: <span class="s">&quot;1/3&quot;</span>,
+          <p>Returns the string representation of the <code>EXT-X-KEY</code> tag.</p>
+<p>It prefixes the formatted key attributes with <code>#EXT-X-KEY:</code>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">options = {
+  method:              &quot;AES-128&quot;,
+  uri:                 &quot;http://test.key&quot;,
+  iv:                  &quot;D512BBF&quot;,
+  key_format:          &quot;identity&quot;,
+  key_format_versions: &quot;1/3&quot;,
 }
-<span class="t">KeyItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span></code></pre>
+KeyItem.new(options).to_s
+# =&gt; &quot;#EXT-X-KEY:METHOD=AES-128,URI=\&quot;http://test.key\&quot;,IV=D512BBF,KEYFORMAT=\&quot;identity\&quot;,KEYFORMATVERSIONS=\&quot;1/3\&quot;&quot;</code></pre>
         </div>
       
       <br/>

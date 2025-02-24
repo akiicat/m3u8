@@ -200,7 +200,24 @@
     Overview
   </h2>
 
-  <p>ByteRange represents sub range of a resource</p>
+  <p><code><a href="../M3U8/ByteRange.html">ByteRange</a></code> represents a sub-range of a resource.</p>
+<p>In HTTP Live Streaming, the <code>EXT-X-BYTERANGE</code> tag (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.2">RFC 8216, Section 4.3.2.2</a>)
+indicates that a Media Segment is a sub-range of the resource identified by its URI.</p>
+<p>Its format is:</p>
+<pre><code class="language-txt">#EXT-X-BYTERANGE:&lt;length&gt;[@&lt;start&gt;]</code></pre>
+<p>where:</p>
+<ul>
+<li><code><a href="../M3U8/ByteRange.html#length%3AInt32%7CNil-instance-method">#length</a></code> is a decimal integer indicating the length of the sub-range in bytes.</li>
+<li><code><a href="../M3U8/ByteRange.html#start%3AInt32%7CNil-instance-method">#start</a></code> (optional) is a decimal integer indicating the start of the sub-range
+as a byte offset from the beginning of the resource.</li>
+</ul>
+<p>If <code><a href="../M3U8/ByteRange.html#start%3AInt32%7CNil-instance-method">#start</a></code> is not provided, then the sub-range begins at the next byte following the
+sub-range of the previous Media Segment. In that case, a previous Media Segment
+MUST appear in the Playlist and be a sub-range of the same media resource; otherwise,
+the Media Segment is undefined and the client MUST fail to parse the Playlist.</p>
+<p>Note: A Media Segment without an <code>EXT-X-BYTERANGE</code> tag consists of the entire
+resource identified by its URI. Use of the <code>EXT-X-BYTERANGE</code> tag requires a
+compatibility version number of 4 or greater.</p>
 
 
 
@@ -275,21 +292,21 @@
       <li class="entry-summary">
         <a href="#new%28string%3AString%29-class-method" class="signature"><strong>.new</strong>(string : String)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new(&quot;4500@600&quot;)</a> <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new(&quot;4500&quot;)</a></code></p></div>
+          <div class="summary"><p>Creates a new <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> from a string.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {length: 4500, start: 600} <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new(options)</a> <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a></code></p></div>
+          <div class="summary"><p>Creates a new <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> from a NamedTuple.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method" class="signature"><strong>.new</strong>(length : Int32 | Nil = <span class="n">nil</span>, start : Int32 | Nil = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new</a></code></p></div>
+          <div class="summary"><p>Creates an empty <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p></div>
         
       </li>
     
@@ -310,7 +327,7 @@
       <li class="entry-summary">
         <a href="#parse%28item%3Dnil%29-class-method" class="signature"><strong>.parse</strong>(item = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code>ByteRange.parse(ByteRange.new(length: 4500, start: 600)) ByteRange.parse({length: 4500, start: 600}) <a href="../M3U8/ByteRange.html#parse%28item%3Dnil%29-class-method">ByteRange.parse(&quot;4500@600&quot;)</a> <a href="../M3U8/ByteRange.html#parse%28item%3Dnil%29-class-method">ByteRange.parse</a></code></p></div>
+          <div class="summary"><p>Parses the given item into a <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p></div>
         
       </li>
     
@@ -333,55 +350,63 @@
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3AString%29-instance-method" class="signature"><strong>#==</strong>(other : String)</a>
         
-          <div class="summary"><p><code>left = <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a> right = &quot;4500@600&quot;, left == right # =&gt; true</code></p></div>
+          <div class="summary"><p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with a String.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3ANamedTuple%29-instance-method" class="signature"><strong>#==</strong>(other : NamedTuple)</a>
         
-          <div class="summary"><p><code>left = <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a> right = { length: 4500, start: 600 }, left == right # =&gt; true</code></p></div>
+          <div class="summary"><p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with a NamedTuple.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3AByteRange%29-instance-method" class="signature"><strong>#==</strong>(other : ByteRange)</a>
         
-          <div class="summary"><p><code>left =  <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a>, right =  <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a> left == right # =&gt; true</code></p></div>
+          <div class="summary"><p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with another <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
         
-          <div class="summary"><p><code>byterange = <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new</a> byterange.empty? # =&gt; true byterange = <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new(length: 0)</a> byterange.empty? # =&gt; true byterange.length = 4500 byterange.empty? # =&gt; false</code></p></div>
+          <div class="summary"><p>Returns whether the <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> is empty.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#length%3AInt32%7CNil-instance-method" class="signature"><strong>#length</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>The length of the sub-range in bytes.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#length%3D%28length%3AInt32%7CNil%29-instance-method" class="signature"><strong>#length=</strong>(length : Int32 | Nil)</a>
+        
+          <div class="summary"><p>The length of the sub-range in bytes.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#start%3AInt32%7CNil-instance-method" class="signature"><strong>#start</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>The start of the sub-range as a byte offset from the beginning of the resource.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#start%3D%28start%3AInt32%7CNil%29-instance-method" class="signature"><strong>#start=</strong>(start : Int32 | Nil)</a>
+        
+          <div class="summary"><p>The start of the sub-range as a byte offset from the beginning of the resource.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>byterange = <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a> byterange.to_s # =&gt; &quot;4500@600&quot; byterange = <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new(length: 4500)</a> byterange.to_s # =&gt; &quot;4500&quot; byterange = <a href="../M3U8/ByteRange.html#new%28string%3AString%29-class-method">ByteRange.new</a> byterange.to_s # =&gt; &quot;&quot;</code></p></div>
+          <div class="summary"><p>Returns a string representation of the <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p></div>
         
       </li>
     
@@ -452,7 +477,9 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">ByteRange</span>.new(<span class="s">&quot;4500@600&quot;</span>)
+          <p>Creates a new <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> from a string.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">ByteRange</span>.new(<span class="s">&quot;4500@600&quot;</span>)
 <span class="t">ByteRange</span>.new(<span class="s">&quot;4500&quot;</span>)</code></pre>
         </div>
       
@@ -472,7 +499,9 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
+          <p>Creates a new <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> from a NamedTuple.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
 <span class="t">ByteRange</span>.new(options)
 <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)</code></pre>
         </div>
@@ -493,7 +522,9 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">ByteRange</span>.new</code></pre>
+          <p>Creates an empty <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">ByteRange</span>.new</code></pre>
         </div>
       
       <br/>
@@ -524,7 +555,9 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">ByteRange</span>.parse(<span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>))
+          <p>Parses the given item into a <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">ByteRange</span>.parse(<span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>))
 <span class="t">ByteRange</span>.parse({length: <span class="n">4500</span>, start: <span class="n">600</span>})
 <span class="t">ByteRange</span>.parse(<span class="s">&quot;4500@600&quot;</span>)
 <span class="t">ByteRange</span>.parse</code></pre>
@@ -560,8 +593,11 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">left <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
-right <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>,
+          <p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with a String.</p>
+<p>The <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> is equal to the string if their string representations match.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">left <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+right <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
 left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre>
         </div>
       
@@ -581,8 +617,12 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
       
         <div class="doc">
           
-          <pre><code class="language-crystal">left <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
-right <span class="o">=</span> { length: <span class="n">4500</span>, start: <span class="n">600</span> },
+          <p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with a NamedTuple.</p>
+<p>It creates a new <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> from the NamedTuple and compares their string
+representations.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">left <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+right <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
 left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre>
         </div>
       
@@ -602,8 +642,11 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
       
         <div class="doc">
           
-          <pre><code class="language-crystal">left <span class="o">=</span>  <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>),
-right <span class="o">=</span>  <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+          <p>Compares this <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> with another <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p>
+<p>Two <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>s are equal if their string representations are equal.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">left <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+right <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
 left <span class="o">==</span> right <span class="c"># =&gt; true</span></code></pre>
         </div>
       
@@ -623,7 +666,10 @@ left <span class="o">==</span> right <span class="c"># =&gt; true</span></code><
       
         <div class="doc">
           
-          <pre><code class="language-crystal">byterange <span class="o">=</span> <span class="t">ByteRange</span>.new
+          <p>Returns whether the <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> is empty.</p>
+<p>A <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> is considered empty if its length is <code>nil</code> or zero.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">byterange <span class="o">=</span> <span class="t">ByteRange</span>.new
 byterange.empty? <span class="c"># =&gt; true</span>
 byterange <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">0</span>)
 byterange.empty? <span class="c"># =&gt; true</span>
@@ -645,6 +691,11 @@ byterange.empty? <span class="c"># =&gt; false</span></code></pre>
         <a class="method-permalink" href="#length%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The length of the sub-range in bytes.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -658,6 +709,11 @@ byterange.empty? <span class="c"># =&gt; false</span></code></pre>
 
         <a class="method-permalink" href="#length%3D%28length%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The length of the sub-range in bytes.</p>
+        </div>
       
       <br/>
       <div>
@@ -673,6 +729,11 @@ byterange.empty? <span class="c"># =&gt; false</span></code></pre>
         <a class="method-permalink" href="#start%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The start of the sub-range as a byte offset from the beginning of the resource.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -686,6 +747,11 @@ byterange.empty? <span class="c"># =&gt; false</span></code></pre>
 
         <a class="method-permalink" href="#start%3D%28start%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The start of the sub-range as a byte offset from the beginning of the resource.</p>
+        </div>
       
       <br/>
       <div>
@@ -703,7 +769,11 @@ byterange.empty? <span class="c"># =&gt; false</span></code></pre>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">byterange <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
+          <p>Returns a string representation of the <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>.</p>
+<p>The representation is the length, followed by the start (if provided)
+separated by an <code>@</code>.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">byterange <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
 byterange.to_s <span class="c"># =&gt; &quot;4500@600&quot;</span>
 byterange <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>)
 byterange.to_s <span class="c"># =&gt; &quot;4500&quot;</span>

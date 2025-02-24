@@ -200,7 +200,25 @@
     Overview
   </h2>
 
-  <p>DateRangeItem represents a #EXT-X-DATERANGE tag</p>
+  <p><code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code> encapsulates an <code>EXT-X-DATERANGE</code> tag in an HLS playlist.</p>
+<p>As defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.7">RFC 8216, Section 4.3.2.7</a>,
+the <code>XT-X-DATERANGE</code> tag is used to associate a specific date range with a collection of
+attribute/value pairs. It is typically used for signaling events
+such as ad insertion, content segmentation, or SCTE-35 splice points.</p>
+<p>Example tag format:</p>
+<pre><code class="language-txt">#EXT-X-DATERANGE:ID=&quot;...&quot;,CLASS=&quot;...&quot;,START-DATE=&quot;...&quot;,END-DATE=&quot;...&quot;,...</code></pre>
+<p>The <code>EXT-X-DATERANGE</code> tag stores the following attributes:</p>
+<ul>
+<li><strong>ID</strong> (required): A unique identifier for the date range.</li>
+<li><strong>CLASS</strong> (optional): A client-defined category for the date range.</li>
+<li><strong>START-DATE</strong> (required): The starting date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</li>
+<li><strong>END-DATE</strong> (optional): The ending date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</li>
+<li><strong>DURATION</strong> (optional): The duration of the date range, in seconds.</li>
+<li><strong>PLANNED-DURATION</strong> (optional): The expected duration, in seconds.</li>
+<li><strong>SCTE35-CMD, SCTE35-OUT, SCTE35-IN</strong> (optional): Attributes carrying SCTE-35 splice data.</li>
+<li><strong>END-ON-NEXT</strong> (optional): A boolean flag that, if true, outputs <code>&quot;END-ON-NEXT=YES&quot;</code>.</li>
+<li><strong>Client-specific attributes</strong> (optional): Any additional attributes with keys starting with <code>X-</code>.</li>
+</ul>
 
 
 
@@ -275,14 +293,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {   id:                &quot;test_id&quot;,   start_date:        &quot;2014-03-05T11:15:00Z&quot;,   class_name:        &quot;test_class&quot;,   end_date:          &quot;2014-03-05T11:16:00Z&quot;,   duration:          60.1,   planned_duration:  59.993,   scte35_out:        &quot;0xFC002F0000000000FF0&quot;,   scte35_in:         &quot;0xFC002F0000000000FF1&quot;,   scte35_cmd:        &quot;0xFC002F0000000000FF2&quot;,   end_on_next:       true,   client_attributes: {&quot;X-CUSTOM&quot; =&gt; 45.3}, } <a href="../M3U8/DateRangeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">DateRangeItem.new(options)</a></code></p></div>
+          <div class="summary"><p>Creates a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code> from a NamedTuple of parameters.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28id%3ANil%7CString%3Dnil%2Cstart_date%3ANil%7CString%3Dnil%2Cclass_name%3ANil%7CString%3Dnil%2Cend_date%3ANil%7CString%3Dnil%2Cduration%3AFloat64%7CNil%3Dnil%2Cplanned_duration%3AFloat64%7CNil%3Dnil%2Cscte35_cmd%3ANil%7CString%3Dnil%2Cscte35_out%3ANil%7CString%3Dnil%2Cscte35_in%3ANil%7CString%3Dnil%2Cend_on_next%3ABool%7CNil%3Dnil%2Cclient_attributes%3Dnil%29-class-method" class="signature"><strong>.new</strong>(id : Nil | String = <span class="n">nil</span>, start_date : Nil | String = <span class="n">nil</span>, class_name : Nil | String = <span class="n">nil</span>, end_date : Nil | String = <span class="n">nil</span>, duration : Float64 | Nil = <span class="n">nil</span>, planned_duration : Float64 | Nil = <span class="n">nil</span>, scte35_cmd : Nil | String = <span class="n">nil</span>, scte35_out : Nil | String = <span class="n">nil</span>, scte35_in : Nil | String = <span class="n">nil</span>, end_on_next : Bool | Nil = <span class="n">nil</span>, client_attributes = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/DateRangeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">DateRangeItem.new</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code> instance.</p></div>
         
       </li>
     
@@ -301,9 +319,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
+        <a href="#parse%28text%3AString%29-class-method" class="signature"><strong>.parse</strong>(text : String)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,) \        %(START-DATE=&quot;2014-03-05T11:15:00Z&quot;,END-DATE=&quot;2014-03-05T11:16:00Z&quot;,) \        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \        %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES) <a href="../M3U8/DateRangeItem.html#parse%28text%29-class-method">DateRangeItem.parse(text)</a></code></p></div>
+          <div class="summary"><p>Parses a complete <code>EXT-X-DATERANGE</code> tag line and returns a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code>.</p></div>
         
       </li>
     
@@ -326,117 +344,161 @@
       <li class="entry-summary">
         <a href="#class_name%3AString%7CNil-instance-method" class="signature"><strong>#class_name</strong> : String | Nil</a>
         
+          <div class="summary"><p>A client-defined category for the date range.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#class_name%3D%28class_name%3AString%7CNil%29-instance-method" class="signature"><strong>#class_name=</strong>(class_name : String | Nil)</a>
+        
+          <div class="summary"><p>A client-defined category for the date range.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#client_attributes%3AClientAttributeType-instance-method" class="signature"><strong>#client_attributes</strong> : ClientAttributeType</a>
         
+          <div class="summary"><p>Client-specific attributes (those whose keys start with <code>X-</code>).</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#client_attributes%3D%28client_attributes%3AClientAttributeType%29-instance-method" class="signature"><strong>#client_attributes=</strong>(client_attributes : ClientAttributeType)</a>
+        
+          <div class="summary"><p>Client-specific attributes (those whose keys start with <code>X-</code>).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#duration%3AFloat64%7CNil-instance-method" class="signature"><strong>#duration</strong> : Float64 | Nil</a>
         
+          <div class="summary"><p>The duration in seconds.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#duration%3D%28duration%3AFloat64%7CNil%29-instance-method" class="signature"><strong>#duration=</strong>(duration : Float64 | Nil)</a>
+        
+          <div class="summary"><p>The duration in seconds.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#end_date%3AString%7CNil-instance-method" class="signature"><strong>#end_date</strong> : String | Nil</a>
         
+          <div class="summary"><p>The end date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#end_date%3D%28end_date%3AString%7CNil%29-instance-method" class="signature"><strong>#end_date=</strong>(end_date : String | Nil)</a>
+        
+          <div class="summary"><p>The end date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#end_on_next%3ABool%7CNil-instance-method" class="signature"><strong>#end_on_next</strong> : Bool | Nil</a>
         
+          <div class="summary"><p>A boolean flag; if true, outputs <code>&quot;END-ON-NEXT=YES&quot;</code>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#end_on_next%3D%28end_on_next%3ABool%7CNil%29-instance-method" class="signature"><strong>#end_on_next=</strong>(end_on_next : Bool | Nil)</a>
+        
+          <div class="summary"><p>A boolean flag; if true, outputs <code>&quot;END-ON-NEXT=YES&quot;</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#id%3AString%7CNil-instance-method" class="signature"><strong>#id</strong> : String | Nil</a>
         
+          <div class="summary"><p>A unique identifier for the date range.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#id%3D%28id%3AString%7CNil%29-instance-method" class="signature"><strong>#id=</strong>(id : String | Nil)</a>
+        
+          <div class="summary"><p>A unique identifier for the date range.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#planned_duration%3AFloat64%7CNil-instance-method" class="signature"><strong>#planned_duration</strong> : Float64 | Nil</a>
         
+          <div class="summary"><p>The expected duration in seconds.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#planned_duration%3D%28planned_duration%3AFloat64%7CNil%29-instance-method" class="signature"><strong>#planned_duration=</strong>(planned_duration : Float64 | Nil)</a>
+        
+          <div class="summary"><p>The expected duration in seconds.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_cmd%3AString%7CNil-instance-method" class="signature"><strong>#scte35_cmd</strong> : String | Nil</a>
         
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_cmd%3D%28scte35_cmd%3AString%7CNil%29-instance-method" class="signature"><strong>#scte35_cmd=</strong>(scte35_cmd : String | Nil)</a>
+        
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_in%3AString%7CNil-instance-method" class="signature"><strong>#scte35_in</strong> : String | Nil</a>
         
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_in%3D%28scte35_in%3AString%7CNil%29-instance-method" class="signature"><strong>#scte35_in=</strong>(scte35_in : String | Nil)</a>
+        
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_out%3AString%7CNil-instance-method" class="signature"><strong>#scte35_out</strong> : String | Nil</a>
         
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#scte35_out%3D%28scte35_out%3AString%7CNil%29-instance-method" class="signature"><strong>#scte35_out=</strong>(scte35_out : String | Nil)</a>
+        
+          <div class="summary"><p>SCTE-35 splice information.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#start_date%3AString%7CNil-instance-method" class="signature"><strong>#start_date</strong> : String | Nil</a>
         
+          <div class="summary"><p>The start date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#start_date%3D%28start_date%3AString%7CNil%29-instance-method" class="signature"><strong>#start_date=</strong>(start_date : String | Nil)</a>
+        
+          <div class="summary"><p>The start date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   id:                &quot;test_id&quot;,   start_date:        &quot;2014-03-05T11:15:00Z&quot;,   class_name:        &quot;test_class&quot;,   end_date:          &quot;2014-03-05T11:16:00Z&quot;,   duration:          60.1,   planned_duration:  59.993,   scte35_out:        &quot;0xFC002F0000000000FF0&quot;,   scte35_in:         &quot;0xFC002F0000000000FF1&quot;,   scte35_cmd:        &quot;0xFC002F0000000000FF2&quot;,   end_on_next:       true,   client_attributes: {&quot;X-CUSTOM&quot; =&gt; 45.3}, } <a href="../M3U8/DateRangeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">DateRangeItem.new(options)</a><a href="../M3U8/DateRangeItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,) \ %(START-DATE=&quot;2014-03-05T11:15:00Z&quot;,END-DATE=&quot;2014-03-05T11:16:00Z&quot;,) \ %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \ %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \ %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-DATERANGE</code> tag.</p></div>
         
       </li>
     
@@ -507,7 +569,23 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Creates a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code> from a NamedTuple of parameters.</p>
+<p>The NamedTuple keys should match the attribute names (using symbols):</p>
+<ul>
+<li><code><a href="../M3U8/DateRangeItem.html#id%3AString%7CNil-instance-method">#id</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#start_date%3AString%7CNil-instance-method">#start_date</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#class_name%3AString%7CNil-instance-method">#class_name</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#end_date%3AString%7CNil-instance-method">#end_date</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#planned_duration%3AFloat64%7CNil-instance-method">#planned_duration</a></code>,</li>
+<li><code><a href="../M3U8/DateRangeItem.html#scte35_cmd%3AString%7CNil-instance-method">#scte35_cmd</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#scte35_out%3AString%7CNil-instance-method">#scte35_out</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#scte35_in%3AString%7CNil-instance-method">#scte35_in</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#end_on_next%3ABool%7CNil-instance-method">#end_on_next</a></code></li>
+<li><code><a href="../M3U8/DateRangeItem.html#client_attributes%3AClientAttributeType-instance-method">#client_attributes</a></code>.</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   id:                <span class="s">&quot;test_id&quot;</span>,
   start_date:        <span class="s">&quot;2014-03-05T11:15:00Z&quot;</span>,
   class_name:        <span class="s">&quot;test_class&quot;</span>,
@@ -520,7 +598,19 @@
   end_on_next:       <span class="n">true</span>,
   client_attributes: {<span class="s">&quot;X-CUSTOM&quot;</span> <span class="o">=&gt;</span> <span class="n">45.3</span>},
 }
-<span class="t">DateRangeItem</span>.new(options)</code></pre>
+<span class="t">DateRangeItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::DateRangeItem:0x7d6bff706f00</span>
+<span class="c">#     @class_name=&quot;test_class&quot;,</span>
+<span class="c">#     @client_attributes={&quot;X-CUSTOM&quot; =&gt; 45.3},</span>
+<span class="c">#     @duration=60.1,</span>
+<span class="c">#     @end_date=&quot;2014-03-05T11:16:00Z&quot;,</span>
+<span class="c">#     @end_on_next=true,</span>
+<span class="c">#     @id=&quot;test_id&quot;,</span>
+<span class="c">#     @planned_duration=59.993,</span>
+<span class="c">#     @scte35_cmd=&quot;0xFC002F0000000000FF2&quot;,</span>
+<span class="c">#     @scte35_in=&quot;0xFC002F0000000000FF1&quot;,</span>
+<span class="c">#     @scte35_out=&quot;0xFC002F0000000000FF0&quot;,</span>
+<span class="c">#     @start_date=&quot;2014-03-05T11:15:00Z&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -539,7 +629,10 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">DateRangeItem</span>.new</code></pre>
+          <p>Initializes a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code> instance.</p>
+<p>The instance variables are directly set from the constructor arguments.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">DateRangeItem</span>.new</code></pre>
         </div>
       
       <br/>
@@ -560,22 +653,38 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="parse(text)-class-method">
+    <div class="entry-detail" id="parse(text:String)-class-method">
       <div class="signature">
         
-        def self.<strong>parse</strong>(text)
+        def self.<strong>parse</strong>(text : String)
 
-        <a class="method-permalink" href="#parse%28text%29-class-method">#</a>
+        <a class="method-permalink" href="#parse%28text%3AString%29-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,)</span> \
-       <span class="s">%(START-DATE=&quot;2014-03-05T11:15:00Z&quot;,END-DATE=&quot;2014-03-05T11:16:00Z&quot;,)</span> \
-       <span class="s">%(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,)</span> \
-       <span class="s">%(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,)</span> \
-       <span class="s">%(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)</span>
-<span class="t">DateRangeItem</span>.parse(text)</code></pre>
+          <p>Parses a complete <code>EXT-X-DATERANGE</code> tag line and returns a new <code><a href="../M3U8/DateRangeItem.html">DateRangeItem</a></code>.</p>
+<p>The tag line is expected to follow the format defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a>:</p>
+<pre><code class="language-txt">  #EXT-X-DATERANGE:ID=&quot;...&quot;,CLASS=&quot;...&quot;,START-DATE=&quot;...&quot;,END-DATE=&quot;...&quot;,...</code></pre>
+<p>Examples:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,\
+       START-DATE=&quot;2014-03-05T11:15:00Z&quot;,END-DATE=&quot;2014-03-05T11:16:00Z&quot;,\
+       DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,\
+       SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,\
+       SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)</span>
+<span class="t">DateRangeItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::DateRangeItem:0x7d6bff706f00</span>
+<span class="c">#     @class_name=&quot;test_class&quot;,</span>
+<span class="c">#     @client_attributes={&quot;X-CUSTOM&quot; =&gt; 45.3},</span>
+<span class="c">#     @duration=60.1,</span>
+<span class="c">#     @end_date=&quot;2014-03-05T11:16:00Z&quot;,</span>
+<span class="c">#     @end_on_next=true,</span>
+<span class="c">#     @id=&quot;test_id&quot;,</span>
+<span class="c">#     @planned_duration=59.993,</span>
+<span class="c">#     @scte35_cmd=&quot;0xFC002F0000000000FF2&quot;,</span>
+<span class="c">#     @scte35_in=&quot;0xFC002F0000000000FF1&quot;,</span>
+<span class="c">#     @scte35_out=&quot;0xFC002F0000000000FF0&quot;,</span>
+<span class="c">#     @start_date=&quot;2014-03-05T11:15:00Z&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -606,6 +715,11 @@
         <a class="method-permalink" href="#class_name%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>A client-defined category for the date range.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -619,6 +733,11 @@
 
         <a class="method-permalink" href="#class_name%3D%28class_name%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>A client-defined category for the date range.</p>
+        </div>
       
       <br/>
       <div>
@@ -634,6 +753,11 @@
         <a class="method-permalink" href="#client_attributes%3AClientAttributeType-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Client-specific attributes (those whose keys start with <code>X-</code>).</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -647,6 +771,11 @@
 
         <a class="method-permalink" href="#client_attributes%3D%28client_attributes%3AClientAttributeType%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Client-specific attributes (those whose keys start with <code>X-</code>).</p>
+        </div>
       
       <br/>
       <div>
@@ -662,6 +791,11 @@
         <a class="method-permalink" href="#duration%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The duration in seconds.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -675,6 +809,11 @@
 
         <a class="method-permalink" href="#duration%3D%28duration%3AFloat64%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The duration in seconds.</p>
+        </div>
       
       <br/>
       <div>
@@ -690,6 +829,11 @@
         <a class="method-permalink" href="#end_date%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The end date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -703,6 +847,11 @@
 
         <a class="method-permalink" href="#end_date%3D%28end_date%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The end date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p>
+        </div>
       
       <br/>
       <div>
@@ -718,6 +867,11 @@
         <a class="method-permalink" href="#end_on_next%3ABool%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>A boolean flag; if true, outputs <code>&quot;END-ON-NEXT=YES&quot;</code>.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -731,6 +885,11 @@
 
         <a class="method-permalink" href="#end_on_next%3D%28end_on_next%3ABool%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>A boolean flag; if true, outputs <code>&quot;END-ON-NEXT=YES&quot;</code>.</p>
+        </div>
       
       <br/>
       <div>
@@ -746,6 +905,11 @@
         <a class="method-permalink" href="#id%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>A unique identifier for the date range.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -759,6 +923,11 @@
 
         <a class="method-permalink" href="#id%3D%28id%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>A unique identifier for the date range.</p>
+        </div>
       
       <br/>
       <div>
@@ -774,6 +943,11 @@
         <a class="method-permalink" href="#planned_duration%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The expected duration in seconds.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -787,6 +961,11 @@
 
         <a class="method-permalink" href="#planned_duration%3D%28planned_duration%3AFloat64%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The expected duration in seconds.</p>
+        </div>
       
       <br/>
       <div>
@@ -802,6 +981,11 @@
         <a class="method-permalink" href="#scte35_cmd%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -815,6 +999,11 @@
 
         <a class="method-permalink" href="#scte35_cmd%3D%28scte35_cmd%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
       
       <br/>
       <div>
@@ -830,6 +1019,11 @@
         <a class="method-permalink" href="#scte35_in%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -843,6 +1037,11 @@
 
         <a class="method-permalink" href="#scte35_in%3D%28scte35_in%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
       
       <br/>
       <div>
@@ -858,6 +1057,11 @@
         <a class="method-permalink" href="#scte35_out%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -871,6 +1075,11 @@
 
         <a class="method-permalink" href="#scte35_out%3D%28scte35_out%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>SCTE-35 splice information.</p>
+        </div>
       
       <br/>
       <div>
@@ -886,6 +1095,11 @@
         <a class="method-permalink" href="#start_date%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The start date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -899,6 +1113,11 @@
 
         <a class="method-permalink" href="#start_date%3D%28start_date%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The start date/time in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> format.</p>
+        </div>
       
       <br/>
       <div>
@@ -916,7 +1135,12 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Returns the string representation of the <code>EXT-X-DATERANGE</code> tag.</p>
+<p>The output is constructed by concatenating all formatted attribute strings
+(e.g. ID, CLASS, START-DATE, etc.) separated by commas, and prefixed with
+<code>#EXT-X-DATERANGE:</code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   id:                <span class="s">&quot;test_id&quot;</span>,
   start_date:        <span class="s">&quot;2014-03-05T11:15:00Z&quot;</span>,
   class_name:        <span class="s">&quot;test_class&quot;</span>,
@@ -930,11 +1154,11 @@
   client_attributes: {<span class="s">&quot;X-CUSTOM&quot;</span> <span class="o">=&gt;</span> <span class="n">45.3</span>},
 }
 <span class="t">DateRangeItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,) \</span>
-<span class="s">%(START-DATE=&quot;2014-03-05T11:15:00Z&quot;,END-DATE=&quot;2014-03-05T11:16:00Z&quot;,)</span> \
-<span class="s">%(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,)</span> \
-<span class="s">%(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,)</span> \
-<span class="s">%(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)</span></code></pre>
+<span class="c"># =&gt; #(EXT-X-DATERANGE:ID=&quot;test_id&quot;,CLASS=&quot;test_class&quot;,START-DATE=&quot;2014-03-05T11:15:00Z&quot;,</span>
+<span class="c">#      END-DATE=&quot;2014-03-05T11:16:00Z&quot;,DURATION=60.1,PLANNED-DURATION=59.993,</span>
+<span class="c">#      X-CUSTOM=&quot;45.3&quot;,SCTE35-CMD=0xFC002F0000000000FF2,</span>
+<span class="c">#      SCTE35-OUT=0xFC002F0000000000FF0,SCTE35-IN=0xFC002F0000000000FF1,</span>
+<span class="c">#      END-ON-NEXT=YES)</span></code></pre>
         </div>
       
       <br/>

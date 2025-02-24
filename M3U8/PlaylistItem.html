@@ -200,8 +200,95 @@
     Overview
   </h2>
 
-  <p>PlaylistItem represents a set of EXT-X-STREAM-INF or
-EXT-X-I-FRAME-STREAM-INF attributes</p>
+  <p><code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> represents a set of attributes for either the <code>EXT-X-STREAM-INF</code> or
+<code>EXT-X-I-FRAME-STREAM-INF</code> tag in an HLS playlist.</p>
+<p>In HLS, as specified in <a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a>:</p>
+<ul>
+<li>The <code>EXT-X-STREAM-INF</code> tag (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>) defines a Variant Stream and its
+associated attributes (e.g., PROGRAM-ID, RESOLUTION, CODECS, BANDWIDTH, etc.).</li>
+<li>The <code>EXT-X-I-FRAME-STREAM-INF</code> tag (<code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> is true) (also described in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a>) is used for
+streams that contain only I-frames, useful for trick play (fast forward, reverse, etc.).</li>
+</ul>
+<p>This class encapsulates the following properties:</p>
+<ul>
+<li><code><a href="../M3U8/PlaylistItem.html#program_id%3AInt32%7CNil-instance-method">#program_id</a></code>:         The program identifier from the tag.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#width%3AInt32%7CNil-instance-method">#width</a></code>, <code><a href="../M3U8/PlaylistItem.html#height%3AInt32%7CNil-instance-method">#height</a></code>:    The resolution of the video (extracted from RESOLUTION).</li>
+<li><code><a href="../M3U8/PlaylistItem.html#bandwidth%3AInt32%7CNil-instance-method">#bandwidth</a></code>:          The peak segment bit rate.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#average_bandwidth%3AInt32%7CNil-instance-method">#average_bandwidth</a></code>:  The average segment bit rate.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#frame_rate%3AFloat64%7CNil-instance-method">#frame_rate</a></code>:         The maximum frame rate of the video.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#video%3AString%7CNil-instance-method">#video</a></code>:              The group identifier (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) for video renditions.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#audio%3AString%7CNil-instance-method">#audio</a></code>:              The group identifier (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) for audio renditions.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#uri%3AString%7CNil-instance-method">#uri</a></code>:                The URI pointing to the Media Playlist for this variant.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#subtitles%3AString%7CNil-instance-method">#subtitles</a></code>:          The group identifier (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) for subtitles.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#closed_captions%3AString%7CNil-instance-method">#closed_captions</a></code>:    The closed captions setting (either a value or &quot;NONE&quot;).</li>
+<li><code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code>:             A boolean flag indicating whether this is an I-frame stream.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#name%3AString%7CNil-instance-method">#name</a></code>:               A human-readable name for the variant.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#hdcp_level%3AString%7CNil-instance-method">#hdcp_level</a></code>:         The HDCP level requirement.</li>
+<li><code><a href="../M3U8/PlaylistItem.html#codecs%3ACodecs-instance-method">#codecs</a></code>:             A <code><a href="../M3U8/Codecs.html">Codecs</a></code> object representing the codec information.</li>
+</ul>
+<p>Examples:</p>
+<p>Creating a <code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> using a NamedTuple:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  program_id:        <span class="n">1</span>,
+  width:             <span class="n">1920</span>,
+  height:            <span class="n">1080</span>,
+  bandwidth:         <span class="n">540</span>,
+  video:             <span class="s">&quot;test_video&quot;</span>,
+  audio:             <span class="s">&quot;test_a&quot;</span>,
+  uri:               <span class="s">&quot;test.url&quot;</span>,
+  average_bandwidth: <span class="n">500</span>,
+  subtitles:         <span class="s">&quot;subs&quot;</span>,
+  closed_captions:   <span class="s">&quot;cc&quot;</span>,
+  iframe:            <span class="n">true</span>,
+  frame_rate:        <span class="n">24.6</span>,
+  name:              <span class="s">&quot;test_name&quot;</span>,
+  hdcp_level:        <span class="s">&quot;TYPE-0&quot;</span>,
+  codecs:            <span class="s">&quot;avc&quot;</span>,
+  audio_codec:       <span class="s">&quot;mp3&quot;</span>,
+  level:             <span class="s">&quot;2&quot;</span>,
+  profile:           <span class="s">&quot;baseline&quot;</span>,
+}
+item <span class="o">=</span> <span class="t">PlaylistItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::PlaylistItem:0x78ae1a50dc00</span>
+<span class="c">#     @audio=&quot;test_a&quot;,</span>
+<span class="c">#     @average_bandwidth=500,</span>
+<span class="c">#     @bandwidth=540,</span>
+<span class="c">#     @closed_captions=&quot;cc&quot;,</span>
+<span class="c">#     @codecs=#&lt;M3U8::Codecs:0x78ae1a4bc440 @audio_codec=&quot;mp3&quot;, @codecs=&quot;avc&quot;, @level=2.0, @profile=&quot;baseline&quot;&gt;,</span>
+<span class="c">#     @frame_rate=24.6,</span>
+<span class="c">#     @hdcp_level=&quot;TYPE-0&quot;,</span>
+<span class="c">#     @height=1080,</span>
+<span class="c">#     @iframe=true,</span>
+<span class="c">#     @name=&quot;test_name&quot;,</span>
+<span class="c">#     @program_id=1,</span>
+<span class="c">#     @subtitles=&quot;subs&quot;,</span>
+<span class="c">#     @uri=&quot;test.url&quot;,</span>
+<span class="c">#     @video=&quot;test_video&quot;,</span>
+<span class="c">#     @width=1920&gt;</span>
+
+item.to_s
+<span class="c"># =&gt; &quot;#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=\&quot;avc\&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=\&quot;test_a\&quot;,VIDEO=\&quot;test_video\&quot;,SUBTITLES=\&quot;subs\&quot;,CLOSED-CAPTIONS=\&quot;cc\&quot;,NAME=\&quot;test_name\&quot;,URI=\&quot;test.url\&quot;&quot;</span></code></pre>
+<p>Parsing a text string representing a stream info tag:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=&quot;avc&quot;,BANDWIDTH=540,
+         AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=&quot;test_a&quot;,
+         VIDEO=&quot;test_video&quot;,SUBTITLES=&quot;subs&quot;,CLOSED-CAPTIONS=&quot;cc&quot;,NAME=&quot;test_name&quot;,URI=&quot;test.url&quot;)</span>
+<span class="t">PlaylistItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::PlaylistItem:0x78539d754b40</span>
+<span class="c">#     @audio=&quot;test_a&quot;,</span>
+<span class="c">#     @average_bandwidth=500,</span>
+<span class="c">#     @bandwidth=540,</span>
+<span class="c">#     @closed_captions=&quot;cc&quot;,</span>
+<span class="c">#     @codecs=#&lt;M3U8::Codecs:0x78539d7032c0 @audio_codec=nil, @codecs=&quot;avc&quot;, @level=nil, @profile=nil&gt;,</span>
+<span class="c">#     @frame_rate=24.6,</span>
+<span class="c">#     @hdcp_level=&quot;TYPE-0&quot;,</span>
+<span class="c">#     @height=1080,</span>
+<span class="c">#     @iframe=false,</span>
+<span class="c">#     @name=&quot;test_name&quot;,</span>
+<span class="c">#     @program_id=1,</span>
+<span class="c">#     @subtitles=&quot;subs&quot;,</span>
+<span class="c">#     @uri=&quot;test.url&quot;,</span>
+<span class="c">#     @video=&quot;test_video&quot;,</span>
+<span class="c">#     @width=1920&gt;</span></code></pre>
 
 
 
@@ -276,14 +363,14 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {   program_id:        1,   width:             1920,   height:            1080,   bandwidth:         540,   video:             &quot;test_video&quot;,   audio:             &quot;test_a&quot;,   uri:               &quot;test.url&quot;,   average_bandwidth: 500,   subtitles:         &quot;subs&quot;,   closed_captions:   &quot;cc&quot;,   iframe:            true,   frame_rate:        24.6,   name:              &quot;test_name&quot;,   hdcp_level:        &quot;TYPE-0&quot;,   codecs:            &quot;avc&quot;,   audio_codec:       &quot;mp3&quot;,   level:             &quot;2&quot;,   profile:           &quot;baseline&quot;, } <a href="../M3U8/PlaylistItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaylistItem.new(options)</a></code></p></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> instance from a NamedTuple.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28program_id%3Dnil%2Cwidth%3AInt32%7CNil%3Dnil%2Cheight%3AInt32%7CNil%3Dnil%2Cbandwidth%3AInt32%7CNil%3Dnil%2Cvideo%3ANil%7CString%3Dnil%2Caudio%3ANil%7CString%3Dnil%2Curi%3ANil%7CString%3Dnil%2Caverage_bandwidth%3AInt32%7CNil%3Dnil%2Csubtitles%3ANil%7CString%3Dnil%2Cclosed_captions%3ANil%7CString%3Dnil%2Ciframe%3Dnil%2Cframe_rate%3Dnil%2Cname%3ANil%7CString%3Dnil%2Chdcp_level%3ANil%7CString%3Dnil%2Ccodecs%3Dnil%2Caudio_codec%3Dnil%2Clevel%3Dnil%2Cprofile%3Dnil%29-class-method" class="signature"><strong>.new</strong>(program_id = <span class="n">nil</span>, width : Int32 | Nil = <span class="n">nil</span>, height : Int32 | Nil = <span class="n">nil</span>, bandwidth : Int32 | Nil = <span class="n">nil</span>, video : Nil | String = <span class="n">nil</span>, audio : Nil | String = <span class="n">nil</span>, uri : Nil | String = <span class="n">nil</span>, average_bandwidth : Int32 | Nil = <span class="n">nil</span>, subtitles : Nil | String = <span class="n">nil</span>, closed_captions : Nil | String = <span class="n">nil</span>, iframe = <span class="n">nil</span>, frame_rate = <span class="n">nil</span>, name : Nil | String = <span class="n">nil</span>, hdcp_level : Nil | String = <span class="n">nil</span>, codecs = <span class="n">nil</span>, audio_codec = <span class="n">nil</span>, level = <span class="n">nil</span>, profile = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/PlaylistItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaylistItem.new</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> instance.</p></div>
         
       </li>
     
@@ -304,7 +391,7 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       <li class="entry-summary">
         <a href="#parse%28value%29-class-method" class="signature"><strong>.parse</strong>(value)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,) \        %(CODECS=&quot;avc&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500,) \        %(FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=&quot;test_a&quot;,) \        %(VIDEO=&quot;test_video&quot;,SUBTITLES=&quot;subs&quot;,CLOSED-CAPTIONS=&quot;cc&quot;,) \        %(NAME=&quot;test_name&quot;,URI=&quot;test.url&quot;) <a href="../M3U8/PlaylistItem.html#parse%28value%29-class-method">PlaylistItem.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/PlaylistItem.html">M3U8::PlaylistItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a text string representing an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p></div>
         
       </li>
     
@@ -327,164 +414,224 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       <li class="entry-summary">
         <a href="#audio%3AString%7CNil-instance-method" class="signature"><strong>#audio</strong> : String | Nil</a>
         
+          <div class="summary"><p>The AUDIO attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to AUDIO) in the Master Playlist.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#audio%3D%28audio%3AString%7CNil%29-instance-method" class="signature"><strong>#audio=</strong>(audio : String | Nil)</a>
+        
+          <div class="summary"><p>The AUDIO attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to AUDIO) in the Master Playlist.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#average_bandwidth%3AInt32%7CNil-instance-method" class="signature"><strong>#average_bandwidth</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>The AVERAGE-BANDWIDTH attribute represents the average segment bit rate of the Variant Stream, expressed as a decimal integer in bits per second.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#average_bandwidth%3D%28average_bandwidth%3AInt32%7CNil%29-instance-method" class="signature"><strong>#average_bandwidth=</strong>(average_bandwidth : Int32 | Nil)</a>
+        
+          <div class="summary"><p>The AVERAGE-BANDWIDTH attribute represents the average segment bit rate of the Variant Stream, expressed as a decimal integer in bits per second.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#bandwidth%3AInt32%7CNil-instance-method" class="signature"><strong>#bandwidth</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the BANDWIDTH attribute in an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag is a decimal integer (in bits per second) that represents the peak segment bit rate of the Variant Stream.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#bandwidth%3D%28bandwidth%3AInt32%7CNil%29-instance-method" class="signature"><strong>#bandwidth=</strong>(bandwidth : Int32 | Nil)</a>
+        
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the BANDWIDTH attribute in an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag is a decimal integer (in bits per second) that represents the peak segment bit rate of the Variant Stream.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#closed_captions%3AString%7CNil-instance-method" class="signature"><strong>#closed_captions</strong> : String | Nil</a>
         
+          <div class="summary"><p>The CLOSED-CAPTIONS attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, indicates the availability of closed captioning for a Variant Stream in an HLS Master Playlist.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#closed_captions%3D%28closed_captions%3AString%7CNil%29-instance-method" class="signature"><strong>#closed_captions=</strong>(closed_captions : String | Nil)</a>
+        
+          <div class="summary"><p>The CLOSED-CAPTIONS attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, indicates the availability of closed captioning for a Variant Stream in an HLS Master Playlist.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#codecs%3ACodecs-instance-method" class="signature"><strong>#codecs</strong> : Codecs</a>
         
+          <div class="summary"><p>This property holds a <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance that encapsulates the <em>CODECS</em> attribute for a Variant Stream in an HLS playlist.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#codecs%3D%28codecs%3ACodecs%29-instance-method" class="signature"><strong>#codecs=</strong>(codecs : Codecs)</a>
+        
+          <div class="summary"><p>This property holds a <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance that encapsulates the <em>CODECS</em> attribute for a Variant Stream in an HLS playlist.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#frame_rate%3AFloat64%7CNil-instance-method" class="signature"><strong>#frame_rate</strong> : Float64 | Nil</a>
         
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the FRAME-RATE attribute specifies the maximum frame rate (in frames per second) for all video in the Variant Stream.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#frame_rate%3D%28frame_rate%3AFloat64%7CNil%29-instance-method" class="signature"><strong>#frame_rate=</strong>(frame_rate : Float64 | Nil)</a>
+        
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the FRAME-RATE attribute specifies the maximum frame rate (in frames per second) for all video in the Variant Stream.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#hdcp_level%3AString%7CNil-instance-method" class="signature"><strong>#hdcp_level</strong> : String | Nil</a>
         
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the HDCP-LEVEL attribute is defined as an enumerated-string indicating the required level of High-bandwidth Digital Content Protection (HDCP) for a Variant Stream.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#hdcp_level%3D%28hdcp_level%3AString%7CNil%29-instance-method" class="signature"><strong>#hdcp_level=</strong>(hdcp_level : String | Nil)</a>
+        
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the HDCP-LEVEL attribute is defined as an enumerated-string indicating the required level of High-bandwidth Digital Content Protection (HDCP) for a Variant Stream.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#height%3AInt32%7CNil-instance-method" class="signature"><strong>#height</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the RESOLUTION attribute specifies the optimal pixel resolution at which to display all the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#height%3D%28height%3AInt32%7CNil%29-instance-method" class="signature"><strong>#height=</strong>(height : Int32 | Nil)</a>
+        
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the RESOLUTION attribute specifies the optimal pixel resolution at which to display all the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#iframe%3ABool-instance-method" class="signature"><strong>#iframe</strong> : Bool</a>
         
+          <div class="summary"><p>Indicates whether the playlist should use an I-frame only stream tag.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#iframe%3D%28iframe%3ABool%29-instance-method" class="signature"><strong>#iframe=</strong>(iframe : Bool)</a>
+        
+          <div class="summary"><p>Indicates whether the playlist should use an I-frame only stream tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#name%3AString%7CNil-instance-method" class="signature"><strong>#name</strong> : String | Nil</a>
         
+          <div class="summary"><p><span class="flag red">DEPRECATED</span>  Use in <code>EXT-X-MEDIA</code> tag, not in <code>EXT-X-STREAM-INF</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#name%3D%28name%3AString%7CNil%29-instance-method" class="signature"><strong>#name=</strong>(name : String | Nil)</a>
+        
+          <div class="summary"><p><span class="flag red">DEPRECATED</span>  Use in <code>EXT-X-MEDIA</code> tag, not in <code>EXT-X-STREAM-INF</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#program_id%3AInt32%7CNil-instance-method" class="signature"><strong>#program_id</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>The PROGRAM-ID attribute of the <code>EXT-X-STREAM-INF</code> and the <code>EXT-X-I-FRAME-STREAM-INF</code> tags was removed in protocol version 6.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#program_id%3D%28program_id%3AInt32%7CNil%29-instance-method" class="signature"><strong>#program_id=</strong>(program_id : Int32 | Nil)</a>
+        
+          <div class="summary"><p>The PROGRAM-ID attribute of the <code>EXT-X-STREAM-INF</code> and the <code>EXT-X-I-FRAME-STREAM-INF</code> tags was removed in protocol version 6.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#resolution-instance-method" class="signature"><strong>#resolution</strong></a>
         
-          <div class="summary"><p><code>options = {   width:  1920,   height: 1080, } item = <a href="../M3U8/PlaylistItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaylistItem.new(options)</a> item.resolution # =&gt; 1920x1080</code></p></div>
+          <div class="summary"><p>Returns the resolution in the format <code>&lt;width&gt;x&lt;height&gt;</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#subtitles%3AString%7CNil-instance-method" class="signature"><strong>#subtitles</strong> : String | Nil</a>
         
+          <div class="summary"><p>The SUBTITLES attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to SUBTITLES) in the Master Playlist.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#subtitles%3D%28subtitles%3AString%7CNil%29-instance-method" class="signature"><strong>#subtitles=</strong>(subtitles : String | Nil)</a>
+        
+          <div class="summary"><p>The SUBTITLES attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to SUBTITLES) in the Master Playlist.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><pre><code class="language-options"></code></pre></div>
+          <div class="summary"><p>Returns the string representation of the stream info tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3AString%7CNil-instance-method" class="signature"><strong>#uri</strong> : String | Nil</a>
         
+          <div class="summary"><p>As defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a>, the URI attribute for <code>EXT-X-I-FRAME-STREAM-INF</code> tags is a quoted-string containing a URI that identifies the I-frame Media Playlist file.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3D%28uri%3AString%7CNil%29-instance-method" class="signature"><strong>#uri=</strong>(uri : String | Nil)</a>
+        
+          <div class="summary"><p>As defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a>, the URI attribute for <code>EXT-X-I-FRAME-STREAM-INF</code> tags is a quoted-string containing a URI that identifies the I-frame Media Playlist file.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#video%3AString%7CNil-instance-method" class="signature"><strong>#video</strong> : String | Nil</a>
         
+          <div class="summary"><p>The VIDEO attribute, as specified in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is defined as a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag with TYPE set to VIDEO in the Master Playlist.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#video%3D%28video%3AString%7CNil%29-instance-method" class="signature"><strong>#video=</strong>(video : String | Nil)</a>
+        
+          <div class="summary"><p>The VIDEO attribute, as specified in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, is defined as a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag with TYPE set to VIDEO in the Master Playlist.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#width%3AInt32%7CNil-instance-method" class="signature"><strong>#width</strong> : Int32 | Nil</a>
         
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the RESOLUTION attribute specifies the optimal pixel resolution at which to display all the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#width%3D%28width%3AInt32%7CNil%29-instance-method" class="signature"><strong>#width=</strong>(width : Int32 | Nil)</a>
+        
+          <div class="summary"><p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>, the RESOLUTION attribute specifies the optimal pixel resolution at which to display all the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p></div>
         
       </li>
     
@@ -555,7 +702,13 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Constructs a new <code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> instance from a NamedTuple.</p>
+<p>The NamedTuple should contain keys corresponding to the tag attributes, such as:
+<code><a href="../M3U8/PlaylistItem.html#program_id%3AInt32%7CNil-instance-method">#program_id</a></code>, <code><a href="../M3U8/PlaylistItem.html#width%3AInt32%7CNil-instance-method">#width</a></code>, <code><a href="../M3U8/PlaylistItem.html#height%3AInt32%7CNil-instance-method">#height</a></code>, <code><a href="../M3U8/PlaylistItem.html#bandwidth%3AInt32%7CNil-instance-method">#bandwidth</a></code>, <code><a href="../M3U8/PlaylistItem.html#video%3AString%7CNil-instance-method">#video</a></code>, <code><a href="../M3U8/PlaylistItem.html#audio%3AString%7CNil-instance-method">#audio</a></code>, <code><a href="../M3U8/PlaylistItem.html#uri%3AString%7CNil-instance-method">#uri</a></code>,
+<code><a href="../M3U8/PlaylistItem.html#average_bandwidth%3AInt32%7CNil-instance-method">#average_bandwidth</a></code>, <code><a href="../M3U8/PlaylistItem.html#subtitles%3AString%7CNil-instance-method">#subtitles</a></code>, <code><a href="../M3U8/PlaylistItem.html#closed_captions%3AString%7CNil-instance-method">#closed_captions</a></code>, <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code>, <code><a href="../M3U8/PlaylistItem.html#frame_rate%3AFloat64%7CNil-instance-method">#frame_rate</a></code>,
+<code><a href="../M3U8/PlaylistItem.html#hdcp_level%3AString%7CNil-instance-method">#hdcp_level</a></code>, <code><a href="../M3U8/PlaylistItem.html#codecs%3ACodecs-instance-method">#codecs</a></code>, along with codec-related keys (<code><a href="../M3U8/Codecs.html#audio_codec%3AString%7CNil-instance-method">Codecs#audio_codec</a></code>, <code><a href="../M3U8/Codecs.html#level%3AFloat64%7CNil-instance-method">Codecs#level</a></code>, <code><a href="../M3U8/Codecs.html#profile%3AString%7CNil-instance-method">Codecs#profile</a></code>).</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   program_id:        <span class="n">1</span>,
   width:             <span class="n">1920</span>,
   height:            <span class="n">1080</span>,
@@ -568,14 +721,28 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
   closed_captions:   <span class="s">&quot;cc&quot;</span>,
   iframe:            <span class="n">true</span>,
   frame_rate:        <span class="n">24.6</span>,
-  name:              <span class="s">&quot;test_name&quot;</span>,
   hdcp_level:        <span class="s">&quot;TYPE-0&quot;</span>,
   codecs:            <span class="s">&quot;avc&quot;</span>,
   audio_codec:       <span class="s">&quot;mp3&quot;</span>,
   level:             <span class="s">&quot;2&quot;</span>,
   profile:           <span class="s">&quot;baseline&quot;</span>,
 }
-<span class="t">PlaylistItem</span>.new(options)</code></pre>
+<span class="t">PlaylistItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::PlaylistItem:0x7e7089b309c0</span>
+<span class="c">#     @audio=&quot;test_a&quot;,</span>
+<span class="c">#     @average_bandwidth=500,</span>
+<span class="c">#     @bandwidth=540,</span>
+<span class="c">#     @closed_captions=&quot;cc&quot;,</span>
+<span class="c">#     @codecs=#&lt;M3U8::Codecs:0x7e7089adf080 @audio_codec=&quot;mp3&quot;, @codecs=&quot;avc&quot;, @level=2.0, @profile=&quot;baseline&quot;&gt;,</span>
+<span class="c">#     @frame_rate=24.6,</span>
+<span class="c">#     @hdcp_level=&quot;TYPE-0&quot;,</span>
+<span class="c">#     @height=1080,</span>
+<span class="c">#     @iframe=true,</span>
+<span class="c">#     @program_id=1,</span>
+<span class="c">#     @subtitles=&quot;subs&quot;,</span>
+<span class="c">#     @uri=&quot;test.url&quot;,</span>
+<span class="c">#     @video=&quot;test_video&quot;,</span>
+<span class="c">#     @width=1920&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -594,7 +761,41 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">PlaylistItem</span>.new</code></pre>
+          <p>Initializes a new <code><a href="../M3U8/PlaylistItem.html">PlaylistItem</a></code> instance.</p>
+<p>The initializer accepts individual parameters for each attribute.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">PlaylistItem</span>.new(program_id: <span class="n">1</span>,
+  width: <span class="n">1920</span>,
+  height: <span class="n">1080</span>,
+  bandwidth: <span class="n">540</span>,
+  video: <span class="s">&quot;test_video&quot;</span>,
+  audio: <span class="s">&quot;test_a&quot;</span>,
+  uri: <span class="s">&quot;test.url&quot;</span>,
+  average_bandwidth: <span class="n">500</span>,
+  subtitles: <span class="s">&quot;subs&quot;</span>,
+  closed_captions: <span class="s">&quot;cc&quot;</span>,
+  iframe: <span class="n">true</span>,
+  frame_rate: <span class="n">24.6</span>,
+  hdcp_level: <span class="s">&quot;TYPE-0&quot;</span>,
+  codecs: <span class="s">&quot;avc&quot;</span>,
+  audio_codec: <span class="s">&quot;mp3&quot;</span>,
+  level: <span class="s">&quot;2&quot;</span>,
+  profile: <span class="s">&quot;baseline&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::PlaylistItem:0x7d7806d39900</span>
+<span class="c">#     @audio=&quot;test_a&quot;,</span>
+<span class="c">#     @average_bandwidth=500,</span>
+<span class="c">#     @bandwidth=540,</span>
+<span class="c">#     @closed_captions=&quot;cc&quot;,</span>
+<span class="c">#     @codecs=#&lt;M3U8::Codecs:0x7d7806ce84c0 @audio_codec=&quot;mp3&quot;, @codecs=&quot;avc&quot;, @level=2.0, @profile=&quot;baseline&quot;&gt;,</span>
+<span class="c">#     @frame_rate=24.6,</span>
+<span class="c">#     @hdcp_level=&quot;TYPE-0&quot;,</span>
+<span class="c">#     @height=1080,</span>
+<span class="c">#     @iframe=true,</span>
+<span class="c">#     @program_id=1,</span>
+<span class="c">#     @subtitles=&quot;subs&quot;,</span>
+<span class="c">#     @uri=&quot;test.url&quot;,</span>
+<span class="c">#     @video=&quot;test_video&quot;,</span>
+<span class="c">#     @width=1920&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -625,12 +826,29 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,)</span> \
-       <span class="s">%(CODECS=&quot;avc&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500,)</span> \
-       <span class="s">%(FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=&quot;test_a&quot;,)</span> \
-       <span class="s">%(VIDEO=&quot;test_video&quot;,SUBTITLES=&quot;subs&quot;,CLOSED-CAPTIONS=&quot;cc&quot;,)</span> \
-       <span class="s">%(NAME=&quot;test_name&quot;,URI=&quot;test.url&quot;)</span>
-<span class="t">PlaylistItem</span>.parse(text) <span class="c"># =&gt; #&lt;M3U8::PlaylistItem......&gt;</span></code></pre>
+          <p>Parses a text string representing an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080, \
+         CODECS=&quot;avc&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500, \
+         FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=&quot;test_a&quot;, \
+         VIDEO=&quot;test_video&quot;,SUBTITLES=&quot;subs&quot;,CLOSED-CAPTIONS=&quot;cc&quot;, \
+         URI=&quot;test.url&quot;)</span>
+<span class="t">PlaylistItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::PlaylistItem:0x7bf1a06aca80</span>
+<span class="c">#     @audio=&quot;test_a&quot;,</span>
+<span class="c">#     @average_bandwidth=500,</span>
+<span class="c">#     @bandwidth=540,</span>
+<span class="c">#     @closed_captions=&quot;cc&quot;,</span>
+<span class="c">#     @codecs=#&lt;M3U8::Codecs:0x7bf1a065b180 @audio_codec=nil, @codecs=&quot;avc&quot;, @level=nil, @profile=nil&gt;,</span>
+<span class="c">#     @frame_rate=24.6,</span>
+<span class="c">#     @hdcp_level=&quot;TYPE-0&quot;,</span>
+<span class="c">#     @height=1080,</span>
+<span class="c">#     @iframe=false,</span>
+<span class="c">#     @program_id=1,</span>
+<span class="c">#     @subtitles=&quot;subs&quot;,</span>
+<span class="c">#     @uri=&quot;test.url&quot;,</span>
+<span class="c">#     @video=&quot;test_video&quot;,</span>
+<span class="c">#     @width=1920&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -661,6 +879,24 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#audio%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The AUDIO attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to AUDIO) in the
+Master Playlist. This attribute indicates the set of audio renditions that should be used for
+playback of the presentation.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following AUDIO attributes:</p>
+<pre><code class="language-txt">AUDIO
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is AUDIO.  It indicates the set of
+audio Renditions that SHOULD be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The AUDIO attribute is OPTIONAL.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -674,6 +910,24 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#audio%3D%28audio%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The AUDIO attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to AUDIO) in the
+Master Playlist. This attribute indicates the set of audio renditions that should be used for
+playback of the presentation.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following AUDIO attributes:</p>
+<pre><code class="language-txt">AUDIO
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is AUDIO.  It indicates the set of
+audio Renditions that SHOULD be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The AUDIO attribute is OPTIONAL.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -689,6 +943,33 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#average_bandwidth%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The AVERAGE-BANDWIDTH attribute represents the average segment bit rate of the Variant Stream,
+expressed as a decimal integer in bits per second.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following AVERAGE-BANDWIDTH attributes:</p>
+<pre><code class="language-txt">AVERAGE-BANDWIDTH
+
+The value is a decimal-integer of bits per second.  It represents
+the average segment bit rate of the Variant Stream.
+
+If all the Media Segments in a Variant Stream have already been
+created, the AVERAGE-BANDWIDTH value MUST be the largest sum of
+average segment bit rates that is produced by any playable
+combination of Renditions.  (For a Variant Stream with a single
+Media Playlist, this is just the average segment bit rate of that
+Media Playlist.)  An inaccurate value can cause playback stalls or
+prevent clients from playing the variant.
+
+If the Master Playlist is to be made available before all Media
+Segments in the presentation have been encoded, the AVERAGE-
+BANDWIDTH value SHOULD be the AVERAGE-BANDWIDTH value of a
+representative period of similar content, encoded using the same
+settings.
+
+The AVERAGE-BANDWIDTH attribute is OPTIONAL.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -702,6 +983,33 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#average_bandwidth%3D%28average_bandwidth%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The AVERAGE-BANDWIDTH attribute represents the average segment bit rate of the Variant Stream,
+expressed as a decimal integer in bits per second.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following AVERAGE-BANDWIDTH attributes:</p>
+<pre><code class="language-txt">AVERAGE-BANDWIDTH
+
+The value is a decimal-integer of bits per second.  It represents
+the average segment bit rate of the Variant Stream.
+
+If all the Media Segments in a Variant Stream have already been
+created, the AVERAGE-BANDWIDTH value MUST be the largest sum of
+average segment bit rates that is produced by any playable
+combination of Renditions.  (For a Variant Stream with a single
+Media Playlist, this is just the average segment bit rate of that
+Media Playlist.)  An inaccurate value can cause playback stalls or
+prevent clients from playing the variant.
+
+If the Master Playlist is to be made available before all Media
+Segments in the presentation have been encoded, the AVERAGE-
+BANDWIDTH value SHOULD be the AVERAGE-BANDWIDTH value of a
+representative period of similar content, encoded using the same
+settings.
+
+The AVERAGE-BANDWIDTH attribute is OPTIONAL.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -717,6 +1025,34 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#bandwidth%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the BANDWIDTH attribute in an
+<code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag is a decimal integer (in bits per second)
+that represents the peak segment bit rate of the Variant Stream.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following BANDWIDTH attributes:</p>
+<pre><code class="language-txt">BANDWIDTH
+
+The value is a decimal-integer of bits per second.  It represents
+the peak segment bit rate of the Variant Stream.
+
+If all the Media Segments in a Variant Stream have already been
+created, the BANDWIDTH value MUST be the largest sum of peak
+segment bit rates that is produced by any playable combination of
+Renditions.  (For a Variant Stream with a single Media Playlist,
+this is just the peak segment bit rate of that Media Playlist.)
+An inaccurate value can cause playback stalls or prevent clients
+from playing the variant.
+
+If the Master Playlist is to be made available before all Media
+Segments in the presentation have been encoded, the BANDWIDTH
+value SHOULD be the BANDWIDTH value of a representative period of
+similar content, encoded using the same settings.
+
+Every EXT-X-STREAM-INF tag MUST include the BANDWIDTH attribute.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -730,6 +1066,34 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#bandwidth%3D%28bandwidth%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the BANDWIDTH attribute in an
+<code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag is a decimal integer (in bits per second)
+that represents the peak segment bit rate of the Variant Stream.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following BANDWIDTH attributes:</p>
+<pre><code class="language-txt">BANDWIDTH
+
+The value is a decimal-integer of bits per second.  It represents
+the peak segment bit rate of the Variant Stream.
+
+If all the Media Segments in a Variant Stream have already been
+created, the BANDWIDTH value MUST be the largest sum of peak
+segment bit rates that is produced by any playable combination of
+Renditions.  (For a Variant Stream with a single Media Playlist,
+this is just the peak segment bit rate of that Media Playlist.)
+An inaccurate value can cause playback stalls or prevent clients
+from playing the variant.
+
+If the Master Playlist is to be made available before all Media
+Segments in the presentation have been encoded, the BANDWIDTH
+value SHOULD be the BANDWIDTH value of a representative period of
+similar content, encoded using the same settings.
+
+Every EXT-X-STREAM-INF tag MUST include the BANDWIDTH attribute.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -745,6 +1109,42 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#closed_captions%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The CLOSED-CAPTIONS attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+indicates the availability of closed captioning for a Variant Stream in an HLS Master Playlist.</p>
+<p>This attribute can be provided in one of two forms:</p>
+<ul>
+<li>
+<p>As a quoted-string: In this case, it must exactly match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag
+(with TYPE CLOSED-CAPTIONS) in the playlist, indicating which closed-caption renditions
+are available for playback.</p>
+</li>
+<li>
+<p>As the enumerated-string value NONE: This signifies that no closed captions are present in any
+Variant Stream. In such cases, every <code>EXT-X-STREAM-INF</code> tag MUST include &quot;CLOSED-CAPTIONS=NONE&quot;.</p>
+</li>
+</ul>
+<p>Consistency is essential; mixing closed captions across Variant Streams may cause playback errors.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following CLOSED-CAPTIONS attributes:</p>
+<pre><code class="language-txt">CLOSED-CAPTIONS
+
+The value can be either a quoted-string or an enumerated-string
+with the value NONE.  If the value is a quoted-string, it MUST
+match the value of the GROUP-ID attribute of an EXT-X-MEDIA tag
+elsewhere in the Playlist whose TYPE attribute is CLOSED-CAPTIONS,
+and it indicates the set of closed-caption Renditions that can be
+used when playing the presentation.  See Section 4.3.4.2.1.
+
+If the value is the enumerated-string value NONE, all EXT-X-
+STREAM-INF tags MUST have this attribute with a value of NONE,
+indicating that there are no closed captions in any Variant Stream
+in the Master Playlist.  Having closed captions in one Variant
+Stream but not another can trigger playback inconsistencies.
+
+The CLOSED-CAPTIONS attribute is OPTIONAL.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -758,6 +1158,42 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#closed_captions%3D%28closed_captions%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The CLOSED-CAPTIONS attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+indicates the availability of closed captioning for a Variant Stream in an HLS Master Playlist.</p>
+<p>This attribute can be provided in one of two forms:</p>
+<ul>
+<li>
+<p>As a quoted-string: In this case, it must exactly match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag
+(with TYPE CLOSED-CAPTIONS) in the playlist, indicating which closed-caption renditions
+are available for playback.</p>
+</li>
+<li>
+<p>As the enumerated-string value NONE: This signifies that no closed captions are present in any
+Variant Stream. In such cases, every <code>EXT-X-STREAM-INF</code> tag MUST include &quot;CLOSED-CAPTIONS=NONE&quot;.</p>
+</li>
+</ul>
+<p>Consistency is essential; mixing closed captions across Variant Streams may cause playback errors.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following CLOSED-CAPTIONS attributes:</p>
+<pre><code class="language-txt">CLOSED-CAPTIONS
+
+The value can be either a quoted-string or an enumerated-string
+with the value NONE.  If the value is a quoted-string, it MUST
+match the value of the GROUP-ID attribute of an EXT-X-MEDIA tag
+elsewhere in the Playlist whose TYPE attribute is CLOSED-CAPTIONS,
+and it indicates the set of closed-caption Renditions that can be
+used when playing the presentation.  See Section 4.3.4.2.1.
+
+If the value is the enumerated-string value NONE, all EXT-X-
+STREAM-INF tags MUST have this attribute with a value of NONE,
+indicating that there are no closed captions in any Variant Stream
+in the Master Playlist.  Having closed captions in one Variant
+Stream but not another can trigger playback inconsistencies.
+
+The CLOSED-CAPTIONS attribute is OPTIONAL.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -773,6 +1209,30 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#codecs%3ACodecs-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>This property holds a <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance that encapsulates the <em>CODECS</em> attribute
+for a Variant Stream in an HLS playlist.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the CODECS attribute is a quoted string that contains a comma-separated list of format identifiers.
+Each identifier specifies a media sample type present in one or more renditions of the Variant Stream.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following CODECS attributes:</p>
+<pre><code class="language-txt">CODECS
+
+The value is a quoted-string containing a comma-separated list of
+formats, where each format specifies a media sample type that is
+present in one or more Renditions specified by the Variant Stream.
+Valid format identifiers are those in the ISO Base Media File
+Format Name Space defined by &quot;The 'Codecs' and 'Profiles'
+Parameters for &quot;Bucket&quot; Media Types&quot; [RFC6381].
+
+For example, a stream containing AAC low complexity (AAC-LC) audio
+and H.264 Main Profile Level 3.0 video would have a CODECS value
+of &quot;mp4a.40.2,avc1.4d401e&quot;.
+
+Every EXT-X-STREAM-INF tag SHOULD include a CODECS attribute.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -786,6 +1246,30 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#codecs%3D%28codecs%3ACodecs%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>This property holds a <code><a href="../M3U8/Codecs.html">Codecs</a></code> instance that encapsulates the <em>CODECS</em> attribute
+for a Variant Stream in an HLS playlist.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the CODECS attribute is a quoted string that contains a comma-separated list of format identifiers.
+Each identifier specifies a media sample type present in one or more renditions of the Variant Stream.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following CODECS attributes:</p>
+<pre><code class="language-txt">CODECS
+
+The value is a quoted-string containing a comma-separated list of
+formats, where each format specifies a media sample type that is
+present in one or more Renditions specified by the Variant Stream.
+Valid format identifiers are those in the ISO Base Media File
+Format Name Space defined by &quot;The 'Codecs' and 'Profiles'
+Parameters for &quot;Bucket&quot; Media Types&quot; [RFC6381].
+
+For example, a stream containing AAC low complexity (AAC-LC) audio
+and H.264 Main Profile Level 3.0 video would have a CODECS value
+of &quot;mp4a.40.2,avc1.4d401e&quot;.
+
+Every EXT-X-STREAM-INF tag SHOULD include a CODECS attribute.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -801,6 +1285,25 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#frame_rate%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the FRAME-RATE attribute specifies the maximum frame rate (in frames per second) for all video
+in the Variant Stream. This value is expressed as a decimal floating-point number, rounded to
+three decimal places.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following FRAME-RATE attributes:</p>
+<pre><code class="language-txt">FRAME-RATE
+
+The value is a decimal-floating-point describing the maximum frame
+rate for all the video in the Variant Stream, rounded to three
+decimal places.
+
+The FRAME-RATE attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.  The FRAME-RATE attribute SHOULD be
+included if any video in a Variant Stream exceeds 30 frames per
+second.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -814,6 +1317,25 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#frame_rate%3D%28frame_rate%3AFloat64%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the FRAME-RATE attribute specifies the maximum frame rate (in frames per second) for all video
+in the Variant Stream. This value is expressed as a decimal floating-point number, rounded to
+three decimal places.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following FRAME-RATE attributes:</p>
+<pre><code class="language-txt">FRAME-RATE
+
+The value is a decimal-floating-point describing the maximum frame
+rate for all the video in the Variant Stream, rounded to three
+decimal places.
+
+The FRAME-RATE attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.  The FRAME-RATE attribute SHOULD be
+included if any video in a Variant Stream exceeds 30 frames per
+second.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -829,6 +1351,36 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#hdcp_level%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the HDCP-LEVEL attribute is defined as an enumerated-string indicating the required level
+of High-bandwidth Digital Content Protection (HDCP) for a Variant Stream.</p>
+<p>Valid values are:</p>
+<ul>
+<li><code>TYPE-0</code>: Signifies that the Variant Stream may fail to play unless the output is
+protected by HDCP Type 0 (or an equivalent mechanism).</li>
+<li><code>NONE</code>:   Indicates that the content does not require any output copy protection.</li>
+</ul>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following HDCP-LEVEL attributes:</p>
+<pre><code class="language-txt">HDCP-LEVEL
+
+The value is an enumerated-string; valid strings are TYPE-0 and
+NONE.  This attribute is advisory; a value of TYPE-0 indicates
+that the Variant Stream could fail to play unless the output is
+protected by High-bandwidth Digital Content Protection (HDCP) Type
+0 [HDCP] or equivalent.  A value of NONE indicates that the
+content does not require output copy protection.
+
+Encrypted Variant Streams with different HDCP levels SHOULD use
+different media encryption keys.
+
+The HDCP-LEVEL attribute is OPTIONAL.  It SHOULD be present if any
+content in the Variant Stream will fail to play without HDCP.
+Clients without output copy protection SHOULD NOT load a Variant
+Stream with an HDCP-LEVEL attribute unless its value is NONE.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -842,6 +1394,36 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#hdcp_level%3D%28hdcp_level%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the HDCP-LEVEL attribute is defined as an enumerated-string indicating the required level
+of High-bandwidth Digital Content Protection (HDCP) for a Variant Stream.</p>
+<p>Valid values are:</p>
+<ul>
+<li><code>TYPE-0</code>: Signifies that the Variant Stream may fail to play unless the output is
+protected by HDCP Type 0 (or an equivalent mechanism).</li>
+<li><code>NONE</code>:   Indicates that the content does not require any output copy protection.</li>
+</ul>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following HDCP-LEVEL attributes:</p>
+<pre><code class="language-txt">HDCP-LEVEL
+
+The value is an enumerated-string; valid strings are TYPE-0 and
+NONE.  This attribute is advisory; a value of TYPE-0 indicates
+that the Variant Stream could fail to play unless the output is
+protected by High-bandwidth Digital Content Protection (HDCP) Type
+0 [HDCP] or equivalent.  A value of NONE indicates that the
+content does not require output copy protection.
+
+Encrypted Variant Streams with different HDCP levels SHOULD use
+different media encryption keys.
+
+The HDCP-LEVEL attribute is OPTIONAL.  It SHOULD be present if any
+content in the Variant Stream will fail to play without HDCP.
+Clients without output copy protection SHOULD NOT load a Variant
+Stream with an HDCP-LEVEL attribute unless its value is NONE.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -857,6 +1439,25 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#height%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the RESOLUTION attribute specifies the optimal pixel resolution at which to display all
+the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p>
+<p>The attribute value is expressed as a decimal-resolution (e.g., &quot;1920x1080&quot;). Although it
+is optional, including the RESOLUTION attribute is recommended when the Variant Stream contains video.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following RESOLUTION attributes:</p>
+<pre><code class="language-txt">RESOLUTION
+
+The value is a decimal-resolution describing the optimal pixel
+resolution at which to display all the video in the Variant
+Stream.
+
+The RESOLUTION attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.</code></pre>
+<p>These properties represent the width and height components of that resolution.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -870,6 +1471,25 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#height%3D%28height%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the RESOLUTION attribute specifies the optimal pixel resolution at which to display all
+the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p>
+<p>The attribute value is expressed as a decimal-resolution (e.g., &quot;1920x1080&quot;). Although it
+is optional, including the RESOLUTION attribute is recommended when the Variant Stream contains video.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following RESOLUTION attributes:</p>
+<pre><code class="language-txt">RESOLUTION
+
+The value is a decimal-resolution describing the optimal pixel
+resolution at which to display all the video in the Variant
+Stream.
+
+The RESOLUTION attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.</code></pre>
+<p>These properties represent the width and height components of that resolution.</p>
+        </div>
       
       <br/>
       <div>
@@ -885,6 +1505,14 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#iframe%3ABool-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Indicates whether the playlist should use an I-frame only stream tag.
+When <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> is true, the <code>EXT-X-I-FRAME-STREAM-INF</code> tag will be output, which is
+typically used for trick play (e.g., fast forward, reverse) as it contains only I-frames.
+If <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> is false, the standard <code>EXT-X-STREAM-INF</code> tag is used.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -898,6 +1526,14 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#iframe%3D%28iframe%3ABool%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Indicates whether the playlist should use an I-frame only stream tag.
+When <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> is true, the <code>EXT-X-I-FRAME-STREAM-INF</code> tag will be output, which is
+typically used for trick play (e.g., fast forward, reverse) as it contains only I-frames.
+If <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> is false, the standard <code>EXT-X-STREAM-INF</code> tag is used.</p>
+        </div>
       
       <br/>
       <div>
@@ -913,6 +1549,11 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#name%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p><span class="flag red">DEPRECATED</span>  Use in <code>EXT-X-MEDIA</code> tag, not in <code>EXT-X-STREAM-INF</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -926,6 +1567,11 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#name%3D%28name%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p><span class="flag red">DEPRECATED</span>  Use in <code>EXT-X-MEDIA</code> tag, not in <code>EXT-X-STREAM-INF</code></p>
+        </div>
       
       <br/>
       <div>
@@ -941,6 +1587,11 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
         <a class="method-permalink" href="#program_id%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The PROGRAM-ID attribute of the <code>EXT-X-STREAM-INF</code> and the <code>EXT-X-I-FRAME-STREAM-INF</code> tags was removed in protocol version 6.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -954,6 +1605,11 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
 
         <a class="method-permalink" href="#program_id%3D%28program_id%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The PROGRAM-ID attribute of the <code>EXT-X-STREAM-INF</code> and the <code>EXT-X-I-FRAME-STREAM-INF</code> tags was removed in protocol version 6.</p>
+        </div>
       
       <br/>
       <div>
@@ -971,12 +1627,11 @@ EXT-X-I-FRAME-STREAM-INF attributes</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  width:  <span class="n">1920</span>,
-  height: <span class="n">1080</span>,
-}
+          <p>Returns the resolution in the format <code>&lt;width&gt;x&lt;height&gt;</code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {width: <span class="n">1920</span>, height: <span class="n">1080</span>}
 item <span class="o">=</span> <span class="t">PlaylistItem</span>.new(options)
-item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
+item.resolution <span class="c"># =&gt; &quot;1920x1080&quot;</span></code></pre>
         </div>
       
       <br/>
@@ -993,6 +1648,23 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
         <a class="method-permalink" href="#subtitles%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The SUBTITLES attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to SUBTITLES)
+in the Master Playlist. It indicates the set of subtitle renditions available for playback.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following SUBTITLES attributes:</p>
+<pre><code class="language-txt">SUBTITLES
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is SUBTITLES.  It indicates the set
+of subtitle Renditions that can be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The SUBTITLES attribute is OPTIONAL.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -1006,6 +1678,23 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
 
         <a class="method-permalink" href="#subtitles%3D%28subtitles%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The SUBTITLES attribute, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag (with TYPE set to SUBTITLES)
+in the Master Playlist. It indicates the set of subtitle renditions available for playback.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following SUBTITLES attributes:</p>
+<pre><code class="language-txt">SUBTITLES
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is SUBTITLES.  It indicates the set
+of subtitle Renditions that can be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The SUBTITLES attribute is OPTIONAL.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -1023,32 +1712,54 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  program_id: <span class="n">1</span>,
-  width: <span class="n">1920</span>,
-  height: <span class="n">1080</span>,
-  bandwidth: <span class="n">540</span>,
-  video: <span class="s">&quot;test_video&quot;</span>,
-  audio: <span class="s">&quot;test_a&quot;</span>,
-  uri: <span class="s">&quot;test.url&quot;</span>,
+          <p>Returns the string representation of the stream info tag.</p>
+<p>If the <code><a href="../M3U8/PlaylistItem.html#iframe%3ABool-instance-method">#iframe</a></code> flag is true, the tag is formatted as <code>EXT-X-I-FRAME-STREAM-INF</code>;
+otherwise, it is formatted as <code>EXT-X-STREAM-INF</code> followed by the URI on a new line.</p>
+<p>Example for an I-frame stream:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  program_id:        <span class="n">1</span>,
+  width:             <span class="n">1920</span>,
+  height:            <span class="n">1080</span>,
+  bandwidth:         <span class="n">540</span>,
+  video:             <span class="s">&quot;test_video&quot;</span>,
+  audio:             <span class="s">&quot;test_a&quot;</span>,
+  uri:               <span class="s">&quot;test.url&quot;</span>,
   average_bandwidth: <span class="n">500</span>,
-  subtitles: <span class="s">&quot;subs&quot;</span>,
-  closed_captions: <span class="s">&quot;cc&quot;</span>,
-  iframe: <span class="n">true</span>,
-  frame_rate: <span class="n">24.6</span>,
-  name: <span class="s">&quot;test_name&quot;</span>,
-  hdcp_level: <span class="s">&quot;TYPE-0&quot;</span>,
-  codecs: <span class="s">&quot;avc&quot;</span>,
-  audio_codec: <span class="s">&quot;mp3&quot;</span>,
-  level: <span class="s">&quot;2&quot;</span>,
-  profile: <span class="s">&quot;baseline&quot;</span>,
+  subtitles:         <span class="s">&quot;subs&quot;</span>,
+  closed_captions:   <span class="s">&quot;cc&quot;</span>,
+  iframe:            <span class="n">true</span>,
+  frame_rate:        <span class="n">24.6</span>,
+  hdcp_level:        <span class="s">&quot;TYPE-0&quot;</span>,
+  codecs:            <span class="s">&quot;avc&quot;</span>,
+  audio_codec:       <span class="s">&quot;mp3&quot;</span>,
+  level:             <span class="s">&quot;2&quot;</span>,
+  profile:           <span class="s">&quot;baseline&quot;</span>,
 }
 <span class="t">PlaylistItem</span>.new(options).to_s
-<span class="c"># =&gt; #EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080, \</span>
-     <span class="t">CODECS</span><span class="o">=</span><span class="s">&quot;avc&quot;</span>,<span class="t">BANDWIDTH</span><span class="o">=</span><span class="n">540</span>,<span class="t">AVERAGE</span><span class="o">-</span><span class="t">BANDWIDTH</span><span class="o">=</span><span class="n">500</span>, \
-     <span class="t">FRAME</span><span class="o">-</span><span class="t">RATE</span><span class="o">=</span><span class="n">24.600</span>,<span class="t">HDCP</span><span class="o">-</span><span class="t">LEVEL</span><span class="o">=</span><span class="t">TYPE</span><span class="n">-0</span>,<span class="t">AUDIO</span><span class="o">=</span><span class="s">&quot;test_a&quot;</span>, \
-     <span class="t">VIDEO</span><span class="o">=</span><span class="s">&quot;test_video&quot;</span>,<span class="t">SUBTITLES</span><span class="o">=</span><span class="s">&quot;subs&quot;</span>,<span class="t">CLOSED</span><span class="o">-</span><span class="t">CAPTIONS</span><span class="o">=</span><span class="s">&quot;cc&quot;</span>, \
-     <span class="t">NAME</span><span class="o">=</span><span class="s">&quot;test_name&quot;</span>,<span class="t">URI</span><span class="o">=</span><span class="s">&quot;test.url&quot;</span></code></pre>
+<span class="c"># =&gt; &quot;#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=\&quot;avc\&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=\&quot;test_a\&quot;,VIDEO=\&quot;test_video\&quot;,SUBTITLES=\&quot;subs\&quot;,CLOSED-CAPTIONS=\&quot;cc\&quot;,URI=\&quot;test.url\&quot;&quot;</span></code></pre>
+<p>Example for a standard stream:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  program_id:        <span class="n">1</span>,
+  width:             <span class="n">1920</span>,
+  height:            <span class="n">1080</span>,
+  bandwidth:         <span class="n">540</span>,
+  video:             <span class="s">&quot;test_video&quot;</span>,
+  audio:             <span class="s">&quot;test_a&quot;</span>,
+  uri:               <span class="s">&quot;test.url&quot;</span>,
+  average_bandwidth: <span class="n">500</span>,
+  subtitles:         <span class="s">&quot;subs&quot;</span>,
+  closed_captions:   <span class="s">&quot;cc&quot;</span>,
+  iframe:            <span class="n">false</span>,
+  frame_rate:        <span class="n">24.6</span>,
+  hdcp_level:        <span class="s">&quot;TYPE-0&quot;</span>,
+  codecs:            <span class="s">&quot;avc&quot;</span>,
+  audio_codec:       <span class="s">&quot;mp3&quot;</span>,
+  level:             <span class="s">&quot;2&quot;</span>,
+  profile:           <span class="s">&quot;baseline&quot;</span>,
+}
+<span class="t">PlaylistItem</span>.new(options).to_s
+<span class="c"># =&gt; &quot;#EXT-X-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=\&quot;avc\&quot;,BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=\&quot;test_a\&quot;,VIDEO=\&quot;test_video\&quot;,SUBTITLES=\&quot;subs\&quot;,CLOSED-CAPTIONS=\&quot;cc\&quot;\n&quot; +</span>
+<span class="c">#    &quot;test.url&quot;</span></code></pre>
         </div>
       
       <br/>
@@ -1065,6 +1776,20 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
         <a class="method-permalink" href="#uri%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>As defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a>,
+the URI attribute for <code>EXT-X-I-FRAME-STREAM-INF</code> tags is a quoted-string containing a URI
+that identifies the I-frame Media Playlist file. This playlist file MUST include an
+<code>EXT-X-I-FRAMES-ONLY</code> tag.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a> defines the following URI attributes:</p>
+<pre><code class="language-txt">URI
+
+The value is a quoted-string containing a URI that identifies the
+I-frame Media Playlist file.  That Playlist file MUST contain an
+EXT-X-I-FRAMES-ONLY tag.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -1078,6 +1803,20 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
 
         <a class="method-permalink" href="#uri%3D%28uri%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>As defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a>,
+the URI attribute for <code>EXT-X-I-FRAME-STREAM-INF</code> tags is a quoted-string containing a URI
+that identifies the I-frame Media Playlist file. This playlist file MUST include an
+<code>EXT-X-I-FRAMES-ONLY</code> tag.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.3">RFC 8216, Section 4.3.4.3</a> defines the following URI attributes:</p>
+<pre><code class="language-txt">URI
+
+The value is a quoted-string containing a URI that identifies the
+I-frame Media Playlist file.  That Playlist file MUST contain an
+EXT-X-I-FRAMES-ONLY tag.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -1093,6 +1832,23 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
         <a class="method-permalink" href="#video%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The VIDEO attribute, as specified in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is defined as a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag with TYPE set to VIDEO
+in the Master Playlist. This attribute designates the set of video renditions to be used for playback.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following VIDEO attributes:</p>
+<pre><code class="language-txt">VIDEO
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is VIDEO.  It indicates the set of
+video Renditions that SHOULD be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The VIDEO attribute is OPTIONAL.</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -1106,6 +1862,23 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
 
         <a class="method-permalink" href="#video%3D%28video%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The VIDEO attribute, as specified in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+is defined as a quoted-string that must match the GROUP-ID attribute (<code><a href="../M3U8/MediaItem.html#group_id%3AString%7CNil-instance-method">MediaItem#group_id</a></code>) of an <code>EXT-X-MEDIA</code> tag with TYPE set to VIDEO
+in the Master Playlist. This attribute designates the set of video renditions to be used for playback.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following VIDEO attributes:</p>
+<pre><code class="language-txt">VIDEO
+
+The value is a quoted-string.  It MUST match the value of the
+GROUP-ID attribute of an EXT-X-MEDIA tag elsewhere in the Master
+Playlist whose TYPE attribute is VIDEO.  It indicates the set of
+video Renditions that SHOULD be used when playing the
+presentation.  See Section 4.3.4.2.1.
+
+The VIDEO attribute is OPTIONAL.</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -1121,6 +1894,25 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
         <a class="method-permalink" href="#width%3AInt32%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the RESOLUTION attribute specifies the optimal pixel resolution at which to display all
+the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p>
+<p>The attribute value is expressed as a decimal-resolution (e.g., &quot;1920x1080&quot;). Although it
+is optional, including the RESOLUTION attribute is recommended when the Variant Stream contains video.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following RESOLUTION attributes:</p>
+<pre><code class="language-txt">RESOLUTION
+
+The value is a decimal-resolution describing the optimal pixel
+resolution at which to display all the video in the Variant
+Stream.
+
+The RESOLUTION attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.</code></pre>
+<p>These properties represent the width and height components of that resolution.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1134,6 +1926,25 @@ item.resolution <span class="c"># =&gt; 1920x1080</span></code></pre>
 
         <a class="method-permalink" href="#width%3D%28width%3AInt32%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.2">RFC 8216, Section 4.3.4.2</a>,
+the RESOLUTION attribute specifies the optimal pixel resolution at which to display all
+the video in a Variant Stream for an <code>EXT-X-STREAM-INF</code> or <code>EXT-X-I-FRAME-STREAM-INF</code> tag.</p>
+<p>The attribute value is expressed as a decimal-resolution (e.g., &quot;1920x1080&quot;). Although it
+is optional, including the RESOLUTION attribute is recommended when the Variant Stream contains video.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a> defines the following RESOLUTION attributes:</p>
+<pre><code class="language-txt">RESOLUTION
+
+The value is a decimal-resolution describing the optimal pixel
+resolution at which to display all the video in the Variant
+Stream.
+
+The RESOLUTION attribute is OPTIONAL but is recommended if the
+Variant Stream includes video.</code></pre>
+<p>These properties represent the width and height components of that resolution.</p>
+        </div>
       
       <br/>
       <div>

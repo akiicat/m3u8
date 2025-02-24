@@ -200,8 +200,60 @@
     Overview
   </h2>
 
-  <p>SegmentItem represents EXTINF attributes with the URI that follows,
-optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
+  <p><code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> represents a media segment in an HLS playlist.</p>
+<p>It encapsulates the information provided by the <code>EXTINF</code> tag followed by the media segment URI.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.1">RFC 8216, Section 4.3.2.1</a>,
+The <code>EXTINF</code> tag specifies the <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> of a Media Segment and may include an
+optional title or <code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-instance-method">#comment</a></code>.  It applies only to the next Media Segment.</p>
+<p>Its format is:</p>
+<pre><code class="language-txt">#EXTINF:&lt;duration&gt;,[&lt;title&gt;]</code></pre>
+<p>For example:</p>
+<pre><code class="language-txt">#EXTINF:10.991,anything</code></pre>
+<p>This indicates that the following media segment has a <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> of 10.991 seconds
+with an optional <code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-instance-method">#comment</a></code> &quot;anything&quot;.</p>
+<p>In addition, a <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> may optionally include:</p>
+<ul>
+<li>An <code>EXT-X-BYTERANGE</code> tag (<code><a href="../M3U8/ByteRange.html">ByteRange</a></code>) that specifies a sub-range of the media resource. (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.2">RFC 8216, Section 4.3.2.2</a>)</li>
+<li>An <code>EXT-X-PROGRAM-DATE-TIME</code> tag (<code><a href="../Time.html">Time</a></code> or <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) that associates an absolute date and time
+with the first sample of the following Media Segment. (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.6">RFC 8216, Section 4.3.2.6</a>)</li>
+</ul>
+<p>Properties:</p>
+<ul>
+<li><strong><code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code></strong>: The duration of the segment as specified by the <code>EXTINF</code> tag.</li>
+<li><strong><code><a href="../M3U8/SegmentItem.html#segment%3AString%7CNil-instance-method">#segment</a></code></strong>:  The <em>URI</em> of the media segment.</li>
+<li><strong><code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-instance-method">#comment</a></code></strong>:  An optional comment from the <code>EXTINF</code> tag.</li>
+<li><strong><code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code></strong>: A <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> object representing the sub-range of the segment, if specified.</li>
+<li><strong><code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code></strong>: A <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> object representing the absolute time associated with the segment.</li>
+</ul>
+<p>Examples:</p>
+<p>Creating a <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> instance:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  duration:  <span class="n">10.991</span>,
+  segment:   <span class="s">&quot;test.ts&quot;</span>,
+  comment:   <span class="s">&quot;anything&quot;</span>,
+  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+}
+<span class="t">SegmentItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::SegmentItem:0x7e310e075cc0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7e310f201c00 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @comment=&quot;anything&quot;,</span>
+<span class="c">#     @duration=10.991,</span>
+<span class="c">#     @program_date_time=#&lt;M3U8::TimeItem:0x7e310e0761b0 @time=1970-01-01 00:00:00.0 UTC&gt;,</span>
+<span class="c">#     @segment=&quot;test.ts&quot;&gt;</span>
+
+<span class="t">SegmentItem</span>.new(<span class="n">10.991</span>, <span class="s">&quot;test.ts&quot;</span>, <span class="s">&quot;anything&quot;</span>, <span class="s">&quot;4500@600&quot;</span>, <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::SegmentItem:0x7e6830943b40</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7e6831acf990 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @comment=&quot;anything&quot;,</span>
+<span class="c">#     @duration=10.991,</span>
+<span class="c">#     @program_date_time=#&lt;M3U8::TimeItem:0x7e6830949cf0 @time=2010-02-19 14:54:23.031000000 UTC&gt;,</span>
+<span class="c">#     @segment=&quot;test.ts&quot;&gt;</span></code></pre>
+<p>Convert to a string representation of the <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code>:</p>
+<pre><code class="language-crystal"><span class="t">SegmentItem</span>.new(<span class="n">10.991</span>, <span class="s">&quot;test.ts&quot;</span>, <span class="s">&quot;anything&quot;</span>, <span class="s">&quot;4500@600&quot;</span>, <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>).to_s
+<span class="c"># =&gt; &quot;#EXTINF:10.991,anything\n&quot; +</span>
+<span class="c">#    &quot;#EXT-X-BYTERANGE:4500@600\n&quot; +</span>
+<span class="c">#    &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z\n&quot; +</span>
+<span class="c">#    &quot;test.ts&quot;</span></code></pre>
 
 
 
@@ -276,14 +328,14 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {   duration:  10.991,   segment:   &quot;test.ts&quot;,   comment:   &quot;anything&quot;,   byterange: {length: 4500, start: 600}, } <a href="../M3U8/SegmentItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SegmentItem.new(options)</a></code></p></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> from a NamedTuple.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28duration%3AFloat64%7CNil%3Dnil%2Csegment%3ANil%7CString%3Dnil%2Ccomment%3ANil%7CString%3Dnil%2Cbyterange%3Dnil%2Cprogram_date_time%3Dnil%29-class-method" class="signature"><strong>.new</strong>(duration : Float64 | Nil = <span class="n">nil</span>, segment : Nil | String = <span class="n">nil</span>, comment : Nil | String = <span class="n">nil</span>, byterange = <span class="n">nil</span>, program_date_time = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/SegmentItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SegmentItem.new</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> instance.</p></div>
         
       </li>
     
@@ -308,61 +360,77 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       <li class="entry-summary">
         <a href="#byterange%3AByteRange-instance-method" class="signature"><strong>#byterange</strong> : ByteRange</a>
         
+          <div class="summary"><p>The <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> specifying a sub-section of the segment (if provided).</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#byterange%3D%28byterange%29-instance-method" class="signature"><strong>#byterange=</strong>(byterange)</a>
         
-          <div class="summary"><p><code>item = <a href="../M3U8/SegmentItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SegmentItem.new</a> item.byterange = <a href="../M3U8/ByteRange.html#new%28length%3AInt32%7CNil%3Dnil%2Cstart%3AInt32%7CNil%3Dnil%29-class-method">ByteRange.new(length: 4500, start: 600)</a> item.byterange = {length: 4500, start: 600} item.byterange = &quot;4500@600&quot; item.byterange # =&gt; #&lt;<a href="../M3U8/ByteRange.html">M3U8::ByteRange</a>......&gt;</code></p></div>
+          <div class="summary"><p>Setter for the <code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> property.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#comment%3AString%7CNil-instance-method" class="signature"><strong>#comment</strong> : String | Nil</a>
         
+          <div class="summary"><p>An optional comment from the <code>EXTINF</code> tag.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#comment%3D%28comment%3AString%7CNil%29-instance-method" class="signature"><strong>#comment=</strong>(comment : String | Nil)</a>
+        
+          <div class="summary"><p>An optional comment from the <code>EXTINF</code> tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#duration%3AFloat64%7CNil-instance-method" class="signature"><strong>#duration</strong> : Float64 | Nil</a>
         
+          <div class="summary"><p>The required <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> from the <code>EXTINF</code> tag.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#duration%3D%28duration%3AFloat64%7CNil%29-instance-method" class="signature"><strong>#duration=</strong>(duration : Float64 | Nil)</a>
+        
+          <div class="summary"><p>The required <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> from the <code>EXTINF</code> tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#program_date_time%3ATimeItem-instance-method" class="signature"><strong>#program_date_time</strong> : TimeItem</a>
         
+          <div class="summary"><p>The program date/time (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) associated with the segment (if provided).</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#program_date_time%3D%28time%29-instance-method" class="signature"><strong>#program_date_time=</strong>(time)</a>
         
-          <div class="summary"><p><code>item = <a href="../M3U8/SegmentItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SegmentItem.new</a> item.program_date_time = <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(&quot;2010-02-19T14:54:23Z&quot;)</a> item.program_date_time = <a href="../M3U8/TimeItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">TimeItem.new(Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a>) item.program_date_time = <a href="../Time.html#iso8601%28time%3AString%29-class-method">Time.iso8601(&quot;2010-02-19T14:54:23.031Z&quot;)</a> item.program_date_time = &quot;2010-02-19T14:54:23.031Z&quot; item.program_date_time # =&gt; #&lt;<a href="../M3U8/TimeItem.html">M3U8::TimeItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Setter for the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> property.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#segment%3AString%7CNil-instance-method" class="signature"><strong>#segment</strong> : String | Nil</a>
         
+          <div class="summary"><p>The <em>URI</em> of the media segment.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#segment%3D%28segment%3AString%7CNil%29-instance-method" class="signature"><strong>#segment=</strong>(segment : String | Nil)</a>
+        
+          <div class="summary"><p>The <em>URI</em> of the media segment.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   duration:  10.991,   segment:   &quot;test.ts&quot;,   comment:   &quot;anything&quot;,   byterange: {length: 4500, start: 600}, } <a href="../M3U8/SegmentItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SegmentItem.new(options)</a><a href="../M3U8/SegmentItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the segment, including the <code>EXTINF</code> tag, an optional <code>EXT-X-BYTERANGE</code> tag, an optional <code>EXT-X-PROGRAM-DATE-TIME</code> tag, and the segment URI.</p></div>
         
       </li>
     
@@ -433,13 +501,30 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  duration:  <span class="n">10.991</span>,
-  segment:   <span class="s">&quot;test.ts&quot;</span>,
-  comment:   <span class="s">&quot;anything&quot;</span>,
-  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+          <p>Constructs a new <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> from a NamedTuple.</p>
+<p>The NamedTuple may include the following keys:</p>
+<ul>
+<li><code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> (Float64): The duration of the segment.</li>
+<li><code><a href="../M3U8/SegmentItem.html#segment%3AString%7CNil-instance-method">#segment</a></code> (String): The <em>URI</em> of the media segment.</li>
+<li><code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-instance-method">#comment</a></code> (String): A comment associated with the segment.</li>
+<li><code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> (<code><a href="../M3U8/ByteRange.html">ByteRange</a></code>, NamedTuple, or String): The <code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code>, which can be provided as a NamedTuple, <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>, or string.</li>
+<li><code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code><a href="../Time.html">Time</a></code>, or String): The program date/time, which can be a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, Time, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO8601</a> string.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  duration:          <span class="n">10.991</span>,
+  segment:           <span class="s">&quot;test.ts&quot;</span>,
+  comment:           <span class="s">&quot;anything&quot;</span>,
+  byterange:         {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+  program_date_time: <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>,
 }
-<span class="t">SegmentItem</span>.new(options)</code></pre>
+<span class="t">SegmentItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::SegmentItem:0x7e756d37b7c0</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7e756e5074b0 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @comment=&quot;anything&quot;,</span>
+<span class="c">#     @duration=10.991,</span>
+<span class="c">#     @program_date_time=#&lt;M3U8::TimeItem:0x7e756d386c60 @time=2010-02-19 14:54:23.031000000 UTC&gt;,</span>
+<span class="c">#     @segment=&quot;test.ts&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -458,7 +543,32 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">SegmentItem</span>.new</code></pre>
+          <p>Initializes a new <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> instance.</p>
+<p>The parameters are assigned to the corresponding properties. The <code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> (<code>Byterange</code>) and
+<code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) parameters are parsed using their respective parsing methods,
+allowing them to be provided in different forms (e.g. as a NamedTuple, string, or object).</p>
+<p>Examples:</p>
+<pre><code class="language-crystal"><span class="t">SegmentItem</span>.new(<span class="n">10.991</span>, <span class="s">&quot;test.ts&quot;</span>, <span class="s">&quot;anything&quot;</span>, <span class="s">&quot;4500@600&quot;</span>, <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::SegmentItem:0x7e6830943b40</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7e6831acf990 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @comment=&quot;anything&quot;,</span>
+<span class="c">#     @duration=10.991,</span>
+<span class="c">#     @program_date_time=#&lt;M3U8::TimeItem:0x7e6830949cf0 @time=2010-02-19 14:54:23.031000000 UTC&gt;,</span>
+<span class="c">#     @segment=&quot;test.ts&quot;&gt;</span>
+
+<span class="t">SegmentItem</span>.new(
+  duration: <span class="n">10.991</span>,
+  segment: <span class="s">&quot;test.ts&quot;</span>,
+  comment: <span class="s">&quot;anything&quot;</span>,
+  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+  program_date_time: <span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>),
+)
+<span class="c"># =&gt; #&lt;M3U8::SegmentItem:0x7ffa96913700</span>
+<span class="c">#     @byterange=#&lt;M3U8::ByteRange:0x7ffa97a9f3f0 @length=4500, @start=600&gt;,</span>
+<span class="c">#     @comment=&quot;anything&quot;,</span>
+<span class="c">#     @duration=10.991,</span>
+<span class="c">#     @program_date_time=#&lt;M3U8::TimeItem:0x7ffa9691e7b0 @time=2010-02-19 14:54:23.031000000 UTC&gt;,</span>
+<span class="c">#     @segment=&quot;test.ts&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -491,6 +601,11 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
         <a class="method-permalink" href="#byterange%3AByteRange-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> specifying a sub-section of the segment (if provided).</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -507,11 +622,17 @@ optionally allowing an EXT-X-BYTERANGE tag to be set.</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">item <span class="o">=</span> <span class="t">SegmentItem</span>.new
+          <p>Setter for the <code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> property.</p>
+<p>Allows setting the byterange attribute using a <code><a href="../M3U8/ByteRange.html">ByteRange</a></code> object, a NamedTuple, or a string.
+The input is parsed using <code><a href="../M3U8/ByteRange.html#parse%28item%3Dnil%29-class-method">ByteRange.parse</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">item <span class="o">=</span> <span class="t">SegmentItem</span>.new
 item.byterange <span class="o">=</span> <span class="t">ByteRange</span>.new(length: <span class="n">4500</span>, start: <span class="n">600</span>)
 item.byterange <span class="o">=</span> {length: <span class="n">4500</span>, start: <span class="n">600</span>}
 item.byterange <span class="o">=</span> <span class="s">&quot;4500@600&quot;</span>
-item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></code></pre>
+
+item.byterange
+<span class="c"># =&gt; #&lt;M3U8::ByteRange:0x784ba59ea7e0 @length=4500, @start=600&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -528,6 +649,11 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
         <a class="method-permalink" href="#comment%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>An optional comment from the <code>EXTINF</code> tag.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -541,6 +667,11 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
 
         <a class="method-permalink" href="#comment%3D%28comment%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>An optional comment from the <code>EXTINF</code> tag.</p>
+        </div>
       
       <br/>
       <div>
@@ -556,6 +687,11 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
         <a class="method-permalink" href="#duration%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The required <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> from the <code>EXTINF</code> tag.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -570,6 +706,11 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
         <a class="method-permalink" href="#duration%3D%28duration%3AFloat64%7CNil%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The required <code><a href="../M3U8/SegmentItem.html#duration%3AFloat64%7CNil-instance-method">#duration</a></code> from the <code>EXTINF</code> tag.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -583,6 +724,11 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
 
         <a class="method-permalink" href="#program_date_time%3ATimeItem-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The program date/time (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) associated with the segment (if provided).</p>
+        </div>
       
       <br/>
       <div>
@@ -600,12 +746,18 @@ item.byterange <span class="c"># =&gt; #&lt;M3U8::ByteRange......&gt;</span></co
       
         <div class="doc">
           
-          <pre><code class="language-crystal">item <span class="o">=</span> <span class="t">SegmentItem</span>.new
+          <p>Setter for the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> property.</p>
+<p>Allows setting the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> attribute using a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code><a href="../Time.html">Time</a></code>, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> string.
+The input is parsed using <code><a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">item <span class="o">=</span> <span class="t">SegmentItem</span>.new
 item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
 item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
-item.program_date_time <span class="o">=</span> <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
+item.program_date_time <span class="o">=</span> <span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
 item.program_date_time <span class="o">=</span> <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>
-item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</span></code></pre>
+
+item.program_date_time
+<span class="c"># =&gt; #&lt;M3U8::TimeItem:0x7f5e17fedea0 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -622,6 +774,11 @@ item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</sp
         <a class="method-permalink" href="#segment%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The <em>URI</em> of the media segment.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -635,6 +792,11 @@ item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</sp
 
         <a class="method-permalink" href="#segment%3D%28segment%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The <em>URI</em> of the media segment.</p>
+        </div>
       
       <br/>
       <div>
@@ -652,14 +814,26 @@ item.program_date_time <span class="c"># =&gt; #&lt;M3U8::TimeItem......&gt;</sp
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  duration:  <span class="n">10.991</span>,
-  segment:   <span class="s">&quot;test.ts&quot;</span>,
-  comment:   <span class="s">&quot;anything&quot;</span>,
-  byterange: {length: <span class="n">4500</span>, start: <span class="n">600</span>},
+          <p>Returns the string representation of the segment, including the <code>EXTINF</code> tag,
+an optional <code>EXT-X-BYTERANGE</code> tag, an optional <code>EXT-X-PROGRAM-DATE-TIME</code> tag, and the segment URI.</p>
+<p>The components are joined with newline characters.</p>
+<p>Example:</p>
+<pre><code class="language-txt">options = {
+  duration:  10.991,
+  segment:   &quot;test.ts&quot;,
+  comment:   &quot;anything&quot;,
+  byterange: &quot;4500@600&quot;,
 }
-<span class="t">SegmentItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXTINF:10.991,anything\n#EXT-X-BYTERANGE:4500@600\ntest.ts)</span></code></pre>
+SegmentItem.new(options).to_s
+# =&gt; &quot;#EXTINF:10.991,anything\n&quot; +
+#    &quot;#EXT-X-BYTERANGE:4500@600\n&quot; +
+#    &quot;test.ts&quot;
+
+SegmentItem.new(10.991, &quot;test.ts&quot;, &quot;anything&quot;, &quot;4500@600&quot;, &quot;2010-02-19T14:54:23.031Z&quot;).to_s
+# =&gt; &quot;#EXTINF:10.991,anything\n&quot; +
+#    &quot;#EXT-X-BYTERANGE:4500@600\n&quot; +
+#    &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z\n&quot; +
+#    &quot;test.ts&quot;</code></pre>
         </div>
       
       <br/>

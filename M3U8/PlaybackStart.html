@@ -200,7 +200,23 @@
     Overview
   </h2>
 
-  <p>PlaybackStart represents a #EXT-X-START tag and attributes</p>
+  <p><code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> represents the <code>EXT-X-START</code> tag used in HLS playlists.</p>
+<p>The <code>EXT-X-START</code> tag specifies the preferred starting point for playback of
+a Media Playlist. It includes the following attributes:</p>
+<ul>
+<li><strong>TIME-OFFSET</strong> (required): A decimal number representing the offset (in seconds)
+from the beginning of the playlist where playback should start. A negative
+value indicates that playback should begin a certain time before the end of
+the playlist.</li>
+<li><strong>PRECISE</strong> (optional): A boolean value that indicates whether the time offset is
+precise. This attribute is represented as &quot;YES&quot; for true and &quot;NO&quot; for false.</li>
+</ul>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.5.2">RFC 8216, Section 4.3.5.2</a>,
+the tag is formatted as follows:</p>
+<pre><code class="language-txt">#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES</code></pre>
+<p>This class provides methods to parse an <code>EXT-X-START</code> tag from a text string, create
+a new instance using a NamedTuple of parameters, and output the tag as a properly
+formatted string.</p>
 
 
 
@@ -275,14 +291,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {   time_offset: -12.9,   precise:     true, } <a href="../M3U8/PlaybackStart.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaybackStart.new(options)</a></code></p></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance from a NamedTuple of parameters.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28time_offset%2Cprecise%3ABool%7CNil%3Dnil%29-class-method" class="signature"><strong>.new</strong>(time_offset, precise : Bool | Nil = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code>time_offset = -12.9 precise = true <a href="../M3U8/PlaybackStart.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaybackStart.new(time_offset)</a> <a href="../M3U8/PlaybackStart.html#new%28time_offset%2Cprecise%3ABool%7CNil%3Dnil%29-class-method">PlaybackStart.new(time_offset, precise)</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance.</p></div>
         
       </li>
     
@@ -303,7 +319,7 @@
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><p><code>text = &quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot; <a href="../M3U8/PlaybackStart.html#parse%28text%29-class-method">PlaybackStart.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/PlaybackStart.html">M3U8::PlaybackStart</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a text string representing an <code>EXT-X-START</code> tag and returns a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance.</p></div>
         
       </li>
     
@@ -326,27 +342,35 @@
       <li class="entry-summary">
         <a href="#precise%3ABool%7CNil-instance-method" class="signature"><strong>#precise</strong> : Bool | Nil</a>
         
+          <div class="summary"><p>An optional flag indicating whether the time offset is precise.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#precise%3D%28precise%3ABool%7CNil%29-instance-method" class="signature"><strong>#precise=</strong>(precise : Bool | Nil)</a>
+        
+          <div class="summary"><p>An optional flag indicating whether the time offset is precise.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#time_offset%3AFloat64-instance-method" class="signature"><strong>#time_offset</strong> : Float64</a>
         
+          <div class="summary"><p>The time offset in seconds, indicating the preferred start point.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#time_offset%3D%28time_offset%3AFloat64%29-instance-method" class="signature"><strong>#time_offset=</strong>(time_offset : Float64)</a>
+        
+          <div class="summary"><p>The time offset in seconds, indicating the preferred start point.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   time_offset: -12.9,   precise:     true, } <a href="../M3U8/PlaybackStart.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">PlaybackStart.new(options)</a><a href="../M3U8/PlaybackStart.html#to_s-instance-method">.to_s</a> # =&gt; &quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot;</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-START</code> tag.</p></div>
         
       </li>
     
@@ -417,11 +441,19 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Constructs a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance from a NamedTuple of parameters.</p>
+<p>The NamedTuple can include:</p>
+<ul>
+<li><code><a href="../M3U8/PlaybackStart.html#time_offset%3AFloat64-instance-method">#time_offset</a></code> (Float64 or convertible to Float64): The preferred start offset.</li>
+<li><code><a href="../M3U8/PlaybackStart.html#precise%3ABool%7CNil-instance-method">#precise</a></code> (Bool): The precision flag.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   time_offset: <span class="n">-12.9</span>,
   precise:     <span class="n">true</span>,
 }
-<span class="t">PlaybackStart</span>.new(options)</code></pre>
+<span class="t">PlaybackStart</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::PlaybackStart:0x7a950cc56270 @precise=true, @time_offset=-12.9&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -440,10 +472,13 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">time_offset <span class="o">=</span> <span class="n">-12.9</span>
+          <p>Initializes a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance.</p>
+<p>The time_offset is converted to a Float, and the precise flag is stored as provided.</p>
+<p>Examples:</p>
+<pre><code class="language-crystal">time_offset <span class="o">=</span> <span class="n">-12.9</span>
 precise <span class="o">=</span> <span class="n">true</span>
-<span class="t">PlaybackStart</span>.new(time_offset)
-<span class="t">PlaybackStart</span>.new(time_offset, precise)</code></pre>
+<span class="t">PlaybackStart</span>.new(time_offset)          <span class="c"># =&gt; #&lt;M3U8::PlaybackStart:0x7a8a1a6fd240 @precise=nil, @time_offset=-12.9&gt;</span>
+<span class="t">PlaybackStart</span>.new(time_offset, precise) <span class="c"># =&gt; #&lt;M3U8::PlaybackStart:0x7a8a1a6fd210 @precise=true, @time_offset=-12.9&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -474,9 +509,14 @@ precise <span class="o">=</span> <span class="n">true</span>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">&quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot;</span>
+          <p>Parses a text string representing an <code>EXT-X-START</code> tag and returns a new <code><a href="../M3U8/PlaybackStart.html">PlaybackStart</a></code> instance.</p>
+<p>It extracts the <em>TIME-OFFSET</em> and <em>PRECISE</em> attributes from the tag line using the
+<code>parse_attributes</code> helper (defined in <code>M3U8::Concern</code>), converts them to the appropriate types
+(with precise parsed as a boolean), and creates a new instance.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">&quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot;</span>
 <span class="t">PlaybackStart</span>.parse(text)
-<span class="c"># =&gt; #&lt;M3U8::PlaybackStart......&gt;</span></code></pre>
+<span class="c"># =&gt; #&lt;M3U8::PlaybackStart:0x7acbac72a2a0 @precise=true, @time_offset=-12.9&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -507,6 +547,11 @@ precise <span class="o">=</span> <span class="n">true</span>
         <a class="method-permalink" href="#precise%3ABool%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>An optional flag indicating whether the time offset is precise.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -520,6 +565,11 @@ precise <span class="o">=</span> <span class="n">true</span>
 
         <a class="method-permalink" href="#precise%3D%28precise%3ABool%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>An optional flag indicating whether the time offset is precise.</p>
+        </div>
       
       <br/>
       <div>
@@ -535,6 +585,11 @@ precise <span class="o">=</span> <span class="n">true</span>
         <a class="method-permalink" href="#time_offset%3AFloat64-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The time offset in seconds, indicating the preferred start point.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -548,6 +603,11 @@ precise <span class="o">=</span> <span class="n">true</span>
 
         <a class="method-permalink" href="#time_offset%3D%28time_offset%3AFloat64%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The time offset in seconds, indicating the preferred start point.</p>
+        </div>
       
       <br/>
       <div>
@@ -565,12 +625,18 @@ precise <span class="o">=</span> <span class="n">true</span>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  time_offset: <span class="n">-12.9</span>,
-  precise:     <span class="n">true</span>,
+          <p>Returns the string representation of the <code>EXT-X-START</code> tag.</p>
+<p>It assembles the formatted attributes and prefixes them with <code>#EXT-X-START:</code>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">options = {
+  time_offset: -12.9,
+  precise:     true,
 }
-<span class="t">PlaybackStart</span>.new(options).to_s
-<span class="c"># =&gt; &quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot;</span></code></pre>
+PlaybackStart.new(options).to_s
+# =&gt; &quot;#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES&quot;
+
+PlaybackStart.new(time_offset: -12.9).to_s
+# =&gt; &quot;#EXT-X-START:TIME-OFFSET=-12.9&quot;</code></pre>
         </div>
       
       <br/>

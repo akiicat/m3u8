@@ -200,7 +200,21 @@
     Overview
   </h2>
 
-  <p>SessionDataItem represents a set of EXT-X-SESSION-DATA attributes</p>
+  <p><code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code> represents a set of attributes for the <code>EXT-X-SESSION-DATA</code> tag
+used in HLS playlists.</p>
+<p>The <code>EXT-X-SESSION-DATA</code> tag (defined in <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>)
+is used to convey session-level metadata in an HLS Master Playlist. It can include various key-value
+pairs such as the data identifier (<em>DATA-ID</em>), a human-readable value (<em>VALUE</em>), an optional URI
+to more detailed data (<em>URI</em>), and a language code (<em>LANGUAGE</em>).</p>
+<p>Example tags:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.lyrics&quot;,URI=&quot;lyrics.json&quot;
+#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;
+#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;es&quot;,VALUE=&quot;Este es un ejemplo&quot;</code></pre>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC 8216</a>, each <code>EXT-X-SESSION-DATA</code>
+tag MUST contain either a <em>VALUE</em> or a <em>URI</em> attribute, but not both. This implementation, however,
+provides the flexibility to bypass that check.</p>
+<p>This class provides methods to parse such a tag from a text string, create a new instance using a
+NamedTuple of parameters, and output the tag as a properly formatted string.</p>
 
 
 
@@ -275,14 +289,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
-          <div class="summary"><p><code>options = {   data_id:  &quot;com.test.movie.title&quot;,   value:    &quot;Test&quot;,   uri:      &quot;http://test&quot;,   language: &quot;en&quot;, } <a href="../M3U8/SessionDataItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SessionDataItem.new(options)</a></code></p></div>
+          <div class="summary"><p>Constructs a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code> from a NamedTuple of parameters.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28data_id%3ANil%7CString%3Dnil%2Cvalue%3ANil%7CString%3Dnil%2Curi%3ANil%7CString%3Dnil%2Clanguage%3ANil%7CString%3Dnil%29-class-method" class="signature"><strong>.new</strong>(data_id : Nil | String = <span class="n">nil</span>, value : Nil | String = <span class="n">nil</span>, uri : Nil | String = <span class="n">nil</span>, language : Nil | String = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p><code><a href="../M3U8/SessionDataItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SessionDataItem.new</a></code></p></div>
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code> instance with the given attributes.</p></div>
         
       </li>
     
@@ -303,7 +317,7 @@
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;) <a href="../M3U8/SessionDataItem.html#parse%28text%29-class-method">SessionDataItem.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/SessionDataItem.html">M3U8::SessionDataItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a text line representing an <code>EXT-X-SESSION-DATA</code> tag and returns a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code>.</p></div>
         
       </li>
     
@@ -326,47 +340,63 @@
       <li class="entry-summary">
         <a href="#data_id%3AString%7CNil-instance-method" class="signature"><strong>#data_id</strong> : String | Nil</a>
         
+          <div class="summary"><p>The unique identifier for the session data.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#data_id%3D%28data_id%3AString%7CNil%29-instance-method" class="signature"><strong>#data_id=</strong>(data_id : String | Nil)</a>
+        
+          <div class="summary"><p>The unique identifier for the session data.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#language%3AString%7CNil-instance-method" class="signature"><strong>#language</strong> : String | Nil</a>
         
+          <div class="summary"><p>An optional language code for the data.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#language%3D%28language%3AString%7CNil%29-instance-method" class="signature"><strong>#language=</strong>(language : String | Nil)</a>
+        
+          <div class="summary"><p>An optional language code for the data.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   data_id:  &quot;com.test.movie.title&quot;,   value:    &quot;Test&quot;,   uri:      &quot;http://test&quot;,   language: &quot;en&quot;, } <a href="../M3U8/SessionDataItem.html#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">SessionDataItem.new(options)</a><a href="../M3U8/SessionDataItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,) \ %(VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-SESSION-DATA</code> tag.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3AString%7CNil-instance-method" class="signature"><strong>#uri</strong> : String | Nil</a>
         
+          <div class="summary"><p>An optional <em>URI</em> providing further details or related data.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3D%28uri%3AString%7CNil%29-instance-method" class="signature"><strong>#uri=</strong>(uri : String | Nil)</a>
+        
+          <div class="summary"><p>An optional <em>URI</em> providing further details or related data.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#value%3AString%7CNil-instance-method" class="signature"><strong>#value</strong> : String | Nil</a>
         
+          <div class="summary"><p>The <code><a href="../M3U8/SessionDataItem.html#value%3AString%7CNil-instance-method">#value</a></code> associated with the data identifier <code><a href="../M3U8/SessionDataItem.html#data_id%3AString%7CNil-instance-method">#data_id</a></code>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#value%3D%28value%3AString%7CNil%29-instance-method" class="signature"><strong>#value=</strong>(value : String | Nil)</a>
+        
+          <div class="summary"><p>The <code><a href="../M3U8/SessionDataItem.html#value%3AString%7CNil-instance-method">#value</a></code> associated with the data identifier <code><a href="../M3U8/SessionDataItem.html#data_id%3AString%7CNil-instance-method">#data_id</a></code>.</p></div>
         
       </li>
     
@@ -437,13 +467,27 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Constructs a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code> from a NamedTuple of parameters.</p>
+<p>The NamedTuple can include the following keys:</p>
+<ul>
+<li><code><a href="../M3U8/SessionDataItem.html#data_id%3AString%7CNil-instance-method">#data_id</a></code> (String): the unique identifier.</li>
+<li><code><a href="../M3U8/SessionDataItem.html#value%3AString%7CNil-instance-method">#value</a></code> (String): the associated value.</li>
+<li><code><a href="../M3U8/SessionDataItem.html#uri%3AString%7CNil-instance-method">#uri</a></code> (String): the <em>URI</em> providing additional data.</li>
+<li><code><a href="../M3U8/SessionDataItem.html#language%3AString%7CNil-instance-method">#language</a></code> (String): the language code.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   data_id:  <span class="s">&quot;com.test.movie.title&quot;</span>,
   value:    <span class="s">&quot;Test&quot;</span>,
   uri:      <span class="s">&quot;http://test&quot;</span>,
   language: <span class="s">&quot;en&quot;</span>,
 }
-<span class="t">SessionDataItem</span>.new(options)</code></pre>
+<span class="t">SessionDataItem</span>.new(options)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x794e57f25c30</span>
+<span class="c">#     @data_id=&quot;com.test.movie.title&quot;,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @uri=&quot;http://test&quot;,</span>
+<span class="c">#     @value=&quot;Test&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -462,7 +506,22 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal"><span class="t">SessionDataItem</span>.new</code></pre>
+          <p>Initializes a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code> instance with the given attributes.</p>
+<p>If no parameters are provided, the instance properties default to <code>nil</code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="t">SessionDataItem</span>.new
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x79dcf3b0f9c0</span>
+<span class="c">#     @data_id=nil,</span>
+<span class="c">#     @language=nil,</span>
+<span class="c">#     @uri=nil,</span>
+<span class="c">#     @value=nil&gt;</span>
+
+<span class="t">SessionDataItem</span>.new(data_id: <span class="s">&quot;com.test.movie.title&quot;</span>, value: <span class="s">&quot;Test&quot;</span>, uri: <span class="s">&quot;http://test&quot;</span>, language: <span class="s">&quot;en&quot;</span>)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x78ba0d6b4420</span>
+<span class="c">#     @data_id=&quot;com.test.movie.title&quot;,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @uri=&quot;http://test&quot;,</span>
+<span class="c">#     @value=&quot;Test&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -493,8 +552,40 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</span>
-<span class="t">SessionDataItem</span>.parse(text) <span class="c"># =&gt; #&lt;M3U8::SessionDataItem......&gt;</span></code></pre>
+          <p>Parses a text line representing an <code>EXT-X-SESSION-DATA</code> tag and returns a new <code><a href="../M3U8/SessionDataItem.html">SessionDataItem</a></code>.</p>
+<p>The tag line should include attributes such as <em>DATA-ID</em>, <em>VALUE</em>, <em>URI</em>, and <em>LANGUAGE</em>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.lyrics&quot;,URI=&quot;lyrics.json&quot;)</span>
+<span class="t">SessionDataItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x7874fd4a85a0</span>
+<span class="c">#     @data_id=&quot;com.example.lyrics&quot;,</span>
+<span class="c">#     @language=nil,</span>
+<span class="c">#     @uri=&quot;lyrics.json&quot;,</span>
+<span class="c">#     @value=nil&gt;</span>
+
+text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;)</span>
+<span class="t">SessionDataItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x7874fd4a8330</span>
+<span class="c">#     @data_id=&quot;com.example.title&quot;,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @uri=nil,</span>
+<span class="c">#     @value=&quot;This is an example&quot;&gt;</span>
+
+text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;es&quot;,VALUE=&quot;Este es un ejemplo&quot;)</span>
+<span class="t">SessionDataItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x7874fd4a80c0</span>
+<span class="c">#     @data_id=&quot;com.example.title&quot;,</span>
+<span class="c">#     @language=&quot;es&quot;,</span>
+<span class="c">#     @uri=nil,</span>
+<span class="c">#     @value=&quot;Este es un ejemplo&quot;&gt;</span>
+
+text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</span>
+<span class="t">SessionDataItem</span>.parse(text)
+<span class="c"># =&gt; #&lt;M3U8::SessionDataItem:0x7874fd4b0ea0</span>
+<span class="c">#     @data_id=&quot;com.test.movie.title&quot;,</span>
+<span class="c">#     @language=&quot;en&quot;,</span>
+<span class="c">#     @uri=&quot;http://test&quot;,</span>
+<span class="c">#     @value=&quot;Test&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -525,6 +616,20 @@
         <a class="method-permalink" href="#data_id%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The unique identifier for the session data.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>, this attribute is required.
+The value of <em>DATA-ID</em> is a quoted-string that identifies a
+particular data value.  The <em>DATA-ID</em> should conform to a reverse
+DNS naming convention, such as &quot;com.example.movie.title&quot;; however,
+there is no central registration authority, so Playlist authors
+should take care to choose a value that is unlikely to collide
+with others.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -538,6 +643,20 @@
 
         <a class="method-permalink" href="#data_id%3D%28data_id%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The unique identifier for the session data.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>, this attribute is required.
+The value of <em>DATA-ID</em> is a quoted-string that identifies a
+particular data value.  The <em>DATA-ID</em> should conform to a reverse
+DNS naming convention, such as &quot;com.example.movie.title&quot;; however,
+there is no central registration authority, so Playlist authors
+should take care to choose a value that is unlikely to collide
+with others.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -553,6 +672,16 @@
         <a class="method-permalink" href="#language%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>An optional language code for the data.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+the value is a quoted-string containing a language tag <a href="https://datatracker.ietf.org/doc/html/rfc5646">RFC5646</a>
+that identifies the language of the <em>VALUE</em>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -566,6 +695,16 @@
 
         <a class="method-permalink" href="#language%3D%28language%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>An optional language code for the data.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+the value is a quoted-string containing a language tag <a href="https://datatracker.ietf.org/doc/html/rfc5646">RFC5646</a>
+that identifies the language of the <em>VALUE</em>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -583,15 +722,18 @@
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
-  data_id:  <span class="s">&quot;com.test.movie.title&quot;</span>,
-  value:    <span class="s">&quot;Test&quot;</span>,
-  uri:      <span class="s">&quot;http://test&quot;</span>,
-  language: <span class="s">&quot;en&quot;</span>,
+          <p>Returns the string representation of the <code>EXT-X-SESSION-DATA</code> tag.</p>
+<p>The output is generated by joining the formatted attributes with commas,
+and then prefixing the result with <code>#EXT-X-SESSION-DATA:</code>.</p>
+<p>Example:</p>
+<pre><code class="language-txt">options = {
+  data_id:  &quot;com.test.movie.title&quot;,
+  value:    &quot;Test&quot;,
+  uri:      &quot;http://test&quot;,
+  language: &quot;en&quot;,
 }
-<span class="t">SessionDataItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXT-X-SESSION-DATA:DATA-ID=&quot;com.test.movie.title&quot;,) \</span>
-<span class="s">%(VALUE=&quot;Test&quot;,URI=&quot;http://test&quot;,LANGUAGE=&quot;en&quot;)</span></code></pre>
+SessionDataItem.new(options).to_s
+# =&gt; &quot;#EXT-X-SESSION-DATA:DATA-ID=\&quot;com.test.movie.title\&quot;,VALUE=\&quot;Test\&quot;,URI=\&quot;http://test\&quot;,LANGUAGE=\&quot;en\&quot;&quot;</code></pre>
         </div>
       
       <br/>
@@ -608,6 +750,17 @@
         <a class="method-permalink" href="#uri%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>An optional <em>URI</em> providing further details or related data.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+the value is a quoted-string containing a <em>URI</em>.  The resource
+identified by the <em>URI</em> MUST be formatted as JSON <a href="https://datatracker.ietf.org/doc/html/rfc5646">RFC7159</a>;
+otherwise, clients may fail to interpret the resource.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.lyrics&quot;,URI=&quot;lyrics.json&quot;</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -621,6 +774,17 @@
 
         <a class="method-permalink" href="#uri%3D%28uri%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>An optional <em>URI</em> providing further details or related data.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+the value is a quoted-string containing a <em>URI</em>.  The resource
+identified by the <em>URI</em> MUST be formatted as JSON <a href="https://datatracker.ietf.org/doc/html/rfc5646">RFC7159</a>;
+otherwise, clients may fail to interpret the resource.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.lyrics&quot;,URI=&quot;lyrics.json&quot;</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -636,6 +800,17 @@
         <a class="method-permalink" href="#value%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The <code><a href="../M3U8/SessionDataItem.html#value%3AString%7CNil-instance-method">#value</a></code> associated with the data identifier <code><a href="../M3U8/SessionDataItem.html#data_id%3AString%7CNil-instance-method">#data_id</a></code>.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+<em>VALUE</em> is a quoted-string.  It contains the data identified by
+<em>DATA-ID</em>.  If the <em>LANGUAGE</em> is specified, <em>VALUE</em> should contain a
+human-readable string written in the specified language.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;</code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -649,6 +824,17 @@
 
         <a class="method-permalink" href="#value%3D%28value%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The <code><a href="../M3U8/SessionDataItem.html#value%3AString%7CNil-instance-method">#value</a></code> associated with the data identifier <code><a href="../M3U8/SessionDataItem.html#data_id%3AString%7CNil-instance-method">#data_id</a></code>.</p>
+<p>In <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.4">RFC 8216, Section 4.3.4.4</a>,
+<em>VALUE</em> is a quoted-string.  It contains the data identified by
+<em>DATA-ID</em>.  If the <em>LANGUAGE</em> is specified, <em>VALUE</em> should contain a
+human-readable string written in the specified language.</p>
+<p>Example:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-DATA:DATA-ID=&quot;com.example.title&quot;,LANGUAGE=&quot;en&quot;,VALUE=&quot;This is an example&quot;</code></pre>
+        </div>
       
       <br/>
       <div>

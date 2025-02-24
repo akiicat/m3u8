@@ -198,7 +198,20 @@
     Overview
   </h2>
 
-  <p>Encapsulates logic common to encryption key tags</p>
+  <p>Provides common functionality for constructing encryption key tags in HTTP Live Streaming (HLS).</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.4">RFC 8216, Section 4.3.2.4</a>, the
+<code>EXT-X-KEY</code> tag specifies the encryption parameters for Media Segments in an HLS playlist.
+This tag includes several attributes:</p>
+<pre><code class="language-txt">#EXT-X-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;</code></pre>
+<ul>
+<li><em><strong>METHOD</strong></em> (required): Specifies the encryption method (e.g. NONE, AES-128, SAMPLE-AES).</li>
+<li><em><strong>URI</strong></em> (optional): The <em>URI</em> used to fetch the decryption key (optional if <em>METHOD</em> is NONE; required otherwise).</li>
+<li><em><strong>IV</strong></em> (optional): The Initialization Vector, expressed as a hexadecimal sequence.</li>
+<li><em><strong>KEYFORMAT</strong></em> (optional): A string that indicates the key format (defaults to &quot;identity&quot; if omitted).</li>
+<li><em><strong>KEYFORMATVERSIONS</strong></em> (optional): Indicates the supported key format versions (defaults to 1 if omitted).</li>
+</ul>
+<p>This module provides helper methods that convert parameter hashes into the correctly formatted
+attribute string for inclusion in an <code>EXT-X-KEY</code> tag.</p>
 
 
 
@@ -261,10 +274,14 @@
       <li class="entry-summary">
         <a href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method" class="signature"><strong>.new</strong>(params : NamedTuple = <span class="t">NamedTuple</span>.new)</a>
         
+          <div class="summary"><p>Alternative constructor that accepts a NamedTuple with symbol keys.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28method%3D%22%22%2Curi%3Dnil%2Civ%3Dnil%2Ckey_format%3Dnil%2Ckey_format_versions%3Dnil%29-class-method" class="signature"><strong>.new</strong>(method = <span class="s">&quot;&quot;</span>, uri = <span class="n">nil</span>, iv = <span class="n">nil</span>, key_format = <span class="n">nil</span>, key_format_versions = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Initializes a new <code><a href="../M3U8/Encryptable.html">Encryptable</a></code> instance with the given parameters.</p></div>
         
       </li>
     
@@ -284,6 +301,8 @@
     
       <li class="entry-summary">
         <a href="#convert_key%28params%29-class-method" class="signature"><strong>.convert_key</strong>(params)</a>
+        
+          <div class="summary"><p>Converts a hash of parameters (with keys in uppercase, as in a playlist) into a new hash with symbolized keys for internal use.</p></div>
         
       </li>
     
@@ -306,55 +325,77 @@
       <li class="entry-summary">
         <a href="#attributes_to_s-instance-method" class="signature"><strong>#attributes_to_s</strong></a>
         
+          <div class="summary"><p>Constructs a string representation of the encryption key attributes.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#iv%3AString%7CNil-instance-method" class="signature"><strong>#iv</strong> : String | Nil</a>
+        
+          <div class="summary"><p>The value is a hexadecimal-sequence that specifies a 128-bit unsigned integer Initialization Vector <em>IV</em> to be used with the key.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#iv%3D%28iv%3AString%7CNil%29-instance-method" class="signature"><strong>#iv=</strong>(iv : String | Nil)</a>
         
+          <div class="summary"><p>The value is a hexadecimal-sequence that specifies a 128-bit unsigned integer Initialization Vector <em>IV</em> to be used with the key.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#key_format%3AString%7CNil-instance-method" class="signature"><strong>#key_format</strong> : String | Nil</a>
+        
+          <div class="summary"><p>The value is a string that specifies how the key is represented in the resource identified by the <em>URI</em>;</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#key_format%3D%28key_format%3AString%7CNil%29-instance-method" class="signature"><strong>#key_format=</strong>(key_format : String | Nil)</a>
         
+          <div class="summary"><p>The value is a string that specifies how the key is represented in the resource identified by the <em>URI</em>;</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#key_format_versions%3AString%7CNil-instance-method" class="signature"><strong>#key_format_versions</strong> : String | Nil</a>
+        
+          <div class="summary"><p>The value is a string containing one or more positive integers separated by the <code>/</code> character (for example, <code>1</code>, <code>1/2</code>, or <code>1/2/5</code>).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#key_format_versions%3D%28key_format_versions%3AString%7CNil%29-instance-method" class="signature"><strong>#key_format_versions=</strong>(key_format_versions : String | Nil)</a>
         
+          <div class="summary"><p>The value is a string containing one or more positive integers separated by the <code>/</code> character (for example, <code>1</code>, <code>1/2</code>, or <code>1/2/5</code>).</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#method%3AString-instance-method" class="signature"><strong>#method</strong> : String</a>
+        
+          <div class="summary"><p>The value is a string that specifies the encryption method.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#method%3D%28method%3AString%29-instance-method" class="signature"><strong>#method=</strong>(method : String)</a>
         
+          <div class="summary"><p>The value is a string that specifies the encryption method.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3AString%7CNil-instance-method" class="signature"><strong>#uri</strong> : String | Nil</a>
         
+          <div class="summary"><p>The value is a string containing a <em>URI</em> that specifies how to obtain the key.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#uri%3D%28uri%3AString%7CNil%29-instance-method" class="signature"><strong>#uri=</strong>(uri : String | Nil)</a>
+        
+          <div class="summary"><p>The value is a string containing a <em>URI</em> that specifies how to obtain the key.</p></div>
         
       </li>
     
@@ -384,6 +425,31 @@
         <a class="method-permalink" href="#new%28params%3ANamedTuple%3DNamedTuple.new%29-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Alternative constructor that accepts a NamedTuple with symbol keys.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  method:              <span class="s">&quot;AES-128&quot;</span>,
+  uri:                 <span class="s">&quot;https://example.com/key&quot;</span>,
+  iv:                  <span class="s">&quot;0x1a2b3c&quot;</span>,
+  key_format:          <span class="s">&quot;identity&quot;</span>,
+  key_format_versions: <span class="s">&quot;1&quot;</span>,
+}
+
+<span class="k">class</span> <span class="t">Something</span>
+  <span class="k">include</span> <span class="t">Encryptable</span>
+<span class="k">end</span>
+
+<span class="t">Something</span>.new(options)
+<span class="c"># =&gt; #&lt;App::Something:0x78b71f3a9380</span>
+<span class="c">#     @iv=&quot;0x1a2b3c&quot;,</span>
+<span class="c">#     @key_format=&quot;identity&quot;,</span>
+<span class="c">#     @key_format_versions=&quot;1&quot;,</span>
+<span class="c">#     @method=&quot;AES-128&quot;,</span>
+<span class="c">#     @uri=&quot;https://example.com/key&quot;&gt;</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -397,6 +463,30 @@
 
         <a class="method-permalink" href="#new%28method%3D%22%22%2Curi%3Dnil%2Civ%3Dnil%2Ckey_format%3Dnil%2Ckey_format_versions%3Dnil%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Initializes a new <code><a href="../M3U8/Encryptable.html">Encryptable</a></code> instance with the given parameters.</p>
+<p>Parameters:</p>
+<ul>
+<li><code><a href="../M3U8/Encryptable.html#method%3AString-instance-method">#method</a></code>: The encryption method (required).</li>
+<li><code><a href="../M3U8/Encryptable.html#uri%3AString%7CNil-instance-method">#uri</a></code>: The <em>URI</em> for the key (optional).</li>
+<li><code><a href="../M3U8/Encryptable.html#iv%3AString%7CNil-instance-method">#iv</a></code>: The Initialization Vector <em>IV</em> (optional).</li>
+<li><code><a href="../M3U8/Encryptable.html#key_format%3AString%7CNil-instance-method">#key_format</a></code>: The key format (optional).</li>
+<li><code><a href="../M3U8/Encryptable.html#key_format_versions%3AString%7CNil-instance-method">#key_format_versions</a></code>: The supported key format versions (optional).</li>
+</ul>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Something</span>
+  <span class="k">include</span> <span class="t">Encryptable</span>
+<span class="k">end</span>
+
+<span class="t">Something</span>.new(method: <span class="s">&quot;AES-128&quot;</span>, uri: <span class="s">&quot;https://example.com/key&quot;</span>)
+<span class="c"># =&gt; #&lt;App::Something:0x7cae3cdbb2c0</span>
+<span class="c">#     @iv=nil,</span>
+<span class="c">#     @key_format=nil,</span>
+<span class="c">#     @key_format_versions=nil,</span>
+<span class="c">#     @method=&quot;AES-128&quot;,</span>
+<span class="c">#     @uri=&quot;https://example.com/key&quot;&gt;</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -423,6 +513,35 @@
 
         <a class="method-permalink" href="#convert_key%28params%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Converts a hash of parameters (with keys in uppercase, as in a playlist) into
+a new hash with symbolized keys for internal use.</p>
+<p>Expected keys are:</p>
+<ul>
+<li><code>METHOD</code></li>
+<li><code>URI</code></li>
+<li><code>IV</code></li>
+<li><code>KEYFORMAT</code></li>
+<li><code>KEYFORMATVERSIONS</code>.</li>
+</ul>
+<p>Returns a NamedTuple.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
+  <span class="s">&quot;METHOD&quot;</span>            <span class="o">=&gt;</span> <span class="s">&quot;AES-128&quot;</span>,
+  <span class="s">&quot;URI&quot;</span>               <span class="o">=&gt;</span> <span class="s">&quot;http://test.key&quot;</span>,
+  <span class="s">&quot;IV&quot;</span>                <span class="o">=&gt;</span> <span class="s">&quot;D512BBF&quot;</span>,
+  <span class="s">&quot;KEYFORMAT&quot;</span>         <span class="o">=&gt;</span> <span class="s">&quot;identity&quot;</span>,
+  <span class="s">&quot;KEYFORMATVERSIONS&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;1/3&quot;</span>,
+}
+<span class="t">Encryptable</span>.convert_key(options)
+<span class="c"># =&gt; {method: &quot;AES-128&quot;,</span>
+<span class="c">#     uri: &quot;http://test.key&quot;,</span>
+<span class="c">#     iv: &quot;D512BBF&quot;,</span>
+<span class="c">#     key_format: &quot;identity&quot;,</span>
+<span class="c">#     key_format_versions: &quot;1/3&quot;}</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -452,6 +571,20 @@
         <a class="method-permalink" href="#attributes_to_s-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Constructs a string representation of the encryption key attributes.</p>
+<p>The output is a comma-separated list of attribute assignments,
+suitable for inclusion in an <code>EXT-X-KEY</code> tag.</p>
+<p>Example:</p>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Something</span>
+  <span class="k">include</span> <span class="t">Encryptable</span>
+<span class="k">end</span>
+
+<span class="t">Something</span>.new(method: <span class="s">&quot;AES-128&quot;</span>, uri: <span class="s">&quot;https://example.com/key&quot;</span>).attributes_to_s
+<span class="c"># =&gt; &quot;METHOD=AES-128,URI=\&quot;https://example.com/key\&quot;&quot;</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -465,6 +598,12 @@
 
         <a class="method-permalink" href="#iv%3AString%7CNil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The value is a hexadecimal-sequence that specifies a 128-bit
+unsigned integer Initialization Vector <em>IV</em> to be used with the key.</p>
+        </div>
       
       <br/>
       <div>
@@ -480,6 +619,12 @@
         <a class="method-permalink" href="#iv%3D%28iv%3AString%7CNil%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The value is a hexadecimal-sequence that specifies a 128-bit
+unsigned integer Initialization Vector <em>IV</em> to be used with the key.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -493,6 +638,12 @@
 
         <a class="method-permalink" href="#key_format%3AString%7CNil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The value is a string that specifies how the key is
+represented in the resource identified by the <em>URI</em>;</p>
+        </div>
       
       <br/>
       <div>
@@ -508,6 +659,12 @@
         <a class="method-permalink" href="#key_format%3D%28key_format%3AString%7CNil%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The value is a string that specifies how the key is
+represented in the resource identified by the <em>URI</em>;</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -521,6 +678,12 @@
 
         <a class="method-permalink" href="#key_format_versions%3AString%7CNil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The value is a string containing one or more positive
+integers separated by the <code>/</code> character (for example, <code>1</code>, <code>1/2</code>, or <code>1/2/5</code>).</p>
+        </div>
       
       <br/>
       <div>
@@ -536,6 +699,12 @@
         <a class="method-permalink" href="#key_format_versions%3D%28key_format_versions%3AString%7CNil%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The value is a string containing one or more positive
+integers separated by the <code>/</code> character (for example, <code>1</code>, <code>1/2</code>, or <code>1/2/5</code>).</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -549,6 +718,13 @@
 
         <a class="method-permalink" href="#method%3AString-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The value is a string that specifies the encryption method.</p>
+<p>The methods defined are: <code>NONE</code>, <code>AES-128</code>, and <code>SAMPLE-AES</code>.
+An encryption method of <code>NONE</code> means that Media Segments are not encrypted.</p>
+        </div>
       
       <br/>
       <div>
@@ -564,6 +740,13 @@
         <a class="method-permalink" href="#method%3D%28method%3AString%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The value is a string that specifies the encryption method.</p>
+<p>The methods defined are: <code>NONE</code>, <code>AES-128</code>, and <code>SAMPLE-AES</code>.
+An encryption method of <code>NONE</code> means that Media Segments are not encrypted.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -578,6 +761,12 @@
         <a class="method-permalink" href="#uri%3AString%7CNil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>The value is a string containing a <em>URI</em> that specifies how
+to obtain the key.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -591,6 +780,12 @@
 
         <a class="method-permalink" href="#uri%3D%28uri%3AString%7CNil%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>The value is a string containing a <em>URI</em> that specifies how
+to obtain the key.</p>
+        </div>
       
       <br/>
       <div>

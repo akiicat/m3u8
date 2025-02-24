@@ -200,8 +200,19 @@
     Overview
   </h2>
 
-  <p>KeyItem represents a set of EXT-X-SESSION-KEY attributes
-https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
+  <p><code><a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a></code> represents a set of attributes for the <code>EXT-X-SESSION-KEY</code> tag,
+which is used in HTTP Live Streaming (HLS) to specify encryption keys that
+apply to a session of Media Segments.</p>
+<p>According to <a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.4.5">RFC 8216, Section 4.3.4.5</a>,
+the <code>EXT-X-SESSION-KEY</code> tag provides information such as the encryption <em>METHOD</em>,
+the <em>URI</em> to obtain the key, the Initialization Vector <em>IV</em>, and optionally the
+<em>KEYFORMAT</em> and <em>KEYFORMATVERSIONS</em>.</p>
+<p>Example of an <code>EXT-X-SESSION-KEY</code> tag:</p>
+<pre><code class="language-txt">#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;</code></pre>
+<p>All attributes defined for the <code>EXT-X-KEY</code> tag (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.4">RFC 8216, Section 4.3.2.4</a>) are
+also defined for the <code>EXT-X-SESSION-KEY</code>, except that the value of the
+<em>METHOD</em> attribute MUST NOT be NONE.</p>
+<p>This class leverages the <code><a href="../M3U8/Encryptable.html">Encryptable</a></code> module to parse and format these attributes.</p>
 
 
 
@@ -280,7 +291,7 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
       <li class="entry-summary">
         <a href="#parse%28text%29-class-method" class="signature"><strong>.parse</strong>(text)</a>
         
-          <div class="summary"><p><code>text = %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;) <a href="../M3U8/SessionKeyItem.html#parse%28text%29-class-method">SessionKeyItem.parse(text)</a> # =&gt; #&lt;<a href="../M3U8/SessionKeyItem.html">M3U8::SessionKeyItem</a>......&gt;</code></p></div>
+          <div class="summary"><p>Parses a text string representing an <code>EXT-X-SESSION-KEY</code> tag and returns a new <code><a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a></code> instance.</p></div>
         
       </li>
     
@@ -303,7 +314,7 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p><code>options = {   method:              &quot;AES-128&quot;,   uri:                 &quot;http://test.key&quot;,   iv:                  &quot;D512BBF&quot;,   key_format:          &quot;identity&quot;,   key_format_versions: &quot;1/3&quot;, } SessionKeyItem.new(options)<a href="../M3U8/SessionKeyItem.html#to_s-instance-method">.to_s</a> # =&gt; %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</code></p></div>
+          <div class="summary"><p>Returns the string representation of the <code>EXT-X-SESSION-KEY</code> tag.</p></div>
         
       </li>
     
@@ -466,9 +477,20 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span>
+          <p>Parses a text string representing an <code>EXT-X-SESSION-KEY</code> tag and returns a new
+<code><a href="../M3U8/SessionKeyItem.html">SessionKeyItem</a></code> instance.</p>
+<p>It extracts the attribute list from the tag line using <code>parse_attributes</code>
+(from the <code>M3U8::Concern</code> module), then converts the extracted values using
+<code><a href="../M3U8/Encryptable.html#convert_key%28params%29-class-method">Encryptable.convert_key</a></code>.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">text <span class="o">=</span> <span class="s">%(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span>
 <span class="t">SessionKeyItem</span>.parse(text)
-<span class="c"># =&gt; #&lt;M3U8::SessionKeyItem......&gt;</span></code></pre>
+<span class="c"># =&gt; #&lt;M3U8::SessionKeyItem:0x7e4a9ab264c0</span>
+<span class="c">#     @iv=&quot;D512BBF&quot;,</span>
+<span class="c">#     @key_format=&quot;identity&quot;,</span>
+<span class="c">#     @key_format_versions=&quot;1/3&quot;,</span>
+<span class="c">#     @method=&quot;AES-128&quot;,</span>
+<span class="c">#     @uri=&quot;http://test.key&quot;&gt;</span></code></pre>
         </div>
       
       <br/>
@@ -501,7 +523,11 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
       
         <div class="doc">
           
-          <pre><code class="language-crystal">options <span class="o">=</span> {
+          <p>Returns the string representation of the <code>EXT-X-SESSION-KEY</code> tag.</p>
+<p>The output is generated by concatenating the formatted encryption key
+attributes (provided by the <code><a href="../M3U8/Encryptable.html">Encryptable</a></code> module) with the tag identifier.</p>
+<p>Example:</p>
+<pre><code class="language-crystal">options <span class="o">=</span> {
   method:              <span class="s">&quot;AES-128&quot;</span>,
   uri:                 <span class="s">&quot;http://test.key&quot;</span>,
   iv:                  <span class="s">&quot;D512BBF&quot;</span>,
@@ -509,7 +535,7 @@ https://tools.ietf.org/html/draft-pantos-http-live-streaming-20#page-33</p>
   key_format_versions: <span class="s">&quot;1/3&quot;</span>,
 }
 <span class="t">SessionKeyItem</span>.new(options).to_s
-<span class="c"># =&gt; %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI=&quot;http://test.key&quot;,IV=D512BBF,KEYFORMAT=&quot;identity&quot;,KEYFORMATVERSIONS=&quot;1/3&quot;)</span></code></pre>
+<span class="c"># =&gt; &quot;#EXT-X-SESSION-KEY:METHOD=AES-128,URI=\&quot;http://test.key\&quot;,IV=D512BBF,KEYFORMAT=\&quot;identity\&quot;,KEYFORMATVERSIONS=\&quot;1/3\&quot;&quot;</span></code></pre>
         </div>
       
       <br/>
