@@ -1,31 +1,96 @@
 require "json"
 
 module M3U8
-  # DateRangeItem represents a #EXT-X-DATERANGE tag
+  # `DateRangeItem` encapsulates an `EXT-X-DATERANGE` tag in an HLS playlist.
+  #
+  # As defined in [RFC 8216, Section 4.3.2.7](https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.7),
+  # the `XT-X-DATERANGE` tag is used to associate a specific date range with a collection of
+  # attribute/value pairs. It is typically used for signaling events
+  # such as ad insertion, content segmentation, or SCTE-35 splice points.
+  #
+  # Example tag format:
+  #
+  # ```txt
+  # #EXT-X-DATERANGE:ID="...",CLASS="...",START-DATE="...",END-DATE="...",...
+  # ```
+  #
+  # The `EXT-X-DATERANGE` tag stores the following attributes:
+  # - **ID** (required): A unique identifier for the date range.
+  # - **CLASS** (optional): A client-defined category for the date range.
+  # - **START-DATE** (required): The starting date/time in [ISO-8601](https://xml.coverpages.org/ISO-FDIS-8601.pdf) format.
+  # - **END-DATE** (optional): The ending date/time in [ISO-8601](https://xml.coverpages.org/ISO-FDIS-8601.pdf) format.
+  # - **DURATION** (optional): The duration of the date range, in seconds.
+  # - **PLANNED-DURATION** (optional): The expected duration, in seconds.
+  # - **SCTE35-CMD, SCTE35-OUT, SCTE35-IN** (optional): Attributes carrying SCTE-35 splice data.
+  # - **END-ON-NEXT** (optional): A boolean flag that, if true, outputs `"END-ON-NEXT=YES"`.
+  # - **Client-specific attributes** (optional): Any additional attributes with keys starting with `X-`.
   class DateRangeItem
     include Concern
 
+    # A unique identifier for the date range.
     property id : String?
+
+    # The start date/time in [ISO-8601](https://xml.coverpages.org/ISO-FDIS-8601.pdf) format.
     property start_date : String?
+
+    # A client-defined category for the date range.
     property class_name : String?
+
+    # The end date/time in [ISO-8601](https://xml.coverpages.org/ISO-FDIS-8601.pdf) format.
     property end_date : String?
+
+    # The duration in seconds.
     property duration : Float64?
+
+    # The expected duration in seconds.
     property planned_duration : Float64?
+
+    # SCTE-35 splice information.
     property scte35_cmd : String?
+
+    # SCTE-35 splice information.
     property scte35_out : String?
+
+    # SCTE-35 splice information.
     property scte35_in : String?
+
+    # A boolean flag; if true, outputs `"END-ON-NEXT=YES"`.
     property end_on_next : Bool?
+
+    # Client-specific attributes (those whose keys start with `X-`).
     property client_attributes : ClientAttributeType
 
+    # Parses a complete `EXT-X-DATERANGE` tag line and returns a new `DateRangeItem`.
+    #
+    # The tag line is expected to follow the format defined in [RFC 8216](https://datatracker.ietf.org/doc/html/rfc8216):
+    #
+    # ```txt
+    #   #EXT-X-DATERANGE:ID="...",CLASS="...",START-DATE="...",END-DATE="...",...
     # ```
-    # text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \
-    #        %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \
-    #        %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \
-    #        %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \
-    #        %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
+    #
+    # Examples:
+    #
+    # ```crystal
+    # text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",\
+    #        START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",\
+    #        DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,\
+    #        SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,\
+    #        SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
     # DateRangeItem.parse(text)
+    # # => #<M3U8::DateRangeItem:0x7d6bff706f00
+    # #     @class_name="test_class",
+    # #     @client_attributes={"X-CUSTOM" => 45.3},
+    # #     @duration=60.1,
+    # #     @end_date="2014-03-05T11:16:00Z",
+    # #     @end_on_next=true,
+    # #     @id="test_id",
+    # #     @planned_duration=59.993,
+    # #     @scte35_cmd="0xFC002F0000000000FF2",
+    # #     @scte35_in="0xFC002F0000000000FF1",
+    # #     @scte35_out="0xFC002F0000000000FF0",
+    # #     @start_date="2014-03-05T11:15:00Z">
     # ```
-    def self.parse(text)
+    def self.parse(text : String)
       params = parse_attributes(text)
       new(
         id: params["ID"]?,
@@ -42,7 +107,24 @@ module M3U8
       )
     end
 
-    # ```
+    # Creates a new `DateRangeItem` from a NamedTuple of parameters.
+    #
+    # The NamedTuple keys should match the attribute names (using symbols):
+    # - `id`
+    # - `start_date`
+    # - `class_name`
+    # - `end_date`
+    # - `duration`
+    # - `planned_duration`,
+    # - `scte35_cmd`
+    # - `scte35_out`
+    # - `scte35_in`
+    # - `end_on_next`
+    # - `client_attributes`.
+    #
+    # Examples:
+    #
+    # ```crystal
     # options = {
     #   id:                "test_id",
     #   start_date:        "2014-03-05T11:15:00Z",
@@ -57,6 +139,18 @@ module M3U8
     #   client_attributes: {"X-CUSTOM" => 45.3},
     # }
     # DateRangeItem.new(options)
+    # # => #<M3U8::DateRangeItem:0x7d6bff706f00
+    # #     @class_name="test_class",
+    # #     @client_attributes={"X-CUSTOM" => 45.3},
+    # #     @duration=60.1,
+    # #     @end_date="2014-03-05T11:16:00Z",
+    # #     @end_on_next=true,
+    # #     @id="test_id",
+    # #     @planned_duration=59.993,
+    # #     @scte35_cmd="0xFC002F0000000000FF2",
+    # #     @scte35_in="0xFC002F0000000000FF1",
+    # #     @scte35_out="0xFC002F0000000000FF0",
+    # #     @start_date="2014-03-05T11:15:00Z">
     # ```
     def self.new(params : NamedTuple = NamedTuple.new)
       new(
@@ -74,7 +168,13 @@ module M3U8
       )
     end
 
-    # ```
+    # Initializes a new `DateRangeItem` instance.
+    #
+    # The instance variables are directly set from the constructor arguments.
+    #
+    # Example:
+    #
+    # ```crystal
     # DateRangeItem.new
     # ```
     def initialize(@id = nil, @start_date = nil, @class_name = nil, @end_date = nil, @duration = nil, @planned_duration = nil,
@@ -82,7 +182,15 @@ module M3U8
       @client_attributes = parse_client_attributes(client_attributes)
     end
 
-    # ```
+    # Returns the string representation of the `EXT-X-DATERANGE` tag.
+    #
+    # The output is constructed by concatenating all formatted attribute strings
+    # (e.g. ID, CLASS, START-DATE, etc.) separated by commas, and prefixed with
+    # `#EXT-X-DATERANGE:`.
+    #
+    # Example:
+    #
+    # ```crystal
     # options = {
     #   id:                "test_id",
     #   start_date:        "2014-03-05T11:15:00Z",
@@ -97,11 +205,11 @@ module M3U8
     #   client_attributes: {"X-CUSTOM" => 45.3},
     # }
     # DateRangeItem.new(options).to_s
-    # # => %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",) \
-    # %(START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",) \
-    # %(DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,) \
-    # %(SCTE35-CMD=0xFC002F0000000000FF2,SCTE35-OUT=0xFC002F0000000000FF0,) \
-    # %(SCTE35-IN=0xFC002F0000000000FF1,END-ON-NEXT=YES)
+    # # => #(EXT-X-DATERANGE:ID="test_id",CLASS="test_class",START-DATE="2014-03-05T11:15:00Z",
+    # #      END-DATE="2014-03-05T11:16:00Z",DURATION=60.1,PLANNED-DURATION=59.993,
+    # #      X-CUSTOM="45.3",SCTE35-CMD=0xFC002F0000000000FF2,
+    # #      SCTE35-OUT=0xFC002F0000000000FF0,SCTE35-IN=0xFC002F0000000000FF1,
+    # #      END-ON-NEXT=YES)
     # ```
     def to_s
       "#EXT-X-DATERANGE:#{attributes.join(',')}"
@@ -163,6 +271,8 @@ module M3U8
       "END-ON-NEXT=YES" if end_on_next
     end
 
+    # Formats client-specific attributes (keys beginning with "X-") as a comma-
+    # separated list of key=value pairs. String values are quoted.
     private def client_attributes_format
       return if client_attributes.empty?
       client_attributes.map do |attribute|

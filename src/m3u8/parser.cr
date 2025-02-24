@@ -1,28 +1,45 @@
 module M3U8
+  # The `Parser` class is responsible for processing an M3U8 (playlist) string,
+  # converting it into a structured `Playlist` object.
   class Parser
     include Concern
 
+    # `Scanner` instance to iterate through the input string.
     getter reader : Scanner
+
+    # The resulting `Playlist` after parsing.
     getter playlist : Playlist
+
+    # Flag indicating whether the input has been parsed.
     getter is_parse : Bool
+
+    # Indicates if the playlist is a live stream.
     getter live : Bool?
+
+    # Temporary holder for the current item being built.
     @item : Items?
 
-    # ```
+    # Constract a `Parser` instance. Override the default new method to allow for a no-argument instantiation.
+    #
+    # Usage Example:
+    #
+    # ```crystal
     # m3u8_string = "#EXTM3U...."
     # parser = Parser.new
     # parser.read(m3u8_string)
-    # # => #<M3U8::Playlist...>
     # ```
     def self.new
       new("")
     end
 
-    # ```
+    # Initializes the `Parser` with the given M3U8 string.
+    #
+    # Usage Example:
+    #
+    # ```crystal
     # m3u8_string = "#EXTM3U...."
     # parser = Parser.new(m3u8_string)
     # parser.read
-    # # => #<M3U8::Playlist...>
     # ```
     def initialize(string : String)
       @reader = Scanner.new string
@@ -32,34 +49,125 @@ module M3U8
       @item = nil
     end
 
-    # ```
+    # A convenience class method to create a parser and parse the input in one call.
+    #
+    # Usage Example:
+    #
+    # ```crystal
     # m3u8_string = "#EXTM3U...."
-    # parser = Parser.read(m3u8_string)
-    # # => #<M3U8::Playlist...>
+    # parser = Parser.new
+    # parser.read(m3u8_string)
     # ```
     def self.read(string : String)
       new(string).read
     end
 
-    # ```
+    # Overloaded instance method to allow re-parsing with a provided string.
+    #
+    # Usage Example:
+    #
+    # ```crystal
     # m3u8_string = "#EXTM3U...."
-    # parser = Parser.new
-    # parser.read(m3u8_string)
-    # # => #<M3U8::Playlist...>
+    # Parser.read(m3u8_string)
     # ```
     def read(string : String)
       Parser.read(string)
     end
 
-    # ```
-    # m3u8_string = "#EXTM3U...."
+    # Main method that processes the input, line by line. Returns the fully parsed `Playlist`.
+    #
+    # Usage Example:
+    #
+    # ```crystal
+    # # spec/playlists/live_media_playlist.m3u8
+    # m3u8_string = "
+    # #EXTM3U
+    # #EXT-X-VERSION:3
+    # #EXT-X-TARGETDURATION:8
+    # #EXT-X-MEDIA-SEQUENCE:2680
+    #
+    # #EXTINF:7.975,
+    # https://priv.example.com/fileSequence2680.ts
+    # #EXTINF:7.941,
+    # https://priv.example.com/fileSequence2681.ts
+    # #EXTINF:7.975,
+    # https://priv.example.com/fileSequence2682.ts
+    # "
+    #
     # parser = Parser.new(m3u8_string)
+    # # => #<M3U8::Parser:0x7f0d038dbd40
+    # #     @is_parse=false,
+    # #     @item=nil,
+    # #     @live=nil,
+    # #     @playlist=
+    # #      #<M3U8::Playlist:0x7f0d04a925b0
+    # #       @cache=nil,
+    # #       @discontinuity_sequence=nil,
+    # #       @iframes_only=false,
+    # #       @independent_segments=false,
+    # #       @items=[],
+    # #       @live=false,
+    # #       @master=nil,
+    # #       @sequence=0,
+    # #       @target=10.0,
+    # #       @type=nil,
+    # #       @version=nil>,
+    # #     @reader=
+    # #      #<M3U8::Scanner:0x7f0d038d9450
+    # #       @index=0,
+    # #       @max_index=10,
+    # #       @peek_index=0,
+    # #       @reader=
+    # #        ["#EXTM3U",
+    # #         "#EXT-X-VERSION:3",
+    # #         "#EXT-X-TARGETDURATION:8",
+    # #         "#EXT-X-MEDIA-SEQUENCE:2680",
+    # #         "",
+    # #         "#EXTINF:7.975,",
+    # #         "https://priv.example.com/fileSequence2680.ts",
+    # #         "#EXTINF:7.941,",
+    # #         "https://priv.example.com/fileSequence2681.ts",
+    # #         "#EXTINF:7.975,",
+    # #         "https://priv.example.com/fileSequence2682.ts"],
+    # #       @size=11>>
+    #
     # parser.read
-    # # => #<M3U8::Playlist...>
+    # => #<M3U8::Playlist:0x7f0d04a925b0
+    # #   @cache=nil,
+    # #   @discontinuity_sequence=nil,
+    # #   @iframes_only=false,
+    # #   @independent_segments=false,
+    # #   @items=
+    # #    [#<M3U8::SegmentItem:0x7f0d038dbbc0
+    # #      @byterange=#<M3U8::ByteRange:0x7f0d04a60900 @length=nil, @start=nil>,
+    # #      @comment="",
+    # #      @duration=7.975,
+    # #      @program_date_time=#<M3U8::TimeItem:0x7f0d038e1930 @time=1970-01-01 00:00:00.0 UTC>,
+    # #      @segment="https://priv.example.com/fileSequence2680.ts">,
+    # #     #<M3U8::SegmentItem:0x7f0d038dbb80
+    # #      @byterange=#<M3U8::ByteRange:0x7f0d04a608d0 @length=nil, @start=nil>,
+    # #      @comment="",
+    # #      @duration=7.941,
+    # #      @program_date_time=#<M3U8::TimeItem:0x7f0d038e1900 @time=1970-01-01 00:00:00.0 UTC>,
+    # #      @segment="https://priv.example.com/fileSequence2681.ts">,
+    # #     #<M3U8::SegmentItem:0x7f0d038dbb40
+    # #      @byterange=#<M3U8::ByteRange:0x7f0d04a608a0 @length=nil, @start=nil>,
+    # #      @comment="",
+    # #      @duration=7.975,
+    # #      @program_date_time=#<M3U8::TimeItem:0x7f0d038e18d0 @time=1970-01-01 00:00:00.0 UTC>,
+    # #      @segment="https://priv.example.com/fileSequence2682.ts">],
+    # #   @live=true,
+    # #   @master=false,
+    # #   @sequence=2680,
+    # #   @target=8.0,
+    # #   @type=nil,
+    # #   @version=3>
     # ```
     def read
+      # Avoid re-parsing if already done.
       return @playlist if @is_parse
 
+      # Ensure the file starts with the required #EXTM3U tag.
       validate_file_format
 
       while !@reader.eof?
@@ -67,13 +175,17 @@ module M3U8
         @reader.next
       end
 
+      # If it's a media playlist (not master) and live status wasn't set, assume it's live.
       @playlist.live = true if !@playlist.master && @live.nil?
 
+      # Mark parsing as complete.
       @is_parse = true
 
       @playlist
     end
 
+    # Parses a single line of the M3U8 file.
+    # Handles line continuations and dispatches based on the tag.
     private def parse(line : String)
       while line.ends_with?('\\')
         line = line.rchop.rstrip + @reader.next
