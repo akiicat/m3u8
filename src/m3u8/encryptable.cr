@@ -18,7 +18,6 @@ module M3U8
   # This module provides helper methods that convert parameter hashes into the correctly formatted
   # attribute string for inclusion in an `EXT-X-KEY` tag.
   module Encryptable
-
     # The value is a string that specifies the encryption method.
     #
     # The methods defined are: `NONE`, `AES-128`, and `SAMPLE-AES`.
@@ -55,7 +54,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   "METHOD"            => "AES-128",
     #   "URI"               => "http://test.key",
@@ -84,17 +83,19 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
-    #   method: "AES-128",
-    #   uri: "https://example.com/key",
-    #   iv: "0x1a2b3c",
-    #   key_format: "identity",
-    #   key_format_versions: "1"
+    #   method:              "AES-128",
+    #   uri:                 "https://example.com/key",
+    #   iv:                  "0x1a2b3c",
+    #   key_format:          "identity",
+    #   key_format_versions: "1",
     # }
+    #
     # class Something
     #   include Encryptable
     # end
+    #
     # Something.new(options)
     # # => #<App::Something:0x78b71f3a9380
     # #     @iv="0x1a2b3c",
@@ -122,10 +123,11 @@ module M3U8
     #   - `key_format`: The key format (optional).
     #   - `key_format_versions`: The supported key format versions (optional).
     #
-    # ```crystal
+    # ```
     # class Something
     #   include Encryptable
     # end
+    #
     # Something.new(method: "AES-128", uri: "https://example.com/key")
     # # => #<App::Something:0x7cae3cdbb2c0
     # #     @iv=nil,
@@ -148,10 +150,11 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # class Something
     #   include Encryptable
     # end
+    #
     # Something.new(method: "AES-128", uri: "https://example.com/key").attributes_to_s
     # # => "METHOD=AES-128,URI=\"https://example.com/key\""
     # ```

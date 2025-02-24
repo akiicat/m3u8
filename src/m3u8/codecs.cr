@@ -108,8 +108,8 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
-    # options = { audio_codec: "aac-lc" }
+    # ```
+    # options = {audio_codec: "aac-lc"}
     # Codecs.new(options)
     # Codecs.new(audio_codec: "aac-lc")
     # ```
@@ -133,7 +133,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # Codecs.new
     # ```
     def initialize(@codecs = nil,
@@ -151,7 +151,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # Codecs.new(codecs: "test").to_s                                      # => "test"
     # Codecs.new(audio_codec: "aac-lc").to_s                               # => "mp4a.40.2"
     # Codecs.new(profile: "baseline", level: 3.0, audio_codec: "mp3").to_s # => "avc1.66.30,mp4a.40.34"
@@ -194,10 +194,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # left = Codecs.new(audio_codec: "aac-lc")
     # right = Codecs.new(audio_codec: "aac-lc")
-    # left == right  # => true
+    # left == right # => true
     # ```
     def ==(other : Codecs)
       to_s == other.to_s
@@ -209,10 +209,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # left = Codecs.new(audio_codec: "aac-lc")
     # right = "aac-lc"
-    # left == right  # => true
+    # left == right # => true
     # ```
     def ==(other : String)
       to_s == other

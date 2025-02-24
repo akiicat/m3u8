@@ -88,7 +88,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # text = %(#EXT-X-SESSION-DATA:DATA-ID="com.example.lyrics",URI="lyrics.json")
     # SessionDataItem.parse(text)
     # # => #<M3U8::SessionDataItem:0x7874fd4a85a0
@@ -141,7 +141,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   data_id:  "com.test.movie.title",
     #   value:    "Test",
@@ -170,7 +170,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # SessionDataItem.new
     # # => #<M3U8::SessionDataItem:0x79dcf3b0f9c0
     # #     @data_id=nil,

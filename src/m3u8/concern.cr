@@ -20,9 +20,9 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # include Concern
-    # parse_attributes("Key=Value") # => {"Key" => "Value"}
+    # parse_attributes("Key=Value")            # => {"Key" => "Value"}
     # parse_attributes("Key=\"Quoted Value\"") # => {"Key" => "Quoted Value"}
     # ```
     private def parse_attributes(line : String)
@@ -40,13 +40,13 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # include Concern
     # options = {
     #   "X-CUSTOM" => "Client Attributes",
-    #   "CUSTOM" => "Not Client Attributes",
+    #   "CUSTOM"   => "Not Client Attributes",
     # }
-    # parse_client_attributes(options)  # => {"X-CUSTOM" => "Client Attributes"}
+    # parse_client_attributes(options) # => {"X-CUSTOM" => "Client Attributes"}
     # ```
     private def parse_client_attributes(attributes : Hash?)
       hash = ClientAttributeType.new
@@ -78,7 +78,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # include Concern
     # parse_token("42")    # => 42
     # parse_token("42.3")  # => 42.3
@@ -109,14 +109,14 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
-    # parse_resolution("1280.0x720.0")   # => {width: 1280, height: 720}
-    # parse_resolution("1280x720")       # => {width: 1280, height: 720}
-    # parse_resolution("1280")           # => {width: 1280, height: nil}
-    # parse_resolution("axb")            # => {width: nil, height: nil}
-    # parse_resolution("ab")             # => {width: nil, height: nil}
-    # parse_resolution("")               # => {width: nil, height: nil}
-    # parse_resolution(nil)              # => {width: nil, height: nil}
+    # ```
+    # parse_resolution("1280.0x720.0") # => {width: 1280, height: 720}
+    # parse_resolution("1280x720")     # => {width: 1280, height: 720}
+    # parse_resolution("1280")         # => {width: 1280, height: nil}
+    # parse_resolution("axb")          # => {width: nil, height: nil}
+    # parse_resolution("ab")           # => {width: nil, height: nil}
+    # parse_resolution("")             # => {width: nil, height: nil}
+    # parse_resolution(nil)            # => {width: nil, height: nil}
     # ```
     private def parse_resolution(resolution : String?)
       return {width: nil, height: nil} if resolution.nil?
@@ -126,23 +126,23 @@ module M3U8
       # Append an empty string to ensure there are at least two elements.
       values.push("")
 
-      width  = nil
+      width = nil
       height = nil
 
       # Attempt to convert the width part first to an integer.
       case values[0]
-      when .to_i?  then width = values[0].to_i
-      when .to_f?  then width = values[0].to_f.to_big_i.to_i
+      when .to_i? then width = values[0].to_i
+      when .to_f? then width = values[0].to_f.to_big_i.to_i
       end
 
       # Attempt to convert the height part similarly.
       case values[1]
-      when .to_i?  then height = values[1].to_i
-      when .to_f?  then height = values[1].to_f.to_big_i.to_i
+      when .to_i? then height = values[1].to_i
+      when .to_f? then height = values[1].to_f.to_big_i.to_i
       end
 
       {
-        width: width,
+        width:  width,
         height: height,
       }
     end
@@ -154,10 +154,10 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
-    # parse_frame_rate("29.97")   # => 29.97
-    # parse_frame_rate("0")       # => nil
-    # parse_frame_rate(nil)       # => nil
+    # ```
+    # parse_frame_rate("29.97") # => 29.97
+    # parse_frame_rate("0")     # => nil
+    # parse_frame_rate(nil)     # => nil
     # ```
     private def parse_frame_rate(frame_rate : String?)
       return if frame_rate.nil?
@@ -172,10 +172,10 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
-    # parse_yes_no(true)   # => "YES"
-    # parse_yes_no(false)  # => "NO"
-    # parse_yes_no(nil)    # => nil
+    # ```
+    # parse_yes_no(true)  # => "YES"
+    # parse_yes_no(false) # => "NO"
+    # parse_yes_no(nil)   # => nil
     # ```
     private def parse_yes_no(value : Bool?)
       case value
@@ -192,14 +192,14 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
-    # parse_boolean("true")   # => true
-    # parse_boolean("YES")    # => true
-    # parse_boolean("True")   # => true
-    # parse_boolean("false")  # => false
-    # parse_boolean("NO")     # => false
-    # parse_boolean("maybe")  # => nil
-    # parse_boolean(nil)      # => nil
+    # ```
+    # parse_boolean("true")  # => true
+    # parse_boolean("YES")   # => true
+    # parse_boolean("True")  # => true
+    # parse_boolean("false") # => false
+    # parse_boolean("NO")    # => false
+    # parse_boolean("maybe") # => nil
+    # parse_boolean(nil)     # => nil
     # ```
     private def parse_boolean(value : String?)
       return nil if value.nil?
@@ -207,7 +207,7 @@ module M3U8
       case value.downcase
       when "true", "yes" then true
       when "false", "no" then false
-      else nil
+      else                    nil
       end
     end
 
@@ -221,13 +221,13 @@ module M3U8
     #
     # Suppose a class includes Concern (which defines this macro) but does not define a method `foo`:
     #
-    # ```crystal
+    # ```
     # class Dummy
     #   include Concern
     # end
     #
     # dummy = Dummy.new
-    # dummy.foo  # => nil (since `foo` is missing, method_missing returns nil)
+    # dummy.foo # => nil (since `foo` is missing, method_missing returns nil)
     # ```
     private macro method_missing(call)
       nil

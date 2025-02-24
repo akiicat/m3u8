@@ -23,7 +23,7 @@ module M3U8
     #
     # Usage Example:
     #
-    # ```crystal
+    # ```
     # m3u8_string = "#EXTM3U...."
     # parser = Parser.new
     # parser.read(m3u8_string)
@@ -36,7 +36,7 @@ module M3U8
     #
     # Usage Example:
     #
-    # ```crystal
+    # ```
     # m3u8_string = "#EXTM3U...."
     # parser = Parser.new(m3u8_string)
     # parser.read
@@ -53,7 +53,7 @@ module M3U8
     #
     # Usage Example:
     #
-    # ```crystal
+    # ```
     # m3u8_string = "#EXTM3U...."
     # parser = Parser.new
     # parser.read(m3u8_string)
@@ -66,7 +66,7 @@ module M3U8
     #
     # Usage Example:
     #
-    # ```crystal
+    # ```
     # m3u8_string = "#EXTM3U...."
     # Parser.read(m3u8_string)
     # ```
@@ -78,7 +78,7 @@ module M3U8
     #
     # Usage Example:
     #
-    # ```crystal
+    # ```
     # # spec/playlists/live_media_playlist.m3u8
     # m3u8_string = "
     # #EXTM3U

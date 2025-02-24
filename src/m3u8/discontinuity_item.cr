@@ -21,7 +21,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # DiscontinuityItem.new.to_s
     # # => "#EXT-X-DISCONTINUITY\n"
     # ```

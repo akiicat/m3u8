@@ -41,7 +41,7 @@ module M3U8
   #
   # Creating a `SegmentItem` instance:
   #
-  # ```crystal
+  # ```
   # options = {
   #   duration:  10.991,
   #   segment:   "test.ts",
@@ -67,7 +67,7 @@ module M3U8
   #
   # Convert to a string representation of the `SegmentItem`:
   #
-  # ```crystal
+  # ```
   # SegmentItem.new(10.991, "test.ts", "anything", "4500@600", "2010-02-19T14:54:23.031Z").to_s
   # # => "#EXTINF:10.991,anything\n" +
   # #    "#EXT-X-BYTERANGE:4500@600\n" +
@@ -105,12 +105,12 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
-    #   duration:  10.991,
-    #   segment:   "test.ts",
-    #   comment:   "anything",
-    #   byterange: {length: 4500, start: 600},
+    #   duration:          10.991,
+    #   segment:           "test.ts",
+    #   comment:           "anything",
+    #   byterange:         {length: 4500, start: 600},
     #   program_date_time: "2010-02-19T14:54:23.031Z",
     # }
     # SegmentItem.new(options)
@@ -139,7 +139,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # SegmentItem.new(10.991, "test.ts", "anything", "4500@600", "2010-02-19T14:54:23.031Z")
     # # => #<M3U8::SegmentItem:0x7e6830943b40
     # #     @byterange=#<M3U8::ByteRange:0x7e6831acf990 @length=4500, @start=600>,
@@ -174,7 +174,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # item = SegmentItem.new
     # item.byterange = ByteRange.new(length: 4500, start: 600)
     # item.byterange = {length: 4500, start: 600}
@@ -194,7 +194,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # item = SegmentItem.new
     # item.program_date_time = TimeItem.new("2010-02-19T14:54:23Z")
     # item.program_date_time = TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z"))

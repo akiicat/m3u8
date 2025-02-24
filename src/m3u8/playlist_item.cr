@@ -28,7 +28,7 @@ module M3U8
   #
   # Creating a `PlaylistItem` using a NamedTuple:
   #
-  # ```crystal
+  # ```
   # options = {
   #   program_id:        1,
   #   width:             1920,
@@ -73,7 +73,7 @@ module M3U8
   #
   # Parsing a text string representing a stream info tag:
   #
-  # ```crystal
+  # ```
   # text = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS="avc",BANDWIDTH=540,
   #          AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a",
   #          VIDEO="test_video",SUBTITLES="subs",CLOSED-CAPTIONS="cc",NAME="test_name",URI="test.url")
@@ -408,7 +408,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # text = %(#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080, \
     #          CODECS="avc",BANDWIDTH=540,AVERAGE-BANDWIDTH=500, \
     #          FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO="test_a", \
@@ -462,7 +462,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   program_id:        1,
     #   width:             1920,
@@ -528,24 +528,24 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # PlaylistItem.new(program_id: 1,
-    #                  width: 1920,
-    #                  height: 1080,
-    #                  bandwidth: 540,
-    #                  video:"test_video",
-    #                  audio: "test_a",
-    #                  uri: "test.url",
-    #                  average_bandwidth: 500,
-    #                  subtitles: "subs",
-    #                  closed_captions: "cc",
-    #                  iframe: true,
-    #                  frame_rate: 24.6,
-    #                  hdcp_level: "TYPE-0",
-    #                  codecs: "avc",
-    #                  audio_codec: "mp3",
-    #                  level: "2",
-    #                  profile: "baseline")
+    #   width: 1920,
+    #   height: 1080,
+    #   bandwidth: 540,
+    #   video: "test_video",
+    #   audio: "test_a",
+    #   uri: "test.url",
+    #   average_bandwidth: 500,
+    #   subtitles: "subs",
+    #   closed_captions: "cc",
+    #   iframe: true,
+    #   frame_rate: 24.6,
+    #   hdcp_level: "TYPE-0",
+    #   codecs: "avc",
+    #   audio_codec: "mp3",
+    #   level: "2",
+    #   profile: "baseline")
     # # => #<M3U8::PlaylistItem:0x7d7806d39900
     # #     @audio="test_a",
     # #     @average_bandwidth=500,
@@ -594,10 +594,10 @@ module M3U8
     # Returns the resolution in the format `<width>x<height>`.
     #
     # Example:
-    # ```crystal
-    # options = { width: 1920, height: 1080 }
+    # ```
+    # options = {width: 1920, height: 1080}
     # item = PlaylistItem.new(options)
-    # item.resolution  # => "1920x1080"
+    # item.resolution # => "1920x1080"
     # ```
     def resolution
       "#{width}x#{height}" unless width.nil?
@@ -610,25 +610,25 @@ module M3U8
     #
     # Example for an I-frame stream:
     #
-    # ```crystal
+    # ```
     # options = {
-    #   program_id: 1,
-    #   width: 1920,
-    #   height: 1080,
-    #   bandwidth: 540,
-    #   video: "test_video",
-    #   audio: "test_a",
-    #   uri: "test.url",
+    #   program_id:        1,
+    #   width:             1920,
+    #   height:            1080,
+    #   bandwidth:         540,
+    #   video:             "test_video",
+    #   audio:             "test_a",
+    #   uri:               "test.url",
     #   average_bandwidth: 500,
-    #   subtitles: "subs",
-    #   closed_captions: "cc",
-    #   iframe: true,
-    #   frame_rate: 24.6,
-    #   hdcp_level: "TYPE-0",
-    #   codecs: "avc",
-    #   audio_codec: "mp3",
-    #   level: "2",
-    #   profile: "baseline",
+    #   subtitles:         "subs",
+    #   closed_captions:   "cc",
+    #   iframe:            true,
+    #   frame_rate:        24.6,
+    #   hdcp_level:        "TYPE-0",
+    #   codecs:            "avc",
+    #   audio_codec:       "mp3",
+    #   level:             "2",
+    #   profile:           "baseline",
     # }
     # PlaylistItem.new(options).to_s
     # # => "#EXT-X-I-FRAME-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=\"avc\",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=\"test_a\",VIDEO=\"test_video\",SUBTITLES=\"subs\",CLOSED-CAPTIONS=\"cc\",URI=\"test.url\""
@@ -636,25 +636,25 @@ module M3U8
     #
     # Example for a standard stream:
     #
-    # ```crystal
+    # ```
     # options = {
-    #   program_id: 1,
-    #   width: 1920,
-    #   height: 1080,
-    #   bandwidth: 540,
-    #   video: "test_video",
-    #   audio: "test_a",
-    #   uri: "test.url",
+    #   program_id:        1,
+    #   width:             1920,
+    #   height:            1080,
+    #   bandwidth:         540,
+    #   video:             "test_video",
+    #   audio:             "test_a",
+    #   uri:               "test.url",
     #   average_bandwidth: 500,
-    #   subtitles: "subs",
-    #   closed_captions: "cc",
-    #   iframe: false,
-    #   frame_rate: 24.6,
-    #   hdcp_level: "TYPE-0",
-    #   codecs: "avc",
-    #   audio_codec: "mp3",
-    #   level: "2",
-    #   profile: "baseline",
+    #   subtitles:         "subs",
+    #   closed_captions:   "cc",
+    #   iframe:            false,
+    #   frame_rate:        24.6,
+    #   hdcp_level:        "TYPE-0",
+    #   codecs:            "avc",
+    #   audio_codec:       "mp3",
+    #   level:             "2",
+    #   profile:           "baseline",
     # }
     # PlaylistItem.new(options).to_s
     # # => "#EXT-X-STREAM-INF:PROGRAM-ID=1,RESOLUTION=1920x1080,CODECS=\"avc\",BANDWIDTH=540,AVERAGE-BANDWIDTH=500,FRAME-RATE=24.600,HDCP-LEVEL=TYPE-0,AUDIO=\"test_a\",VIDEO=\"test_video\",SUBTITLES=\"subs\",CLOSED-CAPTIONS=\"cc\"\n" +

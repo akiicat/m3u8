@@ -52,10 +52,10 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # options = {
     #   uri:       "frelo/prog_index.m3u8",
-    #   byterange: { length: 4500, start: 600 },
+    #   byterange: {length: 4500, start: 600},
     # }
     # MapItem.new(options)
     # # => #<M3U8::MapItem:0x7adc917c08a0
@@ -94,7 +94,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # uri = "frelo/prog_index.m3u8"
     # byterange = "4500@600"
     # MapItem.new(uri)

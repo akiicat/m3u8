@@ -70,7 +70,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # text = %(#EXT-X-DATERANGE:ID="test_id",CLASS="test_class",\
     #        START-DATE="2014-03-05T11:15:00Z",END-DATE="2014-03-05T11:16:00Z",\
     #        DURATION=60.1,PLANNED-DURATION=59.993,X-CUSTOM=45.3,\
@@ -124,7 +124,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # options = {
     #   id:                "test_id",
     #   start_date:        "2014-03-05T11:15:00Z",
@@ -174,7 +174,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # DateRangeItem.new
     # ```
     def initialize(@id = nil, @start_date = nil, @class_name = nil, @end_date = nil, @duration = nil, @planned_duration = nil,
@@ -190,7 +190,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   id:                "test_id",
     #   start_date:        "2014-03-05T11:15:00Z",

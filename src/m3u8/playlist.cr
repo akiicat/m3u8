@@ -60,7 +60,7 @@ module M3U8
   # Examples:
   #
   # Creating a new Playlist with specific parameters:
-  # ```crystal
+  # ```
   # options = {
   #   version:                7,
   #   cache:                  false,
@@ -75,7 +75,7 @@ module M3U8
   # playlist.items << SegmentItem.new(duration: 9.891, segment: "test_02.ts")
   # playlist.items << SegmentItem.new(duration: 10.556, segment: "test_03.ts")
   # playlist.items << SegmentItem.new(duration: 8.790, segment: "test_04.ts")
-  # playlist.duration          # => 40.227999999999994
+  # playlist.duration # => 40.227999999999994
   # playlist.to_s
   # # => "#EXTM3U\n" +
   # #    "#EXT-X-PLAYLIST-TYPE:VOD\n" +
@@ -97,7 +97,7 @@ module M3U8
   # ```
   #
   # Parsing a complete playlist string:
-  # ```crystal
+  # ```
   # m3u8_string = "#EXTM3U\n#EXT-X-VERSION:7\n#EXT-X-TARGETDURATION:12\n..."
   # Playlist.parse(m3u8_string)
   # # => #<M3U8::Playlist ...>
@@ -121,7 +121,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.iframes_only = true
     # playlist.header
@@ -152,7 +152,7 @@ module M3U8
     # If the property is `false` or `nil`, the `EXT-X-INDEPENDENT-SEGMENTS` tag will not be output.
     #
     # Example:
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.independent_segments = true
     # playlist.header
@@ -185,7 +185,7 @@ module M3U8
     #   :target, :sequence, :iframes_only, :independent_segments, :live, and :items.
     #
     # Example:
-    # ```crystal
+    # ```
     # options = {
     #   version:                7,
     #   cache:                  false,
@@ -228,15 +228,15 @@ module M3U8
     # Initializes a new Playlist instance.
     #
     # Example:
-    # ```crystal
+    # ```
     # Playlist.new(
-    #   version:                7,
-    #   cache:                  false,
-    #   target:                 12,
-    #   sequence:               1,
+    #   version: 7,
+    #   cache: false,
+    #   target: 12,
+    #   sequence: 1,
     #   discontinuity_sequence: 2,
-    #   type:                   "VOD",
-    #   independent_segments:   true,
+    #   type: "VOD",
+    #   independent_segments: true,
     # )
     # # => #<M3U8::Playlist:0x78d37cb334d0
     # #     @cache=false,
@@ -270,7 +270,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   profile:     "baseline",
     #   level:       3.0,
@@ -286,7 +286,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # m3u8_string = "#EXTM3U\n#EXT-X-VERSION:7\n#EXT-X-TARGETDURATION:12\n..."
     # Playlist.parse(m3u8_string)
     # # => #<M3U8::Playlist ...>
@@ -302,10 +302,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new(live: true)
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
-    # playlist.live?  # => true
+    # playlist.live? # => true
     # ```
     def live?
       master? ? false : live
@@ -320,20 +320,20 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new(master: true)
-    # playlist.master?  # => true
+    # playlist.master? # => true
     #
     # playlist = Playlist.new
-    # playlist.master?  # => false
+    # playlist.master? # => false
     #
     # playlist = Playlist.new
     # playlist.items << PlaylistItem.new(program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url")
-    # playlist.master?  # => true
+    # playlist.master? # => true
     #
     # playlist = Playlist.new
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test.ts")
-    # playlist.master?  # => false
+    # playlist.master? # => false
     # ```
     def master?
       return master unless master.nil?
@@ -346,13 +346,13 @@ module M3U8
     # Otherwise, it returns `false`, indicating a potential mismatch in playlist types.
     #
     # Example:
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.items << PlaylistItem.new(program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url")
-    # playlist.valid?  # => true
+    # playlist.valid? # => true
     #
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test.ts")
-    # playlist.valid?  # => false
+    # playlist.valid? # => false
     # ```
     def valid?
       (playlist_size.zero? || segment_size.zero?) ? true : false
@@ -362,13 +362,13 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.items << PlaylistItem.new(program_id: 1, width: 1920, height: 1080, codecs: "avc", bandwidth: 540, uri: "test.url")
-    # playlist.valid!  # => nil
+    # playlist.valid! # => nil
     #
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test.ts")
-    # playlist.valid!  # => raises M3U8::Error::PlaylistType
+    # playlist.valid! # => raises M3U8::Error::PlaylistType
     # ```
     def valid!
       raise Error::PlaylistType.new("Playlist is invalid.") unless valid?
@@ -378,7 +378,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test_01.ts")
     # playlist.items << SegmentItem.new(duration: 9.891, segment: "test_02.ts")
@@ -414,7 +414,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new
     # playlist.items << PlaylistItem.new(program_id: "1", uri: "playlist_url", bandwidth: 6400, audio_codec: "mp3")
     # playlist.to_s
@@ -432,7 +432,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new(master: true, version: 6, independent_segments: true)
     # playlist.header
     # # => "#EXTM3U\n" \
@@ -457,7 +457,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new(version: 6, independent_segments: true)
     # playlist.items << SegmentItem.new(duration: 10.991, segment: "test.ts")
     # playlist.body
@@ -476,7 +476,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # playlist = Playlist.new(version: 6, independent_segments: true)
     # playlist.footer # => "#EXT-X-ENDLIST"
     #

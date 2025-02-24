@@ -38,7 +38,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # text = "#EXT-X-START:TIME-OFFSET=-12.9,PRECISE=YES"
     # PlaybackStart.parse(text)
     # # => #<M3U8::PlaybackStart:0x7acbac72a2a0 @precise=true, @time_offset=-12.9>
@@ -58,7 +58,7 @@ module M3U8
     #   - `precise` (Bool): The precision flag.
     #
     # Example:
-    # ```crystal
+    # ```
     # options = {
     #   time_offset: -12.9,
     #   precise:     true,
@@ -78,11 +78,11 @@ module M3U8
     # The time_offset is converted to a Float, and the precise flag is stored as provided.
     #
     # Examples:
-    # ```crystal
+    # ```
     # time_offset = -12.9
     # precise = true
-    # PlaybackStart.new(time_offset)           # => #<M3U8::PlaybackStart:0x7a8a1a6fd240 @precise=nil, @time_offset=-12.9>
-    # PlaybackStart.new(time_offset, precise)  # => #<M3U8::PlaybackStart:0x7a8a1a6fd210 @precise=true, @time_offset=-12.9>
+    # PlaybackStart.new(time_offset)          # => #<M3U8::PlaybackStart:0x7a8a1a6fd240 @precise=nil, @time_offset=-12.9>
+    # PlaybackStart.new(time_offset, precise) # => #<M3U8::PlaybackStart:0x7a8a1a6fd210 @precise=true, @time_offset=-12.9>
     # ```
     def initialize(time_offset, @precise = nil)
       @time_offset = time_offset.to_f

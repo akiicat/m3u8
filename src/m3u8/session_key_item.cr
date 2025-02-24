@@ -32,7 +32,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # text = %(#EXT-X-SESSION-KEY:METHOD=AES-128,URI="http://test.key",IV=D512BBF,KEYFORMAT="identity",KEYFORMATVERSIONS="1/3")
     # SessionKeyItem.parse(text)
     # # => #<M3U8::SessionKeyItem:0x7e4a9ab264c0
@@ -54,7 +54,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
     #   method:              "AES-128",
     #   uri:                 "http://test.key",

@@ -7,8 +7,8 @@ module M3U8
   #
   # For example:
   #
-  # ```crystal
-  # #EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z
+  # ```
+  # # EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z
   # ```
   #
   # This class encapsulates a `Time` value and provides methods for parsing, formatting, and
@@ -17,7 +17,7 @@ module M3U8
   # Examples:
   #
   # Parsing various inputs:
-  # ```crystal
+  # ```
   # # Passing a TimeItem returns the same instance
   # TimeItem.parse(TimeItem.new("2010-02-19T14:54:23Z"))
   #
@@ -32,7 +32,7 @@ module M3U8
   # ```
   #
   # Creating a new `TimeItem`:
-  # ```crystal
+  # ```
   # TimeItem.new("2010-02-19T14:54:23Z")
   # # => #<M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC>
   #
@@ -44,16 +44,16 @@ module M3U8
   # ```
   #
   # Checking if a `TimeItem` is empty (i.e. represents the Unix epoch):
-  # ```crystal
+  # ```
   # item = TimeItem.new
-  # item.empty?  # => true
+  # item.empty? # => true
   #
   # item = TimeItem.new("2010-02-19T14:54:23Z")
-  # item.empty?  # => false
+  # item.empty? # => false
   # ```
   #
   # Converting a `TimeItem` to a string:
-  # ```crystal
+  # ```
   # TimeItem.new("2010-02-19T14:54:23Z").to_s
   # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
   #
@@ -73,7 +73,7 @@ module M3U8
     # Otherwise, it attempts to create a new `TimeItem` from the input.
     #
     # Examples:
-    # ```crystal
+    # ```
     # TimeItem.parse(TimeItem.new("2010-02-19T14:54:23Z"))
     # # => #<M3U8::TimeItem:0x783c78510c60 @time=2010-02-19 14:54:23.0 UTC>
     #
@@ -96,11 +96,11 @@ module M3U8
     # Constructs a new `TimeItem` using a NamedTuple with a `:time` key.
     #
     # Examples:
-    # ```crystal
-    # TimeItem.new({ time: Time.iso8601("2010-02-19T14:54:23.031Z") })
+    # ```
+    # TimeItem.new({time: Time.iso8601("2010-02-19T14:54:23.031Z")})
     # # => #<M3U8::TimeItem:0x7e461bbd8ba0 @time=2010-02-19 14:54:23.031000000 UTC>
     #
-    # TimeItem.new({ time: Time.iso8601("2010-02-19T14:54:23.031Z") })
+    # TimeItem.new({time: Time.iso8601("2010-02-19T14:54:23.031Z")})
     # # => #<M3U8::TimeItem:0x7bb643931a80 @time=1970-01-01 00:00:00.0 UTC>
     # ```
     def self.new(params : NamedTuple = NamedTuple.new)
@@ -112,7 +112,7 @@ module M3U8
     # If no time is provided, it defaults to the Unix epoch (1970-01-01 00:00:00 UTC).
     #
     # Examples:
-    # ```crystal
+    # ```
     # TimeItem.new("2010-02-19T14:54:23Z")
     # # => #<M3U8::TimeItem:0x79134e1fd960 @time=2010-02-19 14:54:23.0 UTC>
     #
@@ -131,12 +131,12 @@ module M3U8
     # This can be used to check whether the `TimeItem` has been set to a meaningful time.
     #
     # Examples:
-    # ```crystal
+    # ```
     # item = TimeItem.new
-    # item.empty?  # => true
+    # item.empty? # => true
     #
     # item = TimeItem.new("2010-02-19T14:54:23Z")
-    # item.empty?  # => false
+    # item.empty? # => false
     # ```
     def empty?
       @time.to_unix.zero?
@@ -149,7 +149,7 @@ module M3U8
     # with `#EXT-X-PROGRAM-DATE-TIME:`.
     #
     # Examples:
-    # ```crystal
+    # ```
     # TimeItem.new("2010-02-19T14:54:23Z").to_s
     # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z"
     #

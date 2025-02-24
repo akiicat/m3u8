@@ -36,7 +36,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # ByteRange.parse(ByteRange.new(length: 4500, start: 600))
     # ByteRange.parse({length: 4500, start: 600})
     # ByteRange.parse("4500@600")
@@ -55,7 +55,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # ByteRange.new("4500@600")
     # ByteRange.new("4500")
     # ```
@@ -70,7 +70,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # options = {length: 4500, start: 600}
     # ByteRange.new(options)
     # ByteRange.new(length: 4500, start: 600)
@@ -86,7 +86,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # ByteRange.new
     # ```
     def initialize(@length = nil, @start = nil)
@@ -98,13 +98,13 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # byterange = ByteRange.new
-    # byterange.empty?         # => true
+    # byterange.empty? # => true
     # byterange = ByteRange.new(length: 0)
-    # byterange.empty?         # => true
+    # byterange.empty? # => true
     # byterange.length = 4500
-    # byterange.empty?         # => false
+    # byterange.empty? # => false
     # ```
     def empty?
       length = @length
@@ -118,13 +118,13 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # byterange = ByteRange.new(length: 4500, start: 600)
-    # byterange.to_s          # => "4500@600"
+    # byterange.to_s # => "4500@600"
     # byterange = ByteRange.new(length: 4500)
-    # byterange.to_s          # => "4500"
+    # byterange.to_s # => "4500"
     # byterange = ByteRange.new
-    # byterange.to_s          # => ""
+    # byterange.to_s # => ""
     # ```
     def to_s
       attributes.join('@')
@@ -136,10 +136,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # left = ByteRange.new(length: 4500, start: 600)
     # right = "4500@600"
-    # left == right         # => true
+    # left == right # => true
     # ```
     def ==(other : String)
       to_s == other
@@ -152,10 +152,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # left = ByteRange.new(length: 4500, start: 600)
     # right = {length: 4500, start: 600}
-    # left == right         # => true
+    # left == right # => true
     # ```
     def ==(other : NamedTuple)
       to_s == ByteRange.new(other).to_s
@@ -167,10 +167,10 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # left = ByteRange.new(length: 4500, start: 600)
     # right = ByteRange.new(length: 4500, start: 600)
-    # left == right         # => true
+    # left == right # => true
     # ```
     def ==(other : ByteRange)
       to_s == other.to_s

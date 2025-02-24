@@ -53,7 +53,7 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # text = %(#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="aac",LANGUAGE="en",NAME="English",AUTOSELECT=YES,DEFAULT=YES,URI="eng_audio.m3u8")
     # MediaItem.parse(text)
     # # => #<M3U8::MediaItem:0x7cd7249453f0
@@ -95,15 +95,15 @@ module M3U8
     #
     # Example:
     #
-    # ```crystal
+    # ```
     # options = {
-    #   type: "AUDIO",
-    #   group_id: "aac",
-    #   language: "en",
-    #   name: "English",
+    #   type:       "AUDIO",
+    #   group_id:   "aac",
+    #   language:   "en",
+    #   name:       "English",
     #   autoselect: true,
-    #   default: true,
-    #   uri: "eng_audio.m3u8",
+    #   default:    true,
+    #   uri:        "eng_audio.m3u8",
     # }
     # MediaItem.new(options)
     # # => #<M3U8::MediaItem:0x7b19ac8eb2d0
@@ -143,7 +143,7 @@ module M3U8
     #
     # Examples:
     #
-    # ```crystal
+    # ```
     # MediaItem.new(
     #   type: "AUDIO",
     #   group_id: "aac",
