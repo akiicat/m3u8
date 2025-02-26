@@ -23,6 +23,10 @@ module M3U8
         {time: Time.iso8601("2010-02-19T14:54:23.031Z")},
         "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
       },
+      {
+        {time: Time.iso8601("2010-02-19T14:54:23.031+08:00")},
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
+      },
     }.each do |(params, format)|
       item = TimeItem.new(params)
 
