@@ -167,11 +167,6 @@
       
     </li>
   
-  <li class=" " data-id="m3u8/Time" data-name="time">
-      <a href="../Time.html">Time</a>
-      
-    </li>
-  
 </ul>
 
   </div>
@@ -214,7 +209,7 @@ with an optional <code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-
 <p>In addition, a <code><a href="../M3U8/SegmentItem.html">SegmentItem</a></code> may optionally include:</p>
 <ul>
 <li>An <code>EXT-X-BYTERANGE</code> tag (<code><a href="../M3U8/ByteRange.html">ByteRange</a></code>) that specifies a sub-range of the media resource. (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.2">RFC 8216, Section 4.3.2.2</a>)</li>
-<li>An <code>EXT-X-PROGRAM-DATE-TIME</code> tag (<code><a href="../Time.html">Time</a></code> or <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) that associates an absolute date and time
+<li>An <code>EXT-X-PROGRAM-DATE-TIME</code> tag (<code>Time</code> or <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>) that associates an absolute date and time
 with the first sample of the following Media Segment. (<a href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.6">RFC 8216, Section 4.3.2.6</a>)</li>
 </ul>
 <p>Properties:</p>
@@ -508,7 +503,7 @@ with the first sample of the following Media Segment. (<a href="https://datatrac
 <li><code><a href="../M3U8/SegmentItem.html#segment%3AString%7CNil-instance-method">#segment</a></code> (String): The <em>URI</em> of the media segment.</li>
 <li><code><a href="../M3U8/SegmentItem.html#comment%3AString%7CNil-instance-method">#comment</a></code> (String): A comment associated with the segment.</li>
 <li><code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code> (<code><a href="../M3U8/ByteRange.html">ByteRange</a></code>, NamedTuple, or String): The <code><a href="../M3U8/SegmentItem.html#byterange%3AByteRange-instance-method">#byterange</a></code>, which can be provided as a NamedTuple, <code><a href="../M3U8/ByteRange.html">ByteRange</a></code>, or string.</li>
-<li><code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code><a href="../Time.html">Time</a></code>, or String): The program date/time, which can be a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, Time, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO8601</a> string.</li>
+<li><code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> (<code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code>Time</code>, or String): The program date/time, which can be a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, Time, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO8601</a> string.</li>
 </ul>
 <p>Example:</p>
 <pre><code class="language-crystal">options <span class="o">=</span> {
@@ -747,12 +742,12 @@ item.byterange
         <div class="doc">
           
           <p>Setter for the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> property.</p>
-<p>Allows setting the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> attribute using a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code><a href="../Time.html">Time</a></code>, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> string.
+<p>Allows setting the <code><a href="../M3U8/SegmentItem.html#program_date_time%3ATimeItem-instance-method">#program_date_time</a></code> attribute using a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code>, <code>Time</code>, or <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO-8601</a> string.
 The input is parsed using <code><a href="../M3U8/TimeItem.html#parse%28item%3Dnil%29-class-method">TimeItem.parse</a></code>.</p>
 <p>Example:</p>
 <pre><code class="language-crystal">item <span class="o">=</span> <span class="t">SegmentItem</span>.new
 item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
-item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+item.program_date_time <span class="o">=</span> <span class="t">TimeItem</span>.new(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
 item.program_date_time <span class="o">=</span> <span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
 item.program_date_time <span class="o">=</span> <span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>
 

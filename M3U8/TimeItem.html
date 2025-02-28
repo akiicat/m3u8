@@ -167,11 +167,6 @@
       
     </li>
   
-  <li class=" " data-id="m3u8/Time" data-name="time">
-      <a href="../Time.html">Time</a>
-      
-    </li>
-  
 </ul>
 
   </div>
@@ -206,7 +201,7 @@ associate the first sample of a Media Segment with an absolute date and time. Th
 is formatted in <a href="https://xml.coverpages.org/ISO-FDIS-8601.pdf">ISO 8601</a>, ensuring a consistent representation across clients.</p>
 <p>For example:</p>
 <pre><code class="language-crystal"><span class="c"># EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z</span></code></pre>
-<p>This class encapsulates a <code><a href="../Time.html">Time</a></code> value and provides methods for parsing, formatting, and
+<p>This class encapsulates a <code>Time</code> value and provides methods for parsing, formatting, and
 checking whether a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> is &quot;empty&quot; (i.e. represents the Unix epoch).</p>
 <p>Examples:</p>
 <p>Parsing various inputs:</p>
@@ -214,7 +209,7 @@ checking whether a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> is 
 <span class="t">TimeItem</span>.parse(<span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>))
 
 <span class="c"># Parsing a Time value directly</span>
-<span class="t">TimeItem</span>.parse(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="t">TimeItem</span>.parse(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
 
 <span class="c"># Parsing a time string in ISO8601 format</span>
 <span class="t">TimeItem</span>.parse(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
@@ -225,7 +220,7 @@ checking whether a <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> is 
 <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
 
-<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC&gt;</span>
 
 <span class="t">TimeItem</span>.new
@@ -240,7 +235,7 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
 <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>).to_s
 <span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span>
 
-<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
 <span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span></code></pre>
 
 
@@ -461,10 +456,10 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
           
           <p>Constructs a new <code><a href="../M3U8/TimeItem.html">TimeItem</a></code> using a NamedTuple with a <code>:time</code> key.</p>
 <p>Examples:</p>
-<pre><code class="language-crystal"><span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
+<pre><code class="language-crystal"><span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x7e461bbd8ba0 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
 
-<span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
+<span class="t">TimeItem</span>.new({time: <span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)})
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x7bb643931a80 @time=1970-01-01 00:00:00.0 UTC&gt;</span></code></pre>
         </div>
       
@@ -490,7 +485,7 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
 <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>)
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x79134e1fd960 @time=2010-02-19 14:54:23.0 UTC&gt;</span>
 
-<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x79134e1fd840 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
 
 <span class="t">TimeItem</span>.new
@@ -532,7 +527,7 @@ Otherwise, it attempts to create a new <code><a href="../M3U8/TimeItem.html">Tim
 <pre><code class="language-crystal"><span class="t">TimeItem</span>.parse(<span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>))
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78510c60 @time=2010-02-19 14:54:23.0 UTC&gt;</span>
 
-<span class="t">TimeItem</span>.parse(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
+<span class="t">TimeItem</span>.parse(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>))
 <span class="c"># =&gt; #&lt;M3U8::TimeItem:0x783c78517f00 @time=2010-02-19 14:54:23.031000000 UTC&gt;</span>
 
 <span class="t">TimeItem</span>.parse(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)
@@ -591,7 +586,7 @@ item.empty? <span class="c"># =&gt; false</span></code></pre>
     <div class="entry-detail" id="time:Time-instance-method">
       <div class="signature">
         
-        def <strong>time</strong> : <a href="../Time.html">Time</a>
+        def <strong>time</strong> : Time
 
         <a class="method-permalink" href="#time%3ATime-instance-method">#</a>
       </div>
@@ -611,7 +606,7 @@ Media Segment with an absolute date and/or time.</p>
     <div class="entry-detail" id="time=(time:Time)-instance-method">
       <div class="signature">
         
-        def <strong>time=</strong>(time : <a href="../Time.html">Time</a>)
+        def <strong>time=</strong>(time : Time)
 
         <a class="method-permalink" href="#time%3D%28time%3ATime%29-instance-method">#</a>
       </div>
@@ -646,7 +641,7 @@ with <code>#EXT-X-PROGRAM-DATE-TIME:</code>.</p>
 <pre><code class="language-crystal"><span class="t">TimeItem</span>.new(<span class="s">&quot;2010-02-19T14:54:23Z&quot;</span>).to_s
 <span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z&quot;</span>
 
-<span class="t">TimeItem</span>.new(<span class="t">Time</span>.iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
+<span class="t">TimeItem</span>.new(<span class="t">Time</span>.parse_iso8601(<span class="s">&quot;2010-02-19T14:54:23.031Z&quot;</span>)).to_s
 <span class="c"># =&gt; &quot;#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z&quot;</span></code></pre>
         </div>
       
