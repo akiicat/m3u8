@@ -1,5 +1,4 @@
 require "big"
-require "./patch/*"
 require "./m3u8/concern"
 require "./m3u8/*"
 
