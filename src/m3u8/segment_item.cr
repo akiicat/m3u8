@@ -197,7 +197,7 @@ module M3U8
     # ```
     # item = SegmentItem.new
     # item.program_date_time = TimeItem.new("2010-02-19T14:54:23Z")
-    # item.program_date_time = TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z"))
+    # item.program_date_time = TimeItem.new(Time.parse_iso8601("2010-02-19T14:54:23.031Z"))
     # item.program_date_time = Time.parse_iso8601("2010-02-19T14:54:23.031Z")
     # item.program_date_time = "2010-02-19T14:54:23.031Z"
     #

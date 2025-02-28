@@ -84,7 +84,7 @@ module M3U8
 
         item = playlist.items[4]
         item.should be_a(TimeItem)
-        item.time.should eq(Time.iso8601("2010-02-19T14:54:23Z"))
+        item.time.should eq(Time.parse_iso8601("2010-02-19T14:54:23Z"))
 
         playlist.items.size.should eq(140)
       end
@@ -243,7 +243,7 @@ module M3U8
         item.should be_a(SegmentItem)
         if item.is_a?(SegmentItem)
           item.program_date_time.should be_a(TimeItem)
-          item.program_date_time.time.should eq(Time.iso8601("2016-04-11T15:24:31Z"))
+          item.program_date_time.time.should eq(Time.parse_iso8601("2016-04-11T15:24:31Z"))
         end
       end
 

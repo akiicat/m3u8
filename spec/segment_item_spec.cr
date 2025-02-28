@@ -84,15 +84,15 @@ module M3U8
           segment:           "test.ts",
           program_date_time: "2010-02-19T06:54:23.031Z",
         },
-        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts),
+        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031+00:00\ntest.ts),
       },
       {
         {
           duration:          10.991,
           segment:           "test.ts",
-          program_date_time: Time.iso8601("2010-02-19T06:54:23.031Z"),
+          program_date_time: Time.parse_iso8601("2010-02-19T06:54:23.031Z"),
         },
-        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031Z\ntest.ts),
+        %(#EXTINF:10.991,\n#EXT-X-PROGRAM-DATE-TIME:2010-02-19T06:54:23.031+00:00\ntest.ts),
       },
       {
         {

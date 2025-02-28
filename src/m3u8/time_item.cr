@@ -22,7 +22,7 @@ module M3U8
   # TimeItem.parse(TimeItem.new("2010-02-19T14:54:23Z"))
   #
   # # Parsing a Time value directly
-  # TimeItem.parse(Time.iso8601("2010-02-19T14:54:23.031Z"))
+  # TimeItem.parse(Time.parse_iso8601("2010-02-19T14:54:23.031Z"))
   #
   # # Parsing a time string in ISO8601 format
   # TimeItem.parse("2010-02-19T14:54:23.031Z")
@@ -36,7 +36,7 @@ module M3U8
   # TimeItem.new("2010-02-19T14:54:23Z")
   # # => #<M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC>
   #
-  # TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z"))
+  # TimeItem.new(Time.parse_iso8601("2010-02-19T14:54:23.031Z"))
   # # => #<M3U8::TimeItem:0x10581b920 @time=2010-02-19 14:54:23 UTC>
   #
   # TimeItem.new
@@ -57,7 +57,7 @@ module M3U8
   # TimeItem.new("2010-02-19T14:54:23Z").to_s
   # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
   #
-  # TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z")).to_s
+  # TimeItem.new(Time.parse_iso8601("2010-02-19T14:54:23.031Z")).to_s
   # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
   # ```
   class TimeItem
@@ -77,7 +77,7 @@ module M3U8
     # TimeItem.parse(TimeItem.new("2010-02-19T14:54:23Z"))
     # # => #<M3U8::TimeItem:0x783c78510c60 @time=2010-02-19 14:54:23.0 UTC>
     #
-    # TimeItem.parse(Time.iso8601("2010-02-19T14:54:23.031Z"))
+    # TimeItem.parse(Time.parse_iso8601("2010-02-19T14:54:23.031Z"))
     # # => #<M3U8::TimeItem:0x783c78517f00 @time=2010-02-19 14:54:23.031000000 UTC>
     #
     # TimeItem.parse("2010-02-19T14:54:23.031Z")
@@ -97,10 +97,10 @@ module M3U8
     #
     # Examples:
     # ```
-    # TimeItem.new({time: Time.iso8601("2010-02-19T14:54:23.031Z")})
+    # TimeItem.new({time: Time.parse_iso8601("2010-02-19T14:54:23.031Z")})
     # # => #<M3U8::TimeItem:0x7e461bbd8ba0 @time=2010-02-19 14:54:23.031000000 UTC>
     #
-    # TimeItem.new({time: Time.iso8601("2010-02-19T14:54:23.031Z")})
+    # TimeItem.new({time: Time.parse_iso8601("2010-02-19T14:54:23.031Z")})
     # # => #<M3U8::TimeItem:0x7bb643931a80 @time=1970-01-01 00:00:00.0 UTC>
     # ```
     def self.new(params : NamedTuple = NamedTuple.new)
@@ -116,7 +116,7 @@ module M3U8
     # TimeItem.new("2010-02-19T14:54:23Z")
     # # => #<M3U8::TimeItem:0x79134e1fd960 @time=2010-02-19 14:54:23.0 UTC>
     #
-    # TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z"))
+    # TimeItem.new(Time.parse_iso8601("2010-02-19T14:54:23.031Z"))
     # # => #<M3U8::TimeItem:0x79134e1fd840 @time=2010-02-19 14:54:23.031000000 UTC>
     #
     # TimeItem.new
@@ -153,7 +153,7 @@ module M3U8
     # TimeItem.new("2010-02-19T14:54:23Z").to_s
     # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z"
     #
-    # TimeItem.new(Time.iso8601("2010-02-19T14:54:23.031Z")).to_s
+    # TimeItem.new(Time.parse_iso8601("2010-02-19T14:54:23.031Z")).to_s
     # # => "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z"
     # ```
     def to_s
@@ -162,12 +162,12 @@ module M3U8
     end
 
     private def time_format
-      time.iso8601
+      time.to_s("%FT%T.%L%:z")
     end
 
     private def parse_time(time)
       case time
-      when String then Time.iso8601(time)
+      when String then Time.parse_iso8601(time)
       when Time   then time
       else             Time.unix 0
       end

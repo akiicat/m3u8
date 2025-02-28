@@ -5,27 +5,27 @@ module M3U8
     {
       {
         "2010-02-19T14:54:23Z",
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z",
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.000+00:00",
       },
       {
         "2010-02-19T14:54:23.031Z",
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+00:00",
       },
       {
-        Time.iso8601("2010-02-19T14:54:23.031Z"),
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
+        Time.parse_iso8601("2010-02-19T14:54:23.031Z"),
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+00:00",
       },
       {
         {time: "2010-02-19T14:54:23Z"},
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23Z",
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.000+00:00",
       },
       {
-        {time: Time.iso8601("2010-02-19T14:54:23.031Z")},
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
+        {time: Time.parse_iso8601("2010-02-19T14:54:23.031Z")},
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+00:00",
       },
       {
-        {time: Time.iso8601("2010-02-19T14:54:23.031+08:00")},
-        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031Z",
+        {time: Time.parse_iso8601("2010-02-19T14:54:23.031+08:00")},
+        "#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+08:00",
       },
     }.each do |(params, format)|
       item = TimeItem.new(params)
